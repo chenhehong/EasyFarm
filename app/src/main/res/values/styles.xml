@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- 程序主界面主题. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- 应用的主要色调，actionBar默认使用该颜色-->
+        <item name="colorPrimary">@color/day_colorPrimary</item>
+        <!-- 应用的主要暗色调，statusBarColor默认使用该颜色-->
+        <item name="colorPrimaryDark">@color/day_colorPrimaryDark</item>
+        <item name="android:textColorLink">#0b9a27</item>
+        <item name="colorAccent">@color/day_colorPrimary</item>
+        <item name="lineColor">@color/day_line_color</item>
+        <item name="windows_bg">@color/day_windows_bg</item>
+    </style>
+    <!-- 启动页主题-->
+    <style name="Theme.AppStartLoad" parent="android:Theme.Black.NoTitleBar.Fullscreen">
+        <!-- 背景-->
+        <item name="android:windowBackground">@mipmap/welcome</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+
+</resources>
