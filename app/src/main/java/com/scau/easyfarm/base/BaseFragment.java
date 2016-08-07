@@ -36,6 +36,10 @@ public class BaseFragment extends Fragment implements
         return view;
     }
 
+    public boolean onBackPressed() {
+        return false;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
