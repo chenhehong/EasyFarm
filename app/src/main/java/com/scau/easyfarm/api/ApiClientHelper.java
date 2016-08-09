@@ -11,7 +11,7 @@ public class ApiClientHelper {
 	 * @return
 	 */
 	public static String getUserAgent(AppContext appContext) {
-		StringBuilder ua = new StringBuilder("OSChina.NET");
+		StringBuilder ua = new StringBuilder("EasyFarm");
 		ua.append('/' + appContext.getPackageInfo().versionName + '_'
 				+  appContext.getPackageInfo().versionCode);// app版本信息
 		ua.append("/Android");// 手机系统平台

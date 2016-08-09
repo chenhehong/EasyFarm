@@ -21,8 +21,8 @@ public class EasyFarmServerApi {
         params.put("loginName", username);
         params.put("password", password);
         params.put("keep_login", 1);
-        String loginurl = "HelloWorld";
-        ApiHttpClient.get(loginurl, params, handler);
+        String loginurl = "front/mobile/expert/login";
+        ApiHttpClient.post(loginurl, params, handler);
     }
 
     /**
