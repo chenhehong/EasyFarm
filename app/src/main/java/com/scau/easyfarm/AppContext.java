@@ -9,8 +9,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.BaseApplication;
 import com.scau.easyfarm.bean.Constants;
-import com.scau.easyfarm.bean.Expert;
-import com.scau.easyfarm.bean.UserEntity;
+import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.CyptoUtils;
 import com.scau.easyfarm.util.TLog;
 import com.scau.easyfarm.util.UIHelper;
@@ -29,9 +28,9 @@ import java.util.UUID;
 public class AppContext extends BaseApplication {
 
     public static final int PAGE_SIZE = 20;// 默认分页大小
-//  定义用户登录的身份类型
+//  定义用户登录的角色类型
     public static final String MEMBER = "member";
-    public static final String EXPERT="expert";
+    public static final String USER="user";
     public static final String ADMIN="admin";
 
     private static AppContext instance;
@@ -40,7 +39,7 @@ public class AppContext extends BaseApplication {
 
     private boolean login=false;
 
-    private String loginType="";
+    private String roleName="";
 
     @Override
     public void onCreate() {
@@ -68,12 +67,12 @@ public class AppContext extends BaseApplication {
         TLog.DEBUG = BuildConfig.DEBUG;
 
         // Bitmap缓存地址
-        HttpConfig.CACHEPATH = "OSChina/imagecache";
+        HttpConfig.CACHEPATH = "EasyFarm/imagecache";
     }
 
     //  初始化登录,利用AppConfig类读取Properties文件，获得用户的配置信息.登录与注销就是用的Properties来保存的
     private void initLogin() {
-        UserEntity user = getLoginUser();
+        User user = getLoginUser();
         if (null != user && user.getId() > 0) {
             login = true;
             loginUid = user.getId();
@@ -143,71 +142,73 @@ public class AppContext extends BaseApplication {
     }
 
     /**
-     * 保存专家用户登录信息
+     * 保存用户登录信息
      */
     @SuppressWarnings("serial")
-    public void saveUserInfo(final UserEntity user) {
+    public void saveUserInfo(final User user) {
         this.loginUid = user.getId();
         this.login = true;
-        if (user instanceof Expert){
-            this.loginType = EXPERT;
-            final Expert expert = (Expert)user;
-            setProperties(new Properties() {
+        setProperties(new Properties() {
                 {
-                    setProperty("expert.uid", String.valueOf(expert.getId()));
-                    setProperty("expert.loginName", expert.getLoginName());
-                    setProperty("expert.password",
-                            CyptoUtils.encode("EasyFarm", expert.getPassword()));
-                    setProperty("expert.realName", expert.getRealName());
-                    setProperty("expert.department", expert.getDepartment());
-                    setProperty("expert.phoneNumber", expert.getPhoneNumber());
-                    setProperty("expert.techType", expert.getTechType());
-                    setProperty("expert.isRememberMe",
-                            String.valueOf(expert.isRememberMe()));// 是否记住我的信息
+                    setProperty("user.uid", String.valueOf(user.getId()));
+                    setProperty("user.loginName", user.getLoginName());
+                    setProperty("user.roleName", user.getRoleName());
+                    setProperty("user.password",
+                            CyptoUtils.encode("EasyFarm", user.getPassword()));
+                    setProperty("user.realName", user.getRealName());
+                    setProperty("user.organization", user.getOrganization());
+                    setProperty("user.phoneNumber", user.getPhoneNumber());
+                    setProperty("user.techType", user.getTechType());
+                    setProperty("user.description", user.getDescription());
+                    setProperty("user.sex", user.getSex());
+                    setProperty("user.age", user.getAge()+"");
+                    setProperty("user.email", user.getEmail());
+                    setProperty("user.address", user.getAddress());
+                    setProperty("user.isRememberMe",
+                            String.valueOf(user.isRememberMe()));// 是否记住我的信息
                 }
             });
-        }
-
     }
 
     /**
-     * 更新专家用户信息
+     * 更新用户信息
      */
     @SuppressWarnings("serial")
-    public void updateUserInfo(final UserEntity user) {
-        if (user instanceof Expert){
-            loginType = EXPERT;
-            final Expert expert = (Expert)user;
-            setProperties(new Properties() {
-                {
-                    setProperty("expert.realName", expert.getRealName());
-                    setProperty("expert.department", expert.getDepartment());
-                    setProperty("expert.phoneNumber", expert.getPhoneNumber());
-                    setProperty("expert.techType", expert.getTechType());
-                }
-            });
-        }
-
+    public void updateUserInfo(final User user) {
+        setProperties(new Properties() {
+            {
+                setProperty("user.realName", user.getRealName());
+                setProperty("user.organization", user.getOrganization());
+                setProperty("user.phoneNumber", user.getPhoneNumber());
+                setProperty("user.techType", user.getTechType());
+                setProperty("user.description", user.getDescription());
+                setProperty("user.sex", user.getSex());
+                setProperty("user.age", user.getAge()+"");
+                setProperty("user.email", user.getEmail());
+                setProperty("user.address", user.getAddress());
+            }
+        });
     }
 
     /**
      * 获得登录用户的信息
      */
-    public UserEntity getLoginUser() {
-        if (loginType==null)
-            return null;
-        if (loginType.equals(EXPERT)){
-            Expert expert = new Expert();
-            expert.setId(StringUtils.toInt(getProperty("expert.uid"), 0));
-            expert.setLoginName(getProperty("expert.loginName"));
-            expert.setRealName(getProperty("expert.realName"));
-            expert.setDepartment(getProperty("expert.department"));
-            expert.setPhoneNumber(getProperty("expert.phoneNumber"));
-            expert.setTechType(getProperty("expert.techType"));
-            expert.setRememberMe(StringUtils.toBool(getProperty("expert.isRememberMe")));
-            return expert;
-        }
-        return  null;
+    public User getLoginUser() {
+        User user = new User();
+        user.setId(StringUtils.toInt(getProperty("user.uid"), 0));
+        user.setLoginName(getProperty("user.loginName"));
+        user.setRealName(getProperty("user.realName"));
+        user.setRoleName(getProperty("user.roleName"));
+        user.setOrganization(getProperty("user.organization"));
+        user.setPhoneNumber(getProperty("user.phoneNumber"));
+        user.setTechType(getProperty("user.techType"));
+        user.setDescription(getProperty("user.description"));
+        user.setSex(getProperty("user.sex"));
+        user.setAge(StringUtils.toInt(getProperty("user.age")));
+        user.setEmail(getProperty("user.email"));
+        user.setAddress(getProperty("user.address"));
+        user.setRememberMe(StringUtils.toBool(getProperty("user.isRememberMe")));
+        return user;
     }
 
     /**
@@ -216,11 +217,8 @@ public class AppContext extends BaseApplication {
     public void cleanLoginInfo() {
         this.loginUid = 0;
         this.login = false;
-        if (loginType.equals(EXPERT)){
-            removeProperty("expert.uid", "expert.loginName", "expert.realName", "expert.department",
-                    "expert.phoneNumber", "expert.techType", "expert.isRememberMe");
-        }
-
+            removeProperty("user.uid", "user.loginName", "user.roleName", "user.realName", "user.organization",
+                    "user.phoneNumber", "user.techType","user.description","user.sex","user.age","user.email","user.address", "user.isRememberMe");
     }
 
     public int getLoginUid() {
@@ -231,12 +229,12 @@ public class AppContext extends BaseApplication {
         return login;
     }
 
-    public String getLoginType() {
-        return loginType;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setLoginType(String loginType) {
-        this.loginType = loginType;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     /**
@@ -248,7 +246,7 @@ public class AppContext extends BaseApplication {
         this.cleanCookie();
         this.login = false;
         this.loginUid = 0;
-
+        this.roleName = "";
         Intent intent = new Intent(Constants.INTENT_ACTION_LOGOUT);
         sendBroadcast(intent);
     }

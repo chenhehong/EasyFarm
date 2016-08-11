@@ -14,7 +14,7 @@ import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseActivity;
 import com.scau.easyfarm.bean.Constants;
-import com.scau.easyfarm.bean.LoginExpertBean;
+import com.scau.easyfarm.bean.LoginUserBean;
 import com.scau.easyfarm.util.CyptoUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
@@ -101,9 +101,9 @@ public class LoginActivity extends BaseActivity{
 
         @Override
         public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-            LoginExpertBean loginExpertBean = JsonUtils.toBean(LoginExpertBean.class, arg2);
-            if (loginExpertBean != null) {
-                handleLoginBean(loginExpertBean);
+            LoginUserBean loginUserBean = JsonUtils.toBean(LoginUserBean.class, arg2);
+            if (loginUserBean != null) {
+                handleLoginBean(loginUserBean);
             }
         }
 
@@ -154,14 +154,14 @@ public class LoginActivity extends BaseActivity{
     public void initData() {
 
         mEtUserName.setText(AppContext.getInstance()
-                .getProperty("user.account"));
+                .getProperty("user.loginName"));
         mEtPassword.setText(CyptoUtils.decode("EasyFarm", AppContext
-                .getInstance().getProperty("user.pwd")));
+                .getInstance().getProperty("user.password")));
     }
 
     // 处理loginBean
-    private void handleLoginBean(LoginExpertBean loginExpertBean) {
-        if (loginExpertBean.getResult().OK()) {
+    private void handleLoginBean(LoginUserBean loginUserBean) {
+        if (loginUserBean.getResult().OK()) {
             AsyncHttpClient client = ApiHttpClient.getHttpClient();
             HttpContext httpContext = client.getHttpContext();
             CookieStore cookies = (CookieStore) httpContext
@@ -181,15 +181,15 @@ public class LoginActivity extends BaseActivity{
                 HttpConfig.sCookie = tmpcookies;
             }
             // 保存登录信息
-            loginExpertBean.getExpert().setLoginName(mUserName);
-            loginExpertBean.getExpert().setPassword(mPassword);
-            loginExpertBean.getExpert().setRememberMe(true);
-            AppContext.getInstance().saveUserInfo(loginExpertBean.getExpert());
+            loginUserBean.getUser().setRememberMe(true);
+            loginUserBean.getUser().setLoginName(mUserName);
+            loginUserBean.getUser().setPassword(mPassword);
+            AppContext.getInstance().saveUserInfo(loginUserBean.getUser());
             hideWaitDialog();
             handleLoginSuccess();
         } else {
             AppContext.getInstance().cleanLoginInfo();
-            AppContext.showToast(loginExpertBean.getResult().getErrorMessage());
+            AppContext.showToast(loginUserBean.getResult().getErrorMessage());
         }
     }
 

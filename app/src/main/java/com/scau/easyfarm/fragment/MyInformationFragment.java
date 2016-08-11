@@ -20,15 +20,12 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Constants;
-import com.scau.easyfarm.bean.UserEntity;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 import com.scau.easyfarm.widget.AvatarView;
 import com.scau.easyfarm.widget.BadgeView;
-
-import java.io.ByteArrayInputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -171,7 +168,7 @@ public class MyInformationFragment extends BaseFragment{
 //  发送用户信息获取请求
     private void sendRequestData() {
         int uid = AppContext.getInstance().getLoginUid();
-        String userType = AppContext.getInstance().getLoginType();
+        String userType = AppContext.getInstance().getRoleName();
         EasyFarmServerApi.getMyInformation(uid, userType, mHandler);
     }
 
@@ -193,7 +190,7 @@ public class MyInformationFragment extends BaseFragment{
     };
 
     private String getCacheKey() {
-        return "my_information_" + AppContext.getInstance().getLoginType()+"_"+AppContext.getInstance().getLoginUid();
+        return "my_information_" + AppContext.getInstance().getRoleName()+"_"+AppContext.getInstance().getLoginUid();
     }
 
     private void fillUI() {

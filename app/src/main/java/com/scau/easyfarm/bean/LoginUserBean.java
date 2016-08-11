@@ -8,11 +8,11 @@ package com.scau.easyfarm.bean;
  */
 
 @SuppressWarnings("serial")
-public class LoginExpertBean extends Entity {
+public class LoginUserBean extends Entity {
 	
 	private Result result;
 
-	private Expert expert;
+	private User user;
 
 	public Result getResult() {
 		return result;
@@ -22,12 +22,12 @@ public class LoginExpertBean extends Entity {
 		this.result = result;
 	}
 
-	public Expert getExpert() {
-		return expert;
+	public User getUser() {
+		return user;
 	}
 
-	public void setExpert(Expert expert) {
-		this.expert = expert;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
