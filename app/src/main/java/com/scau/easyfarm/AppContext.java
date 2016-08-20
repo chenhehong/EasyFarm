@@ -39,7 +39,7 @@ public class AppContext extends BaseApplication {
 
     private boolean login=false;
 
-    private String roleName="";
+    private String roleName=" ";
 
     @Override
     public void onCreate() {
@@ -149,25 +149,25 @@ public class AppContext extends BaseApplication {
         this.loginUid = user.getId();
         this.login = true;
         setProperties(new Properties() {
-                {
-                    setProperty("user.uid", String.valueOf(user.getId()));
-                    setProperty("user.loginName", user.getLoginName());
-                    setProperty("user.roleName", user.getRoleName());
-                    setProperty("user.password",
-                            CyptoUtils.encode("EasyFarm", user.getPassword()));
-                    setProperty("user.realName", user.getRealName());
-                    setProperty("user.organization", user.getOrganization());
-                    setProperty("user.phoneNumber", user.getPhoneNumber());
-                    setProperty("user.techType", user.getTechType());
-                    setProperty("user.description", user.getDescription());
-                    setProperty("user.sex", user.getSex());
-                    setProperty("user.age", user.getAge()+"");
-                    setProperty("user.email", user.getEmail());
-                    setProperty("user.address", user.getAddress());
-                    setProperty("user.isRememberMe",
-                            String.valueOf(user.isRememberMe()));// 是否记住我的信息
-                }
-            });
+            {
+                setProperty("user.uid", String.valueOf(user.getId()));
+                setProperty("user.loginName", user.getLoginName());
+                setProperty("user.roleName", user.getRoleName());
+                setProperty("user.password",
+                        CyptoUtils.encode("EasyFarm", user.getPassword()));
+                setProperty("user.realName", user.getRealName());
+                setProperty("user.organization", user.getOrganization());
+                setProperty("user.phoneNumber", user.getPhoneNumber());
+                setProperty("user.techType", user.getTechType());
+                setProperty("user.description", user.getDescription());
+                setProperty("user.sex", user.getSex());
+                setProperty("user.age", user.getAge() + "");
+                setProperty("user.email", user.getEmail());
+                setProperty("user.address", user.getAddress());
+                setProperty("user.isRememberMe",
+                        String.valueOf(user.isRememberMe()));// 是否记住我的信息
+            }
+        });
     }
 
     /**

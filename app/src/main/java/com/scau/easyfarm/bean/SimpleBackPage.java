@@ -2,12 +2,18 @@ package com.scau.easyfarm.bean;
 
 
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.UserCenterFragment;
+import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
 
 public enum SimpleBackPage {
 
+
     USER_CENTER(5, R.string.actionbar_title_user_center,
-            UserCenterFragment.class);
+            UserCenterFragment.class),
+    MY_MES(9, R.string.actionbar_title_mes, NoticeViewPagerFragment.class),
+    MY_INFORMATION_DETAIL(28, R.string.actionbar_title_my_information,
+            MyInformationFragmentDetail.class);
 
     private int title;
     private Class<?> clz;

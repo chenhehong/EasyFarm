@@ -13,14 +13,14 @@ public class Notice implements Serializable {
     public final static String NODE_ROOT = "easyfarm";
 
     public final static int TYPE_ATME = 1;//@
-    public final static int TYPE_MESSAGE = 2;//消息
+    public final static int TYPE_MESSAGE = 2;// 私信消息
     public final static int TYPE_COMMENT = 3;//评论
 
     private int atmeCount;//@个数
 
     private int msgCount;//消息个数
 
-    private int commentCount;//评论个数
+    private int reviewCount;//评论个数
 
     public int getAtmeCount() {
 	return atmeCount;
@@ -38,12 +38,12 @@ public class Notice implements Serializable {
 	this.msgCount = msgCount;
     }
 
-    public int getCommentCount() {
-        return commentCount;
+    public int getReviewCount() {
+        return reviewCount;
     }
 
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
+    public void setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
     }
 
 }

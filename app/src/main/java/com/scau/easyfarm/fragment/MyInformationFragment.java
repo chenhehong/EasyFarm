@@ -20,6 +20,8 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Constants;
+import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.TDevice;
@@ -34,7 +36,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by ChenHehong on 2016/6/11.
  * 登录用户中心页面
- */
+ * */
 public class MyInformationFragment extends BaseFragment{
 
     @InjectView(R.id.iv_avatar)
@@ -56,7 +58,7 @@ public class MyInformationFragment extends BaseFragment{
     private static BadgeView mMesCount;
     private boolean mIsWatingLogin;
 
-    private UserEntity mInfo;
+    private User mInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -196,6 +198,33 @@ public class MyInformationFragment extends BaseFragment{
     private void fillUI() {
         if (mInfo==null)
             return;
+    }
+
+    @Override
+    public void onClick(View v) {
+//        if (mIsWatingLogin) {
+//            AppContext.showToast(R.string.unlogin);
+//            UIHelper.showLoginActivity(getActivity());
+//            return;
+//        }
+        final int id = v.getId();
+        switch (id) {
+            case R.id.iv_avatar:
+                UIHelper.showSimpleBack(getActivity(),
+                        SimpleBackPage.MY_INFORMATION_DETAIL);
+                break;
+            case R.id.rl_message:
+                UIHelper.showMyMes(getActivity());
+                setNoticeReaded();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setNoticeReaded() {
+        mMesCount.setText("");
+        mMesCount.hide();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.scau.easyfarm.viewpagerfragment;
 
+import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
 
 /**
@@ -7,4 +8,8 @@ import com.scau.easyfarm.base.BaseViewPagerFragment;
  */
 public class NewsViewPagerFragment extends BaseViewPagerFragment {
 
+    @Override
+    protected void onSetupTabAdapter(ViewPageFragmentAdapter adapter) {
+
+    }
 }

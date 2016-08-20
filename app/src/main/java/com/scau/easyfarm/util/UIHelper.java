@@ -74,10 +74,17 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
+//  把class拼装进SimpleBackActivity的fragment中，带参数
     public static void showSimpleBack(Context context, SimpleBackPage page,
                                       Bundle args) {
         Intent intent = new Intent(context, SimpleBackActivity.class);
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, args);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        context.startActivity(intent);
+    }
+
+    public static void showSimpleBack(Context context, SimpleBackPage page) {
+        Intent intent = new Intent(context, SimpleBackActivity.class);
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
         context.startActivity(intent);
     }
@@ -90,5 +97,14 @@ public class UIHelper {
     public static void sendBroadcastForNotice(Context context) {
         Intent intent = new Intent(NoticeService.INTENT_ACTION_BROADCAST);
         context.sendBroadcast(intent);
+    }
+
+    /**
+     * 显示用户的消息中心
+     *
+     * @param context
+     */
+    public static void showMyMes(Context context) {
+        showSimpleBack(context, SimpleBackPage.MY_MES);
     }
 }

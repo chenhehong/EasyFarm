@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="mymes_viewpage_arrays">
+        <item>\@我</item>
+        <item>评论</item>
+    </string-array>
+    
+    <string-array name="font_size">
+        <item>特大号字</item>
+        <item>大号字</item>
+        <item>中号字</item>
+        <item>小号字</item>
+    </string-array>
+    
+</resources>

@@ -21,6 +21,7 @@ import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.bean.Notice;
 import com.scau.easyfarm.interf.BaseViewInterface;
 import com.scau.easyfarm.widget.BadgeView;
 import com.scau.easyfarm.widget.MyFragmentTabHost;
@@ -35,6 +36,7 @@ public class MainActivity extends ActionBarActivity implements
         View.OnTouchListener {
 
     private DoubleClickExitHelper mDoubleClickExit;
+    public static Notice mNotice;
 
     @InjectView(android.R.id.tabhost)
     public MyFragmentTabHost mTabHost;

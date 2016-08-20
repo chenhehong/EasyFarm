@@ -23,6 +23,8 @@ public class SimpleBackActivity extends BaseActivity{
     public final static String BUNDLE_KEY_PAGE = "BUNDLE_KEY_PAGE";
     public final static String BUNDLE_KEY_ARGS = "BUNDLE_KEY_ARGS";
     private static final String TAG = "FLAG_TAG";
+//  当一个对象仅仅被weak reference指向, 而没有任何其他strong reference指向的时候, 如果GC运行, 那么这个对象就会被回收，
+// WeakReference的一个特点是它何时被回收是不可确定的, 因为这是由GC运行的不确定性所确定的.考虑到多个滑动的fragment可能会爆内存，所以用weak
     protected WeakReference<Fragment> mFragment;
     protected int mPageValue = -1;
 
@@ -45,6 +47,7 @@ public class SimpleBackActivity extends BaseActivity{
         initFromIntent(mPageValue, getIntent());
     }
 
+//  初始化container节点的fragment，把传进来的fragemnt填充进去，data参数携带了activity跳转时的参数
     protected void initFromIntent(int pageValue, Intent data) {
         if (data == null) {
             throw new RuntimeException(
@@ -59,8 +62,9 @@ public class SimpleBackActivity extends BaseActivity{
         setActionBarTitle(page.getTitle());
 
         try {
+//          实例化传进来的fragment类
             Fragment fragment = (Fragment) page.getClz().newInstance();
-
+//          获得activity跳转的参数，该参数会传送给相应的fragment实例类
             Bundle args = data.getBundleExtra(BUNDLE_KEY_ARGS);
             if (args != null) {
                 fragment.setArguments(args);
@@ -80,7 +84,13 @@ public class SimpleBackActivity extends BaseActivity{
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onBackPressed() {
+//      判断是fragment内后退还是直接simplebackactivity返回
         if (mFragment != null && mFragment.get() != null
                 && mFragment.get() instanceof BaseFragment) {
             BaseFragment bf = (BaseFragment) mFragment.get();

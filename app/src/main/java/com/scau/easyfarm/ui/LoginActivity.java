@@ -152,7 +152,6 @@ public class LoginActivity extends BaseActivity{
 
     @Override
     public void initData() {
-
         mEtUserName.setText(AppContext.getInstance()
                 .getProperty("user.loginName"));
         mEtPassword.setText(CyptoUtils.decode("EasyFarm", AppContext
@@ -174,6 +173,7 @@ public class LoginActivity extends BaseActivity{
                     tmpcookies += (c.getName() + "=" + c.getValue()) + ";";
                 }
                 TLog.log(TAG, "cookies:" + tmpcookies);
+//              保存cookies
                 AppContext.getInstance().setProperty(AppConfig.CONF_COOKIE,
                         tmpcookies);
                 ApiHttpClient.setCookie(ApiHttpClient.getCookie(AppContext

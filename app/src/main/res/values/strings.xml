@@ -12,11 +12,13 @@
 
     <!-- 我-->
     <string name="actionbar_title_user_center">用户中心</string>
+    <string name="actionbar_title_my_information">我的资料</string>
 
     <!-- 个人中心，登录相关-->
     <string name="unlogin">未登录，请先登录</string>
     <string name="unlogin_tip">您还未登录\r\n或网络延迟</string>
     <string name="my_information_unlogin_tips">未登录</string>
+    <string name="tip_logout_success">注销成功</string>
     <string name="message">消息</string>
 
     <string name="hint_username">输入账号/邮箱</string>
@@ -48,5 +50,18 @@
     <string name="deleting">正在删除…</string>
     <string name="delete_success">删除成功</string>
     <string name="delete_faile">删除失败</string>
+
+    <!-- 人员信息-->
+    <string name="user_info_realname">真实姓名</string>
+    <string name="user_info_roletype">角色类型</string>
+    <string name="user_info_phonenumber">电话号码</string>
+    <string name="user_info_sex">性别</string>
+    <string name="user_info_age">年龄</string>
+    <string name="user_info_email">电子邮箱</string>
+    <string name="user_info_address">所在地区</string>
+    <string name="user_info_techtype">技术类型</string>
+    <string name="user_info_description">个人描述</string>
+
+    <string name="actionbar_title_mes">消息中心</string>
 
 </resources>

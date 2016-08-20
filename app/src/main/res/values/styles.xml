@@ -8,8 +8,6 @@
         <item name="colorPrimaryDark">@color/day_colorPrimaryDark</item>
         <item name="android:textColorLink">#0b9a27</item>
         <item name="colorAccent">@color/day_colorPrimary</item>
-        <item name="lineColor">@color/day_line_color</item>
-        <item name="windows_bg">@color/day_windows_bg</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="editTextColor">@color/gray</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
@@ -18,6 +16,9 @@
         <item name="textColor">@color/day_textColor</item>
         <item name="infoTextColor">@color/day_infoTextColor</item>
         <item name="layout_bg_normal">@color/day_layout_bg_normal</item>
+        <item name="lineColor">@color/day_line_color</item>
+        <item name="windows_bg">@color/day_windows_bg</item>
+        <item name="sliding_block_bg">@drawable/image_sliding_block</item>
         <item name="layout_item_bg">@drawable/day_list_item_background</item>
         <item name="android:editTextColor">@color/day_edit_color</item>
         <item name="android:textColorHint">@color/day_edit_hit_color</item>
@@ -88,6 +89,30 @@
         <item name="android:background">@drawable/btn_blue_selector</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16.0dip</item>
+    </style>
+
+    <!-- 列表用户头像的样式 -->
+    <style name="UserFaceImageStyle">
+        <item name="android:layout_width">40.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
+        <item name="android:padding">1.0dip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:contentDescription">face</item>
+        <item name="android:src">@drawable/widget_dface</item>
+    </style>
+
+    <!-- viewpage文本  滑动标签标题 -->
+    <style name="viewpage_slidingTabTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/viewpage_selector_slide_title</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="fill_fill">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
     </style>
 
 

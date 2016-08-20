@@ -38,4 +38,10 @@ public class EasyFarmServerApi {
         ApiHttpClient.get("action/api/my_information", params, handler);
     }
 
+    public static void getMyInformation(int uid,AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", uid);
+        ApiHttpClient.get("action/api/my_information", params, handler);
+    }
+
 }
