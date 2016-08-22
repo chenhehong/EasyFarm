@@ -69,4 +69,11 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("action/api/user_report_to_admin", params, handler);
     }
 
+    public static void change_password(String originalPassword,String newPassword,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("originalPassword",originalPassword);
+        params.put("newPassword",newPassword);
+        ApiHttpClient.post("",params,handler);
+    }
+
 }

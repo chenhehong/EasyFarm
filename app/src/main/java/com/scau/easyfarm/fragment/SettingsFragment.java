@@ -12,6 +12,7 @@ import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 
 import org.kymjs.kjframe.http.HttpConfig;
@@ -70,6 +71,8 @@ public class SettingsFragment extends BaseFragment {
             }
         });
 
+        view.findViewById(R.id.rl_password_setting).setOnClickListener(this);
+        view.findViewById(R.id.rl_myinformation_settings).setOnClickListener(this);
         view.findViewById(R.id.rl_loading_img).setOnClickListener(this);
         view.findViewById(R.id.rl_notification_settings).setOnClickListener(
                 this);
@@ -147,10 +150,29 @@ public class SettingsFragment extends BaseFragment {
             case R.id.rl_exit:
                 onClickExit();
                 break;
+            case R.id.rl_password_setting:
+                if (!AppContext.getInstance().isLogin()){
+                    showLoginActivity();
+                }else{
+                    UIHelper.showChangePassword(getActivity());
+                }
+                break;
+            case R.id.rl_myinformation_settings:
+                if (!AppContext.getInstance().isLogin()){
+                    showLoginActivity();
+                }else{
+
+                }
+                break;
             default:
                 break;
         }
 
+    }
+
+    public void showLoginActivity(){
+        AppContext.showToast(R.string.unlogin);
+        UIHelper.showLoginActivity(getActivity());
     }
 
     private void onClickCleanCache() {

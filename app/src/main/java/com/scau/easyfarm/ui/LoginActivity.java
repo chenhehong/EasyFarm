@@ -130,7 +130,7 @@ public class LoginActivity extends BaseActivity{
         finish();
     }
 
-    private boolean prepareForLogin() {
+    private boolean  prepareForLogin() {
         if (!TDevice.hasInternet()) {
             AppContext.showToastShort(R.string.tip_no_internet);
             return true;

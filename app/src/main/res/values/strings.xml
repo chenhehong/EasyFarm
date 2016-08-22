@@ -32,6 +32,7 @@
     <string name="progress_login">正在登录…</string>
     <string name="tip_login_error_for_network">对不起,无法登录</string>
     <string name="tip_no_internet">当前没有可用的网络链接</string>
+    <string name="progress_update">正在更新…</string>
 
     <string name="loading">加载中…</string>
     <string name="loading_no_more">已加载全部</string>
@@ -65,6 +66,8 @@
 
     <string name="actionbar_title_mes">消息中心</string>
 
+    <string name="password_setting">修改个人密码</string>
+    <string name="myinformation_setting">修改个人资料</string>
     <string name="loading_img">加载图片</string>
     <string name="mes_notice">消息通知</string>
     <string name="clean_cache">清理缓存</string>

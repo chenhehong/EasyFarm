@@ -138,6 +138,16 @@ public class UIHelper {
     }
 
     /**
+     * 显示修改密码界面
+     *
+     * @param context
+     */
+    public static void showChangePassword(Context context) {
+        showSimpleBack(context, SimpleBackPage.CHANGE_PASSWORD);
+    }
+
+
+    /**
      * 清除app缓存
      *
      * @param activity

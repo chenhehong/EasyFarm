@@ -210,11 +210,11 @@ public class MyInformationFragment extends BaseFragment{
 
     @Override
     public void onClick(View v) {
-//        if (mIsWatingLogin) {
-//            AppContext.showToast(R.string.unlogin);
-//            UIHelper.showLoginActivity(getActivity());
-//            return;
-//        }
+        if (mIsWatingLogin) {
+            AppContext.showToast(R.string.unlogin);
+            UIHelper.showLoginActivity(getActivity());
+            return;
+        }
         final int id = v.getId();
         switch (id) {
             case R.id.iv_avatar:

@@ -13,13 +13,13 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Result implements Serializable {
 
-//  errorCode==1的时候表示服务器返回数据正常，0表示错误
+//  errorCode==0的时候表示服务器返回数据正常，其他表示错误
     private int errorCode;
 
     private String errorMessage;
 
     public boolean OK() {
-	return errorCode == 1;
+	return errorCode == 0;
     }
 
     public int getErrorCode() {
