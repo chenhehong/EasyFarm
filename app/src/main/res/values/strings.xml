@@ -20,6 +20,7 @@
     <string name="my_information_unlogin_tips">未登录</string>
     <string name="tip_logout_success">注销成功</string>
     <string name="message">消息</string>
+    <string name="setting">设置</string>
 
     <string name="hint_username">输入账号/邮箱</string>
     <string name="hint_password">密码</string>
@@ -63,5 +64,37 @@
     <string name="user_info_description">个人描述</string>
 
     <string name="actionbar_title_mes">消息中心</string>
+
+    <string name="loading_img">加载图片</string>
+    <string name="mes_notice">消息通知</string>
+    <string name="clean_cache">清理缓存</string>
+    <string name="double_click_exit">双击退出</string>
+    <string name="loading_more">自动加载更多</string>
+    <string name="about">关于</string>
+    <string name="exit">退出</string>
+
+    <string name="actionbar_title_setting_notification">新消息提醒</string>
+    <string name="notice_accept">接收新通知</string>
+    <string name="notice_voice">声音</string>
+    <string name="notice_vibration">震动</string>
+    <string name="notice_app_exit">退出后不提醒</string>
+
+    <string name="update">检查新版本</string>
+    <string name="feedback">意见反馈</string>
+    <string name="website">官网</string>
+    <string name="knowmore">了解更多</string>
+    <string name="copyright">Copyright © SCAU All rights reserved.</string>
+
+    <string name="down_state">正在下载：%s</string>
+
+    <!-- 反馈 -->
+    <string name="str_feedback_submit">提交</string>
+    <string name="str_feedback_et_hint">我们将为您不断改进</string>
+    <string name="str_feedback_contact">您的手机号或邮箱：（选填）</string>
+    <string name="str_feedback_contact_hint">方便我们给您答复</string>
+    <string name="str_feedback_succeed">谢谢您的反馈，我们会仔细阅读并及时处理</string>
+    <string name="str_feedback_tip">我们会仔细阅读您的反馈，并尽早给您回复。感谢您的理解与支持。</string>
+    <string name="str_feedback_title">用户反馈</string>
+
 
 </resources>

@@ -69,6 +69,9 @@
     <dimen name="global_padding">8.0dip</dimen>
     <dimen name="global_dialog_padding">15.0dip</dimen>
 
+    <!-- 意见反馈 -->
+    <dimen name="text_size_account_info">18.0sp</dimen>
+
 
 
 </resources>

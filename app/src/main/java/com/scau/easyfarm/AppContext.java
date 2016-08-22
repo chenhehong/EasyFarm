@@ -10,10 +10,13 @@ import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.BaseApplication;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.User;
+import com.scau.easyfarm.cache.DataCleanManager;
 import com.scau.easyfarm.util.CyptoUtils;
+import com.scau.easyfarm.util.MethodsCompat;
 import com.scau.easyfarm.util.TLog;
 import com.scau.easyfarm.util.UIHelper;
 
+import org.kymjs.kjframe.Core;
 import org.kymjs.kjframe.http.HttpConfig;
 import org.kymjs.kjframe.utils.KJLoger;
 import org.kymjs.kjframe.utils.StringUtils;
@@ -258,9 +261,53 @@ public class AppContext extends BaseApplication {
         removeProperty(AppConfig.CONF_COOKIE);
     }
 
+    public Properties getProperties() {
+        return AppConfig.getAppConfig(this).get();
+    }
+
+
 
     public void removeProperty(String... key) {
         AppConfig.getAppConfig(this).remove(key);
     }
+
+//  设置是否加载图片
+    public static void setLoadImage(boolean flag) {
+        set(AppConfig.KEY_LOAD_IMAGE, flag);
+    }
+
+    /**
+     * 判断当前版本是否兼容目标版本的方法
+     *
+     * @param VersionCode
+     * @return
+     */
+    public static boolean isMethodsCompat(int VersionCode) {
+        int currentVersion = android.os.Build.VERSION.SDK_INT;
+        return currentVersion >= VersionCode;
+    }
+
+    /**
+     * 清除app缓存
+     */
+    public void clearAppCache() {
+        DataCleanManager.cleanDatabases(this);
+        // 清除数据缓存
+        DataCleanManager.cleanInternalCache(this);
+        // 2.2版本才有将应用缓存转移到sd卡的功能
+        if (isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+            DataCleanManager.cleanCustomCache(MethodsCompat
+                    .getExternalCacheDir(this));
+        }
+        // 清除编辑器保存的临时内容
+        Properties props = getProperties();
+        for (Object key : props.keySet()) {
+            String _key = key.toString();
+            if (_key.startsWith("temp"))
+                removeProperty(_key);
+        }
+        Core.getKJBitmap().cleanCache();
+    }
+
 
 }

@@ -40,6 +40,30 @@
             <View
                 style="@style/h_line" />
 
+            <LinearLayout
+                android:id="@+id/rl_setting"
+                style="@style/option_item_rl" >
+
+                <ImageView
+                    style="@style/option_item_img"
+                    android:background="@drawable/icon_setting"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    style="@style/option_item_text"
+                    android:text="@string/setting" />
+
+                <TextView
+                    android:id="@+id/tv_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10.0dip"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <View
+                style="@style/h_line" />
+
         </LinearLayout>
     </ScrollView>
 

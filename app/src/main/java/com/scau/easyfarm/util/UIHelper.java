@@ -31,6 +31,8 @@ import android.widget.ZoomButtonsController;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.interf.ICallbackResult;
+import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
 import com.scau.easyfarm.ui.LoginActivity;
 import com.scau.easyfarm.ui.SimpleBackActivity;
@@ -107,4 +109,93 @@ public class UIHelper {
     public static void showMyMes(Context context) {
         showSimpleBack(context, SimpleBackPage.MY_MES);
     }
+
+    /**
+     * 显示设置界面
+     *
+     * @param context
+     */
+    public static void showSetting(Context context) {
+        showSimpleBack(context, SimpleBackPage.SETTING);
+    }
+
+    /**
+     * 显示通知设置界面
+     *
+     * @param context
+     */
+    public static void showSettingNotification(Context context) {
+        showSimpleBack(context, SimpleBackPage.SETTING_NOTIFICATION);
+    }
+
+    /**
+     * 显示关于界面
+     *
+     * @param context
+     */
+    public static void showAboutApp(Context context) {
+        showSimpleBack(context, SimpleBackPage.ABOUT_APP);
+    }
+
+    /**
+     * 清除app缓存
+     *
+     * @param activity
+     */
+    public static void clearAppCache(Activity activity) {
+        final Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == 1) {
+                    AppContext.showToastShort("缓存清除成功");
+                } else {
+                    AppContext.showToastShort("缓存清除失败");
+                }
+            }
+        };
+        new Thread() {
+            @Override
+            public void run() {
+                Message msg = new Message();
+                try {
+                    AppContext.getInstance().clearAppCache();
+                    msg.what = 1;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    msg.what = -1;
+                }
+                handler.sendMessage(msg);
+            }
+        }.start();
+    }
+
+//  打开下载新版本apk服务
+    public static void openDownLoadService(Context context, String downurl,
+                                           String tilte) {
+        final ICallbackResult callback = new ICallbackResult() {
+
+            @Override
+            public void OnBackResult(Object s) {}
+        };
+        ServiceConnection conn = new ServiceConnection() {
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {}
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                DownloadService.DownloadBinder binder = (DownloadService.DownloadBinder) service;
+                binder.addCallback(callback);
+                binder.start();
+
+            }
+        };
+        Intent intent = new Intent(context, DownloadService.class);
+        intent.putExtra(DownloadService.BUNDLE_KEY_DOWNLOAD_URL, downurl);
+        intent.putExtra(DownloadService.BUNDLE_KEY_TITLE, tilte);
+        context.startService(intent);
+        context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
+    }
+
+
 }

@@ -115,6 +115,10 @@
         <item name="android:layout_height">fill_parent</item>
     </style>
 
+    <style name="option_item_toggleButton">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">20dp</item>
+    </style>
 
 
 </resources>

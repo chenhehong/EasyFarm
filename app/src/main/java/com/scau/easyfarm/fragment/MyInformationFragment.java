@@ -125,6 +125,14 @@ public class MyInformationFragment extends BaseFragment{
 //            }
 //        });
         view.findViewById(R.id.rl_message).setOnClickListener(this);
+        view.findViewById(R.id.rl_setting).setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UIHelper.showSetting(getActivity());
+                }
+            }
+        );
         mUserUnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

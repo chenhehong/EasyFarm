@@ -366,6 +366,7 @@ public class TDevice {
         return str;
     }
 
+//  打开应用市场的相应app主页
     public static void gotoMarket(Context context, String pck) {
         if (!isHaveMarket(context)) {
             AppContext.showToast("你手机中没有安装应用市场！");
@@ -388,6 +389,7 @@ public class TDevice {
         return infos.size() > 0;
     }
 
+//  在手机上打开应用市场的本app的主页
     public static void openAppInMarket(Context context) {
         if (context != null) {
             String pckName = context.getPackageName();
@@ -554,6 +556,7 @@ public class TDevice {
         context.startActivity(mainIntent);
     }
 
+//  打开手机上其他app
     public static boolean openAppActivity(Context context, String packageName,
                                           String activityName) {
         Intent intent = new Intent(Intent.ACTION_MAIN);

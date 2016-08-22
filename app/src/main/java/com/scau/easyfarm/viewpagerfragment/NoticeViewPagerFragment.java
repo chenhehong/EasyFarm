@@ -9,7 +9,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 
-import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseListFragment;
