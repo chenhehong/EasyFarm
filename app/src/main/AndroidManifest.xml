@@ -58,6 +58,11 @@
             android:screenOrientation="portrait" >
         </activity>
 
+        <service
+            android:name=".service.NoticeService"
+            android:process=":notice" />
+        <service android:name=".service.DownloadService" />
+
     </application>
 
 </manifest>

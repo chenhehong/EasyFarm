@@ -2,11 +2,15 @@ package com.scau.easyfarm.ui;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -21,8 +25,14 @@ import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.Notice;
+import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.fragment.MyInformationFragment;
 import com.scau.easyfarm.interf.BaseViewInterface;
+import com.scau.easyfarm.service.NoticeUtils;
+import com.scau.easyfarm.util.UIHelper;
+import com.scau.easyfarm.util.UpdateManager;
 import com.scau.easyfarm.widget.BadgeView;
 import com.scau.easyfarm.widget.MyFragmentTabHost;
 
@@ -46,6 +56,37 @@ public class MainActivity extends ActionBarActivity implements
     //  菜单栏中间的快速按钮
     @InjectView(R.id.quick_option_iv)
     View mAddBt;
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+//          通过控制BadgeView 控件发生改变来控制是否显示消息提示的小红点
+            if (intent.getAction().equals(Constants.INTENT_ACTION_NOTICE)) {
+                mNotice = (Notice) intent.getSerializableExtra("notice_bean");
+                int atmeCount = mNotice.getAtmeCount();// @我
+                int msgCount = mNotice.getMsgCount();// 留言
+                int reviewCount = mNotice.getReviewCount();// 评论
+                int activeCount = atmeCount + reviewCount + msgCount;
+
+                Fragment fragment = getCurrentFragment();
+                if (fragment instanceof MyInformationFragment) {
+                    ((MyInformationFragment) fragment).setNotice();
+                } else {
+                    if (activeCount > 0) {
+                        mBvNotice.setText(activeCount + "");
+                        mBvNotice.show();
+                    } else {
+                        mBvNotice.hide();
+                        mNotice = null;
+                    }
+                }
+            } else if (intent.getAction()
+                    .equals(Constants.INTENT_ACTION_LOGOUT)) {
+                mBvNotice.hide();
+                mNotice = null;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +117,29 @@ public class MainActivity extends ActionBarActivity implements
         mTabHost.setCurrentTab(0);
         mTabHost.setOnTabChangedListener(this);
 
+        // 注册接收注销通知和消息通知，控制是否显示消息提示小红点
+        IntentFilter filter = new IntentFilter(Constants.INTENT_ACTION_NOTICE);
+        filter.addAction(Constants.INTENT_ACTION_LOGOUT);
+        registerReceiver(mReceiver, filter);
+//      开启NoticeService服务，该服务进行了初始化的服务操作：例如注册接收必要的广播通知等。
+//      将本activity与NoticeService绑定
+        NoticeUtils.bindToService(this);
+
+        checkUpdate();
+    }
+
+    private void checkUpdate() {
+        if (!AppContext.get(AppConfig.KEY_CHECK_UPDATE, true)) {
+            return;
+        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                new UpdateManager(MainActivity.this, false).checkUpdate();
+            }
+        }, 2000);
     }
 
     @Override
@@ -138,6 +202,7 @@ public class MainActivity extends ActionBarActivity implements
                 v.setSelected(false);
             }
         }
+//      点击了“我”栏目，消息提示红点隐去
         if (tabId.equals(getString(MainTab.ME.getResName()))) {
             mBvNotice.setText("");
             mBvNotice.hide();
@@ -149,9 +214,17 @@ public class MainActivity extends ActionBarActivity implements
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
+            case R.id.quick_option_iv:
+                onClickTweetPub();
+                break;
             default:
                 break;
         }
+    }
+
+//  添加问答
+    private void onClickTweetPub() {
+        UIHelper.showTweetPub(this);
     }
 
 

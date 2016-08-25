@@ -1,9 +1,15 @@
 package com.scau.easyfarm.api.remote;
 
 
+import android.text.TextUtils;
+
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.scau.easyfarm.api.ApiHttpClient;
+import com.scau.easyfarm.bean.Tweet;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 public class EasyFarmServerApi {
@@ -74,6 +80,22 @@ public class EasyFarmServerApi {
         params.put("originalPassword",originalPassword);
         params.put("newPassword",newPassword);
         ApiHttpClient.post("",params,handler);
+    }
+
+    public static void pubTweet(Tweet tweet, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", tweet.getAuthorid());
+        params.put("msg", tweet.getContent());
+
+        // Map<String, File> files = new HashMap<String, File>();
+        if (!TextUtils.isEmpty(tweet.getImageFilePath())) {
+            try {
+                params.put("img", new File(tweet.getImageFilePath()));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        ApiHttpClient.post("action/api/tweet_pub", params, handler);
     }
 
 }

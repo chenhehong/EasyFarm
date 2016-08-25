@@ -186,7 +186,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.techType", user.getTechType());
                 setProperty("user.description", user.getDescription());
                 setProperty("user.sex", user.getSex());
-                setProperty("user.age", user.getAge()+"");
+                setProperty("user.age", user.getAge() + "");
                 setProperty("user.email", user.getEmail());
                 setProperty("user.address", user.getAddress());
             }
@@ -221,7 +221,7 @@ public class AppContext extends BaseApplication {
         this.loginUid = 0;
         this.login = false;
             removeProperty("user.uid", "user.loginName", "user.roleName", "user.realName", "user.organization",
-                    "user.phoneNumber", "user.techType","user.description","user.sex","user.age","user.email","user.address", "user.isRememberMe");
+                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe");
     }
 
     public int getLoginUid() {
@@ -307,6 +307,17 @@ public class AppContext extends BaseApplication {
                 removeProperty(_key);
         }
         Core.getKJBitmap().cleanCache();
+    }
+
+//  获取问答草稿
+    public static String getTweetDraft() {
+        return getPreferences().getString(
+                AppConfig.KEY_TWEET_DRAFT + getInstance().getLoginUid(), "");
+    }
+
+//  保存问答内容为草稿
+    public static void setTweetDraft(String draft) {
+        set(AppConfig.KEY_TWEET_DRAFT + getInstance().getLoginUid(), draft);
     }
 
 

@@ -20,9 +20,11 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Constants;
+import com.scau.easyfarm.bean.Notice;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.cache.CacheManager;
+import com.scau.easyfarm.ui.MainActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
@@ -233,6 +235,26 @@ public class MyInformationFragment extends BaseFragment{
     private void setNoticeReaded() {
         mMesCount.setText("");
         mMesCount.hide();
+    }
+
+    public void setNotice() {
+        if (MainActivity.mNotice != null) {
+
+            Notice notice = MainActivity.mNotice;
+            int atmeCount = notice.getAtmeCount();// @我
+            int msgCount = notice.getMsgCount();// 留言
+            int reviewCount = notice.getReviewCount();// 评论
+            int activeCount = atmeCount + reviewCount + msgCount;// 信息总数
+            if (activeCount > 0) {
+                mMesCount.setText(activeCount + "");
+                mMesCount.show();
+            } else {
+                mMesCount.hide();
+            }
+
+        } else {
+            mMesCount.hide();
+        }
     }
 
 }

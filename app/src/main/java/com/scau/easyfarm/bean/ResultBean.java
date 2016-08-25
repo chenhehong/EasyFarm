@@ -66,7 +66,7 @@ public class ResultBean extends Base {
 //            message.setAuthor(comment.getAuthor());
 //            message.setAuthorId(comment.getId());
 //            message.setContent(comment.getContent());
-//            message.setPubDate(comment.getPubDate());
+//            message.setCreateDate(comment.getCreateDate());
 //        }
 //        return message;
 //    }

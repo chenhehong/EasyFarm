@@ -207,5 +207,9 @@ public class UIHelper {
         context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
     }
 
+//  显示添加问答界面
+    public static void showTweetPub(Context context) {
+        showSimpleBack(context,SimpleBackPage.TWEET_PUB);
+    }
 
 }

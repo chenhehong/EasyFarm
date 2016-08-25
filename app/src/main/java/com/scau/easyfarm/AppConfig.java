@@ -27,6 +27,10 @@ public class AppConfig {
     public static final String KEY_NOTIFICATION_SOUND = "KEY_NOTIFICATION_SOUND";
     public static final String KEY_NOTIFICATION_VIBRATION = "KEY_NOTIFICATION_VIBRATION";
     public static final String KEY_NOTIFICATION_DISABLE_WHEN_EXIT = "KEY_NOTIFICATION_DISABLE_WHEN_EXIT";
+//  程序更新key
+    public static final String KEY_CHECK_UPDATE = "KEY_CHECK_UPDATE";
+//  问答草稿key
+    public static final String KEY_TWEET_DRAFT = "KEY_TWEET_DRAFT";
 
     // 默认存放图片的路径
     public final static String DEFAULT_SAVE_IMAGE_PATH = Environment
