@@ -220,7 +220,7 @@ public class AppContext extends BaseApplication {
     public void cleanLoginInfo() {
         this.loginUid = 0;
         this.login = false;
-            removeProperty("user.uid", "user.loginName", "user.roleName", "user.realName", "user.organization",
+            removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
                     "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe");
     }
 

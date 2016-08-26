@@ -15,6 +15,9 @@ import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseActivity;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.LoginUserBean;
+import com.scau.easyfarm.bean.Notice;
+import com.scau.easyfarm.bean.Result;
+import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.CyptoUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
@@ -94,8 +97,32 @@ public class LoginActivity extends BaseActivity{
         mPassword = mEtPassword.getText().toString();
 
         showWaitDialog(R.string.progress_login);
-        EasyFarmServerApi.login(mUserName, mPassword, mHandler);
+//      EasyFarmServerApi.login(mUserName, mPassword, mHandler);
+//      测试start
+//      模拟登录成功，用户id为2012，用户名chh，密码123456
+        LoginUserBean loginUserBean = new LoginUserBean();
+        Result result = new Result();
+        result.setErrorCode(0);
+        result.setErrorMessage("");
+        loginUserBean.setResult(result);
+        Notice notice = new Notice();
+        notice.setAtmeCount(0);
+        notice.setMsgCount(0);
+        notice.setReviewCount(0);
+        loginUserBean.setNotice(notice);
+        User user = new User();
+        user.setLoginName("chh");
+        user.setPassword("123456");
+        user.setRoleName("expert");
+        user.setRealName("chh");
+        user.setSex("man");
+        user.setId(2012);
+        user.setAddress("");user.setAge(0);user.setDescription("");user.setEmail("");user.setOrganization("");user.setPhoneNumber("");user.setRememberMe(true);user.setTechType("");
+        loginUserBean.setUser(user);
+        handleLoginBean(loginUserBean);
+//      测试end
     }
+
 
     private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
 
@@ -123,6 +150,7 @@ public class LoginActivity extends BaseActivity{
 //  登录成功后的操作
     private void handleLoginSuccess() {
         Intent data = new Intent();
+        // 通知上一层activity登录成功
         data.putExtra(BUNDLE_KEY_REQUEST_CODE, requestCode);
         setResult(RESULT_OK, data);
 //      发送广播通知其他组件用户登录成功

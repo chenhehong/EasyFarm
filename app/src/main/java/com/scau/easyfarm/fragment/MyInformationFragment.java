@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.TypedValue;
@@ -20,16 +21,23 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Constants;
+import com.scau.easyfarm.bean.MyInformation;
 import com.scau.easyfarm.bean.Notice;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.ui.MainActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
+import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 import com.scau.easyfarm.widget.AvatarView;
 import com.scau.easyfarm.widget.BadgeView;
+
+import java.io.ByteArrayInputStream;
+import java.io.Serializable;
+import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,7 +53,6 @@ public class MyInformationFragment extends BaseFragment{
     AvatarView mIvAvatar;
     @InjectView(R.id.tv_name)
     TextView mTvName;
-    TextView mTvFans;
     @InjectView(R.id.tv_mes)
     View mMesView;
     @InjectView(R.id.error_layout)
@@ -61,6 +68,8 @@ public class MyInformationFragment extends BaseFragment{
     private boolean mIsWatingLogin;
 
     private User mInfo;
+//  缓存任务，用于异步操作用户的缓存信息
+    private AsyncTask<String, Void, User> mCacheTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +115,7 @@ public class MyInformationFragment extends BaseFragment{
             } else if (action.equals(Constants.INTENT_ACTION_USER_CHANGE)) {
                 requestData(true);
             } else if (action.equals(Constants.INTENT_ACTION_NOTICE)) {
-//                setNotice();
+                setNotice();
             }
         }
     };
@@ -115,17 +124,17 @@ public class MyInformationFragment extends BaseFragment{
     public void initView(View view) {
         mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mIvAvatar.setOnClickListener(this);
-//        mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (AppContext.getInstance().isLogin()) {
-////                  刷新数据
-//                    requestData(true);
-//                } else {
-//                    UIHelper.showLoginActivity(getActivity());
-//                }
-//            }
-//        });
+        mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AppContext.getInstance().isLogin()) {
+//                  刷新数据
+                    requestData(true);
+                } else {
+                    UIHelper.showLoginActivity(getActivity());
+                }
+            }
+        });
         view.findViewById(R.id.rl_message).setOnClickListener(this);
         view.findViewById(R.id.rl_setting).setOnClickListener(
             new View.OnClickListener() {
@@ -165,11 +174,12 @@ public class MyInformationFragment extends BaseFragment{
         if (AppContext.getInstance().isLogin()) {
             mIsWatingLogin = false;
             String key = getCacheKey();
+//          如果需要刷新或者有网络并且缓存没有数据
             if (refresh || TDevice.hasInternet()
                     && (!CacheManager.isExistDataCache(getActivity(), key))) {
                 sendRequestData();
             } else {
-//                readCacheData(key);
+                readCacheData(key);
             }
         } else {
             mIsWatingLogin = true;
@@ -177,19 +187,56 @@ public class MyInformationFragment extends BaseFragment{
         steupUser();
     }
 
+    private void readCacheData(String key) {
+        cancelReadCacheTask();
+        mCacheTask = new CacheTask(getActivity()).execute(key);
+    }
+
+    private void cancelReadCacheTask() {
+        if (mCacheTask != null) {
+            mCacheTask.cancel(true);
+            mCacheTask = null;
+        }
+    }
+
 //  发送用户信息获取请求
     private void sendRequestData() {
         int uid = AppContext.getInstance().getLoginUid();
         String userType = AppContext.getInstance().getRoleName();
-        EasyFarmServerApi.getMyInformation(uid, userType, mHandler);
+//      EasyFarmServerApi.getMyInformation(uid, userType, mHandler);
+//      测试start:
+//      模拟获取用户信息并填充组件
+        User user = new User();
+        user.setLoginName("chh");
+        user.setPassword("123456");
+        user.setRoleName("expert");
+        user.setRealName("chh");
+        user.setSex("man");
+        user.setId(2012);
+        user.setAddress("");user.setAge(0);user.setDescription("");user.setEmail("");user.setOrganization("");user.setPhoneNumber("");user.setRememberMe(true);user.setTechType("");
+        mInfo = user;
+        fillUI();
+        AppContext.getInstance().updateUserInfo(mInfo);
+        new SaveCacheTask(getActivity(), mInfo, getCacheKey())
+                .execute();
     }
+
 
 //  获取登录用户信息的handle
     private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
         @Override
         public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
             try {
-
+                mInfo = JsonUtils.toBean(MyInformation.class,
+                        new ByteArrayInputStream(arg2)).getUser();
+                if (mInfo != null) {
+                    fillUI();
+                    AppContext.getInstance().updateUserInfo(mInfo);
+                    new SaveCacheTask(getActivity(), mInfo, getCacheKey())
+                            .execute();
+                } else {
+                    onFailure(arg0, arg1, arg2, new Throwable());
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 onFailure(arg0, arg1, arg2, e);
@@ -201,13 +248,67 @@ public class MyInformationFragment extends BaseFragment{
                               Throwable arg3) {}
     };
 
+//  系统中每个用户信息缓存文件的cacheKey
     private String getCacheKey() {
-        return "my_information_" + AppContext.getInstance().getRoleName()+"_"+AppContext.getInstance().getLoginUid();
+        return "my_information" + AppContext.getInstance().getLoginUid();
+    }
+
+//  获取缓存数据并且进行操作的异步任务
+    private class CacheTask extends AsyncTask<String, Void, User> {
+        private final WeakReference<Context> mContext;
+
+        private CacheTask(Context context) {
+            mContext = new WeakReference<Context>(context);
+        }
+
+        @Override
+        protected User doInBackground(String... params) {
+            Serializable seri = CacheManager.readObject(mContext.get(),
+                    params[0]);
+            if (seri == null) {
+                return null;
+            } else {
+                return (User) seri;
+            }
+        }
+
+        // 读取数据成功之后就填充UI
+        @Override
+        protected void onPostExecute(User info) {
+            super.onPostExecute(info);
+            if (info != null) {
+                mInfo = info;
+                // mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+                // } else {
+                // mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
+                fillUI();
+            }
+        }
     }
 
     private void fillUI() {
         if (mInfo==null)
             return;
+        mTvName.setText(mInfo.getRealName());
+    }
+
+//  保存缓存数据的异步任务
+    private class SaveCacheTask extends AsyncTask<Void, Void, Void> {
+        private final WeakReference<Context> mContext;
+        private final Serializable seri;
+        private final String key;
+
+        private SaveCacheTask(Context context, Serializable seri, String key) {
+            mContext = new WeakReference<Context>(context);
+            this.seri = seri;
+            this.key = key;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            CacheManager.saveObject(mContext.get(), seri, key);
+            return null;
+        }
     }
 
     @Override
@@ -255,6 +356,12 @@ public class MyInformationFragment extends BaseFragment{
         } else {
             mMesCount.hide();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mReceiver);
     }
 
 }
