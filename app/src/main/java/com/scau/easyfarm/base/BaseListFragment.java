@@ -154,6 +154,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
         super.onDestroy();
     }
 
+//  任何子类只要写一个写一个继承ListBaseAdapter<T>的设配器，然后再实现一下getListAdapter把自己的设配器返回即可定义自己的设配器
     protected abstract ListBaseAdapter<T> getListAdapter();
 
     // 下拉刷新数据
@@ -368,6 +369,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
         }
     };
 
+//  数据获取成功后，将列表类数据data进行显示
     protected void executeOnLoadDataSuccess(List<T> data) {
         if (data == null) {
             data = new ArrayList<T>();

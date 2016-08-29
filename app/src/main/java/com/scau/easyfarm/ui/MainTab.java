@@ -5,7 +5,7 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.fragment.MyFunctionFragment;
 import com.scau.easyfarm.fragment.MyInformationFragment;
 import com.scau.easyfarm.viewpagerfragment.NewsViewPagerFragment;
-import com.scau.easyfarm.viewpagerfragment.QuestionViewPagerFragment;
+import com.scau.easyfarm.viewpagerfragment.TweetsViewPagerFragment;
 
 public enum MainTab {
 //  每一个代表一个MainTab对象
@@ -13,7 +13,7 @@ public enum MainTab {
 			MyFunctionFragment.class),
 
 	TWEET(1, R.string.main_tab_name_question, R.drawable.tab_icon_question,
-			QuestionViewPagerFragment.class),
+			TweetsViewPagerFragment.class),
 
 	QUICK(2, R.string.main_tab_name_quick, R.drawable.tab_icon_function,
 			null),

@@ -45,6 +45,12 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <!-- 比较常用的宽高 -->
+    <style name="wrap_wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="option_item_img">
         <item name="android:layout_width">28dp</item>
         <item name="android:layout_height">28dp</item>
@@ -118,6 +124,20 @@
     <style name="option_item_toggleButton">
         <item name="android:layout_width">45dp</item>
         <item name="android:layout_height">20dp</item>
+    </style>
+
+    <style name="user_face_image">
+        <item name="android:layout_width">40.0dip</item>
+        <item name="android:layout_height">40.0dip</item>
+        <item name="android:padding">1.0dip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:src">@drawable/widget_dface</item>
+    </style>
+
+    <style name="list_text_info" parent="@style/wrap_wrap">
+        <item name="android:textColor">?attr/infoTextColor</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
 

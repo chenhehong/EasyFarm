@@ -22,7 +22,7 @@ import org.kymjs.kjframe.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-//任何一个BaseListFragment的子类的适配器，只要继承ListBaseAdapter并复写它的getView方
+//任何一个BaseListFragment的子类的适配器，只要继承ListBaseAdapter并复写它的getRealView方
 //法就可以了
 public class ListBaseAdapter<T extends Entity> extends BaseAdapter {
 

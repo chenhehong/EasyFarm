@@ -17,5 +17,11 @@
         <item>相册</item>
         <item>相机</item>
     </string-array>
+
+    <string-array name="tweets_viewpage_arrays">
+        <item>最新问答</item>
+        <item>热门问答</item>
+        <item>我的问答</item>
+    </string-array>
     
 </resources>

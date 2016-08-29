@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.bean.Tweet;
 
@@ -97,5 +98,25 @@ public class EasyFarmServerApi {
         }
         ApiHttpClient.post("action/api/tweet_pub", params, handler);
     }
+
+    public static void deleteTweet(int uid, int tweetid,
+                                   AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", uid);
+        params.put("tweetid", tweetid);
+        ApiHttpClient.post("action/api/tweet_delete", params, handler);
+    }
+
+
+    public static void getTweetList(int uid, int page,
+                                    AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", uid);
+        params.put("pageIndex", page);
+        params.put("pageSize", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("action/api/tweet_list", params, handler);
+    }
+
+
 
 }

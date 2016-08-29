@@ -31,6 +31,7 @@ import android.widget.ZoomButtonsController;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
@@ -209,7 +210,26 @@ public class UIHelper {
 
 //  显示添加问答界面
     public static void showTweetPub(Context context) {
-        showSimpleBack(context,SimpleBackPage.TWEET_PUB);
+        showSimpleBack(context, SimpleBackPage.TWEET_PUB);
+    }
+
+    /**
+     * 显示问题详情
+     *
+     * @param context context
+     * @param tweetid 动弹的id
+     */
+    public static void showTweetDetail(Context context, Tweet tweet, int tweetid) {
+//        Intent intent = new Intent(context, DetailActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("tweet_id", tweetid);
+//        bundle.putInt(DetailActivity.BUNDLE_KEY_DISPLAY_TYPE,
+//                DetailActivity.DISPLAY_TWEET);
+//        if (tweet != null) {
+//            bundle.putParcelable("tweet", tweet);
+//        }
+//        intent.putExtras(bundle);
+//        context.startActivity(intent);
     }
 
 }
