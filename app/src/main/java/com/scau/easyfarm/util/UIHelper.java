@@ -32,6 +32,7 @@ import android.widget.ZoomButtonsController;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
+import com.scau.easyfarm.fragment.TweetTypeChooseFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
@@ -90,6 +91,30 @@ public class UIHelper {
         Intent intent = new Intent(context, SimpleBackActivity.class);
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
         context.startActivity(intent);
+    }
+
+    public static void showSimpleBackForResult(Fragment fragment,
+                                               int requestCode, SimpleBackPage page, Bundle args) {
+        Intent intent = new Intent(fragment.getActivity(),
+                SimpleBackActivity.class);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, args);
+        fragment.startActivityForResult(intent, requestCode);
+    }
+
+    public static void showSimpleBackForResult(Activity context,
+                                               int requestCode, SimpleBackPage page, Bundle args) {
+        Intent intent = new Intent(context, SimpleBackActivity.class);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, args);
+        context.startActivityForResult(intent, requestCode);
+    }
+
+    public static void showSimpleBackForResult(Activity context,
+                                               int requestCode, SimpleBackPage page) {
+        Intent intent = new Intent(context, SimpleBackActivity.class);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        context.startActivityForResult(intent, requestCode);
     }
 
     /**
@@ -230,6 +255,12 @@ public class UIHelper {
 //        }
 //        intent.putExtras(bundle);
 //        context.startActivity(intent);
+    }
+
+    public static void showManaulCotegory(Activity context, int parentId,int requestCode) {
+        Bundle args = new Bundle();
+        args.putInt(TweetTypeChooseFragment.MANUALCOTEGORYPARENT, parentId);
+        showSimpleBackForResult(context,requestCode,SimpleBackPage.TWEET_CHOOSE_TYPE, args);
     }
 
 }

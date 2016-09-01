@@ -140,5 +140,10 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <!-- 编辑栏样式-->
+    <style name="edit_text">
+        <item name="android:background">@drawable/bg_edittext</item>
+    </style>
+
 
 </resources>

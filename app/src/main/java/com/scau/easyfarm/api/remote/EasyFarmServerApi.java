@@ -117,6 +117,12 @@ public class EasyFarmServerApi {
         ApiHttpClient.get("action/api/tweet_list", params, handler);
     }
 
-
+    public static void getManualCatalogList(int parentId,int currenPage,int pageSize,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("parentId",parentId);
+        params.put("currenPage",currenPage);
+        params.put("pageSize",pageSize);
+        ApiHttpClient.post("",params,handler);
+    }
 
 }

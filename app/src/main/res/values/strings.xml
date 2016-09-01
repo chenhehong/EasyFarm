@@ -101,7 +101,11 @@
 
     <string name="actionbar_title_tweetpub">发布问答</string>
     <string name="tweet_public">发布问答</string>
-    <string name="tweet_hint">请输入你的问题</string>
+    <string name="tweet_content_hint">请输入你的问题</string>
+    <string name="tweet_title_hint">请输入你的标题</string>
+    <string name="tweet_type_hint">请选择类别</string>
+    <string name="tweet_type_choose">选择类别</string>
+    <string name="tweet_order_expert_hint">请选择询问的专家</string>
     <string name="tweet_publishing">正在发布你的问题…</string>
     <string name="tweet_publish_success">问题发布成功</string>
     <string name="tweet_publish_faile">发布问题失败</string>

@@ -62,20 +62,10 @@ public class TweetPubFragment extends BaseFragment{
 
     public static final String ACTION_TYPE = "action_type";
 
-    private static final int MAX_TEXT_LENGTH = 160;
-    private static final String TEXT_ATME = "@请选择专家 ";
-    private static final String TEXT_SOFTWARE = "#请输入话题#";
-
-    private static final int SELECT_FRIENDS_REEQUEST_CODE = 100;
+    private static final int MAX_TEXT_LENGTH = 500;
 
     @InjectView(R.id.ib_picture)
     ImageButton mIbPicture;
-
-    @InjectView(R.id.ib_mention)
-    ImageButton mIbMention;
-
-    @InjectView(R.id.ib_trend_topic)
-    ImageButton mIbTrendSoftware;
 
     @InjectView(R.id.tv_clear)
     TextView mTvClear;
@@ -88,6 +78,24 @@ public class TweetPubFragment extends BaseFragment{
 
     @InjectView(R.id.et_content)
     EditText mEtInput;
+
+    @InjectView(R.id.et_tweet_type)
+    EditText mEtType;
+
+    @InjectView(R.id.btn_tweet_type)
+    ImageView mImvType;
+
+    @InjectView(R.id.et_tweet_choose_expert)
+    EditText mEtChooseExpert;
+
+    @InjectView(R.id.btn_tweet_choose_expert)
+    ImageView mImvChooseExpert;
+
+    @InjectView(R.id.et_tweet_title)
+    EditText mEtTitle;
+
+    private String selectedTweetTypeName = "";
+    private int selectedTweetTypeId = 0;
 
     private MenuItem mSendMenu;
 
@@ -246,10 +254,10 @@ public class TweetPubFragment extends BaseFragment{
         ButterKnife.inject(this, view);
         setHasOptionsMenu(true);
         mIbPicture.setOnClickListener(this);
-        mIbMention.setOnClickListener(this);
-        mIbTrendSoftware.setOnClickListener(this);
         mTvClear.setOnClickListener(this);
         mTvClear.setText(String.valueOf(MAX_TEXT_LENGTH));
+        mImvType.setOnClickListener(this);
+        mImvChooseExpert.setOnClickListener(this);
         view.findViewById(R.id.iv_clear_img).setOnClickListener(this);
 
         mEtInput.addTextChangedListener(new SimpleTextWatcher() {
@@ -304,17 +312,21 @@ public class TweetPubFragment extends BaseFragment{
         final int id = v.getId();
         if (id == R.id.ib_picture) {
             handleSelectPicture();
-        } else if (id == R.id.ib_mention) {
-            handleSelectFriends();
-        } else if (id == R.id.ib_trend_topic) {
-            insertTrendTopic();
-        } else if (id == R.id.tv_clear) {
+        }else if (id == R.id.tv_clear) {
             handleClearWords();
         } else if (id == R.id.iv_clear_img) {
             mIvImage.setImageBitmap(null);
             mLyImage.setVisibility(View.GONE);
             imgFile = null;
+        }else if(id==R.id.btn_tweet_type){
+            handlerSelectType();
+        }else if(id==R.id.btn_tweet_choose_expert){
+
         }
+    }
+
+    public void handlerSelectType(){
+        UIHelper.showManaulCotegory(getActivity(),0,TweetTypeChooseFragment.TWEET_TYPE_CHOOSE_REQUEST_CODE);
     }
 
     @Override
@@ -323,18 +335,10 @@ public class TweetPubFragment extends BaseFragment{
         if (resultCode != Activity.RESULT_OK)
             return;
 //      如果是选择at专家的
-        if (requestCode == SELECT_FRIENDS_REEQUEST_CODE) {
-            //选中专家的名字
-            String names[] = imageReturnIntent.getStringArrayExtra("names");
-            if (names != null && names.length > 0) {
-                //拼成字符串
-                String text = "";
-                for (String n : names) {
-                    text += "@" + n + " ";
-                }
-                //插入到文本中
-                mEtInput.getText().insert(mEtInput.getSelectionStart(), text);
-            }
+        if (requestCode == TweetTypeChooseFragment.TWEET_TYPE_CHOOSE_REQUEST_CODE) {
+            selectedTweetTypeName = imageReturnIntent.getStringExtra(TweetTypeChooseFragment.SELECTED_MANUAL_COTEGORY_NAME);
+            selectedTweetTypeId = imageReturnIntent.getIntExtra(TweetTypeChooseFragment.SELECTED_MANUAL_COTEGORY_ID, 0);
+            mEtChooseExpert.setText(selectedTweetTypeName);
             return;
         }
         new Thread() {
@@ -445,19 +449,6 @@ public class TweetPubFragment extends BaseFragment{
         super.onResume();
     }
 
-    /**
-     * 跳转选择好友
-     */
-    private void handleSelectFriends() {
-        //如果没登录，则先去登录界面
-        if (!AppContext.getInstance().isLogin()) {
-            UIHelper.showLoginActivity(getActivity());
-            return;
-        }
-        Intent intent = new Intent(getActivity(), SelectExpertsActivity.class);
-        startActivityForResult(intent, SELECT_FRIENDS_REEQUEST_CODE);
-    }
-
     private void handleSelectPicture() {
         DialogHelp.getSelectDialog(getActivity(), getResources().getStringArray(R.array.choose_picture), new DialogInterface.OnClickListener() {
             @Override
@@ -520,32 +511,6 @@ public class TweetPubFragment extends BaseFragment{
             default:
                 break;
         }
-    }
-
-    private void insertTrendTopic() {
-        // 在光标所在处插入“#话题#”
-        int curTextLength = mEtInput.getText().length();
-        if (curTextLength >= MAX_TEXT_LENGTH)
-            return;
-        String software = TEXT_SOFTWARE;
-        int start, end;
-        if ((MAX_TEXT_LENGTH - curTextLength) >= software.length()) {
-            start = mEtInput.getSelectionStart() + 1;
-            end = start + software.length() - 2;
-        } else {
-            int num = MAX_TEXT_LENGTH - curTextLength;
-            if (num < software.length()) {
-                software = software.substring(0, num);
-            }
-            start = mEtInput.getSelectionStart() + 1;
-            end = start + software.length() - 1;
-        }
-        if (start > MAX_TEXT_LENGTH || end > MAX_TEXT_LENGTH) {
-            start = MAX_TEXT_LENGTH;
-            end = MAX_TEXT_LENGTH;
-        }
-        mEtInput.getText().insert(mEtInput.getSelectionStart(), software);
-        mEtInput.setSelection(start, end);// 设置选中文字
     }
 
     @Override

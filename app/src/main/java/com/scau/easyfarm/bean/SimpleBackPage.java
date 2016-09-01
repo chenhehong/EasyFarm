@@ -9,6 +9,7 @@ import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.SettingsFragment;
 import com.scau.easyfarm.fragment.SettingsNotificationFragment;
 import com.scau.easyfarm.fragment.TweetPubFragment;
+import com.scau.easyfarm.fragment.TweetTypeChooseFragment;
 import com.scau.easyfarm.fragment.UserCenterFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
 
@@ -26,7 +27,8 @@ public enum SimpleBackPage {
             MyInformationFragmentDetail.class),
     FEED_BACK(7, R.string.str_feedback_title, FeedBackFragment.class),
     CHANGE_PASSWORD(8,R.string.password_setting, ChangePasswordFragment.class),
-    TWEET_PUB(9, R.string.actionbar_title_tweetpub, TweetPubFragment.class);
+    TWEET_PUB(9, R.string.actionbar_title_tweetpub, TweetPubFragment.class),
+    TWEET_CHOOSE_TYPE(10, R.string.tweet_type_choose, TweetTypeChooseFragment.class);
 
     private int title;
     private Class<?> clz;
