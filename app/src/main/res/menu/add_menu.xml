@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- 设置showAsAction使得actionbar只显示图标，如果你为了兼容 Android 2.1 的版本使用了 Support 库，
+    在 android 命名空间下showAsAction 属性是不可用的。Support 库会提供替代它的属性，你必须声明自己的 XML 命名空间，并且使用该命名空间作为属性前缀。-->
+    <item
+        android:id="@+id/public_menu_add"
+        android:icon="@drawable/actionbar_icon_add"
+        android:title="添加"
+        android:visible="true"
+        app:showAsAction="always"/>
+
+</menu>

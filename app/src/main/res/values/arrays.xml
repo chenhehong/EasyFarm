@@ -23,5 +23,10 @@
         <item>热门问答</item>
         <item>我的问答</item>
     </string-array>
+
+    <string-array name="village_service_aply_viewpage_arrays">
+        <item>全部申请</item>
+        <item>已通过</item>
+    </string-array>
     
 </resources>

@@ -32,6 +32,7 @@ import android.widget.ZoomButtonsController;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
+import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.TweetTypeChooseFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
@@ -261,6 +262,15 @@ public class UIHelper {
         Bundle args = new Bundle();
         args.putInt(TweetTypeChooseFragment.MANUALCOTEGORYPARENT, parentId);
         showSimpleBackForResult(context,requestCode,SimpleBackPage.TWEET_CHOOSE_TYPE, args);
+    }
+
+    //  显示添加问答界面
+    public static void showVillageServiceApply(Context context) {
+        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_APPLY);
+    }
+
+    public static void showVillageServiceDetail(Context context, VillageService villageService, int villageServiceId) {
+
     }
 
 }
