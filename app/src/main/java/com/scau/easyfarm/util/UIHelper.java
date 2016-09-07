@@ -37,6 +37,7 @@ import com.scau.easyfarm.fragment.TweetTypeChooseFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
+import com.scau.easyfarm.ui.DetailActivity;
 import com.scau.easyfarm.ui.LoginActivity;
 import com.scau.easyfarm.ui.SimpleBackActivity;
 
@@ -246,16 +247,16 @@ public class UIHelper {
      * @param tweetid 动弹的id
      */
     public static void showTweetDetail(Context context, Tweet tweet, int tweetid) {
-//        Intent intent = new Intent(context, DetailActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("tweet_id", tweetid);
-//        bundle.putInt(DetailActivity.BUNDLE_KEY_DISPLAY_TYPE,
-//                DetailActivity.DISPLAY_TWEET);
-//        if (tweet != null) {
-//            bundle.putParcelable("tweet", tweet);
-//        }
-//        intent.putExtras(bundle);
-//        context.startActivity(intent);
+        Intent intent = new Intent(context, DetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("tweet_id", tweetid);
+        bundle.putInt(DetailActivity.BUNDLE_KEY_DISPLAY_TYPE,
+                DetailActivity.DISPLAY_TWEET);
+        if (tweet != null) {
+            bundle.putParcelable("tweet", tweet);
+        }
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     public static void showManaulCotegory(Activity context, int parentId,int requestCode) {
@@ -274,3 +275,17 @@ public class UIHelper {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

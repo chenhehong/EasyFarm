@@ -1,8 +1,6 @@
 package com.scau.easyfarm.bean;
 
 
-import org.w3c.dom.Comment;
-
 /**
  * 操作结果实体类
  * 

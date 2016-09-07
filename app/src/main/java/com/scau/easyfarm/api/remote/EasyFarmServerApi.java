@@ -122,7 +122,65 @@ public class EasyFarmServerApi {
         params.put("parentId",parentId);
         params.put("currenPage",currenPage);
         params.put("pageSize",pageSize);
-        ApiHttpClient.post("",params,handler);
+        ApiHttpClient.post("", params, handler);
+    }
+
+    public static void getTweetDetail(int id, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams("id", id);
+        ApiHttpClient.get("action/api/tweet_detail", params, handler);
+    }
+
+    /**
+     * 获取评论列表
+     *
+     * @PARAM ID
+     * @PARAM CATALOG
+     *            1新闻 2帖子 3动弹 4动态
+     * @PARAM PAGE
+     * @PARAM HANDLER
+     */
+    public static void getCommentList(int id, int catalog, int page,
+                                      AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("catalog", catalog);
+        params.put("id", id);
+        params.put("pageIndex", page);
+        params.put("pageSize", AppContext.PAGE_SIZE);
+        params.put("clientType", "android");
+        ApiHttpClient.get("action/api/comment_list", params, handler);
+    }
+
+    public static void deleteComment(int id, int catalog, int replyid,
+                                     int authorid, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("id", id);
+        params.put("catalog", catalog);
+        params.put("replyid", replyid);
+        params.put("authorid", authorid);
+        ApiHttpClient.post("action/api/comment_delete", params, handler);
+    }
+
+    public static void replyComment(int id, int catalog, int replyid,
+                                    int authorid, int uid, String content,
+                                    AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("catalog", catalog);
+        params.put("id", id);
+        params.put("uid", uid);
+        params.put("content", content);
+        params.put("replyid", replyid);
+        params.put("authorid", authorid);
+        ApiHttpClient.post("action/api/comment_reply", params, handler);
+    }
+
+    public static void publicComment(int catalog, int id, int uid,
+                                     String content, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("catalog", catalog);
+        params.put("id", id);
+        params.put("uid", uid);
+        params.put("content", content);
+        ApiHttpClient.post("action/api/comment_pub", params, handler);
     }
 
 }

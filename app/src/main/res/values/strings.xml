@@ -114,6 +114,7 @@
     <string name="choose_picture">选择图片</string>
     <string name="tip_content_empty">内容不能为空</string>
     <string name="tip_content_too_long">内容太长</string>
+    <string name="actionbar_tweet_detail">问答详情</string>
 
     <string name="fa_thumbs_o_up">\uf087</string>
 
@@ -125,5 +126,25 @@
 
     <string name="village_service_apply_list">下乡申请</string>
     <string name="village_service_apply_add">添加下乡申请</string>
+
+    <string name="actionbar_title_detail">详情</string>
+
+    <string name="actionbar_title_question_tag">%s相关</string>
+    <string name="comment_count">评论(%s)</string>
+    <string name="comment_empty">暂无评论</string>
+    <string name="answer_count">回复(%s)</string>
+    <string name="post_answer">回复</string>
+    <string name="comment_reply_count">---共有%s条回复---</string>
+    <string name="comment_refer_author">引用来自%s的评论</string>
+    <string name="tip_comment_content_empty">评论内容不能为空</string>
+
+    <!-- notification messages -->
+    <string name="comment_blog">发布评论</string>
+    <string name="comment_publishing">正在发布你的评论…</string>
+    <string name="comment_publish_success">评论成功</string>
+    <string name="comment_publish_faile">评论失败</string>
+
+    <string name="progress_submit">正在提交…</string>
+
 
 </resources>

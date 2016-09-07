@@ -63,6 +63,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
     }
 
     @Override
+//  重载设置子类的列表适配器
     protected VillageServiceAdapter getListAdapter() {
         return new VillageServiceAdapter();
     }
