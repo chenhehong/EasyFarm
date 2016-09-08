@@ -1,11 +1,8 @@
-package com.scau.easyfarm.fragment;
+package com.scau.easyfarm.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,8 +10,7 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ManualCategoryListAdapter;
-import com.scau.easyfarm.api.remote.EasyFarmServerApi;
-import com.scau.easyfarm.base.BaseFragment;
+import com.scau.easyfarm.base.BaseActivity;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.ManualCategory;
@@ -32,11 +28,12 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by chenhehong on 2016/9/1.
  */
-public class TweetTypeChooseFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
+public class TweetTypeChooseActivity extends BaseActivity implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
 
     protected static final int STATE_NONE = 0;
     protected static final int STATE_REFRESH = 1;
     protected static final int STATE_LOADMORE = 2;
+    public static final int STATE_NOMORE = 3;
 
     public static final int TWEET_TYPE_CHOOSE_REQUEST_CODE = 100;
 
@@ -50,7 +47,8 @@ public class TweetTypeChooseFragment extends BaseFragment implements AdapterView
     private ManualCategoryListAdapter manualCategoryListAdapter;
     private ListView manualCategoryListView;
     private static int mState = STATE_NONE;
-    private int currenPage=1;
+//  后面以currenPage==0判断为第一次加载数据列表
+    private int currenPage;
     private int pageSize=20;
 
 
@@ -79,6 +77,30 @@ public class TweetTypeChooseFragment extends BaseFragment implements AdapterView
             mState = STATE_NONE;
         }
     };
+
+    @Override
+    public void initView() {
+        mEmptyView = (EmptyLayout) findViewById(R.id.error_layout);
+        manualCategoryListView = (ListView) findViewById(R.id.lv_manual_catalog);
+        manualCategoryListView.setOnItemClickListener(manualCategoryOnItemClick);
+
+        if (manualCategoryListAdapter==null){
+            manualCategoryListAdapter = new ManualCategoryListAdapter();
+        }
+        manualCategoryListView.setAdapter(manualCategoryListAdapter);
+    }
+
+    @Override
+    public void initData() {
+        Intent intent = getIntent();
+        parentId = intent.getIntExtra(MANUALCOTEGORYPARENT, 0);
+        sendRequestManualCatalogData();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_manual_cotegory_list;
+    }
 
     private void executeOnLoadDataSuccess(List<ManualCategory> data) {
         if (data == null) {
@@ -115,41 +137,10 @@ public class TweetTypeChooseFragment extends BaseFragment implements AdapterView
         return false;
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
-        if (bundle!=null){
-            parentId = bundle.getInt(MANUALCOTEGORYPARENT);
-        }
-        View view = inflater.inflate(R.layout.fragment_manual_cotegory_list, container,
-                false);
-        initView(view);
-        return view;
-    }
-
-    @Override
-    public void initView(View view) {
-        mEmptyView = (EmptyLayout) view.findViewById(R.id.error_layout);
-        manualCategoryListView = (ListView) view.findViewById(R.id.lv_manual_catalog);
-        manualCategoryListView.setOnItemClickListener(manualCategoryOnItemClick);
-
-        if (manualCategoryListAdapter==null){
-            manualCategoryListAdapter = new ManualCategoryListAdapter();
-        }
-        manualCategoryListView.setAdapter(manualCategoryListAdapter);
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        sendRequestManualCatalogData();
-    }
-
     private void sendRequestManualCatalogData() {
         mState = STATE_REFRESH;
         mEmptyView.setErrorType(EmptyLayout.NETWORK_LOADING);
-//        EasyFarmServerApi.getManualCatalogList(parentId, currenPage,pageSize,mHandler);
+//      EasyFarmServerApi.getManualCatalogList(parentId, currenPage,pageSize,mHandler);
 //      测试start
         ManualCategory m1 = new ManualCategory();
         m1.setCategoryName("畜牧");
@@ -157,7 +148,7 @@ public class TweetTypeChooseFragment extends BaseFragment implements AdapterView
         m1.setId(2012);
         ManualCategory m2 = new ManualCategory();
         m2.setCategoryName("水稻");
-        m2.setIsParent(false);
+        m2.setIsParent(true);
         m2.setId(2013);
         List<ManualCategory> mList = new ArrayList<ManualCategory>();
         mList.add(m1);mList.add(m2);
@@ -171,14 +162,15 @@ public class TweetTypeChooseFragment extends BaseFragment implements AdapterView
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
             ManualCategory selectManualCategory = (ManualCategory)manualCategoryListAdapter.getItem(position);
+            if (selectManualCategory==null) return;
             if (selectManualCategory.isParent()){
-                UIHelper.showManaulCotegory(getActivity(),selectManualCategory.getId(),TWEET_TYPE_CHOOSE_REQUEST_CODE);
+                UIHelper.showTweetTypeChoose(TweetTypeChooseActivity.this, selectManualCategory.getId(), TWEET_TYPE_CHOOSE_REQUEST_CODE);
             }else {
                 Intent result = new Intent();
                 result.putExtra(SELECTED_MANUAL_COTEGORY_ID, selectManualCategory.getId());
                 result.putExtra(SELECTED_MANUAL_COTEGORY_NAME, selectManualCategory.getCategoryName());
-                getActivity().setResult(getActivity().RESULT_OK, result);
-                getActivity().finish();
+                setResult(RESULT_OK, result);
+                finish();
             }
         }
     };
@@ -194,8 +186,8 @@ public class TweetTypeChooseFragment extends BaseFragment implements AdapterView
             Intent result = new Intent();
             result.putExtra(SELECTED_MANUAL_COTEGORY_ID, selectedManualCoregoryId);
             result.putExtra(SELECTED_MANUAL_COTEGORY_NAME, selectedManualcoregoryName);
-            getActivity().setResult(getActivity().RESULT_OK, result);
-            getActivity().finish();
+            setResult(RESULT_OK, result);
+            finish();
         }
     }
 
@@ -229,5 +221,26 @@ public class TweetTypeChooseFragment extends BaseFragment implements AdapterView
                 sendRequestManualCatalogData();
             }
         }
+    }
+
+    @Override
+    protected boolean hasBackButton() {
+        return true;
+    }
+
+    @Override
+    protected int getActionBarTitle() {
+        return R.string.tweet_type_choose;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

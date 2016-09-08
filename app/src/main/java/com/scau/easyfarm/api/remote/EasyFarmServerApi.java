@@ -125,6 +125,14 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("", params, handler);
     }
 
+    public static void getExpertList(int typeId,int currenPage,int pageSize,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("typeId",typeId);
+        params.put("currenPage",currenPage);
+        params.put("pageSize",pageSize);
+        ApiHttpClient.post("", params, handler);
+    }
+
     public static void getTweetDetail(int id, AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams("id", id);
         ApiHttpClient.get("action/api/tweet_detail", params, handler);

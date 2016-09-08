@@ -26,13 +26,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.service.ServerTaskUtils;
-import com.scau.easyfarm.ui.SelectExpertsActivity;
+import com.scau.easyfarm.ui.TweetTypeChooseActivity;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.FileUtil;
 import com.scau.easyfarm.util.ImageUtils;
@@ -96,6 +97,8 @@ public class TweetPubFragment extends BaseFragment{
 
     private String selectedTweetTypeName = "";
     private int selectedTweetTypeId = 0;
+    private String selectedExpertName = "";
+    private int selectedExpertId = 0;
 
     private MenuItem mSendMenu;
 
@@ -136,12 +139,12 @@ public class TweetPubFragment extends BaseFragment{
         if (mSendMenu == null) {
             return;
         }
-        if (mEtInput.getText().length() == 0) {
-            mSendMenu.setEnabled(false);
-            mSendMenu.setIcon(R.drawable.actionbar_unsend_icon);
-        } else {
+        if (mEtInput.getText().length() > 0&&mEtTitle.getText().length()>0&&mEtChooseExpert.getText().length()>0&&mEtType.getText().length()>0) {
             mSendMenu.setEnabled(true);
             mSendMenu.setIcon(R.drawable.actionbar_send_icon);
+        } else {
+            mSendMenu.setEnabled(false);
+            mSendMenu.setIcon(R.drawable.actionbar_unsend_icon);
         }
     }
 
@@ -268,6 +271,27 @@ public class TweetPubFragment extends BaseFragment{
                 updateMenuState();
             }
         });
+        mEtChooseExpert.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                updateMenuState();
+            }
+        });
+        mEtType.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                updateMenuState();
+            }
+        });
+        mEtTitle.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                updateMenuState();
+            }
+        });
         // 获取保存的tweet草稿
         mEtInput.setText(AppContext.getTweetDraft());
         mEtInput.setSelection(mEtInput.getText().toString().length());
@@ -321,12 +345,24 @@ public class TweetPubFragment extends BaseFragment{
         }else if(id==R.id.btn_tweet_type){
             handlerSelectType();
         }else if(id==R.id.btn_tweet_choose_expert){
-
+            handleSelectExpert();
         }
     }
 
     public void handlerSelectType(){
-        UIHelper.showManaulCotegory(getActivity(),0,TweetTypeChooseFragment.TWEET_TYPE_CHOOSE_REQUEST_CODE);
+        Intent intent = new Intent(getActivity(), TweetTypeChooseActivity.class);
+        Bundle args = new Bundle();
+        args.putInt(TweetTypeChooseActivity.MANUALCOTEGORYPARENT, 0);
+        intent.putExtras(args);
+        startActivityForResult(intent, TweetTypeChooseActivity.TWEET_TYPE_CHOOSE_REQUEST_CODE);
+    }
+
+    public void handleSelectExpert(){
+        if (selectedTweetTypeId<1){
+            AppContext.showToastShort("请选择问答所属类别后再选择专家");
+            return;
+        }
+        UIHelper.showTweetExpertChoose(this,selectedTweetTypeId,TweetExpertChooseFragment.TWEET_EXPERT_CHOOSE_REQUEST_CODE);
     }
 
     @Override
@@ -335,10 +371,15 @@ public class TweetPubFragment extends BaseFragment{
         if (resultCode != Activity.RESULT_OK)
             return;
 //      如果是选择at专家的
-        if (requestCode == TweetTypeChooseFragment.TWEET_TYPE_CHOOSE_REQUEST_CODE) {
-            selectedTweetTypeName = imageReturnIntent.getStringExtra(TweetTypeChooseFragment.SELECTED_MANUAL_COTEGORY_NAME);
-            selectedTweetTypeId = imageReturnIntent.getIntExtra(TweetTypeChooseFragment.SELECTED_MANUAL_COTEGORY_ID, 0);
-            mEtChooseExpert.setText(selectedTweetTypeName);
+        if (requestCode == TweetTypeChooseActivity.TWEET_TYPE_CHOOSE_REQUEST_CODE) {
+            selectedTweetTypeName = imageReturnIntent.getStringExtra(TweetTypeChooseActivity.SELECTED_MANUAL_COTEGORY_NAME);
+            selectedTweetTypeId = imageReturnIntent.getIntExtra(TweetTypeChooseActivity.SELECTED_MANUAL_COTEGORY_ID, 0);
+            mEtType.setText(selectedTweetTypeName);
+            return;
+        }else if (requestCode==TweetExpertChooseFragment.TWEET_EXPERT_CHOOSE_REQUEST_CODE){
+            selectedExpertName = imageReturnIntent.getStringExtra(TweetExpertChooseFragment.SELECT_TWEET_EXPERT_NAME);
+            selectedExpertId = imageReturnIntent.getIntExtra(TweetExpertChooseFragment.SELECT_TWEET_EXPERT_ID, 0);
+            mEtChooseExpert.setText(selectedExpertName);
             return;
         }
         new Thread() {

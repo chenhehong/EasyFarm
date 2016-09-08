@@ -53,6 +53,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".ui.TweetTypeChooseActivity"
+            android:label="选择问答类别"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".ui.SimpleBackActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" >

@@ -1,50 +1,28 @@
 package com.scau.easyfarm.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.ForegroundColorSpan;
-import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ZoomButtonsController;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
-import com.scau.easyfarm.fragment.TweetTypeChooseFragment;
+import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
+import com.scau.easyfarm.ui.TweetTypeChooseActivity;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
 import com.scau.easyfarm.ui.DetailActivity;
 import com.scau.easyfarm.ui.LoginActivity;
 import com.scau.easyfarm.ui.SimpleBackActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.URLDecoder;
 
 /**
  * 界面帮助类
@@ -259,10 +237,18 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-    public static void showManaulCotegory(Activity context, int parentId,int requestCode) {
+    public static void showTweetTypeChoose(Activity context, int parentId, int requestCode) {
+        Intent intent = new Intent(context,TweetTypeChooseActivity.class);
         Bundle args = new Bundle();
-        args.putInt(TweetTypeChooseFragment.MANUALCOTEGORYPARENT, parentId);
-        showSimpleBackForResult(context,requestCode,SimpleBackPage.TWEET_CHOOSE_TYPE, args);
+        args.putInt(TweetTypeChooseActivity.MANUALCOTEGORYPARENT, parentId);
+        intent.putExtras(args);
+        context.startActivityForResult(intent, requestCode);
+    }
+
+    public static void showTweetExpertChoose(Fragment fragment, int typeId, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(TweetExpertChooseFragment.TWEET_EXPERT_MANUAL_TYPE,typeId);
+        showSimpleBackForResult(fragment, requestCode,SimpleBackPage.TWEET_CHOOSE_EXPERT,bundle );
     }
 
     //  显示添加问答界面
@@ -273,6 +259,8 @@ public class UIHelper {
     public static void showVillageServiceDetail(Context context, VillageService villageService, int villageServiceId) {
 
     }
+
+
 
 }
 

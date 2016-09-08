@@ -8,8 +8,9 @@ import com.scau.easyfarm.fragment.FeedBackFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.SettingsFragment;
 import com.scau.easyfarm.fragment.SettingsNotificationFragment;
+import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.TweetPubFragment;
-import com.scau.easyfarm.fragment.TweetTypeChooseFragment;
+import com.scau.easyfarm.ui.TweetTypeChooseActivity;
 import com.scau.easyfarm.fragment.UserCenterFragment;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
@@ -30,9 +31,9 @@ public enum SimpleBackPage {
     FEED_BACK(7, R.string.str_feedback_title, FeedBackFragment.class),
     CHANGE_PASSWORD(8,R.string.password_setting, ChangePasswordFragment.class),
     TWEET_PUB(9, R.string.actionbar_title_tweetpub, TweetPubFragment.class),
-    TWEET_CHOOSE_TYPE(10, R.string.tweet_type_choose, TweetTypeChooseFragment.class),
-    VILLAGE_SERVICE_APPLY(11, R.string.village_service_apply, VillageServiceApplyViewPagerFragment.class),
-    VILLAGE_SERVICE_ADD(12,R.string.village_service_apply_add, VillageServiceAddFragment.class);
+    VILLAGE_SERVICE_APPLY(10, R.string.village_service_apply, VillageServiceApplyViewPagerFragment.class),
+    VILLAGE_SERVICE_ADD(11,R.string.village_service_apply_add, VillageServiceAddFragment.class),
+    TWEET_CHOOSE_EXPERT(12,R.string.tweet_expert_choose, TweetExpertChooseFragment.class);
 
     private int title;
     private Class<?> clz;
