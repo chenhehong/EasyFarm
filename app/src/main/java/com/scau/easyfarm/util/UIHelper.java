@@ -15,9 +15,10 @@ import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
+import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
-import com.scau.easyfarm.ui.TweetTypeChooseActivity;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
@@ -66,6 +67,20 @@ public class UIHelper {
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, args);
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
         context.startActivity(intent);
+    }
+
+    public static void showSimpleBack(Fragment fragment, SimpleBackPage page) {
+        Intent intent = new Intent(fragment.getActivity(), SimpleBackActivity.class);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        fragment.startActivity(intent);
+    }
+
+    public static void showSimpleBack(Fragment fragment, SimpleBackPage page,
+                                      Bundle args) {
+        Intent intent = new Intent(fragment.getActivity(), SimpleBackActivity.class);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, args);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        fragment.startActivity(intent);
     }
 
     public static void showSimpleBack(Context context, SimpleBackPage page) {
@@ -246,12 +261,10 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-    public static void showTweetTypeChoose(Activity context, int parentId, int requestCode) {
-        Intent intent = new Intent(context,TweetTypeChooseActivity.class);
+    public static void showTweetTypeChoose(Fragment fragment, int parentId, int requestCode) {
         Bundle args = new Bundle();
-        args.putInt(TweetTypeChooseActivity.MANUALCOTEGORYPARENT, parentId);
-        intent.putExtras(args);
-        context.startActivityForResult(intent, requestCode);
+        args.putInt(TweetChooseManualCategoryFragment.MANUALCOTEGORYPARENT, parentId);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.TWEET_CHOOSE_TYPE, args);
     }
 
     public static void showTweetExpertChoose(Fragment fragment, int typeId, int requestCode) {
@@ -272,9 +285,18 @@ public class UIHelper {
     }
 
     public static void showAreaChoose(Fragment fragment, int requestCode) {
-        showSimpleBackForResult(fragment, requestCode,SimpleBackPage.CHOOSE_AREA);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_AREA);
     }
 
+    public static void showManualCategory(Fragment fragment,int parentId){
+        Bundle budle = new Bundle();
+        budle.putInt(BaseManualCategoryListFragment.MANUALCOTEGORYPARENT,parentId);
+        showSimpleBack(fragment, SimpleBackPage.CHOOSE_MANUAL_CATEGORY, budle);
+    }
+
+    public static void showManualList(Fragment fragment,int parentId){
+
+    }
 
 
 }

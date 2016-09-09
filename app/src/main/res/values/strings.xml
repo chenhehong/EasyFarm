@@ -149,5 +149,7 @@
 
     <string name="progress_submit">正在提交…</string>
 
+    <string name="manualcategory_actionbar_title">选择类别</string>
+
 
 </resources>

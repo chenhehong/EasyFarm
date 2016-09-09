@@ -77,6 +77,6 @@ public class MyFunctionFragment extends BaseFragment{
     }
 
     private void showKnowledgeBase(){
-
+        UIHelper.showManualCategory(this,0);
     }
 }

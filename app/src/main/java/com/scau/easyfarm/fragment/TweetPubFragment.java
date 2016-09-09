@@ -33,7 +33,6 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.service.ServerTaskUtils;
-import com.scau.easyfarm.ui.TweetTypeChooseActivity;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.FileUtil;
 import com.scau.easyfarm.util.ImageUtils;
@@ -350,11 +349,7 @@ public class TweetPubFragment extends BaseFragment{
     }
 
     public void handlerSelectType(){
-        Intent intent = new Intent(getActivity(), TweetTypeChooseActivity.class);
-        Bundle args = new Bundle();
-        args.putInt(TweetTypeChooseActivity.MANUALCOTEGORYPARENT, 0);
-        intent.putExtras(args);
-        startActivityForResult(intent, TweetTypeChooseActivity.TWEET_TYPE_CHOOSE_REQUEST_CODE);
+        UIHelper.showTweetTypeChoose(this,0,TweetChooseManualCategoryFragment.MANUAL_COTEGORY_LIST_REQUEST_CODE);
     }
 
     public void handleSelectExpert(){
@@ -371,9 +366,9 @@ public class TweetPubFragment extends BaseFragment{
         if (resultCode != Activity.RESULT_OK)
             return;
 //      如果是选择at专家的
-        if (requestCode == TweetTypeChooseActivity.TWEET_TYPE_CHOOSE_REQUEST_CODE) {
-            selectedTweetTypeName = imageReturnIntent.getStringExtra(TweetTypeChooseActivity.SELECTED_MANUAL_COTEGORY_NAME);
-            selectedTweetTypeId = imageReturnIntent.getIntExtra(TweetTypeChooseActivity.SELECTED_MANUAL_COTEGORY_ID, 0);
+        if (requestCode == TweetChooseManualCategoryFragment.MANUAL_COTEGORY_LIST_REQUEST_CODE) {
+            selectedTweetTypeName = imageReturnIntent.getStringExtra(TweetChooseManualCategoryFragment.SELECTED_MANUAL_COTEGORY_NAME);
+            selectedTweetTypeId = imageReturnIntent.getIntExtra(TweetChooseManualCategoryFragment.SELECTED_MANUAL_COTEGORY_ID, 0);
             mEtType.setText(selectedTweetTypeName);
             return;
         }else if (requestCode==TweetExpertChooseFragment.TWEET_EXPERT_CHOOSE_REQUEST_CODE){
