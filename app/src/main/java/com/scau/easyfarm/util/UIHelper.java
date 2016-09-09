@@ -16,6 +16,7 @@ import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
+import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.ui.TweetTypeChooseActivity;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
@@ -264,8 +265,10 @@ public class UIHelper {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_APPLY);
     }
 
-    public static void showVillageServiceDetail(Context context, VillageService villageService, int villageServiceId) {
-
+    public static void showVillageServiceDetail(Context context, int villageServiceId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
+        showSimpleBack(context,SimpleBackPage.VILLAGE_SERVICE_DETAIL,bundle);
     }
 
     public static void showAreaChoose(Fragment fragment, int requestCode) {

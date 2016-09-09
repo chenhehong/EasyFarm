@@ -197,4 +197,10 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("",params,handler);
     }
 
+    public static void getVillageServiceDetail(int id,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("id",id);
+        ApiHttpClient.post("",params,handler);
+    }
+
 }

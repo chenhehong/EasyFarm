@@ -1,5 +1,6 @@
 package com.scau.easyfarm.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class VillageService extends Entity {
     private String returnDate;
     private String businessReason;
     private int status;
-    List<VillageServiceOpinion> villageServiceOpinions;
-    List<User> villageServicePerson;
+    List<VillageServiceOpinion> villageServiceOpinions = new ArrayList<VillageServiceOpinion>();
+    List<User> villageServicePerson = new ArrayList<User>();
 
     public int getApplyManId() {
         return applyManId;

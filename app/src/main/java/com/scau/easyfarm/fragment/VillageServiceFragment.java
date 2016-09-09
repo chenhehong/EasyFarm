@@ -171,7 +171,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
                             long id) {
         VillageService villageService = mAdapter.getItem(position);
         if (villageService != null) {
-            UIHelper.showVillageServiceDetail(view.getContext(), null, villageService.getId());
+            UIHelper.showVillageServiceDetail(view.getContext(), villageService.getId());
         }
     }
 

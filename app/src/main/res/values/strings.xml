@@ -130,6 +130,7 @@
     <string name="village_service_apply_add">添加下乡申请</string>
 
     <string name="actionbar_title_detail">详情</string>
+    <string name="village_service_detail">下乡详情</string>
 
     <string name="actionbar_title_question_tag">%s相关</string>
     <string name="comment_count">评论(%s)</string>

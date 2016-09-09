@@ -11,6 +11,7 @@ import com.scau.easyfarm.fragment.SettingsFragment;
 import com.scau.easyfarm.fragment.SettingsNotificationFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.TweetPubFragment;
+import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.ui.TweetTypeChooseActivity;
 import com.scau.easyfarm.fragment.UserCenterFragment;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
@@ -35,7 +36,8 @@ public enum SimpleBackPage {
     VILLAGE_SERVICE_APPLY(10, R.string.village_service_apply, VillageServiceApplyViewPagerFragment.class),
     VILLAGE_SERVICE_ADD(11,R.string.village_service_apply_add, VillageServiceAddFragment.class),
     TWEET_CHOOSE_EXPERT(12,R.string.tweet_expert_choose, TweetExpertChooseFragment.class),
-    CHOOSE_AREA(13,R.string.area_choose, AreaCatalogListFragment.class);
+    CHOOSE_AREA(13,R.string.area_choose, AreaCatalogListFragment.class),
+    VILLAGE_SERVICE_DETAIL(14,R.string.village_service_detail, VillageServiceDetailFragment.class);
 
     private int title;
     private Class<?> clz;
