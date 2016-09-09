@@ -82,6 +82,14 @@ public class UIHelper {
         fragment.startActivityForResult(intent, requestCode);
     }
 
+    public static void showSimpleBackForResult(Fragment fragment,
+                                               int requestCode, SimpleBackPage page) {
+        Intent intent = new Intent(fragment.getActivity(),
+                SimpleBackActivity.class);
+        intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
+        fragment.startActivityForResult(intent, requestCode);
+    }
+
     public static void showSimpleBackForResult(Activity context,
                                                int requestCode, SimpleBackPage page, Bundle args) {
         Intent intent = new Intent(context, SimpleBackActivity.class);
@@ -247,8 +255,8 @@ public class UIHelper {
 
     public static void showTweetExpertChoose(Fragment fragment, int typeId, int requestCode) {
         Bundle bundle = new Bundle();
-        bundle.putInt(TweetExpertChooseFragment.TWEET_EXPERT_MANUAL_TYPE,typeId);
-        showSimpleBackForResult(fragment, requestCode,SimpleBackPage.TWEET_CHOOSE_EXPERT,bundle );
+        bundle.putInt(TweetExpertChooseFragment.TWEET_EXPERT_MANUAL_TYPE, typeId);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.TWEET_CHOOSE_EXPERT, bundle);
     }
 
     //  显示添加问答界面
@@ -258,6 +266,10 @@ public class UIHelper {
 
     public static void showVillageServiceDetail(Context context, VillageService villageService, int villageServiceId) {
 
+    }
+
+    public static void showAreaChoose(Fragment fragment, int requestCode) {
+        showSimpleBackForResult(fragment, requestCode,SimpleBackPage.CHOOSE_AREA);
     }
 
 

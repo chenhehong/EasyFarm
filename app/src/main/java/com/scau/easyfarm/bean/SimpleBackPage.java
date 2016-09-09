@@ -3,6 +3,7 @@ package com.scau.easyfarm.bean;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.fragment.AboutAppFragment;
+import com.scau.easyfarm.fragment.AreaCatalogListFragment;
 import com.scau.easyfarm.fragment.ChangePasswordFragment;
 import com.scau.easyfarm.fragment.FeedBackFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
@@ -33,7 +34,8 @@ public enum SimpleBackPage {
     TWEET_PUB(9, R.string.actionbar_title_tweetpub, TweetPubFragment.class),
     VILLAGE_SERVICE_APPLY(10, R.string.village_service_apply, VillageServiceApplyViewPagerFragment.class),
     VILLAGE_SERVICE_ADD(11,R.string.village_service_apply_add, VillageServiceAddFragment.class),
-    TWEET_CHOOSE_EXPERT(12,R.string.tweet_expert_choose, TweetExpertChooseFragment.class);
+    TWEET_CHOOSE_EXPERT(12,R.string.tweet_expert_choose, TweetExpertChooseFragment.class),
+    CHOOSE_AREA(13,R.string.area_choose, AreaCatalogListFragment.class);
 
     private int title;
     private Class<?> clz;

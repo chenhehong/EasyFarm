@@ -223,5 +223,28 @@
         <item name="android:src">@drawable/widget_dface</item>
     </style>
 
+    <style name="village_service_add_layout">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="village_service_add_left_textview">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">75px</item>
+        <item name="android:gravity">center|right</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="village_service_add_edittext">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/bg_edittext</item>
+    </style>
+
 
 </resources>

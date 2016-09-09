@@ -191,4 +191,10 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("action/api/comment_pub", params, handler);
     }
 
+    public static void getAreaList(int jsonId,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("jsonId",jsonId);
+        ApiHttpClient.post("",params,handler);
+    }
+
 }
