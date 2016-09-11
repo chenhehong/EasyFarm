@@ -150,6 +150,8 @@
     <string name="progress_submit">正在提交…</string>
 
     <string name="manualcategory_actionbar_title">选择类别</string>
+    <string name="manuallist_actionbar_title">知识库列表</string>
+    <string name="manualdetail_actionbar_title">知识库详情</string>
 
 
 </resources>

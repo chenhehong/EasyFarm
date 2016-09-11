@@ -153,8 +153,20 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
         User m2 = new User();
         m2.setRealName("李林");
         m2.setId(2013);
+        User m3 = new User();
+        m3.setRealName("李刚");
+        m3.setId(2014);
+        User m4 = new User();
+        m4.setRealName("刘备");
+        m4.setId(2015);
+        User m5 = new User();
+        m5.setRealName("项羽");
+        m5.setId(2016);
+        User m6 = new User();
+        m6.setRealName("孙权");
+        m6.setId(2017);
         List<User> mList = new ArrayList<User>();
-        mList.add(m1);mList.add(m2);
+        mList.add(m1);mList.add(m2);mList.add(m3);mList.add(m4);mList.add(m5);mList.add(m6);
         executeOnLoadDataSuccess(mList);
 //      测试end
     }

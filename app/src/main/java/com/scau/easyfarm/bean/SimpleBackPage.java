@@ -7,6 +7,8 @@ import com.scau.easyfarm.fragment.AreaCatalogListFragment;
 import com.scau.easyfarm.fragment.ChangePasswordFragment;
 import com.scau.easyfarm.fragment.ChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.FeedBackFragment;
+import com.scau.easyfarm.fragment.ManualContentDetailFragment;
+import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.SettingsFragment;
 import com.scau.easyfarm.fragment.SettingsNotificationFragment;
@@ -40,7 +42,9 @@ public enum SimpleBackPage {
     CHOOSE_AREA(13,R.string.area_choose, AreaCatalogListFragment.class),
     VILLAGE_SERVICE_DETAIL(14,R.string.village_service_detail, VillageServiceDetailFragment.class),
     TWEET_CHOOSE_TYPE(15,R.string.tweet_type_choose, TweetChooseManualCategoryFragment.class),
-    CHOOSE_MANUAL_CATEGORY(16,R.string.manualcategory_actionbar_title, ChooseManualCategoryFragment.class);
+    CHOOSE_MANUAL_CATEGORY(16,R.string.manualcategory_actionbar_title, ChooseManualCategoryFragment.class),
+    MANUAL_LIST(17,R.string.manuallist_actionbar_title, ManualListFragment.class),
+    MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class);
 
     private int title;
     private Class<?> clz;

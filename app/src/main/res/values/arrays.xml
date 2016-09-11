@@ -24,6 +24,11 @@
         <item>我的问答</item>
     </string-array>
 
+    <string-array name="news_viewpage_arrays">
+        <item>热点新闻</item>
+        <item>通知公告</item>
+    </string-array>
+
     <string-array name="village_service_aply_viewpage_arrays">
         <item>全部申请</item>
         <item>已通过</item>

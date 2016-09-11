@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="?attr/windows_bg"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                style="@style/village_service_detail_layout">
+                <TextView
+                    style="@style/village_service_detail_left_textview"
+                    android:text="详细内容："/>
+                <TextView
+                    style="@style/village_service_detail_right_textview"
+                    android:id="@+id/tv_person"
+                    android:text="梨花开放一般在清早8时之后，当天开放的花就可授粉，花开1～2天授粉最好，第三天授粉坐果率就很低了。
+                    在一天里授粉最好的时间是8～14时。天气越晴朗，授粉效果越好。在授粉过程中，如何认定花朵开放的时间，可以通过花药的颜色来辨认。
+                    当天开放的花，花药是粉红色，第二天边沿的一些花药因破裂放粉，就变成了黑褐色，第三天所有花药几乎变成黑褐色，对这样的花，因萎蔫变色，授粉柱头就无作用了。" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.scau.easyfarm.ui.empty.EmptyLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</FrameLayout>

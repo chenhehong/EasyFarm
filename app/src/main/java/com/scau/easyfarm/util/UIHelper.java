@@ -281,7 +281,7 @@ public class UIHelper {
     public static void showVillageServiceDetail(Context context, int villageServiceId) {
         Bundle bundle = new Bundle();
         bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
-        showSimpleBack(context,SimpleBackPage.VILLAGE_SERVICE_DETAIL,bundle);
+        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_DETAIL, bundle);
     }
 
     public static void showAreaChoose(Fragment fragment, int requestCode) {
@@ -295,7 +295,14 @@ public class UIHelper {
     }
 
     public static void showManualList(Fragment fragment,int parentId){
+        Bundle bundle = new Bundle();
+        showSimpleBack(fragment,SimpleBackPage.MANUAL_LIST,bundle);
+    }
 
+    public static void showManualContentDetail(Context context, int ManualContentId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,ManualContentId);
+        showSimpleBack(context,SimpleBackPage.MANUAL_DETAIL,bundle);
     }
 
 
