@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,7 @@ import com.scau.easyfarm.bean.CommentList;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
+import com.scau.easyfarm.bean.TweetDetail;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.emoji.OnSendClickListener;
 import com.scau.easyfarm.ui.DetailActivity;
@@ -58,7 +60,7 @@ import cz.msebera.android.httpclient.Header;
  * TweetDetailFragment.java
  */
 public class TweetDetailFragment extends
-        BeseHaveHeaderListFragment<Comment, Tweet> implements
+        BeseHaveHeaderListFragment<Comment, TweetDetail> implements
         OnItemClickListener, OnItemLongClickListener, OnSendClickListener {
 
     private static final String CACHE_KEY_PREFIX = "tweet_";
@@ -103,26 +105,26 @@ public class TweetDetailFragment extends
 
     @Override
     protected void sendRequestData() {
-//        EasyFarmServerApi.getCommentList(mTweetId, CommentList.CATALOG_TWEET,
-//                mCurrentPage, mHandler);
+        EasyFarmServerApi.getCommentList(mTweetId, CommentList.CATALOG_TWEET,
+                mCurrentPage, mHandler);
 //      start--模拟数据
-        List<Comment> data = new ArrayList<Comment>();
-        Comment c1 = new Comment();
-        c1.setComenterName("许渭根[专家]");
-        c1.setCommentDate("2016-07-05 11:47:42");
-        c1.setContent("一是你种在什么地方？那里有什么杂草？是已经种下去了，还是打算种的空地？都没有说清楚，希望你到当地农业技术部门咨询，比较可靠。谢谢");
-        data.add(c1);
-        Comment c2 = new Comment();
-        c2.setComenterName("张富仙");
-        c2.setCommentDate("2016-07-05 11:47:42");
-        c2.setContent("如以禾本科杂草为主可用选择性除草剂精喹禾灵,这对苦瓜相对安全；如阔叶杂草较多得用草甘磷，但必须禁止喷到瓜苗，苦瓜是立架栽培，可采用纸板等隔离物边遮档瓜苗边压低喷头喷施。");
-        data.add(c2);
-        Comment c3 = new Comment();
-        c3.setComenterName("怀燕");
-        c3.setCommentDate("2016-07-09 11:47:42");
-        c3.setContent("合理密植。保持通风透光，加强中耕除草、培土，尤其是拔节后培土，遇到不良气候而影响正常授粉时，采用人工辅助授粉技术。");
-        data.add(c3);
-        executeOnLoadDataSuccess(data);
+//        List<Comment> data = new ArrayList<Comment>();
+//        Comment c1 = new Comment();
+//        c1.setComenterName("许渭根[专家]");
+//        c1.setCommentDate("2016-07-05 11:47:42");
+//        c1.setContent("一是你种在什么地方？那里有什么杂草？是已经种下去了，还是打算种的空地？都没有说清楚，希望你到当地农业技术部门咨询，比较可靠。谢谢");
+//        data.add(c1);
+//        Comment c2 = new Comment();
+//        c2.setComenterName("张富仙");
+//        c2.setCommentDate("2016-07-05 11:47:42");
+//        c2.setContent("如以禾本科杂草为主可用选择性除草剂精喹禾灵,这对苦瓜相对安全；如阔叶杂草较多得用草甘磷，但必须禁止喷到瓜苗，苦瓜是立架栽培，可采用纸板等隔离物边遮档瓜苗边压低喷头喷施。");
+//        data.add(c2);
+//        Comment c3 = new Comment();
+//        c3.setComenterName("怀燕");
+//        c3.setCommentDate("2016-07-09 11:47:42");
+//        c3.setContent("合理密植。保持通风透光，加强中耕除草、培土，尤其是拔节后培土，遇到不良气候而影响正常授粉时，采用人工辅助授粉技术。");
+//        data.add(c3);
+//        executeOnLoadDataSuccess(data);
 //      end--模拟数据
     }
 
@@ -200,6 +202,8 @@ public class TweetDetailFragment extends
         public void onFailure(int arg0, Header[] arg1, byte[] arg2,
                 Throwable arg3) {
             hideWaitDialog();
+            String errorMessage = new String(arg2);
+            Log.d("评论失败",errorMessage);
             AppContext.showToastShort(R.string.comment_publish_faile);
         }
     };
@@ -290,23 +294,23 @@ public class TweetDetailFragment extends
 
     @Override
     protected void requestDetailData(boolean isRefresh) {
-//        String key = getDetailCacheKey();
-//        mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-//        if (TDevice.hasInternet()
-//                && (!CacheManager.isExistDataCache(getActivity(), key) || isRefresh)) {
-//            EasyFarmServerApi.getTweetDetail(mTweetId, mDetailHandler);
-//        } else {
-//            readDetailCacheData(key);
-//        }
+        String key = getDetailCacheKey();
+        mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
+        if (TDevice.hasInternet()
+                && (!CacheManager.isExistDataCache(getActivity(), key) || isRefresh)) {
+            EasyFarmServerApi.getTweetDetail(mTweetId, mDetailHandler);
+        } else {
+            readDetailCacheData(key);
+        }
 //      start--模拟数据
-        Tweet a1 = new Tweet();
-        a1.setAuthor("姚忠良 ");
-        a1.setContent("苦瓜籽栽培用什么除草剂比较安全可靠，不求全部杂草，只有能解决大部分杂草？");
-        a1.setCreateDate("2016-07-05 11:47:42");
-        a1.setCommentCount("10");
-        a1.setId(2011);
-        executeOnLoadDetailSuccess(a1);
-        sendRequestData();
+//        Tweet a1 = new Tweet();
+//        a1.setAuthor("姚忠良 ");
+//        a1.setContent("苦瓜籽栽培用什么除草剂比较安全可靠，不求全部杂草，只有能解决大部分杂草？");
+//        a1.setCreateDate("2016-07-05 11:47:42");
+//        a1.setCommentCount("10");
+//        a1.setId(2011);
+//        executeOnLoadDetailSuccess(a1);
+//        sendRequestData();
 //      end--模拟数据
     }
 
@@ -369,16 +373,16 @@ public class TweetDetailFragment extends
     }
 
     @Override
-    protected void executeOnLoadDetailSuccess(Tweet detailBean) {
+    protected void executeOnLoadDetailSuccess(TweetDetail detailBean) {
         mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-        this.mTweet = detailBean;
+        this.mTweet = detailBean.getTweet();
         fillUI();
         mAdapter.setNoDataText(R.string.comment_empty);
     }
 
     @Override
-    protected Tweet getDetailBean(ByteArrayInputStream is) {
-        return JsonUtils.toBean(Tweet.class, is);
+    protected TweetDetail getDetailBean(ByteArrayInputStream is) {
+        return JsonUtils.toBean(TweetDetail.class, is);
     }
 
     @Override
@@ -408,6 +412,7 @@ public class TweetDetailFragment extends
         }
         showWaitDialog(R.string.progress_submit);
         try {
+//          回复其他人
             if (outAty.emojiFragment.getEditText().getTag() != null) {
                 Comment comment = (Comment) outAty.emojiFragment.getEditText()
                         .getTag();
@@ -416,6 +421,7 @@ public class TweetDetailFragment extends
                                 .getInstance().getLoginUid(), str.toString(),
                         mCommentHandler);
             } else {
+//              评论问题
                 EasyFarmServerApi.publicComment(CommentList.CATALOG_TWEET, mTweetId,
                         AppContext.getInstance().getLoginUid(), str.toString(),
                          mCommentHandler);

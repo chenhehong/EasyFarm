@@ -1,6 +1,7 @@
 package com.scau.easyfarm.util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,6 +20,9 @@ import java.util.regex.Pattern;
  * @created 2012-3-21
  */
 public class StringUtils {
+
+    final static int BUFFER_SIZE = 4096;
+
     private final static Pattern emailer = Pattern
             .compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 
@@ -449,7 +453,7 @@ public class StringUtils {
     }
 
     /**
-     * 将一个InputStream流转换成字符串
+     * 将一个InputStream流转换成字符串,注意该InputStream会关闭
      * 
      * @param is
      * @return
@@ -563,6 +567,24 @@ public class StringUtils {
     public static String getDataTime(String format) {
         SimpleDateFormat df = new SimpleDateFormat(format);
         return df.format(new Date());
+    }
+
+    /**
+     * 将InputStream转换成byte数组
+     * @param in InputStream
+     * @return byte[]
+     * @throws IOException
+     */
+    public static byte[] InputStreamTOByte(InputStream in) throws IOException{
+
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] data = new byte[BUFFER_SIZE];
+        int count = -1;
+        while((count = in.read(data,0,BUFFER_SIZE)) != -1)
+            outStream.write(data, 0, count);
+
+        data = null;
+        return outStream.toByteArray();
     }
 
 }

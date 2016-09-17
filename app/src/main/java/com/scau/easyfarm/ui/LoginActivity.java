@@ -97,29 +97,29 @@ public class LoginActivity extends BaseActivity{
         mPassword = mEtPassword.getText().toString();
 
         showWaitDialog(R.string.progress_login);
-//      EasyFarmServerApi.login(mUserName, mPassword, mHandler);
+      EasyFarmServerApi.login(mUserName, mPassword, mHandler);
 //      测试start
 //      模拟登录成功，用户id为2012，用户名chh，密码123456
-        LoginUserBean loginUserBean = new LoginUserBean();
-        Result result = new Result();
-        result.setErrorCode(0);
-        result.setErrorMessage("");
-        loginUserBean.setResult(result);
-        Notice notice = new Notice();
-        notice.setAtmeCount(0);
-        notice.setMsgCount(0);
-        notice.setReviewCount(0);
-        loginUserBean.setNotice(notice);
-        User user = new User();
-        user.setLoginName("chh");
-        user.setPassword("123456");
-        user.setRoleName("expert");
-        user.setRealName("chh");
-        user.setSex("man");
-        user.setId(2012);
-        user.setAddress("");user.setAge(0);user.setDescription("");user.setEmail("");user.setOrganization("");user.setPhoneNumber("");user.setRememberMe(true);user.setTechType("");
-        loginUserBean.setUser(user);
-        handleLoginBean(loginUserBean);
+//        LoginUserBean loginUserBean = new LoginUserBean();
+//        Result result = new Result();
+//        result.setErrorCode(0);
+//        result.setErrorMessage("");
+//        loginUserBean.setResult(result);
+//        Notice notice = new Notice();
+//        notice.setAtmeCount(0);
+//        notice.setMsgCount(0);
+//        notice.setReviewCount(0);
+//        loginUserBean.setNotice(notice);
+//        User user = new User();
+//        user.setLoginName("chh");
+//        user.setPassword("123456");
+//        user.setRoleName("expert");
+//        user.setRealName("chh");
+//        user.setSex("man");
+//        user.setId(2012);
+//        user.setAddress("");user.setAge(0);user.setDescription("");user.setEmail("");user.setOrganization("");user.setPhoneNumber("");user.setRememberMe(true);user.setTechType("");
+//        loginUserBean.setUser(user);
+//        handleLoginBean(loginUserBean);
 //      测试end
     }
 

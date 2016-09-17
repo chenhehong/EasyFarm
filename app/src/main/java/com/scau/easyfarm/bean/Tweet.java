@@ -39,6 +39,9 @@ public class Tweet extends Entity implements Parcelable {
     private String imgSmall;
     private String imgBig;
     private String attach;
+    private int manualCategoryID;
+    private int expertPersonalID;
+    private String expertName;
 
     private int likeCount;
 
@@ -47,7 +50,6 @@ public class Tweet extends Entity implements Parcelable {
     private List<User> likeUser = new ArrayList<User>();
 
     private String imageFilePath;
-    private String audioPath;
 
     public Tweet() {
     }
@@ -63,7 +65,6 @@ public class Tweet extends Entity implements Parcelable {
         imgBig = dest.readString();
         attach = dest.readString();
         imageFilePath = dest.readString();
-        audioPath = dest.readString();
         isLike = dest.readInt();
         title = dest.readString();
         readCount = dest.readInt();
@@ -141,14 +142,6 @@ public class Tweet extends Entity implements Parcelable {
         this.imageFilePath = imageFilePath;
     }
 
-    public String getAudioPath() {
-        return audioPath;
-    }
-
-    public void setAudioPath(String audioPath) {
-        this.audioPath = audioPath;
-    }
-
     public List<User> getLikeUser() {
         return likeUser;
     }
@@ -189,6 +182,30 @@ public class Tweet extends Entity implements Parcelable {
         this.readCount = readCount;
     }
 
+    public String getExpertName() {
+        return expertName;
+    }
+
+    public void setExpertName(String expertName) {
+        this.expertName = expertName;
+    }
+
+    public int getExpertPersonalID() {
+        return expertPersonalID;
+    }
+
+    public void setExpertPersonalID(int expertPersonalID) {
+        this.expertPersonalID = expertPersonalID;
+    }
+
+    public int getManualCategoryID() {
+        return manualCategoryID;
+    }
+
+    public void setManualCategoryID(int manualCategoryID) {
+        this.manualCategoryID = manualCategoryID;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -206,7 +223,6 @@ public class Tweet extends Entity implements Parcelable {
         dest.writeString(imgBig);
         dest.writeString(attach);
         dest.writeString(imageFilePath);
-        dest.writeString(audioPath);
         dest.writeInt(isLike);
         dest.writeString(title);
         dest.writeInt(readCount);

@@ -1,5 +1,7 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +11,9 @@ import java.util.List;
  */
 public class VillageService extends Entity {
 
+    @JSONField(name = "personalID")
     private int applyManId;
+    @JSONField(name = "applyMan")
     private String applyManName;
     private String applyDate;
     private String businessArea;

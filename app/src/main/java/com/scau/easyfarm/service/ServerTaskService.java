@@ -25,7 +25,9 @@ import java.util.List;
 
 public class ServerTaskService extends IntentService {
 
-    public static final String ACTION_PUB_TWEET = "net.oschina.app.ACTION_PUB_TWEET";
+	private static final String SERVICE_NAME = "ServerTaskService";
+
+    public static final String ACTION_PUB_TWEET = "EASYFARM.ACTION_PUB_TWEET";
 
     public static final String BUNDLE_PUB_TWEET_TASK = "BUNDLE_PUB_TWEET_TASK";
     private static final String KEY_TWEET = "tweet_";
@@ -52,12 +54,12 @@ public class ServerTaskService extends IntentService {
 				getString(R.string.tweet_publish_success),
 				getString(R.string.tweet_public),
 				getString(R.string.tweet_publish_success), false, true);
-				new Handler().postDelayed(new Runnable() {
-				    @Override
-				    public void run() {
-						cancellNotification(id);
-				    }
-				}, 3000);
+//				new Handler().postDelayed(new Runnable() {
+//				    @Override
+//				    public void run() {
+//						cancellNotification(id);
+//				    }
+//				}, 3000);
 				removePenddingTask(key + id);
 				if (tweet.getImageFilePath() != null) {
 				    File imgFile = new File(tweet.getImageFilePath());
@@ -162,4 +164,9 @@ public class ServerTaskService extends IntentService {
 	private void cancellNotification(int id) {
 		NotificationManagerCompat.from(this).cancel(id);
     }
+
+	public ServerTaskService() {
+		this(SERVICE_NAME);
+	}
+
 }

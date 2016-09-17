@@ -18,6 +18,7 @@ import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -77,6 +78,7 @@ public class MyInformationFragmentDetail extends BaseFragment {
         @Override
         public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
             mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+            String s = new String(arg2);
             MyInformation user = JsonUtils.toBean(MyInformation.class,
                     new ByteArrayInputStream(arg2));
             if (user != null && user.getUser() != null) {
@@ -140,7 +142,7 @@ public class MyInformationFragmentDetail extends BaseFragment {
     public void fillUI() {
         mName.setText(mUser.getLoginName());
         mAddress.setText(mUser.getAddress());
-        mAge.setText(mUser.getAge());
+        mAge.setText(mUser.getAge()+"");
         mDescription.setText(mUser.getDescription());
         mEmail.setText(mUser.getEmail());
         mPhonenumber.setText(mUser.getPhoneNumber());

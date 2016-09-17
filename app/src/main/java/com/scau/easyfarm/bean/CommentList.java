@@ -1,5 +1,7 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,7 +22,8 @@ public class CommentList extends Entity implements ListEntity<Comment> {
 
     private int pageSize;
     private int allCount;
-    private final List<Comment> commentlist = new ArrayList<Comment>();
+    @JSONField(name = "obj")
+    private List<Comment> commentlist = new ArrayList<Comment>();
 
     public int getPageSize() {
         return pageSize;
@@ -28,6 +31,10 @@ public class CommentList extends Entity implements ListEntity<Comment> {
 
     public int getAllCount() {
         return allCount;
+    }
+
+    public void setCommentlist(List<Comment> commentlist) {
+        this.commentlist = commentlist;
     }
 
     public List<Comment> getCommentlist() {

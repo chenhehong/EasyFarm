@@ -1,6 +1,7 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,8 @@ public class ChangePasswordFragment extends BaseFragment{
 
         @Override
         public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+            String s = new String(arg2);
+            Log.d("chh",s);
             ResultBean resultBean = JsonUtils.toBean(ResultBean.class, arg2);
             if (resultBean != null) {
                 handleResultBean(resultBean);

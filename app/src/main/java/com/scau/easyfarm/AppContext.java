@@ -30,6 +30,8 @@ import java.util.UUID;
  */
 public class AppContext extends BaseApplication {
 
+    public static final String ACCESS = "?access_token=ACCESS_TOKEN";
+
     public static final int PAGE_SIZE = 20;// 默认分页大小
 //  定义用户登录的角色类型
     public static final String MEMBER = "member";
@@ -220,7 +222,7 @@ public class AppContext extends BaseApplication {
     public void cleanLoginInfo() {
         this.loginUid = 0;
         this.login = false;
-            removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
+        removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
                     "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe");
     }
 

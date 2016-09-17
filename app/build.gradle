@@ -27,8 +27,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'org.kymjs.kjframe:kjframe:2.6'
     compile 'com.loopj.android:android-async-http:1.4.9'
-    compile files('libs/gson-2.7.jar')
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
 //  图标工具库
     compile 'com.joanzapata.android:android-iconify:1.0.9'
+    compile 'com.alibaba:fastjson:1.2.17'
 }

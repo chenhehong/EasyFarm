@@ -131,37 +131,41 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-//        EasyFarmServerApi.getTweetList(mCatalog, mCurrentPage, mHandler);
+        if (mCatalog==VillageServiceList.PASS_VILAGE_SERVICE){
+            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.PASS_VILAGE_SERVICE,mHandler);
+        }else{
+            EasyFarmServerApi.getAllVillageServiceList(mCatalog, mCurrentPage, mHandler);
+        }
 //        start-模拟问答数据
-        List<VillageService> data = new ArrayList<VillageService>();
-        VillageService m1 = new VillageService();
-        m1.setId(2012);
-        m1.setBusinessArea("广东-广州-从化");
-        m1.setBusinessAddress("陈家村");
-        m1.setApplyDate("2016-09-12");
-        m1.setBusinessReason("下乡考察");
-        m1.setBusinessDate("2016-9-1");
-        m1.setReturnDate("2016-9-18");
-        data.add(m1);
-        VillageService m2 = new VillageService();
-        m2.setId(2013);
-        m2.setBusinessArea("广东-广州-从化");
-        m2.setBusinessAddress("陈家村");
-        m2.setApplyDate("2016-09-12");
-        m2.setBusinessReason("下乡考察");
-        m2.setBusinessDate("2016-9-1");
-        m2.setReturnDate("2016-9-18");
-        data.add(m2);
-        VillageService m3 = new VillageService();
-        m3.setId(2014);
-        m3.setBusinessArea("广东-广州-从化");
-        m3.setBusinessAddress("陈家村");
-        m3.setApplyDate("2016-09-12");
-        m3.setBusinessReason("下乡考察");
-        m3.setBusinessDate("2016-9-1");
-        m3.setReturnDate("2016-9-18");
-        data.add(m3);
-        executeOnLoadDataSuccess(data);
+//        List<VillageService> data = new ArrayList<VillageService>();
+//        VillageService m1 = new VillageService();
+//        m1.setId(2012);
+//        m1.setBusinessArea("广东-广州-从化");
+//        m1.setBusinessAddress("陈家村");
+//        m1.setApplyDate("2016-09-12");
+//        m1.setBusinessReason("下乡考察");
+//        m1.setBusinessDate("2016-9-1");
+//        m1.setReturnDate("2016-9-18");
+//        data.add(m1);
+//        VillageService m2 = new VillageService();
+//        m2.setId(2013);
+//        m2.setBusinessArea("广东-广州-从化");
+//        m2.setBusinessAddress("陈家村");
+//        m2.setApplyDate("2016-09-12");
+//        m2.setBusinessReason("下乡考察");
+//        m2.setBusinessDate("2016-9-1");
+//        m2.setReturnDate("2016-9-18");
+//        data.add(m2);
+//        VillageService m3 = new VillageService();
+//        m3.setId(2014);
+//        m3.setBusinessArea("广东-广州-从化");
+//        m3.setBusinessAddress("陈家村");
+//        m3.setApplyDate("2016-09-12");
+//        m3.setBusinessReason("下乡考察");
+//        m3.setBusinessDate("2016-9-1");
+//        m3.setReturnDate("2016-9-18");
+//        data.add(m3);
+//        executeOnLoadDataSuccess(data);
 //        end-模拟问答数据
     }
 

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,12 +20,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Entity;
+import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.DialogHelp;
+import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.SimpleTextWatcher;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
@@ -35,6 +40,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by ChenHehong on 2016/9/2.
@@ -93,6 +99,41 @@ public class VillageServiceAddFragment extends BaseFragment{
 
     private AlertDialog.Builder datePickBuilder;
     private DatePicker datePicker;
+
+    private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+
+        @Override
+        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, arg2);
+            if (resultBean != null) {
+                handleResultBean(resultBean);
+            }
+        }
+
+        @Override
+        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+                              Throwable arg3) {
+            AppContext.showToast("网络出错" + arg0);
+        }
+
+        @Override
+        public void onFinish() {
+            super.onFinish();
+            hideWaitDialog();
+        }
+    };
+
+    private void handleResultBean(ResultBean resultBean){
+        if (resultBean.getResult().OK()){
+            hideWaitDialog();
+            AppContext.showToastShort("发布成功！");
+            getActivity().finish();
+        }else {
+            hideWaitDialog();
+            AppContext.showToast(resultBean.getResult().getErrorMessage());
+        }
+    }
+
 
 
     @Override
@@ -209,6 +250,18 @@ public class VillageServiceAddFragment extends BaseFragment{
             UIHelper.showLoginActivity(getActivity());
             return;
         }
+        String villageServiceUserIds = "";
+        for (int i=0;i<personArray.size();i++){
+            if (i==(personArray.size()-1)){
+                villageServiceUserIds+=personArray.get(i).getId();
+            }else {
+                villageServiceUserIds+=personArray.get(i).getId()+",";
+            }
+        }
+        showWaitDialog("发送申请中，请稍后");
+        EasyFarmServerApi.addVillageService(etArea.getText().toString(),etAddress.getText().toString(),etReason.getText().toString(),
+                etBusinessDate.getText().toString(),etReturnDate.getText().toString(),villageServiceUserIds,mHandler);
+
     }
 
     @Override

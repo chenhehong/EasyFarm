@@ -1,7 +1,9 @@
 package com.scau.easyfarm.bean;
 
 
-/** 
+import com.alibaba.fastjson.annotation.JSONField;
+
+/**
  * @author FireAnt（http://my.oschina.net/LittleDY）
  * @version 创建时间：2014年9月27日 下午2:45:57 
  * 
@@ -12,6 +14,7 @@ public class LoginUserBean extends Entity {
 	
 	private Result result;
 
+	@JSONField(name = "obj")
 	private User user;
 
 	public Result getResult() {

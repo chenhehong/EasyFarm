@@ -1,16 +1,22 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Created by chenhehong on 2016/9/7.
  */
 public class Comment extends Entity{
 
 //  所评论的评论的id，如果直接评论问题为0
+    @JSONField(name = "commentID")
     private int commentedId;
     private String commentedName;
+    @JSONField(name="personalID")
     private int commenterId;
+    @JSONField(name = "commentName")
     private String comenterName;
     private String content;
+    @JSONField(name = "createDate")
     private String commentDate;
 
     public int getCommentedId() {

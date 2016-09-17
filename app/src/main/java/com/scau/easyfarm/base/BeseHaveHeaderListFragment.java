@@ -44,7 +44,7 @@ public abstract class BeseHaveHeaderListFragment<T1 extends Entity, T2 extends S
                 if (arg2 != null) {
                     T2 detail = getDetailBean(new ByteArrayInputStream(arg2));
                     if (detail != null) {
-//                      请求详情信息成功在请求列表信息
+//                      请求详情信息成功再请求列表信息
                         requstListData();
                         executeOnLoadDetailSuccess(detail);
                         new SaveCacheTask(getActivity(), detail,

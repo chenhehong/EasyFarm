@@ -7,19 +7,19 @@ package com.scau.easyfarm.bean;
 @SuppressWarnings("serial")
 public class User extends Entity {
 
-    private String loginName;
-    private String password;
-    private String realName;
-    private String organization;
-    private String phoneNumber;
-    private String techType;
-    private String description;
-    private String sex;
-    private int age;
-    private String email;
-    private String address;
-    private String roleName;
-    private boolean isRememberMe;
+    private String loginName="";
+    private String password="";
+    private String realName="";
+    private String organization="";
+    private String phoneNumber="";
+    private String techType="";
+    private String description="";
+    private String sex="";
+    private int age=0;
+    private String email="";
+    private String address="";
+    private String roleName="";
+    private boolean isRememberMe=false;
 
     public String getLoginName() {
         return loginName;

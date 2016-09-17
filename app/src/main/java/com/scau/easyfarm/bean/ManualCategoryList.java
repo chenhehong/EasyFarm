@@ -1,5 +1,7 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
 public class ManualCategoryList extends Entity implements ListEntity<ManualCategory>{
 
     private int manualCategoryCount;
+    @JSONField(name = "obj")
     private List<ManualCategory> manualCategoryList= new ArrayList<ManualCategory>();
 
     public int getManualCategoryCount() {

@@ -16,6 +16,7 @@ import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
+import com.scau.easyfarm.bean.MyInformation;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
@@ -24,6 +25,7 @@ import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.HTMLUtil;
 import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
@@ -122,7 +124,7 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 //  重载该方法，对服务器返回的数据进行解析
     @Override
     protected TweetsList parseList(InputStream is) throws Exception {
-        TweetsList list = JsonUtils.toBean(TweetsList.class, is);
+        TweetsList list = JsonUtils.toBean(TweetsList.class,is);
         return list;
     }
 
@@ -139,33 +141,33 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-//        EasyFarmServerApi.getTweetList(mCatalog, mCurrentPage, mHandler);
+        EasyFarmServerApi.getTweetList(mCatalog, mCurrentPage, mHandler);
 //        start-模拟问答数据
-        List<Tweet> data = new ArrayList<Tweet>();
-        Tweet a1 = new Tweet();
-        a1.setAuthor("姚忠良 ");
-        a1.setTitle("苦瓜籽栽培用什么除草剂比较安全可靠，不求全部杂草，只有能解决大部分杂草？");
-        a1.setCreateDate("2016-07-05 11:47:42");
-        a1.setCommentCount("10");
-        a1.setId(2011);
-        data.add(a1);
-        Tweet a2 = new Tweet();
-        a2.setAuthor("萧山区瓜沥镇联络站(凌小丹) ");
-        a2.setTitle("为什么玉米采摘下来瘌头比较多");
-        a2.setCreateDate("2016-07-05 11:47:42");
-        a2.setCommentCount("10");
-        a2.setId(2012);
-        a2.setImgBig("http://imgsrc.baidu.com/forum/w%3D580%3Bcp%3Dtieba%2C10%2C480%3Bap%3D%D1%D6%C2%F3%B0%C9%2C90%2C488/sign=6f74d930d439b6004dce0fbfd96b565a/fbec2201213fb80e0156bb0437d12f2eb8389460.jpg");
-        a2.setImgSmall("http://img2.imgtn.bdimg.com/it/u=3231829510,729497164&fm=21&gp=0.jpg");
-        data.add(a2);
-        Tweet a3 = new Tweet();
-        a3.setAuthor("凌小丹 ");
-        a3.setTitle("您好,我想咨询下猕猴桃树为什么只开花不结果?");
-        a3.setCreateDate("2016-07-05 11:47:42");
-        a3.setCommentCount("10");
-        a3.setId(2013);
-        data.add(a3);
-        executeOnLoadDataSuccess(data);
+//        List<Tweet> data = new ArrayList<Tweet>();
+//        Tweet a1 = new Tweet();
+//        a1.setAuthor("姚忠良 ");
+//        a1.setTitle("苦瓜籽栽培用什么除草剂比较安全可靠，不求全部杂草，只有能解决大部分杂草？");
+//        a1.setCreateDate("2016-07-05 11:47:42");
+//        a1.setCommentCount("10");
+//        a1.setId(2011);
+//        data.add(a1);
+//        Tweet a2 = new Tweet();
+//        a2.setAuthor("萧山区瓜沥镇联络站(凌小丹) ");
+//        a2.setTitle("为什么玉米采摘下来瘌头比较多");
+//        a2.setCreateDate("2016-07-05 11:47:42");
+//        a2.setCommentCount("10");
+//        a2.setId(2012);
+//        a2.setImgBig("http://imgsrc.baidu.com/forum/w%3D580%3Bcp%3Dtieba%2C10%2C480%3Bap%3D%D1%D6%C2%F3%B0%C9%2C90%2C488/sign=6f74d930d439b6004dce0fbfd96b565a/fbec2201213fb80e0156bb0437d12f2eb8389460.jpg");
+//        a2.setImgSmall("http://img2.imgtn.bdimg.com/it/u=3231829510,729497164&fm=21&gp=0.jpg");
+//        data.add(a2);
+//        Tweet a3 = new Tweet();
+//        a3.setAuthor("凌小丹 ");
+//        a3.setTitle("您好,我想咨询下猕猴桃树为什么只开花不结果?");
+//        a3.setCreateDate("2016-07-05 11:47:42");
+//        a3.setCommentCount("10");
+//        a3.setId(2013);
+//        data.add(a3);
+//        executeOnLoadDataSuccess(data);
 //        end-模拟问答数据
     }
 

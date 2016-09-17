@@ -202,23 +202,23 @@ public class MyInformationFragment extends BaseFragment{
 //  发送用户信息获取请求
     private void sendRequestData() {
         int uid = AppContext.getInstance().getLoginUid();
-        String userType = AppContext.getInstance().getRoleName();
-//      EasyFarmServerApi.getMyInformation(uid, userType, mHandler);
+        EasyFarmServerApi.getMyInformation(uid, mHandler);
 //      测试start:
 //      模拟获取用户信息并填充组件
-        User user = new User();
-        user.setLoginName("chh");
-        user.setPassword("123456");
-        user.setRoleName("expert");
-        user.setRealName("chh");
-        user.setSex("man");
-        user.setId(2012);
-        user.setAddress("");user.setAge(0);user.setDescription("");user.setEmail("");user.setOrganization("");user.setPhoneNumber("");user.setRememberMe(true);user.setTechType("");
-        mInfo = user;
-        fillUI();
-        AppContext.getInstance().updateUserInfo(mInfo);
-        new SaveCacheTask(getActivity(), mInfo, getCacheKey())
-                .execute();
+//        User user = new User();
+//        user.setLoginName("chh");
+//        user.setPassword("123456");
+//        user.setRoleName("expert");
+//        user.setRealName("chh");
+//        user.setSex("man");
+//        user.setId(2012);
+//        user.setAddress("");user.setAge(0);user.setDescription("");user.setEmail("");user.setOrganization("");user.setPhoneNumber("");user.setRememberMe(true);user.setTechType("");
+//        mInfo = user;
+//        fillUI();
+//        AppContext.getInstance().updateUserInfo(mInfo);
+//        new SaveCacheTask(getActivity(), mInfo, getCacheKey())
+//                .execute();
+//        测试end
     }
 
 

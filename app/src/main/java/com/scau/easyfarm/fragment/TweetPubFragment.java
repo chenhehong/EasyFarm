@@ -169,6 +169,7 @@ public class TweetPubFragment extends BaseFragment{
             return;
         }
         String content = mEtInput.getText().toString().trim();
+        String title = mEtTitle.getText().toString().trim();
         if (TextUtils.isEmpty(content)) {
             mEtInput.requestFocus();
             AppContext.showToastShort(R.string.tip_content_empty);
@@ -182,6 +183,10 @@ public class TweetPubFragment extends BaseFragment{
         Tweet tweet = new Tweet();
         tweet.setAuthorid(AppContext.getInstance().getLoginUid());
         tweet.setContent(content);
+        tweet.setTitle(title);
+        tweet.setExpertPersonalID(selectedExpertId);
+        tweet.setExpertName(selectedExpertName);
+        tweet.setManualCategoryID(selectedTweetTypeId);
         if (imgFile != null && imgFile.exists()) {
             tweet.setImageFilePath(imgFile.getAbsolutePath());
         }
