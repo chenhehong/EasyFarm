@@ -16,7 +16,7 @@ public class ChooseManualCategoryFragment extends BaseManualCategoryListFragment
         if (selectManualCategory.isParent()){
             UIHelper.showManualCategory(this,selectManualCategory.getId());
         }else {
-            UIHelper.showManualList(this,selectManualCategory.getId());
+            UIHelper.showManualList(this,selectManualCategory.getCategoryCode());
         }
     }
 }

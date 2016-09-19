@@ -236,7 +236,7 @@ public class NewsListFragment extends BaseListFragment<VillageService> implement
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 //                EasyFarmServerApi.deleteTweet(tweet.getAuthorid(), tweet
-//                        .getId(), new DeleteTweetResponseHandler(tweet));
+//                        .getId(), new DeleteVillageServiceResponseHandler(tweet));
             }
         }).show();
     }

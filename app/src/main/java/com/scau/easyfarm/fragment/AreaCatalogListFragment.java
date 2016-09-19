@@ -3,6 +3,7 @@ package com.scau.easyfarm.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,12 +59,18 @@ public class AreaCatalogListFragment extends BaseFragment implements
 		@Override
 		public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 			try {
+				String s = new String(arg2);
+				Log.d("chh",s);
 				AreaList list = JsonUtils.toBean(
 						AreaList.class, new ByteArrayInputStream(
 								arg2));
 				if (mState == STATE_REFRESH)
 					mProvinceAdapter.clear();
 				List<Area> data = list.getAreaList();
+//				省份设置为父节点
+				for (int i=0;i<data.size();i++){
+					data.get(i).setIsParent(true);
+				}
 				mProvinceAdapter.addData(data);
 				mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
 				if (data.size() == 0 && mState == STATE_REFRESH) {
@@ -100,6 +107,10 @@ public class AreaCatalogListFragment extends BaseFragment implements
 				if (mState == STATE_REFRESH)
 					mCityAdapter.clear();
 				List<Area> data = list.getAreaList();
+//				城市设置为父节点
+				for (int i=0;i<data.size();i++){
+					data.get(i).setIsParent(true);
+				}
 				mCityAdapter.addData(data);
 				mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
 				if (data.size() == 0 && mState == STATE_REFRESH) {
@@ -172,7 +183,7 @@ public class AreaCatalogListFragment extends BaseFragment implements
 				mScrollLayout.scrollToScreen(curScreen);
 				mCurrentJsonId = type.getJsonId();
 				selectedProvince = type.getName();
-				sendRequestAreaData(mCityHandler);
+				sendRequestCityData(mCityHandler);
 			}
 		}
 	};
@@ -188,7 +199,7 @@ public class AreaCatalogListFragment extends BaseFragment implements
 				mScrollLayout.scrollToScreen(curScreen);
 				mCurrentJsonId = type.getJsonId();
 				selectedCity = type.getName();
-				sendRequestAreaData(mCountyHandler);
+				sendRequestCountyData(mCountyHandler);
 			}
 		}
 	};
@@ -228,10 +239,10 @@ public class AreaCatalogListFragment extends BaseFragment implements
 		mLvProvince.setOnItemClickListener(mProvinceOnItemClick);
 		mLvCity = (ListView) view.findViewById(R.id.lv_city);
 		mLvCity.setOnItemClickListener(mCityOnItemClick);
-		if (mProvinceAdapter == null) {
-			mProvinceAdapter = new AreaListAdapter();
-			sendRequestAreaData(mProvinceHandler);
-		}
+//		if (mProvinceAdapter == null) {
+		mProvinceAdapter = new AreaListAdapter();
+		sendRequestProvinceData(mProvinceHandler);
+//		}
 		mLvProvince.setAdapter(mProvinceAdapter);
 
 		if (mCityAdapter == null) {
@@ -266,71 +277,83 @@ public class AreaCatalogListFragment extends BaseFragment implements
 		return super.onBackPressed();
 	}
 
-	private void sendRequestAreaData(AsyncHttpResponseHandler handler) {
+	private void sendRequestProvinceData(AsyncHttpResponseHandler handler) {
 		mState = STATE_REFRESH;
 		mEmptyView.setErrorType(EmptyLayout.NETWORK_LOADING);
-//		EasyFarmServerApi.getAreaList(mCurrentJsonId, handler);
+		EasyFarmServerApi.getProvinceList(handler);
 //		start-模拟数据
-		if (handler==mProvinceHandler){
-			Area a1 = new Area();
-			a1.setIsParent(true);a1.setJsonId(2012);a1.setName("广东");
-			Area a2 = new Area();
-			a2.setIsParent(true);a2.setJsonId(2012);a2.setName("河南");
-			Area a3 = new Area();
-			a3.setIsParent(true);a3.setJsonId(2012);a3.setName("山东");
-			AreaList list = new AreaList();
-			list.getAreaList().add(a1);list.getAreaList().add(a2);list.getAreaList().add(a3);
-			if (mState == STATE_REFRESH)
-				mProvinceAdapter.clear();
-			List<Area> data = list.getAreaList();
-			mProvinceAdapter.addData(data);
-			mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
-			if (data.size() == 0 && mState == STATE_REFRESH) {
-				mEmptyView.setErrorType(EmptyLayout.NODATA);
-			} else {
-				mProvinceAdapter
-						.setState(ListBaseAdapter.STATE_LESS_ONE_PAGE);
-			}
-		}else if (handler==mCityHandler){
-			Area a1 = new Area();
-			a1.setIsParent(true);a1.setJsonId(2012);a1.setName("揭阳");
-			Area a2 = new Area();
-			a2.setIsParent(true);a2.setJsonId(2012);a2.setName("广州");
-			Area a3 = new Area();
-			a3.setIsParent(true);a3.setJsonId(2012);a3.setName("茂名");
-			AreaList list = new AreaList();
-			list.getAreaList().add(a1);list.getAreaList().add(a2);list.getAreaList().add(a3);
-			if (mState == STATE_REFRESH)
-				mCityAdapter.clear();
-			List<Area> data = list.getAreaList();
-			mCityAdapter.addData(data);
-			mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
-			if (data.size() == 0 && mState == STATE_REFRESH) {
-				mEmptyView.setErrorType(EmptyLayout.NODATA);
-			} else {
-				mCityAdapter.setState(ListBaseAdapter.STATE_LESS_ONE_PAGE);
-			}
-		}else if (handler==mCountyHandler){
-			Area a1 = new Area();
-			a1.setIsParent(false);a1.setJsonId(2012);a1.setName("普宁");
-			Area a2 = new Area();
-			a2.setIsParent(false);a2.setJsonId(2012);a2.setName("蓉城");
-			Area a3 = new Area();
-			a3.setIsParent(false);a3.setJsonId(2012);a3.setName("惠来");
-			AreaList list = new AreaList();
-			list.getAreaList().add(a1);list.getAreaList().add(a2);list.getAreaList().add(a3);
-			if (mState == STATE_REFRESH)
-				mCountyAdapter.clear();
-			List<Area> data = list.getAreaList();
-			mCountyAdapter.addData(data);
-			mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
-			if (data.size() == 0 && mState == STATE_REFRESH) {
-				mEmptyView.setErrorType(EmptyLayout.NODATA);
-			} else {
-				mCountyAdapter.setState(ListBaseAdapter.STATE_LESS_ONE_PAGE);
-			}
-		}
+//		if (handler==mProvinceHandler){
+//			Area a1 = new Area();
+//			a1.setIsParent(true);a1.setJsonId(2012);a1.setName("广东");
+//			Area a2 = new Area();
+//			a2.setIsParent(true);a2.setJsonId(2012);a2.setName("河南");
+//			Area a3 = new Area();
+//			a3.setIsParent(true);a3.setJsonId(2012);a3.setName("山东");
+//			AreaList list = new AreaList();
+//			list.getAreaList().add(a1);list.getAreaList().add(a2);list.getAreaList().add(a3);
+//			if (mState == STATE_REFRESH)
+//				mProvinceAdapter.clear();
+//			List<Area> data = list.getAreaList();
+//			mProvinceAdapter.addData(data);
+//			mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
+//			if (data.size() == 0 && mState == STATE_REFRESH) {
+//				mEmptyView.setErrorType(EmptyLayout.NODATA);
+//			} else {
+//				mProvinceAdapter
+//						.setState(ListBaseAdapter.STATE_LESS_ONE_PAGE);
+//			}
+//		}else if (handler==mCityHandler){
+//			Area a1 = new Area();
+//			a1.setIsParent(true);a1.setJsonId(2012);a1.setName("揭阳");
+//			Area a2 = new Area();
+//			a2.setIsParent(true);a2.setJsonId(2012);a2.setName("广州");
+//			Area a3 = new Area();
+//			a3.setIsParent(true);a3.setJsonId(2012);a3.setName("茂名");
+//			AreaList list = new AreaList();
+//			list.getAreaList().add(a1);list.getAreaList().add(a2);list.getAreaList().add(a3);
+//			if (mState == STATE_REFRESH)
+//				mCityAdapter.clear();
+//			List<Area> data = list.getAreaList();
+//			mCityAdapter.addData(data);
+//			mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
+//			if (data.size() == 0 && mState == STATE_REFRESH) {
+//				mEmptyView.setErrorType(EmptyLayout.NODATA);
+//			} else {
+//				mCityAdapter.setState(ListBaseAdapter.STATE_LESS_ONE_PAGE);
+//			}
+//		}else if (handler==mCountyHandler){
+//			Area a1 = new Area();
+//			a1.setIsParent(false);a1.setJsonId(2012);a1.setName("普宁");
+//			Area a2 = new Area();
+//			a2.setIsParent(false);a2.setJsonId(2012);a2.setName("蓉城");
+//			Area a3 = new Area();
+//			a3.setIsParent(false);a3.setJsonId(2012);a3.setName("惠来");
+//			AreaList list = new AreaList();
+//			list.getAreaList().add(a1);list.getAreaList().add(a2);list.getAreaList().add(a3);
+//			if (mState == STATE_REFRESH)
+//				mCountyAdapter.clear();
+//			List<Area> data = list.getAreaList();
+//			mCountyAdapter.addData(data);
+//			mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
+//			if (data.size() == 0 && mState == STATE_REFRESH) {
+//				mEmptyView.setErrorType(EmptyLayout.NODATA);
+//			} else {
+//				mCountyAdapter.setState(ListBaseAdapter.STATE_LESS_ONE_PAGE);
+//			}
+//		}
 //		end-模拟数据
+	}
+
+	private void sendRequestCityData(AsyncHttpResponseHandler handler) {
+		mState = STATE_REFRESH;
+		mEmptyView.setErrorType(EmptyLayout.NETWORK_LOADING);
+		EasyFarmServerApi.getCityList(mCurrentJsonId,handler);
+	}
+
+	private void sendRequestCountyData(AsyncHttpResponseHandler handler) {
+		mState = STATE_REFRESH;
+		mEmptyView.setErrorType(EmptyLayout.NETWORK_LOADING);
+		EasyFarmServerApi.getCountyList(mCurrentJsonId, handler);
 	}
 
 	@Override

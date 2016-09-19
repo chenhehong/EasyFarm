@@ -22,7 +22,9 @@ public class VillageService extends Entity {
     private String returnDate;
     private String businessReason;
     private int status;
+    @JSONField(name = "villageServiceOpinionList")
     List<VillageServiceOpinion> villageServiceOpinions = new ArrayList<VillageServiceOpinion>();
+    @JSONField(name = "villagePersonList")
     List<User> villageServicePerson = new ArrayList<User>();
 
     public int getApplyManId() {

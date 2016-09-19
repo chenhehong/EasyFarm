@@ -1,5 +1,7 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
 public class AreaList extends Entity implements ListEntity<Area> {
 
 
+    @JSONField(name = "obj")
     private ArrayList<Area> areaList = new ArrayList<Area>();
     private int areaAccount;
 

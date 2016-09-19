@@ -12,6 +12,7 @@ import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.bean.VillageServiceOpinion;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
@@ -73,29 +74,29 @@ public class VillageServiceDetailFragment extends BaseFragment {
         super.initData();
         Bundle bundle = getArguments();
         mVillageServiceId = bundle.getInt(VILLAGE_SERVICE_ID_CODE);
-//        sendRequiredData();
+        sendRequiredData();
 //      start-模拟数据
-        User u1 = new User();
-        u1.setRealName("陈河宏");
-        User u2 = new User();
-        u2.setRealName("李强");
-        VillageServiceOpinion o1 = new VillageServiceOpinion();
-        o1.setOpinionPerson("刘主任");o1.setOpinion("同意通过");
-        VillageServiceOpinion o2 = new VillageServiceOpinion();
-        o2.setOpinionPerson("马处长");o2.setOpinion("时间不方便");
-        VillageService v = new VillageService();
-        v.getVillageServicePerson().add(u1);
-        v.getVillageServicePerson().add(u2);
-        v.getVillageServiceOpinions().add(o1);
-        v.getVillageServiceOpinions().add(o2);
-        v.setBusinessArea("广东省-广州市-天河区");
-        v.setBusinessAddress("华南农业大学");
-        v.setBusinessReason("考察");
-        v.setBusinessDate("2016-8-23");
-        v.setReturnDate("2016-9-25");
-        v.setStatus(0);
-        mVillageService = v;
-        fillUI();
+//        User u1 = new User();
+//        u1.setRealName("陈河宏");
+//        User u2 = new User();
+//        u2.setRealName("李强");
+//        VillageServiceOpinion o1 = new VillageServiceOpinion();
+//        o1.setOpinionPerson("刘主任");o1.setOpinion("同意通过");
+//        VillageServiceOpinion o2 = new VillageServiceOpinion();
+//        o2.setOpinionPerson("马处长");o2.setOpinion("时间不方便");
+//        VillageService v = new VillageService();
+//        v.getVillageServicePerson().add(u1);
+//        v.getVillageServicePerson().add(u2);
+//        v.getVillageServiceOpinions().add(o1);
+//        v.getVillageServiceOpinions().add(o2);
+//        v.setBusinessArea("广东省-广州市-天河区");
+//        v.setBusinessAddress("华南农业大学");
+//        v.setBusinessReason("考察");
+//        v.setBusinessDate("2016-8-23");
+//        v.setReturnDate("2016-9-25");
+//        v.setStatus(0);
+//        mVillageService = v;
+//        fillUI();
 //      end--模拟数据
     }
 
@@ -137,9 +138,9 @@ public class VillageServiceDetailFragment extends BaseFragment {
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(mVillageService.getBusinessDate()+"至"+mVillageService.getReturnDate());
-        if (mVillageService.getStatus()==0){
+        if (mVillageService.getStatus()== VillageServiceList.VILLAGE_SERVICE_WAITING){
             tvStatue.setText("待审核");
-        }else if (mVillageService.getStatus()==1){
+        }else if (mVillageService.getStatus()==VillageServiceList.VILLAGE_SERVICE_PASS){
             tvStatue.setText("通过");
         }
         String optionion = "";

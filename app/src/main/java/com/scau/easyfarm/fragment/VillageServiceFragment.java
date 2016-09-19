@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.adapter.TweetAdapter;
 import com.scau.easyfarm.adapter.VillageServiceAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
@@ -25,16 +24,12 @@ import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
-import com.scau.easyfarm.util.HTMLUtil;
 import com.scau.easyfarm.util.JsonUtils;
-import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -132,7 +127,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
         if (mCatalog==VillageServiceList.PASS_VILAGE_SERVICE){
-            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.PASS_VILAGE_SERVICE,mHandler);
+            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_PASS,mHandler);
         }else{
             EasyFarmServerApi.getAllVillageServiceList(mCatalog, mCurrentPage, mHandler);
         }
@@ -218,16 +213,17 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 
     private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        items = new String[] {getResources().getString(R.string.delete) };
-
-        DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0) {
-                    handleDeleteTweet(villageService);
+        if (villageService.getStatus()==VillageServiceList.VILLAGE_SERVICE_WAITING){
+            items = new String[] {getResources().getString(R.string.delete) };
+            DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (i == 0) {
+                        handleDeleteTweet(villageService);
+                    }
                 }
-            }
-        }).show();
+            }).show();
+        }
     }
 
 //  删除申请
@@ -235,16 +231,15 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
         DialogHelp.getConfirmDialog(getActivity(), "是否删除该申请?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-//                EasyFarmServerApi.deleteTweet(tweet.getAuthorid(), tweet
-//                        .getId(), new DeleteTweetResponseHandler(tweet));
+                EasyFarmServerApi.deleteVillageService(villageService.getId(), new DeleteVillageServiceResponseHandler(villageService));
             }
         }).show();
     }
 
 //  问答删除句柄
-    class DeleteTweetResponseHandler extends OperationResponseHandler {
+    class DeleteVillageServiceResponseHandler extends OperationResponseHandler {
 
-        DeleteTweetResponseHandler(Object... args) {
+        DeleteVillageServiceResponseHandler(Object... args) {
             super(args);
         }
 
@@ -256,8 +251,8 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 //              更新列表
                 if (res != null && res.OK()) {
                     AppContext.showToastShort(R.string.delete_success);
-                    Tweet tweet = (Tweet) args[0];
-                    mAdapter.removeItem(tweet);
+                    VillageService villageService = (VillageService) args[0];
+                    mAdapter.removeItem(villageService);
                     mAdapter.notifyDataSetChanged();
                 } else {
                     onFailure(code, res.getErrorMessage(), args);

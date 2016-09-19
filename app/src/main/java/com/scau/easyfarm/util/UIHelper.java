@@ -16,6 +16,7 @@ import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
+import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
@@ -294,9 +295,10 @@ public class UIHelper {
         showSimpleBack(fragment, SimpleBackPage.CHOOSE_MANUAL_CATEGORY, budle);
     }
 
-    public static void showManualList(Fragment fragment,int parentId){
+    public static void showManualList(Fragment fragment,String categoryCode){
         Bundle bundle = new Bundle();
-        showSimpleBack(fragment,SimpleBackPage.MANUAL_LIST,bundle);
+        bundle.putString(ManualListFragment.MANUALCATEGORYCODE,categoryCode);
+        showSimpleBack(fragment, SimpleBackPage.MANUAL_LIST, bundle);
     }
 
     public static void showManualContentDetail(Context context, int ManualContentId) {

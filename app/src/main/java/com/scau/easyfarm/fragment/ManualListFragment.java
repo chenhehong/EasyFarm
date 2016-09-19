@@ -11,10 +11,14 @@ import android.widget.AdapterView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.adapter.ManualAdapter;
 import com.scau.easyfarm.adapter.VillageServiceAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
+import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
+import com.scau.easyfarm.bean.ManualContent;
+import com.scau.easyfarm.bean.ManualList;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
@@ -37,10 +41,12 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class ManualListFragment extends BaseListFragment<VillageService> implements
-        AdapterView.OnItemLongClickListener{
+public class ManualListFragment extends BaseListFragment<ManualContent>{
 
-    private static final String CACHE_KEY_PREFIX = "villageServicelist_";
+    private static final String CACHE_KEY_PREFIX = "manuallist_";
+    public static final String MANUALCATEGORYCODE = "manualcategorycode";
+
+    private String seletedManualCategoryCode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,10 @@ public class ManualListFragment extends BaseListFragment<VillageService> impleme
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
+        Bundle args = getArguments();
+        if (args != null) {
+            seletedManualCategoryCode = args.getString(MANUALCATEGORYCODE);
+        }
     }
 
     @Override
@@ -60,8 +70,8 @@ public class ManualListFragment extends BaseListFragment<VillageService> impleme
 
     @Override
 //  重载设置子类的列表适配器
-    protected VillageServiceAdapter getListAdapter() {
-        return new VillageServiceAdapter();
+    protected ManualAdapter getListAdapter() {
+        return new ManualAdapter();
     }
 
 //  用户登录状态广播接收器
@@ -104,20 +114,20 @@ public class ManualListFragment extends BaseListFragment<VillageService> impleme
                 return str;
             }
         }
-        return CACHE_KEY_PREFIX + mCatalog;
+        return CACHE_KEY_PREFIX + seletedManualCategoryCode;
     }
 
 //  重载该方法，对服务器返回的数据进行解析
     @Override
-    protected VillageServiceList parseList(InputStream is) throws Exception {
-        VillageServiceList list = JsonUtils.toBean(VillageServiceList.class, is);
+    protected ManualList parseList(InputStream is) throws Exception {
+        ManualList list = JsonUtils.toBean(ManualList.class, is);
         return list;
     }
 
 //  用于从缓存中读出序列化数据
     @Override
-    protected VillageServiceList readList(Serializable seri) {
-        return ((VillageServiceList) seri);
+    protected ManualList readList(Serializable seri) {
+        return ((ManualList) seri);
     }
 
 
@@ -127,55 +137,54 @@ public class ManualListFragment extends BaseListFragment<VillageService> impleme
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-//        EasyFarmServerApi.getTweetList(mCatalog, mCurrentPage, mHandler);
+        EasyFarmServerApi.getManualList(mCatalog,seletedManualCategoryCode, mCurrentPage, mHandler);
 //        start-模拟问答数据
-        List<VillageService> data = new ArrayList<VillageService>();
-        VillageService m1 = new VillageService();
-        m1.setId(2012);
-        m1.setBusinessArea("病虫情报2016年第6期——单季稻当前病虫发生及防治意见");
+//        List<VillageService> data = new ArrayList<VillageService>();
+//        VillageService m1 = new VillageService();
+//        m1.setId(2012);
+//        m1.setBusinessArea("病虫情报2016年第6期——单季稻当前病虫发生及防治意见");
 //        m1.setBusinessAddress("陈家村");
-        m1.setApplyDate("2016-09-12");
-        m1.setBusinessReason("发布人：富阳区联络支站（金小华）");
-        m1.setBusinessDate("2016-9-1");
-        m1.setReturnDate("2016-9-18");
-        data.add(m1);
-        VillageService m2 = new VillageService();
-        m2.setId(2013);
-        m2.setBusinessArea("余杭区探索单季粳稻稀植高产栽培技术");
-//        m2.setBusinessAddress("陈家村");
-        m2.setApplyDate("2016-09-12");
-        m2.setBusinessReason("发布人：富阳区联络支站（金小华）");
-        m2.setBusinessDate("2016-9-1");
-        m2.setReturnDate("2016-9-18");
-        data.add(m2);
-        VillageService m3 = new VillageService();
-        m3.setId(2014);
-        m3.setBusinessArea("葡萄套袋后的管理");
-//        m3.setBusinessAddress("陈家村");
-        m3.setApplyDate("2016-09-12");
-        m3.setBusinessReason("发布人：富阳区联络支站（金小华）");
-        m3.setBusinessDate("2016-9-1");
-        m3.setReturnDate("2016-9-18");
-        data.add(m3);
-        executeOnLoadDataSuccess(data);
+//        m1.setApplyDate("2016-09-12");
+//        m1.setBusinessReason("发布人：富阳区联络支站（金小华）");
+//        m1.setBusinessDate("2016-9-1");
+//        m1.setReturnDate("2016-9-18");
+//        data.add(m1);
+//        VillageService m2 = new VillageService();
+//        m2.setId(2013);
+//        m2.setBusinessArea("余杭区探索单季粳稻稀植高产栽培技术");
+////        m2.setBusinessAddress("陈家村");
+//        m2.setApplyDate("2016-09-12");
+//        m2.setBusinessReason("发布人：富阳区联络支站（金小华）");
+//        m2.setBusinessDate("2016-9-1");
+//        m2.setReturnDate("2016-9-18");
+//        data.add(m2);
+//        VillageService m3 = new VillageService();
+//        m3.setId(2014);
+//        m3.setBusinessArea("葡萄套袋后的管理");
+////        m3.setBusinessAddress("陈家村");
+//        m3.setApplyDate("2016-09-12");
+//        m3.setBusinessReason("发布人：富阳区联络支站（金小华）");
+//        m3.setBusinessDate("2016-9-1");
+//        m3.setReturnDate("2016-9-18");
+//        data.add(m3);
+//        executeOnLoadDataSuccess(data);
 //        end-模拟问答数据
     }
 
 //  重载点击事件，自定义子类的点击事件
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        VillageService villageService = mAdapter.getItem(position);
-        if (villageService != null) {
-            UIHelper.showManualContentDetail(view.getContext(), villageService.getId());
-        }
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position,
+//                            long id) {
+//        VillageService villageService = mAdapter.getItem(position);
+//        if (villageService != null) {
+//            UIHelper.showManualContentDetail(view.getContext(), villageService.getId());
+//        }
+//    }
 
 
     @Override
     public void initView(View view) {
         super.initView(view);
-        mListView.setOnItemLongClickListener(this);
 //      设置状态栏点击事件
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
 
@@ -196,87 +205,7 @@ public class ManualListFragment extends BaseListFragment<VillageService> impleme
         });
     }
 
-
-//  长按监听
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        VillageService villageService = mAdapter.getItem(position);
-        if (villageService != null) {
-            handleLongClick(villageService);
-            return true;
-        }
-        return false;
-    }
-
-    private void handleLongClick(final VillageService villageService) {
-        String[] items = null;
-        items = new String[] {getResources().getString(R.string.delete) };
-
-        DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0) {
-                    handleDeleteTweet(villageService);
-                }
-            }
-        }).show();
-    }
-
-//  删除申请
-    private void handleDeleteTweet(final VillageService villageService) {
-        DialogHelp.getConfirmDialog(getActivity(), "是否删除该申请?", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-//                EasyFarmServerApi.deleteTweet(tweet.getAuthorid(), tweet
-//                        .getId(), new DeleteTweetResponseHandler(tweet));
-            }
-        }).show();
-    }
-
-//  问答删除句柄
-    class DeleteTweetResponseHandler extends OperationResponseHandler {
-
-        DeleteTweetResponseHandler(Object... args) {
-            super(args);
-        }
-
-        @Override
-        public void onSuccess(int code, ByteArrayInputStream is, Object[] args)
-                throws Exception {
-            try {
-                Result res = JsonUtils.toBean(ResultBean.class, is).getResult();
-//              更新列表
-                if (res != null && res.OK()) {
-                    AppContext.showToastShort(R.string.delete_success);
-                    Tweet tweet = (Tweet) args[0];
-                    mAdapter.removeItem(tweet);
-                    mAdapter.notifyDataSetChanged();
-                } else {
-                    onFailure(code, res.getErrorMessage(), args);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                onFailure(code, e.getMessage(), args);
-            }
-        }
-
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-            AppContext.showToastShort(R.string.delete_faile);
-        }
-    }
-
-    @Override
     protected long getAutoRefreshTime() {
-        // 最新问答3分钟刷新一次
-        if (mCatalog == TweetsList.CATALOG_LATEST) {
-            return 3 * 60;
-        }
         return super.getAutoRefreshTime();
     }
 
