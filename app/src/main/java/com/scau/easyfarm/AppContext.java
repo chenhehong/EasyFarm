@@ -153,6 +153,7 @@ public class AppContext extends BaseApplication {
     public void saveUserInfo(final User user) {
         this.loginUid = user.getId();
         this.login = true;
+        this.roleName = user.getRoleName();
         setProperties(new Properties() {
             {
                 setProperty("user.uid", String.valueOf(user.getId()));
@@ -222,6 +223,7 @@ public class AppContext extends BaseApplication {
     public void cleanLoginInfo() {
         this.loginUid = 0;
         this.login = false;
+        this.roleName = "";
         removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
                     "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe");
     }

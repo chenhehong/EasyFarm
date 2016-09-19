@@ -285,6 +285,12 @@ public class UIHelper {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_DETAIL, bundle);
     }
 
+    public static void showVillageServiceVerify(Context context, int villageServiceId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
+        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_VERIFY, bundle);
+    }
+
     public static void showAreaChoose(Fragment fragment, int requestCode) {
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_AREA);
     }

@@ -11,64 +11,56 @@ import android.widget.AdapterView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.adapter.TweetAdapter;
+import com.scau.easyfarm.adapter.VillageServiceAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
-import com.scau.easyfarm.bean.MyInformation;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
-import com.scau.easyfarm.bean.Tweet;
+import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.TweetsList;
+import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
-import com.scau.easyfarm.util.HTMLUtil;
 import com.scau.easyfarm.util.JsonUtils;
-import com.scau.easyfarm.util.StringUtils;
-import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class TweetsFragment extends BaseListFragment<Tweet> implements
+public class AllVillageServiceFragment extends BaseListFragment<VillageService> implements
         AdapterView.OnItemLongClickListener{
 
-    private static final String CACHE_KEY_PREFIX = "tweetslist_";
-
+    private static final String CACHE_KEY_PREFIX = "allVillageServicelist_";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//      如果是有用户个人的栏目的，要监听用户登录状态的广播
-        if (mCatalog > 0) {
-            IntentFilter filter = new IntentFilter(
-                    Constants.INTENT_ACTION_USER_CHANGE);
-            filter.addAction(Constants.INTENT_ACTION_LOGOUT);
-            getActivity().registerReceiver(mReceiver, filter);
-        }
+//      监听用户登录状态的广播
+        IntentFilter filter = new IntentFilter(
+                Constants.INTENT_ACTION_USER_CHANGE);
+        filter.addAction(Constants.INTENT_ACTION_LOGOUT);
+        getActivity().registerReceiver(mReceiver, filter);
     }
 
     @Override
     public void onDestroy() {
-        if (mCatalog > 0) {
-            getActivity().unregisterReceiver(mReceiver);
-        }
+        getActivity().unregisterReceiver(mReceiver);
         super.onDestroy();
     }
 
     @Override
-    protected TweetAdapter getListAdapter() {
-        return new TweetAdapter();
+//  重载设置子类的列表适配器
+    protected VillageServiceAdapter getListAdapter() {
+        return new VillageServiceAdapter();
     }
 
 //  用户登录状态广播接收器
@@ -85,7 +77,6 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
             requestData(true);
         } else {
-            mCatalog = TweetsList.CATALOG_ME;
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
             mErrorLayout.setErrorMessage(getString(R.string.unlogin_tip));
         }
@@ -93,17 +84,12 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 
     @Override
     protected void requestData(boolean refresh) {
-//      如果是用户个人栏目”我的问答“，要判断是否登录了
-//      获取数据直接引用父类的requestData方法即可，该方法会进行缓存的保存和读取，没有缓存时调用sendRequestData方法获取数据，子类实现sendRequestData方法即可
-        if (mCatalog > 0) {
-            if (AppContext.getInstance().isLogin()) {
-                super.requestData(refresh);
-            } else {
-                mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
-                mErrorLayout.setErrorMessage(getString(R.string.unlogin_tip));
-            }
-        } else {
+        if (AppContext.getInstance().isLogin()) {
+//            mCatalog = AppContext.getInstance().getLoginUid();
             super.requestData(refresh);
+        } else {
+            mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
+            mErrorLayout.setErrorMessage(getString(R.string.unlogin_tip));
         }
     }
 
@@ -122,15 +108,15 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 
 //  重载该方法，对服务器返回的数据进行解析
     @Override
-    protected TweetsList parseList(InputStream is) throws Exception {
-        TweetsList list = JsonUtils.toBean(TweetsList.class,is);
+    protected VillageServiceList parseList(InputStream is) throws Exception {
+        VillageServiceList list = JsonUtils.toBean(VillageServiceList.class, is);
         return list;
     }
 
 //  用于从缓存中读出序列化数据
     @Override
-    protected TweetsList readList(Serializable seri) {
-        return ((TweetsList) seri);
+    protected VillageServiceList readList(Serializable seri) {
+        return ((VillageServiceList) seri);
     }
 
 
@@ -140,36 +126,40 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-        if (mCatalog==TweetsList.CATALOG_ME){
-            EasyFarmServerApi.getMyTweetList(mCatalog, mCurrentPage, mHandler);
-        }else {
-            EasyFarmServerApi.getTweetList(mCatalog, mCurrentPage, mHandler);
+        if (mCatalog==VillageServiceList.WAITING_VILAGE_SERVICE){
+            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_WAITING, mHandler);
+        }else if (mCatalog==VillageServiceList.ALL_VILLAGE_SERVICE){
+            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_ALL, mHandler);
         }
 //        start-模拟问答数据
-//        List<Tweet> data = new ArrayList<Tweet>();
-//        Tweet a1 = new Tweet();
-//        a1.setAuthor("姚忠良 ");
-//        a1.setTitle("苦瓜籽栽培用什么除草剂比较安全可靠，不求全部杂草，只有能解决大部分杂草？");
-//        a1.setCreateDate("2016-07-05 11:47:42");
-//        a1.setCommentCount("10");
-//        a1.setId(2011);
-//        data.add(a1);
-//        Tweet a2 = new Tweet();
-//        a2.setAuthor("萧山区瓜沥镇联络站(凌小丹) ");
-//        a2.setTitle("为什么玉米采摘下来瘌头比较多");
-//        a2.setCreateDate("2016-07-05 11:47:42");
-//        a2.setCommentCount("10");
-//        a2.setId(2012);
-//        a2.setImgBig("http://imgsrc.baidu.com/forum/w%3D580%3Bcp%3Dtieba%2C10%2C480%3Bap%3D%D1%D6%C2%F3%B0%C9%2C90%2C488/sign=6f74d930d439b6004dce0fbfd96b565a/fbec2201213fb80e0156bb0437d12f2eb8389460.jpg");
-//        a2.setImgSmall("http://img2.imgtn.bdimg.com/it/u=3231829510,729497164&fm=21&gp=0.jpg");
-//        data.add(a2);
-//        Tweet a3 = new Tweet();
-//        a3.setAuthor("凌小丹 ");
-//        a3.setTitle("您好,我想咨询下猕猴桃树为什么只开花不结果?");
-//        a3.setCreateDate("2016-07-05 11:47:42");
-//        a3.setCommentCount("10");
-//        a3.setId(2013);
-//        data.add(a3);
+//        List<VillageService> data = new ArrayList<VillageService>();
+//        VillageService m1 = new VillageService();
+//        m1.setId(2012);
+//        m1.setBusinessArea("广东-广州-从化");
+//        m1.setBusinessAddress("陈家村");
+//        m1.setApplyDate("2016-09-12");
+//        m1.setBusinessReason("下乡考察");
+//        m1.setBusinessDate("2016-9-1");
+//        m1.setReturnDate("2016-9-18");
+//        data.add(m1);
+//        VillageService m2 = new VillageService();
+//        m2.setId(2013);
+//        m2.setBusinessArea("广东-广州-从化");
+//        m2.setBusinessAddress("陈家村");
+//        m2.setApplyDate("2016-09-12");
+//        m2.setBusinessReason("下乡考察");
+//        m2.setBusinessDate("2016-9-1");
+//        m2.setReturnDate("2016-9-18");
+//        data.add(m2);
+//        VillageService m3 = new VillageService();
+//        m3.setId(2014);
+//        m3.setBusinessArea("广东-广州-从化");
+//        m3.setBusinessAddress("陈家村");
+//        m3.setApplyDate("2016-09-12");
+//        m3.setBusinessReason("下乡考察");
+//        m3.setBusinessDate("2016-9-1");
+//        m3.setReturnDate("2016-9-18");
+//        data.add(m3);
 //        executeOnLoadDataSuccess(data);
 //        end-模拟问答数据
     }
@@ -178,9 +168,9 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
-        Tweet tweet = mAdapter.getItem(position);
-        if (tweet != null) {
-            UIHelper.showTweetDetail(view.getContext(), null, tweet.getId());
+        VillageService villageService = mAdapter.getItem(position);
+        if (villageService != null) {
+            UIHelper.showVillageServiceDetail(view.getContext(), villageService.getId());
         }
     }
 
@@ -213,50 +203,43 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 //  长按监听
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        Tweet tweet = mAdapter.getItem(position);
-        if (tweet != null) {
-            handleLongClick(tweet);
+        VillageService villageService = mAdapter.getItem(position);
+        if (villageService != null) {
+            handleLongClick(villageService);
             return true;
         }
         return false;
     }
 
-    private void handleLongClick(final Tweet tweet) {
+    private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        if (AppContext.getInstance().getLoginUid() == tweet.getAuthorid()) {
-            items = new String[] { getResources().getString(R.string.copy),
-                    getResources().getString(R.string.delete) };
-        } else {
-            items = new String[] { getResources().getString(R.string.copy) };
-        }
-
+        items = new String[] {getResources().getString(R.string.delete),"审批" };
         DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
-                    TDevice.copyTextToBoard(HTMLUtil.delHTMLTag(tweet.getTitle()));
-                } else if (i == 1) {
-                    handleDeleteTweet(tweet);
+                    handleDeleteVillageService(villageService);
+                }else if (i==1){
+                    handleVerifyVillageService(villageService);
                 }
             }
         }).show();
     }
 
-//  删除问答
-    private void handleDeleteTweet(final Tweet tweet) {
-        DialogHelp.getConfirmDialog(getActivity(), "是否删除该问答?", new DialogInterface.OnClickListener() {
+//  删除申请
+    private void handleDeleteVillageService(final VillageService villageService) {
+        DialogHelp.getConfirmDialog(getActivity(), "是否删除该申请?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                EasyFarmServerApi.deleteTweet(tweet.getAuthorid(), tweet
-                        .getId(), new DeleteTweetResponseHandler(tweet));
+                EasyFarmServerApi.deleteVillageService(villageService.getId(), new DeleteVillageServiceResponseHandler(villageService));
             }
         }).show();
     }
 
 //  问答删除句柄
-    class DeleteTweetResponseHandler extends OperationResponseHandler {
+    class DeleteVillageServiceResponseHandler extends OperationResponseHandler {
 
-        DeleteTweetResponseHandler(Object... args) {
+        DeleteVillageServiceResponseHandler(Object... args) {
             super(args);
         }
 
@@ -268,8 +251,8 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 //              更新列表
                 if (res != null && res.OK()) {
                     AppContext.showToastShort(R.string.delete_success);
-                    Tweet tweet = (Tweet) args[0];
-                    mAdapter.removeItem(tweet);
+                    VillageService villageService = (VillageService) args[0];
+                    mAdapter.removeItem(villageService);
                     mAdapter.notifyDataSetChanged();
                 } else {
                     onFailure(code, res.getErrorMessage(), args);
@@ -288,6 +271,12 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
             AppContext.showToastShort(R.string.delete_faile);
+        }
+    }
+
+    private void handleVerifyVillageService(VillageService villageService){
+        if (villageService != null) {
+            UIHelper.showVillageServiceVerify(getActivity(), villageService.getId());
         }
     }
 

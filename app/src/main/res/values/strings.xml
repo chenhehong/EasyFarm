@@ -154,6 +154,7 @@
     <string name="manualdetail_actionbar_title">知识库详情</string>
 
     <string name="village_function">下乡管理</string>
+    <string name="village_service_verify">下乡申请审批</string>
 
 
 </resources>

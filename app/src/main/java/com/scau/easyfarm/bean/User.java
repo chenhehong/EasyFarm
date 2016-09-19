@@ -1,6 +1,8 @@
 package com.scau.easyfarm.bean;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * 登录专家实体类
  */
@@ -18,6 +20,7 @@ public class User extends Entity {
     private int age=0;
     private String email="";
     private String address="";
+    @JSONField(name = "roleNames")
     private String roleName="";
     private boolean isRememberMe=false;
 

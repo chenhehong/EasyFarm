@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="?attr/windows_bg"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                style="@style/village_service_detail_layout">
+                <TextView
+                    style="@style/village_service_detail_left_textview"
+                    android:text="下乡人员："/>
+                <TextView
+                    style="@style/village_service_detail_right_textview"
+                    android:id="@+id/tv_person"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_detail_layout">
+                <TextView
+                    style="@style/village_service_detail_left_textview"
+                    android:text="下乡地址："/>
+                <TextView
+                    style="@style/village_service_detail_right_textview"
+                    android:id="@+id/tv_address"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_detail_layout">
+                <TextView
+                    style="@style/village_service_detail_left_textview"
+                    android:text="下乡事由："/>
+                <TextView
+                    style="@style/village_service_detail_right_textview"
+                    android:id="@+id/tv_reason"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_detail_layout">
+                <TextView
+                    style="@style/village_service_detail_left_textview"
+                    android:text="下乡时间："/>
+                <TextView
+                    style="@style/village_service_detail_right_textview"
+                    android:id="@+id/tv_service_date"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_detail_layout">
+                <TextView
+                    style="@style/village_service_detail_left_textview"
+                    android:text="审核状态："/>
+                <Spinner
+                    android:id="@+id/sp_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#4AAE5C"
+                    android:layout_marginBottom="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_detail_layout">
+                <TextView
+                    style="@style/village_service_detail_left_textview"
+                    android:text="审核意见："/>
+                <EditText
+                    android:id="@+id/et_optinion"
+                    android:lines="3"
+                    style="@style/village_service_add_edittext"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.scau.easyfarm.ui.empty.EmptyLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</FrameLayout>

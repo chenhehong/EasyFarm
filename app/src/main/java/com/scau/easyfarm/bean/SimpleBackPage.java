@@ -19,7 +19,9 @@ import com.scau.easyfarm.fragment.VillageFunctionFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.UserCenterFragment;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
+import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
+import com.scau.easyfarm.viewpagerfragment.VillageServiceAllViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceApplyViewPagerFragment;
 
 public enum SimpleBackPage {
@@ -46,7 +48,9 @@ public enum SimpleBackPage {
     CHOOSE_MANUAL_CATEGORY(16,R.string.manualcategory_actionbar_title, ChooseManualCategoryFragment.class),
     MANUAL_LIST(17,R.string.manuallist_actionbar_title, ManualListFragment.class),
     MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class),
-    VILLAGE_FUNCTION(19,R.string.village_function, VillageFunctionFragment.class);
+    VILLAGE_FUNCTION(19,R.string.village_function, VillageFunctionFragment.class),
+    VILLAGE_SERVICE_ALL_LIST(20, R.string.village_service_apply, VillageServiceAllViewPagerFragment.class),
+    VILLAGE_SERVICE_VERIFY(21, R.string.village_service_verify, VillageServiceVerifyFragment.class);
 
     private int title;
     private Class<?> clz;

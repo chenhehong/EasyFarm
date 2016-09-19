@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
+import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.util.UIHelper;
 
 import butterknife.ButterKnife;
@@ -67,7 +69,11 @@ public class VillageFunctionFragment extends BaseFragment{
     }
 
     private void showgVilageServiceVerify(){
-
+        if ( !AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
+            AppContext.showToast("权限不够");
+            return;
+        }
+        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_ALL_LIST);
     }
 
 }

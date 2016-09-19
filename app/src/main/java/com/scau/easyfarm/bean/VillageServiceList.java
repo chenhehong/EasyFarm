@@ -12,8 +12,12 @@ public class VillageServiceList extends Entity implements ListEntity<VillageServ
 
     public final static int ALL_VILLAGE_SERVICE = 0;
     public final static int PASS_VILAGE_SERVICE = 1;
+    public final static int WAITING_VILAGE_SERVICE = 2;
 
+
+    public final static int VILLAGE_SERVICE_ALL = 0;
     public final static int VILLAGE_SERVICE_PASS = 7;
+    public final static int VILLAGE_SERVICE_REJECT = 8;
     public final static int VILLAGE_SERVICE_WAITING = 9;
 
 

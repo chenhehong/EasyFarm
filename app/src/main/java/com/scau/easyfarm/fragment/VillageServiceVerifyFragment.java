@@ -3,23 +3,34 @@ package com.scau.easyfarm.fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
-import com.scau.easyfarm.bean.User;
+import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceDetail;
 import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.bean.VillageServiceOpinion;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.TDevice;
+import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
+import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,7 +39,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by chenhehong on 2016/9/9.
  */
-public class VillageServiceDetailFragment extends BaseFragment {
+public class VillageServiceVerifyFragment extends BaseFragment {
 
     @InjectView(R.id.tv_person)
     TextView tvPerson;
@@ -38,22 +49,27 @@ public class VillageServiceDetailFragment extends BaseFragment {
     TextView tvReason;
     @InjectView(R.id.tv_service_date)
     TextView tvServiceDate;
-    @InjectView(R.id.tv_statue)
-    TextView tvStatue;
-    @InjectView(R.id.tv_optionion)
-    TextView tvOpinion;
+    @InjectView(R.id.sp_status)
+    Spinner statusSpinner;
+    @InjectView(R.id.et_optinion)
+    EditText optinionEditText;
     @InjectView(R.id.error_layout)
     EmptyLayout mErrorLayout;
+
+    private ArrayAdapter<String> spinnerAdapter;
+    public static final HashMap<String,Integer> statusMap = new HashMap<String,Integer>(){{ put("待审核",VillageServiceList.VILLAGE_SERVICE_WAITING);  put("通过",10);  put("不通过",11);} };
+    public static final String[] statusArray = {"待审核","通过","不通过"};
 
     public static final String VILLAGE_SERVICE_ID_CODE = "village_service_id_code";
 
     private int mVillageServiceId;
     private VillageService mVillageService;
+    private int selectStatus;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_village_service_detail,container,false);
+        View view = inflater.inflate(R.layout.fragment_village_service_verify,container,false);
         initView(view);
         return view;
     }
@@ -68,6 +84,20 @@ public class VillageServiceDetailFragment extends BaseFragment {
     public void initView(View view) {
         super.initView(view);
         ButterKnife.inject(this, view);
+        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, statusArray);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// 设置下拉风格
+        statusSpinner.setAdapter(spinnerAdapter);
+        statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedStr = statusArray[position];
+                selectStatus = statusMap.get(selectedStr);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         setHasOptionsMenu(true);
     }
 
@@ -114,7 +144,7 @@ public class VillageServiceDetailFragment extends BaseFragment {
         public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
             mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
             String s = new String(arg2);
-            Log.d("chh",s);
+            Log.d("chh", s);
             VillageService villageService = JsonUtils.toBean(VillageServiceDetail.class,
                     new ByteArrayInputStream(arg2)).getVillageService();
             if (villageService!=null) {
@@ -130,8 +160,18 @@ public class VillageServiceDetailFragment extends BaseFragment {
                               Throwable arg3) {
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         }
-
     };
+
+    private void handleResultBean(ResultBean resultBean){
+        if (resultBean.getResult().OK()){
+            hideWaitDialog();
+            AppContext.showToastShort("发布成功！");
+            getActivity().finish();
+        }else {
+            hideWaitDialog();
+            AppContext.showToast(resultBean.getResult().getErrorMessage());
+        }
+    }
 
     public void fillUI() {
         String servicePerson = "";
@@ -142,18 +182,66 @@ public class VillageServiceDetailFragment extends BaseFragment {
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(mVillageService.getBusinessDate()+"至"+mVillageService.getReturnDate());
-        if (mVillageService.getStatus()== VillageServiceList.VILLAGE_SERVICE_WAITING){
-            tvStatue.setText("待审核");
-        }else if (mVillageService.getStatus()==VillageServiceList.VILLAGE_SERVICE_PASS){
-            tvStatue.setText("通过");
-        }
-        String optionion = "";
-        if (mVillageService.getVillageServiceOpinions()!=null){
-            for (int i=0;i<mVillageService.getVillageServiceOpinions().size();i++){
-                VillageServiceOpinion eachOpinion = mVillageService.getVillageServiceOpinions().get(i);
-                optionion += eachOpinion.getOpinionPerson()+":"+eachOpinion.getOpinion()+"\n";
+        for (int i=0;i<statusArray.length;i++){
+            String selectedString = statusArray[i];
+            if (statusMap.get(selectedString)==mVillageService.getStatus()){
+                statusSpinner.setSelection(i);
+                break;
             }
         }
-        tvOpinion.setText(optionion);
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.submit_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.public_menu_send:
+                handleSubmit();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    private void handleSubmit() {
+        if (!TDevice.hasInternet()) {
+            AppContext.showToastShort(R.string.tip_network_error);
+            return;
+        }
+        if (!AppContext.getInstance().isLogin()) {
+            UIHelper.showLoginActivity(getActivity());
+            return;
+        }
+        showWaitDialog("提交中，请稍后");
+        EasyFarmServerApi.verifyVillageService(mVillageServiceId, selectStatus, optinionEditText.getText().toString(), mSubmitHandler);
+    }
+
+    private final AsyncHttpResponseHandler mSubmitHandler = new AsyncHttpResponseHandler() {
+
+        @Override
+        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, arg2);
+            if (resultBean != null) {
+                handleResultBean(resultBean);
+            }
+        }
+
+        @Override
+        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+                              Throwable arg3) {
+            AppContext.showToast("网络出错" + arg0);
+        }
+
+        @Override
+        public void onFinish() {
+            super.onFinish();
+            hideWaitDialog();
+        }
+    };
 }
