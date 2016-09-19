@@ -15,22 +15,12 @@
             <LinearLayout
                 style="@style/functionLayoutColumn">
                 <ImageView
-                    android:id="@+id/ImgVillageServiceApply"
+                    android:id="@+id/ImgVillageServiceManage"
                     android:src="@drawable/func_village_service_apply_icon"
                     style="@style/functionIcon"/>
                 <TextView
                     style="@style/functionIconText"
-                    android:text="@string/village_service_apply"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/functionLayoutColumn">
-                <ImageView
-                    android:id="@+id/ImgVillageServiceProof"
-                    android:src="@drawable/func_village_service_proof_icon"
-                    style="@style/functionIcon"/>
-                <TextView
-                    style="@style/functionIconText"
-                    android:text="@string/village_service_proof"/>
+                    android:text="下乡管理"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/functionLayoutColumn">
@@ -51,6 +41,48 @@
                 <TextView
                     style="@style/functionIconText"
                     android:text="@string/agriculture_knowledge_base"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+                <ImageView
+                    android:id="@+id/ImgAchievementBase"
+                    android:src="@drawable/func_agriculture_knowledge_base_icon"
+                    style="@style/functionIcon"/>
+                <TextView
+                    style="@style/functionIconText"
+                    android:text="成果库"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/functionLayoutRow">
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+                <ImageView
+                    android:id="@+id/ImgSkillBase"
+                    android:src="@drawable/func_agriculture_knowledge_base_icon"
+                    style="@style/functionIcon"/>
+                <TextView
+                    style="@style/functionIconText"
+                    android:text="技术库"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+                <ImageView
+                    android:id="@+id/ImgVarietyBase"
+                    android:src="@drawable/func_agriculture_knowledge_base_icon"
+                    style="@style/functionIcon"/>
+                <TextView
+                    style="@style/functionIconText"
+                    android:text="品种库"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/functionLayoutColumn">
             </LinearLayout>
         </LinearLayout>
 

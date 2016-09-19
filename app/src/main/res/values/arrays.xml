@@ -19,9 +19,9 @@
     </string-array>
 
     <string-array name="tweets_viewpage_arrays">
-        <item>最新问答</item>
-        <item>热门问答</item>
-        <item>我的问答</item>
+        <item>最新交流</item>
+        <item>热门交流</item>
+        <item>我的交流</item>
     </string-array>
 
     <string-array name="news_viewpage_arrays">

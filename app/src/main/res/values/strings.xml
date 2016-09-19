@@ -3,9 +3,9 @@
     <string name="app_name">农技通</string>
     <!--主tab名-->
     <string name="main_tab_name_function">应用</string>
-    <string name="main_tab_name_question">问答</string>
+    <string name="main_tab_name_question">在线交流</string>
     <string name="main_tab_name_quick">快速</string>
-    <string name="main_tab_name_news">综合</string>
+    <string name="main_tab_name_news">新闻</string>
     <string name="main_tab_name_me">我</string>
 
     <string name="tip_double_click_exit">再次点击退出农技通</string>
@@ -152,6 +152,8 @@
     <string name="manualcategory_actionbar_title">选择类别</string>
     <string name="manuallist_actionbar_title">知识库列表</string>
     <string name="manualdetail_actionbar_title">知识库详情</string>
+
+    <string name="village_function">下乡管理</string>
 
 
 </resources>

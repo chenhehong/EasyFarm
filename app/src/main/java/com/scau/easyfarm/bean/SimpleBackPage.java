@@ -15,6 +15,7 @@ import com.scau.easyfarm.fragment.SettingsNotificationFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.TweetPubFragment;
+import com.scau.easyfarm.fragment.VillageFunctionFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.UserCenterFragment;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
@@ -44,7 +45,8 @@ public enum SimpleBackPage {
     TWEET_CHOOSE_TYPE(15,R.string.tweet_type_choose, TweetChooseManualCategoryFragment.class),
     CHOOSE_MANUAL_CATEGORY(16,R.string.manualcategory_actionbar_title, ChooseManualCategoryFragment.class),
     MANUAL_LIST(17,R.string.manuallist_actionbar_title, ManualListFragment.class),
-    MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class);
+    MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class),
+    VILLAGE_FUNCTION(19,R.string.village_function, VillageFunctionFragment.class);
 
     private int title;
     private Class<?> clz;
