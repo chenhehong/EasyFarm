@@ -49,6 +49,9 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     public static final String SELECTED_VILLAGESERVICE_ID = "selected_village_service_id";
     public static final String SELECTED_VILLAGESERVICE_DEC = "selected_villageservice_dec";
 
+    public static final String BUNDLE_KEY_ALL = "bundle_key_all";
+    public static final int ALL_LIST = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,10 +134,12 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     @Override
     protected void sendRequestData() {
         Bundle bundle = getArguments();
-        if (bundle != null) {
+        if (bundle != null&&bundle.getInt(BUNDLE_KEY_ALL)==ALL_LIST) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
+            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_PASS, mHandler);
+        }else {
+            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_PASS, mHandler);
         }
-        EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_PASS, mHandler);
 //        start-模拟问答数据
 //        List<VillageService> data = new ArrayList<VillageService>();
 //        VillageService m1 = new VillageService();
@@ -174,8 +179,8 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                             long id) {
         VillageService villageService = mAdapter.getItem(position);
         if (villageService != null) {
-            Bundle bundle = new Bundle();
-            if (bundle != null&&bundle.getInt(VILLAGESERVICEPROOF_ACTION)==(ACTION_SELECT)){
+            Bundle bundle = getArguments();
+            if (bundle != null&&bundle.getInt(VILLAGESERVICEPROOF_ACTION)==ACTION_SELECT){
                 Intent result = new Intent();
                 result.putExtra(SELECTED_VILLAGESERVICE_ID,villageService.getId());
                 String s = "";
@@ -184,7 +189,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                 getActivity().setResult(getActivity().RESULT_OK, result);
                 getActivity().finish();
             }else {
-
+                UIHelper.showVillageServiceProofResource(this,villageService.getId());
             }
         }
     }
@@ -193,6 +198,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     @Override
     public void initView(View view) {
         super.initView(view);
+        setHasOptionsMenu(true);
         mListView.setOnItemLongClickListener(this);
 //      设置状态栏点击事件
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
@@ -264,7 +270,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.public_menu_add:
-                UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_ADD);
+                UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE_ADD);
                 break;
         }
         return true;

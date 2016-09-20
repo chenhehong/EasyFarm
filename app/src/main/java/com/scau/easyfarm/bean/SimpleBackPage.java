@@ -19,6 +19,9 @@ import com.scau.easyfarm.fragment.VillageFunctionFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.UserCenterFragment;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
+import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
+import com.scau.easyfarm.fragment.VillageServiceProofResourPubFragment;
+import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
 import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceAllViewPagerFragment;
@@ -50,7 +53,11 @@ public enum SimpleBackPage {
     MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class),
     VILLAGE_FUNCTION(19,R.string.village_function, VillageFunctionFragment.class),
     VILLAGE_SERVICE_ALL_LIST(20, R.string.village_service_apply, VillageServiceAllViewPagerFragment.class),
-    VILLAGE_SERVICE_VERIFY(21, R.string.village_service_verify, VillageServiceVerifyFragment.class);
+    VILLAGE_SERVICE_VERIFY(21, R.string.village_service_verify, VillageServiceVerifyFragment.class),
+    VILLAGE_SERVICE_PROOF(22, R.string.village_service_proof_list, VillageServiceProofListFragment.class),
+    VILLAGE_SERVICE_PROOF_RESOURCE(23, R.string.village_service_proof_list, VillageServiceProofResourceFragment.class),
+    VILLAGE_SERVICE_PROOF_RESOURCE_ADD(24, R.string.village_service_proof_resource_add, VillageServiceProofResourPubFragment.class),
+    VILLAGE_SERVICE_ALL_PROOF(25, R.string.village_service_all_proof_list, VillageServiceProofListFragment.class);
 
     private int title;
     private Class<?> clz;

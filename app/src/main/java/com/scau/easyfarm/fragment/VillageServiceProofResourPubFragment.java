@@ -177,12 +177,12 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
             return;
         }
         VillageProofResource villageProofResource = new VillageProofResource();
-        villageProofResource.setCreateDate(mResourceTime.toString());
-        villageProofResource.setAddress(mResourceAddress.toString());
+        villageProofResource.setCreateDate(mResourceTime.getText().toString());
+        villageProofResource.setAddress(mResourceAddress.getText().toString());
         villageProofResource.setVillageServiceId(selectedVillageServiceTypeId);
         villageProofResource.setDescription(mResourceDescription.toString());
         if (imgFile != null && imgFile.exists()) {
-            villageProofResource.setImgBig(imgFile.getAbsolutePath());
+            villageProofResource.setImageFilePath(imgFile.getAbsolutePath());
         }
 
         showWaitDialog("上传佐证中");
@@ -217,6 +217,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
                 updateMenuState();
             }
         });
+        mImvVillageType.setOnClickListener(this);
 
     }
 
@@ -236,13 +237,13 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
                 dialog.dismiss();
             }
         }).show();
-        return super.onBackPressed();
+        return true;
     }
 
     @Override
     public void onClick(View v) {
         final int id = v.getId();
-        if (id ==R.id.btn_village_type){
+        if (id == R.id.btn_village_type){
             UIHelper.showVillageServiceProofChoose(this,REQUESTCODE_CHOOSE_VILLAGESERVICE);
         }
     }

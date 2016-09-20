@@ -157,4 +157,10 @@
     <string name="village_service_verify">下乡申请审批</string>
 
 
+    <string name="village_service_proof_list">下乡佐证</string>
+    <string name="village_service_proof_resource">佐证材料列表</string>
+    <string name="village_service_proof_resource_add">上传佐证材料</string>
+    <string name="village_service_all_proof_list">下乡统计</string>
+
+
 </resources>

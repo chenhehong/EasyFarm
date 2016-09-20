@@ -48,7 +48,7 @@ public class VillageServiceAdapter extends ListBaseAdapter<VillageService>{
 
         VillageService villageService = (VillageService) mDatas.get(position);
         vh.address.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
-        vh.applyTime.setText(villageService.getApplyDate());
+        vh.applyTime.setText("申请时间："+villageService.getApplyDate()+"；申请人："+villageService.getApplyManName());
         vh.reason.setText(villageService.getBusinessReason());
         vh.date.setText("下乡时间:"+villageService.getBusinessDate()+"-"+villageService.getReturnDate());
         return convertView;

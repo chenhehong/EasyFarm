@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.adapter.VillageServiceAdapter;
 import com.scau.easyfarm.adapter.VillageServiceProofResourceAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
@@ -23,7 +22,6 @@ import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.bean.VillageProofResourceList;
 import com.scau.easyfarm.bean.VillageService;
-import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
@@ -42,6 +40,8 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
         AdapterView.OnItemLongClickListener{
 
     private static final String CACHE_KEY_PREFIX = "villageServiceProofResourcelist_";
+    public static final String BUNDLEKEY_VILLAGESERVICE_ID = "bundlekey_villageservice_id";
+    private int villageServiceId = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,12 +127,9 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
         Bundle bundle = getArguments();
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
+            villageServiceId = bundle.getInt(BUNDLEKEY_VILLAGESERVICE_ID);
         }
-        if (mCatalog==VillageServiceList.PASS_VILAGE_SERVICE){
-            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_PASS, mHandler);
-        }else{
-            EasyFarmServerApi.getAllMyVillageServiceList(mCatalog, mCurrentPage, mHandler);
-        }
+        EasyFarmServerApi.getVillageServiceProofResourceList(mCatalog, mCurrentPage, villageServiceId, mHandler);
     }
 
 //  重载点击事件，自定义子类的点击事件
@@ -184,25 +181,24 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 
     private void handleLongClick(final VillageProofResource villageProofResource) {
         String[] items = null;
-//        if (villageProofResource.getStatus()==VillageServiceList.VILLAGE_SERVICE_WAITING){
-//            items = new String[] {getResources().getString(R.string.delete) };
-//            DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    if (i == 0) {
-//                        handleDeleteTweet(villageProofResource);
-//                    }
-//                }
-//            }).show();
-//        }
+        items = new String[] {getResources().getString(R.string.delete) };
+        DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0) {
+                    handleDeleteResource(villageProofResource);
+                }
+            }
+        }).show();
     }
 
 //  删除申请
-    private void handleDeleteTweet(final VillageProofResource villageProofResource) {
-        DialogHelp.getConfirmDialog(getActivity(), "是否删除该申请?", new DialogInterface.OnClickListener() {
+    private void handleDeleteResource(final VillageProofResource villageProofResource) {
+        DialogHelp.getConfirmDialog(getActivity(), "是否删除该佐证材料?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                EasyFarmServerApi.deleteVillageService(villageProofResource.getId(), new DeleteVillageServiceResponseHandler(villageProofResource));
+                showWaitDialog("删除中");
+                EasyFarmServerApi.deleteVillageServiceProofResource(villageProofResource.getId(), new DeleteVillageServiceResponseHandler(villageProofResource));
             }
         }).show();
     }
@@ -217,6 +213,7 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
         @Override
         public void onSuccess(int code, ByteArrayInputStream is, Object[] args)
                 throws Exception {
+            hideWaitDialog();
             try {
                 Result res = JsonUtils.toBean(ResultBean.class, is).getResult();
 //              更新列表
@@ -236,11 +233,13 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
+            hideWaitDialog();
+            AppContext.showToastShort(R.string.delete_success);
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            hideWaitDialog();
             AppContext.showToastShort(R.string.delete_faile);
         }
     }

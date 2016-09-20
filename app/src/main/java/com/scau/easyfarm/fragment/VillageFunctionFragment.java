@@ -53,11 +53,13 @@ public class VillageFunctionFragment extends BaseFragment{
                 showVillageServiceApply();
                 break;
             case R.id.ImgVillageServiceProof:
+                showVillageServiceProofList();
                 break;
             case R.id.ImgVilageServiceVerify:
                 showgVilageServiceVerify();
                 break;
             case R.id.ImgVilageServiceStatistic:
+                showgVilageServiceStatistic();
                 break;
             default:
                 break;
@@ -68,12 +70,24 @@ public class VillageFunctionFragment extends BaseFragment{
         UIHelper.showVillageServiceApply(getActivity());
     }
 
+    private void showVillageServiceProofList(){
+        UIHelper.showVillageServicProofList(getActivity());
+    }
+
     private void showgVilageServiceVerify(){
         if ( !AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
             AppContext.showToast("权限不够");
             return;
         }
         UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_ALL_LIST);
+    }
+
+    private void showgVilageServiceStatistic(){
+        if ( !AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
+            AppContext.showToast("权限不够");
+            return;
+        }
+        UIHelper.showAllVillageServiceProofList(this);
     }
 
 }

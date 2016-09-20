@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.util.UIHelper;
 
@@ -26,14 +27,17 @@ import java.util.List;
 public class VillageProofResource extends Entity{
 
 
+    @JSONField(name = "metaDescription")
     private String address;
     private String description;
     private String createDate;
     private String imgSmall;
     private String imgBig;
+    @JSONField(name = "metaID")
     private int villageServiceId;
     private String villageServiceAddress;
     private String villageServiceReason;
+    @JSONField(name = "metaPath")
     private String imageFilePath;
 
 

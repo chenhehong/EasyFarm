@@ -339,7 +339,7 @@ public class TweetPubFragment extends BaseFragment{
     public void onClick(View v) {
         final int id = v.getId();
         if (id == R.id.ib_picture) {
-            handleSelectPicture();
+//            handleSelectPicture();
         }else if (id == R.id.tv_clear) {
             handleClearWords();
         } else if (id == R.id.iv_clear_img) {

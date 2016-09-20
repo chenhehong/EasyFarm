@@ -15,6 +15,7 @@ public class VillageService extends Entity {
     private int applyManId;
     @JSONField(name = "applyMan")
     private String applyManName;
+    @JSONField(name = "ApplyDate")
     private String applyDate;
     private String businessArea;
     private String businessAddress;

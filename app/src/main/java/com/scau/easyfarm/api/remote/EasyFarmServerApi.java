@@ -312,4 +312,21 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/uploadfile" + AppContext.ACCESS, params, handler);
     }
 
+    public static void getVillageServiceProofResourceList(int categoryId, int page, int villageServiceId,
+                                               AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("personalID", AppContext.getInstance().getLoginUid());
+        params.put("serviceID",villageServiceId);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/village/api/getResourceByServiceID" + AppContext.ACCESS, params, handler);
+    }
+
+    public static void deleteVillageServiceProofResource(int villageServiceId,
+                                            AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("id", villageServiceId);
+        ApiHttpClient.post("front/mobile/village/api/deleteResourceById" + AppContext.ACCESS, params, handler);
+    }
+
 }

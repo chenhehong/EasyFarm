@@ -21,6 +21,7 @@ import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
+import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
@@ -317,10 +318,24 @@ public class UIHelper {
     public static void showVillageServiceProofChoose(Fragment fragment,int requestCode) {
         Bundle args = new Bundle();
         args.putInt(VillageServiceProofListFragment.VILLAGESERVICEPROOF_ACTION,VillageServiceProofListFragment.ACTION_SELECT);
-        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.TWEET_CHOOSE_TYPE, args);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.VILLAGE_SERVICE_PROOF, args);
     }
 
+    public static void showVillageServicProofList(Context context) {
+        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_PROOF);
+    }
 
+    public static void showVillageServiceProofResource(Fragment fragment,int villageServiceId) {
+        Bundle args = new Bundle();
+        args.putInt(VillageServiceProofResourceFragment.BUNDLEKEY_VILLAGESERVICE_ID,villageServiceId);
+        showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE,args);
+    }
+
+    public static void showAllVillageServiceProofList(Fragment fragment) {
+        Bundle args = new Bundle();
+        args.putInt(VillageServiceProofListFragment.BUNDLE_KEY_ALL,VillageServiceProofListFragment.ALL_LIST);
+        showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_ALL_PROOF,args);
+    }
 }
 
 
