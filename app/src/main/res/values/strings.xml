@@ -122,7 +122,7 @@
     <!-- 应用模块-->
     <string name="village_service_apply">下乡申请</string>
     <string name="village_service_proof">下乡佐证</string>
-    <string name="village_service_performance">个人绩效</string>
+    <string name="village_service_performance">绩效管理</string>
     <string name="agriculture_knowledge_base">知识库</string>
     <string name="area_choose">选择地区</string>
 

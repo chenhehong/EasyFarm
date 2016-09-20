@@ -8,9 +8,7 @@ import com.loopj.android.http.RequestParams;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.bean.Tweet;
-import com.scau.easyfarm.bean.VillageService;
-import com.scau.easyfarm.util.DateTimeUtil;
-import com.scau.easyfarm.util.TimeZoneUtil;
+import com.scau.easyfarm.bean.VillageProofResource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -147,7 +145,7 @@ public class EasyFarmServerApi {
         params.put("manualCategoryID",typeId);
         params.put("currenPage",currenPage);
         params.put("pageSize", pageSize);
-        ApiHttpClient.post("front/mobile/user/getAllEpxert"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/user/getAllEpxert" + AppContext.ACCESS, params, handler);
     }
 
     public static void getTweetDetail(int id, AsyncHttpResponseHandler handler) {
@@ -171,7 +169,7 @@ public class EasyFarmServerApi {
         params.put("questionID", id);
         params.put("pageIndex", page);
         params.put("pageSize", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/communicate/api/getcomments"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/communicate/api/getcomments" + AppContext.ACCESS, params, handler);
     }
 
     public static void deleteComment(int id, int catalog, int replyid,
@@ -205,7 +203,7 @@ public class EasyFarmServerApi {
         params.put("personalID", uid);
         params.put("content", content);
         params.put("commentName",AppContext.getInstance().getLoginUser().getRealName());
-        ApiHttpClient.post("front/mobile/communicate/api/comment"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/communicate/api/comment" + AppContext.ACCESS, params, handler);
     }
 
     public static void getProvinceList(AsyncHttpResponseHandler handler){
@@ -221,7 +219,7 @@ public class EasyFarmServerApi {
     public static void getCountyList(int jsonId,AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("CityID",jsonId);
-        ApiHttpClient.post("front/mobile/area/getCountys"+ AppContext.ACCESS,params,handler);
+        ApiHttpClient.post("front/mobile/area/getCountys" + AppContext.ACCESS, params, handler);
     }
 
     public static void getAllMyVillageServiceList(int categoryId, int page,
@@ -240,7 +238,7 @@ public class EasyFarmServerApi {
         params.put("status",status);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getServiceByPersonalID"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/village/api/getServiceByPersonalID" + AppContext.ACCESS, params, handler);
     }
 
     public static void getVillageServiceDetail(int id,AsyncHttpResponseHandler handler){
@@ -296,7 +294,22 @@ public class EasyFarmServerApi {
         params.put("PersonalID", AppContext.getInstance().getLoginUid());
         params.put("villageServiceID", villageServiceId);
         params.put("opinion",optinion);
-        ApiHttpClient.get("front/mobile/village/api/audit"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/village/api/audit" + AppContext.ACCESS, params, handler);
+    }
+
+    public static void pubVillageServiceProof(VillageProofResource v, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("villageServiceId",v.getVillageServiceId());
+        params.put("area",v.getAddress());
+        // Map<String, File> files = new HashMap<String, File>();
+        if (!TextUtils.isEmpty(v.getImageFilePath())) {
+            try {
+                params.put("file", new File(v.getImageFilePath()));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        ApiHttpClient.post("front/mobile/village/api/uploadfile" + AppContext.ACCESS, params, handler);
     }
 
 }

@@ -20,6 +20,7 @@ import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
+import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
@@ -303,14 +304,20 @@ public class UIHelper {
 
     public static void showManualList(Fragment fragment,String categoryCode){
         Bundle bundle = new Bundle();
-        bundle.putString(ManualListFragment.MANUALCATEGORYCODE,categoryCode);
+        bundle.putString(ManualListFragment.MANUALCATEGORYCODE, categoryCode);
         showSimpleBack(fragment, SimpleBackPage.MANUAL_LIST, bundle);
     }
 
     public static void showManualContentDetail(Context context, int ManualContentId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,ManualContentId);
+        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE, ManualContentId);
         showSimpleBack(context,SimpleBackPage.MANUAL_DETAIL,bundle);
+    }
+
+    public static void showVillageServiceProofChoose(Fragment fragment,int requestCode) {
+        Bundle args = new Bundle();
+        args.putInt(VillageServiceProofListFragment.VILLAGESERVICEPROOF_ACTION,VillageServiceProofListFragment.ACTION_SELECT);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.TWEET_CHOOSE_TYPE, args);
     }
 
 
