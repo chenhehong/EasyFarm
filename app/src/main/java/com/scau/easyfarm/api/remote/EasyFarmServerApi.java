@@ -329,4 +329,33 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/deleteResourceById" + AppContext.ACCESS, params, handler);
     }
 
+    /**
+     * 获取新闻列表
+     *
+     * @param catalog
+     *            类别 （1，2，3）
+     * @param page
+     *            第几页
+     * @param handler
+     */
+    public static void getNewsList(int catalog, int page,
+                                   AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("catalog", catalog);
+        params.put("pageIndex", page);
+        params.put("pageSize", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("action/api/news_list", params, handler);
+    }
+
+    /**
+     * 获取新闻明细
+     *
+     * @param id 新闻的id
+     * @param handler
+     */
+    public static void getNewsDetail(int id, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams("id", id);
+        ApiHttpClient.get("action/api/news_detail", params, handler);
+    }
+
 }

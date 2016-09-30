@@ -12,6 +12,7 @@ import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.emoji.KJEmojiFragment;
 import com.scau.easyfarm.emoji.OnSendClickListener;
 import com.scau.easyfarm.emoji.ToolbarFragment;
+import com.scau.easyfarm.fragment.NewsDetailFragment;
 import com.scau.easyfarm.fragment.TweetDetailFragment;
 
 /**
@@ -56,6 +57,10 @@ public class DetailActivity extends BaseActivity implements OnSendClickListener 
                 actionBarTitle = R.string.actionbar_tweet_detail;
                 fragment = new TweetDetailFragment();
                 break;
+            case DISPLAY_NEWS:
+                actionBarTitle = R.string.actionbar_title_news;
+                fragment = new NewsDetailFragment();
+                break;
             default:
                 break;
         }
@@ -89,7 +94,9 @@ public class DetailActivity extends BaseActivity implements OnSendClickListener 
     @Override
 //  设置下方编辑工具栏
     public void initView() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.emoji_keyboard, emojiFragment).commit();
+        if (currentFragment instanceof TweetDetailFragment){
+            getSupportFragmentManager().beginTransaction().replace(R.id.emoji_keyboard, emojiFragment).commit();
+        }
     }
 
     @Override

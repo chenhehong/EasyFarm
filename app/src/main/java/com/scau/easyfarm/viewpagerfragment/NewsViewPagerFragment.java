@@ -7,6 +7,7 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
+import com.scau.easyfarm.bean.NewsList;
 import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.fragment.NewsListFragment;
 import com.scau.easyfarm.fragment.TweetsFragment;
@@ -21,10 +22,10 @@ public class NewsViewPagerFragment extends BaseViewPagerFragment {
         String[] title = getResources().getStringArray(
                 R.array.news_viewpage_arrays);
 //      传人频道号为参数
-        adapter.addTab(title[0], "new_tweets", NewsListFragment.class,
-                getBundle(TweetsList.CATALOG_LATEST));
-        adapter.addTab(title[1], "hot_tweets", NewsListFragment.class,
-                getBundle(TweetsList.CATALOG_HOT));
+        adapter.addTab(title[0], "news_hot", NewsListFragment.class,
+                getBundle(NewsList.CATALOG_HOT));
+        adapter.addTab(title[1], "news_announce", NewsListFragment.class,
+                getBundle(NewsList.CATALOG_ANNOUNCE));
     }
 
     private Bundle getBundle(int catalog) {

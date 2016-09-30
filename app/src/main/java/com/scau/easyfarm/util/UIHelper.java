@@ -1,16 +1,26 @@
 package com.scau.easyfarm.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ZoomButtonsController;
 
+import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
@@ -23,16 +33,41 @@ import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
+import com.scau.easyfarm.interf.OnWebViewImageListener;
 import com.scau.easyfarm.service.DownloadService;
 import com.scau.easyfarm.service.NoticeService;
 import com.scau.easyfarm.ui.DetailActivity;
+import com.scau.easyfarm.ui.ImagePreviewActivity;
 import com.scau.easyfarm.ui.LoginActivity;
 import com.scau.easyfarm.ui.SimpleBackActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URLDecoder;
 
 /**
  * 界面帮助类
  */
 public class UIHelper {
+
+
+    /** 全局web样式 */
+    // 链接样式文件，代码块高亮的处理
+    public final static String linkCss = "<script type=\"text/javascript\" src=\"file:///android_asset/shCore.js\"></script>"
+            + "<script type=\"text/javascript\" src=\"file:///android_asset/brush.js\"></script>"
+            + "<script type=\"text/javascript\" src=\"file:///android_asset/client.js\"></script>"
+            + "<script type=\"text/javascript\" src=\"file:///android_asset/detail_page.js\"></script>"
+            + "<script type=\"text/javascript\">SyntaxHighlighter.all();</script>"
+            + "<script type=\"text/javascript\">function showImagePreview(var url){window.location.url= url;}</script>"
+            + "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shThemeDefault.css\">"
+            + "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shCore.css\">"
+            + "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/css/common.css\">";
+    public final static String WEB_STYLE = linkCss;
+
+    public static final String WEB_LOAD_IMAGES = "<script type=\"text/javascript\"> var allImgUrls = getAllImgSrc(document.body.innerHTML);</script>";
+
+    private static final String SHOWIMAGE = "ima-api:action=showImage&data=";
 
 
     /**
@@ -283,7 +318,7 @@ public class UIHelper {
 
     public static void showVillageServiceDetail(Context context, int villageServiceId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
+        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE, villageServiceId);
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_DETAIL, bundle);
     }
 
@@ -327,7 +362,7 @@ public class UIHelper {
 
     public static void showVillageServiceProofResource(Fragment fragment,int villageServiceId) {
         Bundle args = new Bundle();
-        args.putInt(VillageServiceProofResourceFragment.BUNDLEKEY_VILLAGESERVICE_ID,villageServiceId);
+        args.putInt(VillageServiceProofResourceFragment.BUNDLEKEY_VILLAGESERVICE_ID, villageServiceId);
         showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE,args);
     }
 
@@ -336,6 +371,131 @@ public class UIHelper {
         args.putInt(VillageServiceProofListFragment.BUNDLE_KEY_ALL,VillageServiceProofListFragment.ALL_LIST);
         showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_ALL_PROOF,args);
     }
+
+    /**
+     * 显示新闻详情
+     *
+     * @param context
+     * @param newsId
+     */
+    public static void showNewsDetail(Context context, int newsId) {
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra("id", newsId);
+        intent.putExtra(DetailActivity.BUNDLE_KEY_DISPLAY_TYPE,
+                DetailActivity.DISPLAY_NEWS);
+        context.startActivity(intent);
+    }
+
+    @SuppressLint({ "JavascriptInterface", "SetJavaScriptEnabled" })
+    public static void initWebView(WebView webView) {
+        WebSettings settings = webView.getSettings();
+        settings.setDefaultFontSize(15);
+        settings.setJavaScriptEnabled(true);
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+        int sysVersion = Build.VERSION.SDK_INT;
+        if (sysVersion >= 11) {
+            settings.setDisplayZoomControls(false);
+        } else {
+            ZoomButtonsController zbc = new ZoomButtonsController(webView);
+            zbc.getZoomControls().setVisibility(View.GONE);
+        }
+        webView.setWebViewClient(UIHelper.getWebViewClient());
+    }
+
+    /**
+     * 添加网页的点击图片展示支持
+     */
+    @SuppressLint({ "JavascriptInterface", "SetJavaScriptEnabled" })
+    @JavascriptInterface
+    public static void addWebImageShow(final Context cxt, WebView wv) {
+        wv.getSettings().setJavaScriptEnabled(true);
+        wv.addJavascriptInterface(new OnWebViewImageListener() {
+            @Override
+            @JavascriptInterface
+            public void showImagePreview(String bigImageUrl) {
+                if (bigImageUrl != null && !StringUtils.isEmpty(bigImageUrl)) {
+                    UIHelper.showImagePreview(cxt, new String[]{bigImageUrl});
+                }
+            }
+        }, "mWebViewImageListener");
+    }
+
+    /**
+     * 获取webviewClient对象
+     *
+     * @return
+     */
+    public static WebViewClient getWebViewClient() {
+
+        return new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                showUrlRedirect(view.getContext(), url);
+                return true;
+            }
+        };
+    }
+
+    /**
+     * url跳转
+     *
+     * @param context
+     * @param url
+     */
+    public static void showUrlRedirect(Context context, String url) {
+        if (url == null)
+            return;
+        openBrowser(context, url);
+    }
+
+    /**
+     * 打开内置浏览器
+     *
+     * @param context
+     * @param url
+     */
+    public static void openBrowser(Context context, String url) {
+
+        if (StringUtils.isImgUrl(url)) {
+            ImagePreviewActivity.showImagePrivew(context, 0,
+                    new String[]{url});
+            return;
+        }
+        try {
+            // 启用外部浏览器
+             Uri uri = Uri.parse(url);
+             Intent it = new Intent(Intent.ACTION_VIEW, uri);
+             context.startActivity(it);
+        } catch (Exception e) {
+            e.printStackTrace();
+            AppContext.showToastShort("无法浏览此网页");
+        }
+    }
+
+    public static String setHtmlCotentSupportImagePreview(String body) {
+        // 读取用户设置：是否加载文章图片--默认有wifi下始终加载图片
+        if (AppContext.get(AppConfig.KEY_LOAD_IMAGE, true)
+                || TDevice.isWifiOpen()) {
+            // 过滤掉 img标签的width,height属性
+            body = body.replaceAll("(<img[^>]*?)\\s+width\\s*=\\s*\\S+", "$1");
+            body = body.replaceAll("(<img[^>]*?)\\s+height\\s*=\\s*\\S+", "$1");
+            // 添加点击图片放大支持
+            // 添加点击图片放大支持
+            body = body.replaceAll("(<img[^>]+src=\")(\\S+)\"",
+                    "$1$2\" onClick=\"showImagePreview('$2')\"");
+        } else {
+            // 过滤掉 img标签
+            body = body.replaceAll("<\\s*img\\s+([^>]*)\\s*>", "");
+        }
+        return body;
+    }
+
+    @JavascriptInterface
+    public static void showImagePreview(Context context, String[] imageUrls) {
+        ImagePreviewActivity.showImagePrivew(context, 0, imageUrls);
+    }
+
 }
 
 

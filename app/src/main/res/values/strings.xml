@@ -1,6 +1,6 @@
 <resources>
     <!-- app名称-->
-    <string name="app_name">农技通</string>
+    <string name="app_name">nojitong</string>
     <!--主tab名-->
     <string name="main_tab_name_function">应用</string>
     <string name="main_tab_name_question">在线交流</string>
@@ -161,6 +161,8 @@
     <string name="village_service_proof_resource">佐证材料列表</string>
     <string name="village_service_proof_resource_add">上传佐证材料</string>
     <string name="village_service_all_proof_list">下乡统计</string>
+
+    <string name="actionbar_title_news">资讯详情</string>
 
 
 </resources>
