@@ -248,24 +248,28 @@
 
     <style name="village_service_detail_layout">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/layout_item_bg</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">@dimen/space_16</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="village_service_detail_left_textview">
-        <item name="android:layout_width">100dp</item>
+        <item name="android:id">@id/text</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">right</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:layout_marginRight">@dimen/space_4</item>
+        <item name="android:textColor">?attr/infoTextColor</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
     <style name="village_service_detail_right_textview">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">?attr/textColor</item>
+        <item name="android:layout_toRightOf">@id/text</item>
     </style>
 
     <style name="list_text_title" parent="@style/wrap_wrap">
@@ -277,6 +281,15 @@
     <style name="dialog_bottom" parent="@style/dialog_common">
         <item name="android:windowBackground">@drawable/dialog_bottom_background</item>
         <item name="android:windowAnimationStyle">@style/dialog_animation</item>
+    </style>
+
+    <style name="dialog_common" parent="@style/Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+    </style>
+
+    <style name="dialog_animation" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
     </style>
 
 </resources>
