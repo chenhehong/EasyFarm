@@ -30,6 +30,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lay_addperson"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/person1"
                 android:visibility="gone"
                 style="@style/village_service_add_layout">
@@ -151,8 +159,15 @@
                     android:text="下乡事由："/>
                 <EditText
                     android:id="@+id/et_reason"
-                    android:lines="3"
+                    android:lines="2"
                     style="@style/village_service_add_edittext"/>
+                <Button
+                    android:id="@+id/btn_add_reason"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="选择事由"
+                    android:textColor="@android:color/black"
+                    android:src="@drawable/btn_quickoption_selector" />
             </LinearLayout>
             <LinearLayout
                 style="@style/village_service_add_layout">

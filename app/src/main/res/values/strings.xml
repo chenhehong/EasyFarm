@@ -164,5 +164,9 @@
 
     <string name="actionbar_title_news">资讯详情</string>
 
+    <string name="actionbar_title_search">搜索</string>
+    <string name="actionbar_title_search_user">搜索用户</string>
+    <string name="actionbar_title_choose_village_service_reason">选择服务事由</string>
+
 
 </resources>

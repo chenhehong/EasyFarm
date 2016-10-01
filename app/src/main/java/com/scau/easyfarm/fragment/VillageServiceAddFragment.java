@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
@@ -49,6 +50,8 @@ public class VillageServiceAddFragment extends BaseFragment{
 
     @InjectView(R.id.btn_add_person)
     Button btnAddPerson;
+    @InjectView(R.id.btn_add_reason)
+    Button btnAddReason;
     @InjectView(R.id.et_area)
     EditText etArea;
     @InjectView(R.id.et_address)
@@ -92,9 +95,11 @@ public class VillageServiceAddFragment extends BaseFragment{
 
     private MenuItem mSendMenu;
     private ArrayList<ImageView> btnPersonArray;
+    private ArrayList<TextView> tvPersonArray;
     private ArrayList<EditText> etPersonArray;
     private ArrayList<LinearLayout> layPersonArray;
     private ArrayList<User> personArray = new ArrayList<User>();
+    private int personCount = 0;
     private final int ARRAYLENGTH = 5;
 
     private AlertDialog.Builder datePickBuilder;
@@ -149,6 +154,7 @@ public class VillageServiceAddFragment extends BaseFragment{
         ButterKnife.inject(this, view);
         setHasOptionsMenu(true);
         btnAddPerson.setOnClickListener(this);
+        btnAddReason.setOnClickListener(this);
         btnPerson1.setOnClickListener(this);
         btnPerson2.setOnClickListener(this);
         btnPerson3.setOnClickListener(this);
@@ -261,7 +267,6 @@ public class VillageServiceAddFragment extends BaseFragment{
         showWaitDialog("发送申请中，请稍后");
         EasyFarmServerApi.addVillageService(etArea.getText().toString(),etAddress.getText().toString(),etReason.getText().toString(),
                 etBusinessDate.getText().toString(),etReturnDate.getText().toString(),villageServiceUserIds,mHandler);
-
     }
 
     @Override
@@ -279,14 +284,18 @@ public class VillageServiceAddFragment extends BaseFragment{
             handleSelectReturnDate();
         }else if (id==R.id.et_area){
             handleSelectArea();
+        }else if (id==R.id.btn_add_reason){
+            handleSelectReason();
         }
+    }
+
+    public void handleSelectReason(){
+        UIHelper.chooseVillageServiceReason(this, VillageServiceReasonChooseFragment.REQUEST_CODE_VSREASON_SELECT);
     }
 
     private void handleSelectArea(){
         UIHelper.showAreaChoose(this, AreaCatalogListFragment.AREA_REQUEST_CODE);
     }
-
-
 
     private void handleSelectBusinessDate(){
         datePickBuilder = new AlertDialog.Builder(getActivity());
@@ -345,7 +354,7 @@ public class VillageServiceAddFragment extends BaseFragment{
 
     private void handleAddPerson(){
         if (personArray.size()>=ARRAYLENGTH) return;
-        UIHelper.showTweetExpertChoose(this,0,TweetExpertChooseFragment.TWEET_EXPERT_CHOOSE_REQUEST_CODE);
+        UIHelper.findUser(this, FindUserFragment.REQUESTCODE_FIND_USER);
     }
 
     @Override
@@ -357,15 +366,24 @@ public class VillageServiceAddFragment extends BaseFragment{
             String selectedArea = returnIntent.getStringExtra(AreaCatalogListFragment.AREA_SELECTED_CODE);
             etArea.setText(selectedArea);
             return;
-        }else if (requestCode==TweetExpertChooseFragment.TWEET_EXPERT_CHOOSE_REQUEST_CODE){
-            int selectedUserId = returnIntent.getIntExtra(TweetExpertChooseFragment.SELECT_TWEET_EXPERT_ID,0);
-            String selectedUserName = returnIntent.getStringExtra(TweetExpertChooseFragment.SELECT_TWEET_EXPERT_NAME);
+        }else if (requestCode==FindUserFragment.REQUESTCODE_FIND_USER){
+            int selectedUserId = returnIntent.getIntExtra(FindUserFragment.BUNDLE_SELECT_USER_ID,0);
+            String selectedUserName = returnIntent.getStringExtra(FindUserFragment.BUNDLE_SELECT_USER_NAME);
             User user = new User();
             user.setId(selectedUserId);
             user.setRealName(selectedUserName);
             if (compareToEntity(personArray,user)) return;
             personArray.add(user);
             refreshPersonArray();
+        }else if (requestCode==VillageServiceReasonChooseFragment.REQUEST_CODE_VSREASON_SELECT){
+            String selectedReason = returnIntent.getStringExtra(VillageServiceReasonChooseFragment.BUNDLE_SELECT_REASON_STR);
+            if (selectedReason.equals("其他")){
+                etReason.setEnabled(true);
+                etReason.setText("");
+                etReason.setHint("请填写其他事由");
+            }else {
+                etReason.setText(selectedReason);
+            }
         }
     }
 
@@ -399,5 +417,11 @@ public class VillageServiceAddFragment extends BaseFragment{
             layPersonArray.get(i).setVisibility(View.VISIBLE);
             etPersonArray.get(i).setText(personArray.get(i).getRealName());
         }
+    }
+
+    private View generatePersonLayout(){
+        LinearLayout linearLayout = new LinearLayout(getActivity());
+
+        return  linearLayout;
     }
 }

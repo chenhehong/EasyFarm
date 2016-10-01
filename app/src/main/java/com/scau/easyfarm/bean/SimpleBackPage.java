@@ -7,6 +7,7 @@ import com.scau.easyfarm.fragment.AreaCatalogListFragment;
 import com.scau.easyfarm.fragment.ChangePasswordFragment;
 import com.scau.easyfarm.fragment.ChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.FeedBackFragment;
+import com.scau.easyfarm.fragment.FindUserFragment;
 import com.scau.easyfarm.fragment.ManualContentDetailFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
@@ -22,6 +23,7 @@ import com.scau.easyfarm.fragment.VillageServiceAddFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourPubFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
+import com.scau.easyfarm.fragment.VillageServiceReasonChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceAllViewPagerFragment;
@@ -57,7 +59,9 @@ public enum SimpleBackPage {
     VILLAGE_SERVICE_PROOF(22, R.string.village_service_proof_list, VillageServiceProofListFragment.class),
     VILLAGE_SERVICE_PROOF_RESOURCE(23, R.string.village_service_proof_list, VillageServiceProofResourceFragment.class),
     VILLAGE_SERVICE_PROOF_RESOURCE_ADD(24, R.string.village_service_proof_resource_add, VillageServiceProofResourPubFragment.class),
-    VILLAGE_SERVICE_ALL_PROOF(25, R.string.village_service_all_proof_list, VillageServiceProofListFragment.class);
+    VILLAGE_SERVICE_ALL_PROOF(25, R.string.village_service_all_proof_list, VillageServiceProofListFragment.class),
+    FIND_USER(26, R.string.actionbar_title_search_user, FindUserFragment.class),
+    CHOOSE_VILLAGE_SERVICE_REASON(27, R.string.actionbar_title_choose_village_service_reason, VillageServiceReasonChooseFragment.class);
 
     private int title;
     private Class<?> clz;

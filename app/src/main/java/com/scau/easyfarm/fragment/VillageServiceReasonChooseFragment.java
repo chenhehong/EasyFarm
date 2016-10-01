@@ -12,19 +12,18 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ExpertListAdapter;
+import com.scau.easyfarm.adapter.VillageServiceReasonListAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Entity;
-import com.scau.easyfarm.bean.UserList;
 import com.scau.easyfarm.bean.User;
-import com.scau.easyfarm.bean.UserList;
+import com.scau.easyfarm.bean.VillageServiceReason;
+import com.scau.easyfarm.bean.VillageServiceReasonList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
-import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -32,18 +31,14 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by chenhehong on 2016/9/8.
  */
-public class TweetExpertChooseFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener{
+public class VillageServiceReasonChooseFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener{
 
-    public static final int TWEET_EXPERT_CHOOSE_REQUEST_CODE = 101;
-    public static final String TWEET_EXPERT_MANUAL_TYPE = "tweet_expert_manual_type";
-    public static final String SELECT_TWEET_EXPERT_ID = "select_tweet_expert_id";
-    public static final String SELECT_TWEET_EXPERT_NAME = "select_tweet_expert_name";
-
-    private int typeId;
+    public static final int REQUEST_CODE_VSREASON_SELECT = 112;
+    public static final String BUNDLE_SELECT_REASON_STR = "bundle_select_reason_str";
 
     private static EmptyLayout mEmptyView;
-    private ExpertListAdapter expertListAdapter;
-    private ListView expertListView;
+    private VillageServiceReasonListAdapter villageServiceReasonListAdapter;
+    private ListView villageServiceReasonListView;
     private static int mState = STATE_NONE;
     //  后面以currenPage==0判断为第一次加载数据列表
     private int currenPage;
@@ -55,9 +50,9 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
         public void onSuccess(int statusCode, Header[] headers,
                               byte[] responseBytes) {
             try {
-                UserList list = JsonUtils.toBean(UserList.class,
+                VillageServiceReasonList list = JsonUtils.toBean(VillageServiceReasonList.class,
                         new ByteArrayInputStream(responseBytes));
-                executeOnLoadDataSuccess(list.getUserList());
+                executeOnLoadDataSuccess(list.getVillageServiceReasonsList());
             } catch (Exception e) {
                 e.printStackTrace();
                 onFailure(statusCode, headers, responseBytes, null);
@@ -77,7 +72,7 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_expert_list, container,false);
+        View view = inflater.inflate(R.layout.fragment_village_service_reason_list, container,false);
         initView(view);
         return view;
     }
@@ -85,51 +80,47 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
     @Override
     public void initView(View view) {
         mEmptyView = (EmptyLayout) view.findViewById(R.id.error_layout);
-        expertListView = (ListView) view.findViewById(R.id.lv_expert);
-        expertListView.setOnItemClickListener(expertOnItemClick);
-        if (expertListAdapter==null){
-            expertListAdapter = new ExpertListAdapter();
+        villageServiceReasonListView = (ListView) view.findViewById(R.id.lv_reason);
+        villageServiceReasonListView.setOnItemClickListener(reasonOnItemClick);
+        if (villageServiceReasonListAdapter ==null){
+            villageServiceReasonListAdapter = new VillageServiceReasonListAdapter();
         }
-        expertListView.setAdapter(expertListAdapter);
+        villageServiceReasonListView.setAdapter(villageServiceReasonListAdapter);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
-        if (bundle!=null){
-            typeId = bundle.getInt(TWEET_EXPERT_MANUAL_TYPE);
-        }
         sendRequestExpertData();
     }
 
-    private void executeOnLoadDataSuccess(List<User> data) {
+    private void executeOnLoadDataSuccess(List<VillageServiceReason> data) {
         if (data == null) {
             return;
         }
         mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
 
         for (int i = 0; i < data.size(); i++) {
-            if (compareTo(expertListAdapter.getData(), data.get(i))) {
+            if (compareTo(villageServiceReasonListAdapter.getData(), data.get(i))) {
                 data.remove(i);
             }
         }
         int adapterState = ListBaseAdapter.STATE_EMPTY_ITEM;
-        if (expertListAdapter.getCount() == 0 && mState == STATE_NONE) {
+        if (villageServiceReasonListAdapter.getCount() == 0 && mState == STATE_NONE) {
             mEmptyView.setErrorType(EmptyLayout.NODATA);
         } else if (data.size() == 0 || (data.size() < 20 && currenPage == 0)) {
             adapterState = ListBaseAdapter.STATE_NO_MORE;
         } else {
             adapterState = ListBaseAdapter.STATE_LOAD_MORE;
         }
-        expertListAdapter.setState(adapterState);
-        expertListAdapter.addData(data);
+        villageServiceReasonListAdapter.setState(adapterState);
+        villageServiceReasonListAdapter.addData(data);
     }
 
-    private boolean compareTo(List<? extends Entity> data, User enity) {
+    private boolean compareTo(List<? extends Entity> data, VillageServiceReason enity) {
         int s = data.size();
         if (enity != null) {
             for (int i = 0; i < s; i++) {
-                if (enity.getId()==((User)data.get(i)).getId()) {
+                if (enity.getId()==((VillageServiceReason)data.get(i)).getId()) {
                     return true;
                 }
             }
@@ -140,7 +131,7 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
     private void sendRequestExpertData() {
         mState = STATE_REFRESH;
         mEmptyView.setErrorType(EmptyLayout.NETWORK_LOADING);
-        EasyFarmServerApi.getExpertList(typeId, currenPage, pageSize, mHandler);
+        EasyFarmServerApi.getVillageServiceReasonList(currenPage, pageSize, mHandler);
 //      测试start
 //        User m1 = new User();
 //        m1.setRealName("陈河宏");
@@ -166,16 +157,15 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
 //      测试end
     }
 
-    private AdapterView.OnItemClickListener expertOnItemClick = new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemClickListener reasonOnItemClick = new AdapterView.OnItemClickListener() {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
-            User selectedUser = (User)expertListAdapter.getItem(position);
-            if (selectedUser==null) return;
+            VillageServiceReason selectedReason = (VillageServiceReason) villageServiceReasonListAdapter.getItem(position);
+            if (selectedReason==null) return;
             Intent result = new Intent();
-            result.putExtra(SELECT_TWEET_EXPERT_ID, selectedUser.getId());
-            result.putExtra(SELECT_TWEET_EXPERT_NAME, selectedUser.getRealName());
+            result.putExtra(BUNDLE_SELECT_REASON_STR, selectedReason.getName());
             getActivity().setResult(getActivity().RESULT_OK, result);
             getActivity().finish();
         }
@@ -194,12 +184,12 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
                 || mState == STATE_REFRESH) {
             return;
         }
-        if (expertListAdapter != null
-                && expertListAdapter.getDataSize() > 0
-                && expertListView.getLastVisiblePosition() == (expertListView
+        if (villageServiceReasonListAdapter != null
+                && villageServiceReasonListAdapter.getDataSize() > 0
+                && villageServiceReasonListView.getLastVisiblePosition() == (villageServiceReasonListView
                 .getCount() - 1)) {
             if (mState == STATE_NONE
-                    && expertListAdapter.getState() == ListBaseAdapter.STATE_LOAD_MORE) {
+                    && villageServiceReasonListAdapter.getState() == ListBaseAdapter.STATE_LOAD_MORE) {
                 mState = STATE_LOADMORE;
                 currenPage++;
                 sendRequestExpertData();

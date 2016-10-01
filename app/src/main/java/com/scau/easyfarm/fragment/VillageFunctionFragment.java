@@ -75,7 +75,7 @@ public class VillageFunctionFragment extends BaseFragment{
     }
 
     private void showgVilageServiceVerify(){
-        if ( !AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
+        if ( AppContext.getInstance().getLoginUser()==null||!AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
             AppContext.showToast("权限不够");
             return;
         }
@@ -83,7 +83,7 @@ public class VillageFunctionFragment extends BaseFragment{
     }
 
     private void showgVilageServiceStatistic(){
-        if ( !AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
+        if ( AppContext.getInstance().getLoginUser()==null|| !AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
             AppContext.showToast("权限不够");
             return;
         }

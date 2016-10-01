@@ -244,6 +244,15 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:editable">true</item>
+    </style>
+
+    <style name="village_service_add_delimgview">
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:src">@drawable/btn_delete_icon</item>
     </style>
 
     <style name="village_service_detail_layout">

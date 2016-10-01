@@ -311,6 +311,14 @@ public class UIHelper {
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.TWEET_CHOOSE_EXPERT, bundle);
     }
 
+    public static void findUser(Fragment fragment,int requestCode){
+        showSimpleBackForResult(fragment,requestCode,SimpleBackPage.FIND_USER);
+    }
+
+    public static void chooseVillageServiceReason(Fragment fragment,int requestCode){
+        showSimpleBackForResult(fragment,requestCode,SimpleBackPage.CHOOSE_VILLAGE_SERVICE_REASON);
+    }
+
     //  显示添加问答界面
     public static void showVillageServiceApply(Context context) {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_APPLY);

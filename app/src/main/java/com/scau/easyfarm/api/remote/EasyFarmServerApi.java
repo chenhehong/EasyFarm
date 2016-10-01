@@ -358,4 +358,25 @@ public class EasyFarmServerApi {
         ApiHttpClient.get("action/api/news_detail", params, handler);
     }
 
+    /**
+     * 查找用户
+     *
+     * @param loginName
+     * @param handler
+     */
+    public static void findUser(String loginName,
+                                AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("searchKey", loginName);
+        ApiHttpClient.get("front/mobile/village/api/searchExpertByName"+ AppContext.ACCESS, params, handler);
+    }
+
+    public static void getVillageServiceReasonList(int currenPage,int pageSize,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("currenPage",currenPage);
+        params.put("pageSize", pageSize);
+        ApiHttpClient.post("front/mobile/village/api/getServiceReason" + AppContext.ACCESS, params, handler);
+    }
+
+
 }
