@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -30,109 +30,20 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lay_addperson"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/person1"
-                android:visibility="gone"
+                android:id="@+id/lay_person"
                 style="@style/village_service_add_layout">
-                <TextView
-                    style="@style/village_service_add_left_textview"
-                    android:text="人员1："/>
-                <EditText
-                    android:id="@+id/et_person1"
-                    android:editable="false"
-                    style="@style/village_service_add_edittext"/>
-                <ImageView
-                    android:layout_marginLeft="3dp"
-                    android:id="@+id/btn_person1"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/btn_delete_icon" />
+                <ListView
+                    android:id="@+id/lv_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    android:layout_marginLeft="100dp"
+                    android:cacheColorHint="#ffffffff"
+                    android:descendantFocusability="blocksDescendants"
+                    android:divider="?attr/lineColor"
+                    android:dividerHeight="1.0px"
+                    android:listSelector="@android:color/transparent" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/person2"
-                android:visibility="gone"
-                style="@style/village_service_add_layout">
-                <TextView
-                    style="@style/village_service_add_left_textview"
-                    android:text="人员2："/>
-                <EditText
-                    android:id="@+id/et_person2"
-                    android:editable="false"
-                    style="@style/village_service_add_edittext"/>
-                <ImageView
-                    android:layout_marginLeft="3dp"
-                    android:id="@+id/btn_person2"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/btn_delete_icon" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/person3"
-                android:visibility="gone"
-                style="@style/village_service_add_layout">
-                <TextView
-                    style="@style/village_service_add_left_textview"
-                    android:text="人员3："/>
-                <EditText
-                    android:id="@+id/et_person3"
-                    android:editable="false"
-                    style="@style/village_service_add_edittext"/>
-                <ImageView
-                    android:layout_marginLeft="3dp"
-                    android:id="@+id/btn_person3"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/btn_delete_icon" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/person4"
-                android:visibility="gone"
-                style="@style/village_service_add_layout">
-                <TextView
-                    style="@style/village_service_add_left_textview"
-                    android:text="人员4："/>
-                <EditText
-                    android:id="@+id/et_person4"
-                    android:editable="false"
-                    style="@style/village_service_add_edittext"/>
-                <ImageView
-                    android:layout_marginLeft="3dp"
-                    android:id="@+id/btn_person4"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/btn_delete_icon" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/person5"
-                android:visibility="gone"
-                style="@style/village_service_add_layout">
-                <TextView
-                    style="@style/village_service_add_left_textview"
-                    android:text="人员5："/>
-                <EditText
-                    android:id="@+id/et_person5"
-                    android:editable="false"
-                    style="@style/village_service_add_edittext"/>
-                <ImageView
-                    android:layout_marginLeft="3dp"
-                    android:id="@+id/btn_person5"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/btn_delete_icon" />
-            </LinearLayout>
             <LinearLayout
                 style="@style/village_service_add_layout">
                 <TextView

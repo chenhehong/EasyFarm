@@ -19,11 +19,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.adapter.SelectedUserAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Entity;
@@ -62,45 +64,12 @@ public class VillageServiceAddFragment extends BaseFragment{
     EditText etBusinessDate;
     @InjectView(R.id.et_return_date)
     EditText etReturnDate;
-    @InjectView(R.id.person1)
-    LinearLayout layPerson1;
-    @InjectView(R.id.person2)
-    LinearLayout layPerson2;
-    @InjectView(R.id.person3)
-    LinearLayout layPerson3;
-    @InjectView(R.id.person4)
-    LinearLayout layPerson4;
-    @InjectView(R.id.person5)
-    LinearLayout layPerson5;
-    @InjectView(R.id.et_person1)
-    EditText etPerson1;
-    @InjectView(R.id.et_person2)
-    EditText etPerson2;
-    @InjectView(R.id.et_person3)
-    EditText etPerson3;
-    @InjectView(R.id.et_person4)
-    EditText etPerson4;
-    @InjectView(R.id.et_person5)
-    EditText etPerson5;
-    @InjectView(R.id.btn_person1)
-    ImageView btnPerson1;
-    @InjectView(R.id.btn_person2)
-    ImageView btnPerson2;
-    @InjectView(R.id.btn_person3)
-    ImageView btnPerson3;
-    @InjectView(R.id.btn_person4)
-    ImageView btnPerson4;
-    @InjectView(R.id.btn_person5)
-    ImageView btnPerson5;
+    @InjectView(R.id.lv_person)
+    ListView selectedUserListView;
 
     private MenuItem mSendMenu;
-    private ArrayList<ImageView> btnPersonArray;
-    private ArrayList<TextView> tvPersonArray;
-    private ArrayList<EditText> etPersonArray;
-    private ArrayList<LinearLayout> layPersonArray;
     private ArrayList<User> personArray = new ArrayList<User>();
-    private int personCount = 0;
-    private final int ARRAYLENGTH = 5;
+    private SelectedUserAdapter selectedUserAdapter;
 
     private AlertDialog.Builder datePickBuilder;
     private DatePicker datePicker;
@@ -155,11 +124,6 @@ public class VillageServiceAddFragment extends BaseFragment{
         setHasOptionsMenu(true);
         btnAddPerson.setOnClickListener(this);
         btnAddReason.setOnClickListener(this);
-        btnPerson1.setOnClickListener(this);
-        btnPerson2.setOnClickListener(this);
-        btnPerson3.setOnClickListener(this);
-        btnPerson4.setOnClickListener(this);
-        btnPerson5.setOnClickListener(this);
         etArea.setOnClickListener(this);
         etBusinessDate.setOnClickListener(this);
         etReturnDate.setOnClickListener(this);
@@ -184,11 +148,35 @@ public class VillageServiceAddFragment extends BaseFragment{
                 updateMenuState();
             }
         });
-
-        btnPersonArray = new ArrayList<ImageView>(){{add(btnPerson1);add(btnPerson2);add(btnPerson3);add(btnPerson4);add(btnPerson5);}};
-        etPersonArray = new ArrayList<EditText>(){{add(etPerson1);add(etPerson2);add(etPerson3);add(etPerson4);add(etPerson5);}};
-        layPersonArray = new ArrayList<LinearLayout>(){{add(layPerson1);add(layPerson2);add(layPerson3);add(layPerson4);add(layPerson5);}};
-
+        //      测试start
+//        User m1 = new User();
+//        m1.setRealName("陈河宏");
+//        m1.setId(2012);
+//        User m2 = new User();
+//        m2.setRealName("李林");
+//        m2.setId(2013);
+//        User m3 = new User();
+//        m3.setRealName("李刚");
+//        m3.setId(2014);
+//        User m4 = new User();
+//        m4.setRealName("刘备");
+//        m4.setId(2015);
+//        User m5 = new User();
+//        m5.setRealName("项羽");
+//        m5.setId(2016);
+//        User m6 = new User();
+//        m6.setRealName("孙权");
+//        m6.setId(2017);
+//        ArrayList<User> mList = new ArrayList<User>();
+//        mList.add(m1);mList.add(m2);mList.add(m3);mList.add(m4);mList.add(m5);mList.add(m6);
+//        personArray = mList;
+//      测试end
+        if (selectedUserAdapter==null){
+            selectedUserAdapter = new SelectedUserAdapter(this);
+        }
+        selectedUserListView.setAdapter(selectedUserAdapter);
+        selectedUserAdapter.setData(personArray);
+        setListViewHeight();
     }
 
     @Override
@@ -274,10 +262,6 @@ public class VillageServiceAddFragment extends BaseFragment{
         final int id = v.getId();
         if (id==R.id.btn_add_person){
             handleAddPerson();
-        }else if (compareToView(btnPersonArray,id)){
-            int index = btnPersonArray.indexOf((ImageView)v);
-            personArray.remove(index);
-            refreshPersonArray();
         }else if (id==R.id.et_business_date){
             handleSelectBusinessDate();
         }else if (id==R.id.et_return_date){
@@ -353,7 +337,6 @@ public class VillageServiceAddFragment extends BaseFragment{
     }
 
     private void handleAddPerson(){
-        if (personArray.size()>=ARRAYLENGTH) return;
         UIHelper.findUser(this, FindUserFragment.REQUESTCODE_FIND_USER);
     }
 
@@ -374,7 +357,8 @@ public class VillageServiceAddFragment extends BaseFragment{
             user.setRealName(selectedUserName);
             if (compareToEntity(personArray,user)) return;
             personArray.add(user);
-            refreshPersonArray();
+            selectedUserAdapter.notifyDataSetChanged();
+            setListViewHeight();
         }else if (requestCode==VillageServiceReasonChooseFragment.REQUEST_CODE_VSREASON_SELECT){
             String selectedReason = returnIntent.getStringExtra(VillageServiceReasonChooseFragment.BUNDLE_SELECT_REASON_STR);
             if (selectedReason.equals("其他")){
@@ -399,29 +383,16 @@ public class VillageServiceAddFragment extends BaseFragment{
         return false;
     }
 
-    private boolean compareToView(List<? extends View> data, int viewId) {
-        int s = data.size();
-        for (int i = 0; i < s; i++) {
-            if (viewId==((View)data.get(i)).getId()) {
-                return true;
-            }
+    public void setListViewHeight(){
+        int h = 0;
+        for (int i=0;i<selectedUserAdapter.getCount();i++){
+            View item = selectedUserAdapter.getView(i,null,selectedUserListView);
+            item.measure(0,0);
+            h+=item.getMeasuredHeight();
         }
-        return false;
+        ViewGroup.LayoutParams lp = selectedUserListView.getLayoutParams();
+        lp.height=h+(selectedUserListView.getDividerHeight()*(selectedUserAdapter.getCount()-1));
+        selectedUserListView.setLayoutParams(lp);
     }
 
-    private void refreshPersonArray(){
-        for (int i=0;i<ARRAYLENGTH;i++){
-            layPersonArray.get(i).setVisibility(View.GONE);
-        }
-        for (int i=0;i<personArray.size();i++){
-            layPersonArray.get(i).setVisibility(View.VISIBLE);
-            etPersonArray.get(i).setText(personArray.get(i).getRealName());
-        }
-    }
-
-    private View generatePersonLayout(){
-        LinearLayout linearLayout = new LinearLayout(getActivity());
-
-        return  linearLayout;
-    }
 }

@@ -13,10 +13,10 @@
             android:dividerHeight="1.0px"
             android:listSelector="@android:color/transparent" />
 
-    <com.scau.easyfarm.ui.empty.EmptyLayout
-        android:id="@+id/error_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        <com.scau.easyfarm.ui.empty.EmptyLayout
+            android:id="@+id/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
 </RelativeLayout>
