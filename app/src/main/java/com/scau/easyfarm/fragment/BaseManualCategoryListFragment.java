@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ManualCategoryListAdapter;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.base.ListBaseAdapter;
@@ -52,7 +53,7 @@ public abstract class BaseManualCategoryListFragment extends BaseFragment implem
     ListView manualCategoryListView;
 
 
-    private AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    private OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers,

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.bean.Update;
 
@@ -32,7 +33,7 @@ public class UpdateManager {
 
     private ProgressDialog _waitDialog;
 
-    private AsyncHttpResponseHandler mCheckUpdateHandle = new AsyncHttpResponseHandler() {
+    private OperationResponseHandler mCheckUpdateHandle = new OperationResponseHandler() {
 
         @Override
         public void onFailure(int arg0, Header[] arg1, byte[] arg2,
@@ -44,10 +45,9 @@ public class UpdateManager {
         }
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             hideCheckDialog();
-            mUpdate = JsonUtils.toBean(Update.class,
-                    new ByteArrayInputStream(arg2));
+            mUpdate = JsonUtils.toBean(Update.class,is);
 
             onFinshCheck();
         }

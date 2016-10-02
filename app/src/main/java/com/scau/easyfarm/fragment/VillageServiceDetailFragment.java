@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.User;
@@ -108,26 +110,24 @@ public class VillageServiceDetailFragment extends BaseFragment {
                 mHandler);
     }
 
-    private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-            String s = new String(arg2);
-            Log.d("chh",s);
             VillageService villageService = JsonUtils.toBean(VillageServiceDetail.class,
-                    new ByteArrayInputStream(arg2)).getVillageService();
+                   is).getVillageService();
             if (villageService!=null) {
                 mVillageService = villageService;
                 fillUI();
             } else {
-                this.onFailure(arg0, arg1, arg2, null);
+                this.onFailure(code,null,args);
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            AppContext.showToast(errorMessage + code);
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         }
 

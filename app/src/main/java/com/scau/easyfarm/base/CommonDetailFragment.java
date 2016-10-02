@@ -20,6 +20,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
@@ -126,11 +127,11 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
         }
     }
 
-    protected AsyncHttpResponseHandler mDetailHeandler = new AsyncHttpResponseHandler() {
+    protected OperationResponseHandler mDetailHeandler = new OperationResponseHandler() {
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             try {
-                T detail = parseData(new ByteArrayInputStream(arg2));
+                T detail = parseData(is);
                 if (detail != null) {
                     mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
                     executeOnLoadDataSuccess(detail);
@@ -301,13 +302,13 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
         }
         int uid = AppContext.getInstance().getLoginUid();
         final boolean isFavorited = getFavoriteState() == 1 ? true : false;
-        AsyncHttpResponseHandler mFavoriteHandler = new AsyncHttpResponseHandler() {
+        OperationResponseHandler mFavoriteHandler = new OperationResponseHandler() {
 
             @Override
-            public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+            public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
                 try {
                     Result res = JsonUtils.toBean(ResultBean.class,
-                            new ByteArrayInputStream(arg2)).getResult();
+                            is).getResult();
                     if (res.OK()) {
                         AppContext.showToast(res.getErrorMessage());
                         boolean newFavorited = !isFavorited;
@@ -315,18 +316,17 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
                         // 更新收藏的状态
                         updateFavoriteChanged(!newFavorited ? 0 : 1);
                     } else {
-                        onFailure(arg0, arg1, arg2, null);
+                        onFailure(code, null,args);
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    onFailure(arg0, arg1, arg2, e);
+                    onFailure(code, null,args);
                 }
             }
 
             @Override
-            public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                                  Throwable arg3) {
+            public void onFailure(int code, String errorMessage, Object[] args) {
                 AppContext.showToastShort("收藏失败");
             }
 

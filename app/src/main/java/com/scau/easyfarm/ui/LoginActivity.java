@@ -11,6 +11,7 @@ import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.ApiHttpClient;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseActivity;
 import com.scau.easyfarm.bean.Constants;
@@ -25,6 +26,8 @@ import com.scau.easyfarm.util.TLog;
 
 import org.kymjs.kjframe.http.HttpConfig;
 
+
+import java.io.ByteArrayInputStream;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -124,11 +127,11 @@ public class LoginActivity extends BaseActivity{
     }
 
 
-    private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-            LoginUserBean loginUserBean = JsonUtils.toBean(LoginUserBean.class, arg2);
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
+            LoginUserBean loginUserBean = JsonUtils.toBean(LoginUserBean.class, is);
             if (loginUserBean != null) {
                 handleLoginBean(loginUserBean);
             }

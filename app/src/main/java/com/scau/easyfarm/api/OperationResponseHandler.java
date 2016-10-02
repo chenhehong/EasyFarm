@@ -3,6 +3,11 @@ package com.scau.easyfarm.api;
 import android.os.Looper;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.scau.easyfarm.AppContext;
+import com.scau.easyfarm.api.remote.EasyFarmServerApi;
+import com.scau.easyfarm.bean.Result;
+import com.scau.easyfarm.bean.ResultBean;
+import com.scau.easyfarm.util.JsonUtils;
 
 import java.io.ByteArrayInputStream;
 
@@ -23,7 +28,7 @@ public class OperationResponseHandler extends AsyncHttpResponseHandler {
 
 	@Override
 	public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-		onFailure(arg0, arg3.getMessage(), args);
+		onFailure(arg0, "网络错误", args);
 	}
 
 	public void onFailure(int code, String errorMessage, Object[] args) {
@@ -32,6 +37,14 @@ public class OperationResponseHandler extends AsyncHttpResponseHandler {
 	@Override
 	public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 		try {
+//			验证是否AuthToken已经过期
+			ResultBean resultBean = JsonUtils.toBean(ResultBean.class,arg2);
+			Result result = resultBean.getResult();
+			if(!result.OK()&&result.getErrorCode()== AppContext.ACCESS_ERROR_CODE){
+				onFailure(result.getErrorCode(),result.getErrorMessage(),args);
+				EasyFarmServerApi.getAccessToken();
+				return;
+			}
 			onSuccess(arg0, new ByteArrayInputStream(arg2), args);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,6 +54,6 @@ public class OperationResponseHandler extends AsyncHttpResponseHandler {
 
 	public void onSuccess(int code, ByteArrayInputStream is, Object[] args)
 			throws Exception {
-
 	}
+
 }

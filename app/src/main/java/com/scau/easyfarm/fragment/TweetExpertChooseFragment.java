@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ExpertListAdapter;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.base.ListBaseAdapter;
@@ -49,7 +50,7 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
     private int currenPage;
     private int pageSize=20;
 
-    private AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    private OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers,

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Tweet;
@@ -128,7 +129,7 @@ public class TweetAdapter extends ListBaseAdapter<Tweet> {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 EasyFarmServerApi.deleteTweet(tweet.getAuthorid(), tweet.getId(),
-                        new AsyncHttpResponseHandler() {
+                        new OperationResponseHandler() {
                             @Override
                             public void onSuccess(int arg0, Header[] arg1,
                                                   byte[] arg2) {

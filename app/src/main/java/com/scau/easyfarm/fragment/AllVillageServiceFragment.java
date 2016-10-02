@@ -264,11 +264,6 @@ public class AllVillageServiceFragment extends BaseListFragment<VillageService> 
         }
 
         @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-        }
-
-        @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
             AppContext.showToastShort(R.string.delete_faile);
         }

@@ -7,14 +7,44 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.api.ApiHttpClient;
+import com.scau.easyfarm.api.OperationResponseHandler;
+import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageProofResource;
+import com.scau.easyfarm.util.JsonUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 
 public class EasyFarmServerApi {
+
+    private static final OperationResponseHandler mHandler = new OperationResponseHandler() {
+
+        @Override
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
+            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, is);
+            if (resultBean != null) {
+                AppContext.ACCESS = resultBean.getObj().toString();
+            }
+        }
+
+        @Override
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            AppContext.showToast(errorMessage + code);
+        }
+    };
+
+//   获取ACCESSTOKEN
+    public static void getAccessToken(){
+        RequestParams params = new RequestParams();
+        params.put("usercode", AppContext.ACCESS_TOKEN_USERCODE);
+        params.put("secret", AppContext.ACCESS_TOKEN_USERSECRET);
+        String loginurl = "front/mobile/api/base/getaccesstoken";
+        ApiHttpClient.post(loginurl, params, mHandler);
+    }
+
 
     /**
      * 登陆
@@ -29,7 +59,7 @@ public class EasyFarmServerApi {
         params.put("loginName", username);
         params.put("password", password);
         params.put("keep_login", 1);
-        String loginurl = "front/mobile/api/base/login"+AppContext.ACCESS;
+        String loginurl = "front/mobile/user/login";
         ApiHttpClient.post(loginurl, params, handler);
     }
 
@@ -49,7 +79,7 @@ public class EasyFarmServerApi {
     public static void getMyInformation(int uid,AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("personalid", uid);
-        ApiHttpClient.get("front/mobile/api/base/getuser"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/api/base/getuser", params, handler);
     }
 
 //  获取版本更新
@@ -82,7 +112,7 @@ public class EasyFarmServerApi {
         params.put("personalid",AppContext.getInstance().getLoginUid());
         params.put("oldPwd",originalPassword);
         params.put("pwd",newPassword);
-        ApiHttpClient.post("front/mobile/user/api/editUserPwd"+AppContext.ACCESS,params,handler);
+        ApiHttpClient.post("front/mobile/user/api/editUserPwd",params,handler);
     }
 
     public static void pubTweet(Tweet tweet, AsyncHttpResponseHandler handler) {
@@ -102,7 +132,7 @@ public class EasyFarmServerApi {
                 e.printStackTrace();
             }
         }
-        ApiHttpClient.post("front/mobile/communicate/api/addquestion"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/communicate/api/addquestion", params, handler);
     }
 
     public static void deleteTweet(int uid, int tweetid,
@@ -120,7 +150,7 @@ public class EasyFarmServerApi {
         params.put("uid", uid);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/communicate/api/getquestionList" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/communicate/api/getquestionList", params, handler);
     }
 
     public static void getMyTweetList(int uid, int page,
@@ -129,7 +159,7 @@ public class EasyFarmServerApi {
         params.put("id", uid);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/communicate/api/getquestionListByID" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/communicate/api/getquestionListByID", params, handler);
     }
 
     public static void getManualCatalogList(int parentId,int currenPage,int pageSize,AsyncHttpResponseHandler handler){
@@ -137,7 +167,7 @@ public class EasyFarmServerApi {
         params.put("manualCategoryID",parentId);
         params.put("currenPage",currenPage);
         params.put("pageSize", pageSize);
-        ApiHttpClient.post("front/mobile/manual/api/getChildById" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/manual/api/getChildById", params, handler);
     }
 
     public static void getExpertList(int typeId,int currenPage,int pageSize,AsyncHttpResponseHandler handler){
@@ -145,12 +175,12 @@ public class EasyFarmServerApi {
         params.put("manualCategoryID",typeId);
         params.put("currenPage",currenPage);
         params.put("pageSize", pageSize);
-        ApiHttpClient.post("front/mobile/user/getAllEpxert" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/user/getAllEpxert", params, handler);
     }
 
     public static void getTweetDetail(int id, AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams("questionID", id);
-        ApiHttpClient.get("front/mobile/communicate/api/getquestion" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/communicate/api/getquestion", params, handler);
     }
 
     /**
@@ -169,7 +199,7 @@ public class EasyFarmServerApi {
         params.put("questionID", id);
         params.put("pageIndex", page);
         params.put("pageSize", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/communicate/api/getcomments" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/communicate/api/getcomments", params, handler);
     }
 
     public static void deleteComment(int id, int catalog, int replyid,
@@ -192,7 +222,7 @@ public class EasyFarmServerApi {
         params.put("personalID", uid);
         params.put("content", content);
         params.put("commentName",AppContext.getInstance().getLoginUser().getRealName());
-        ApiHttpClient.post("front/mobile/communicate/api/comment"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/communicate/api/comment", params, handler);
     }
 
     public static void publicComment(int catalog, int id, int uid,
@@ -203,7 +233,7 @@ public class EasyFarmServerApi {
         params.put("personalID", uid);
         params.put("content", content);
         params.put("commentName",AppContext.getInstance().getLoginUser().getRealName());
-        ApiHttpClient.post("front/mobile/communicate/api/comment" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/communicate/api/comment", params, handler);
     }
 
     public static void getProvinceList(AsyncHttpResponseHandler handler){
@@ -219,7 +249,7 @@ public class EasyFarmServerApi {
     public static void getCountyList(int jsonId,AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("CityID",jsonId);
-        ApiHttpClient.post("front/mobile/area/getCountys" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/area/getCountys", params, handler);
     }
 
     public static void getAllMyVillageServiceList(int categoryId, int page,
@@ -228,7 +258,7 @@ public class EasyFarmServerApi {
         params.put("personalID", AppContext.getInstance().getLoginUid());
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getAllServiceByPersonalID" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/village/api/getAllServiceByPersonalID", params, handler);
     }
 
     public static void getMyVillageServiceList(int categoryId, int page, int status,
@@ -238,13 +268,13 @@ public class EasyFarmServerApi {
         params.put("status",status);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getServiceByPersonalID" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/village/api/getServiceByPersonalID", params, handler);
     }
 
     public static void getVillageServiceDetail(int id,AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("id",id);
-        ApiHttpClient.post("front/mobile/village/api/getServiceDetail" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/village/api/getServiceDetail", params, handler);
     }
 
     public static void addVillageService(String businessArea,String businessAddress,String businessReason,
@@ -258,14 +288,14 @@ public class EasyFarmServerApi {
         params.put("businessReason",businessReason);
         params.put("personIDs",villageServicePersonIds);
         params.put("applyMan",AppContext.getInstance().getLoginUser().getRealName());
-        ApiHttpClient.post("front/mobile/village/api/addService"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/village/api/addService", params, handler);
     }
 
     public static void deleteVillageService(int villageServiceId,
                                    AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("id", villageServiceId);
-        ApiHttpClient.post("front/mobile/village/api/deleteServiceById"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/village/api/deleteServiceById", params, handler);
     }
 
     public static void getManualList(int uid,String categoryCode, int page,
@@ -275,7 +305,7 @@ public class EasyFarmServerApi {
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
         params.put("categoryCode", categoryCode);
-        ApiHttpClient.get("front/mobile/manual/api/getContentByCode" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/manual/api/getContentByCode", params, handler);
     }
 
     public static void getVillageServiceList(int categoryId, int page, int status,
@@ -284,7 +314,7 @@ public class EasyFarmServerApi {
         params.put("status",status);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getAllServiceDetail"+AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/village/api/getAllServiceDetail", params, handler);
     }
 
     public static void verifyVillageService(int villageServiceId, int status,String optinion,
@@ -294,7 +324,7 @@ public class EasyFarmServerApi {
         params.put("PersonalID", AppContext.getInstance().getLoginUid());
         params.put("villageServiceID", villageServiceId);
         params.put("opinion",optinion);
-        ApiHttpClient.get("front/mobile/village/api/audit" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/village/api/audit", params, handler);
     }
 
     public static void pubVillageServiceProof(VillageProofResource v, AsyncHttpResponseHandler handler) {
@@ -309,7 +339,7 @@ public class EasyFarmServerApi {
                 e.printStackTrace();
             }
         }
-        ApiHttpClient.post("front/mobile/village/api/uploadfile" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/village/api/uploadfile", params, handler);
     }
 
     public static void getVillageServiceProofResourceList(int categoryId, int page, int villageServiceId,
@@ -319,14 +349,14 @@ public class EasyFarmServerApi {
         params.put("serviceID",villageServiceId);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getResourceByServiceID" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.get("front/mobile/village/api/getResourceByServiceID", params, handler);
     }
 
     public static void deleteVillageServiceProofResource(int villageServiceId,
                                             AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("id", villageServiceId);
-        ApiHttpClient.post("front/mobile/village/api/deleteResourceById" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/village/api/deleteResourceById", params, handler);
     }
 
     /**
@@ -375,7 +405,7 @@ public class EasyFarmServerApi {
         RequestParams params = new RequestParams();
         params.put("currenPage",currenPage);
         params.put("pageSize", pageSize);
-        ApiHttpClient.post("front/mobile/village/api/getServiceReason" + AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/village/api/getServiceReason", params, handler);
     }
 
 

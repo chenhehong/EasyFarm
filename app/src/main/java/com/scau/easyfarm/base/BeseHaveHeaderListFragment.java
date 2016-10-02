@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
@@ -36,13 +37,13 @@ public abstract class BeseHaveHeaderListFragment<T1 extends Entity, T2 extends S
 
     protected Activity aty;
 
-    protected final AsyncHttpResponseHandler mDetailHandler = new AsyncHttpResponseHandler() {
+    protected final OperationResponseHandler mDetailHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             try {
-                if (arg2 != null) {
-                    T2 detail = getDetailBean(new ByteArrayInputStream(arg2));
+                if (is != null) {
+                    T2 detail = getDetailBean(is);
                     if (detail != null) {
 //                      请求详情信息成功再请求列表信息
                         requstListData();
@@ -50,20 +51,19 @@ public abstract class BeseHaveHeaderListFragment<T1 extends Entity, T2 extends S
                         new SaveCacheTask(getActivity(), detail,
                                 getDetailCacheKey()).execute();
                     } else {
-                        onFailure(arg0, arg1, arg2, null);
+                        onFailure(code,null,args);
                     }
                 } else {
                     throw new RuntimeException("load detail error");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                onFailure(arg0, arg1, arg2, e);
+                onFailure(code,null,args);
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                Throwable arg3) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
             readDetailCacheData(getDetailCacheKey());
         }
     };

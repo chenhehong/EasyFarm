@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Constants;
@@ -223,29 +224,28 @@ public class MyInformationFragment extends BaseFragment{
 
 
 //  获取登录用户信息的handle
-    private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    private final OperationResponseHandler mHandler = new OperationResponseHandler() {
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             try {
-                mInfo = JsonUtils.toBean(MyInformation.class,
-                        new ByteArrayInputStream(arg2)).getUser();
+                mInfo = JsonUtils.toBean(MyInformation.class,is).getUser();
                 if (mInfo != null) {
                     fillUI();
                     AppContext.getInstance().updateUserInfo(mInfo);
                     new SaveCacheTask(getActivity(), mInfo, getCacheKey())
                             .execute();
                 } else {
-                    onFailure(arg0, arg1, arg2, new Throwable());
+                    onFailure(code,null,args);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                onFailure(arg0, arg1, arg2, e);
+                onFailure(code,e.getMessage(),args);
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {}
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            AppContext.showToast(errorMessage + code);}
     };
 
 //  系统中每个用户信息缓存文件的cacheKey

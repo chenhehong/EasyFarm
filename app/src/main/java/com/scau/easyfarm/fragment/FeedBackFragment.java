@@ -12,10 +12,13 @@ import android.widget.EditText;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
+
+import java.io.ByteArrayInputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -60,9 +63,9 @@ public class FeedBackFragment extends BaseFragment {
                 data += mEtContact.getText() + "<br>";
                 data += TDevice.getVersionName() + "("
                         + TDevice.getVersionCode() + ")<br>";
-                EasyFarmServerApi.feedback(data, new AsyncHttpResponseHandler() {
+                EasyFarmServerApi.feedback(data, new OperationResponseHandler() {
                     @Override
-                    public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+                    public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
                         AppContext.showToast("已收到你的建议，谢谢");
                         getActivity().finish();
                     }

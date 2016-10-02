@@ -11,6 +11,8 @@ package com.scau.easyfarm.bean;
 @SuppressWarnings("serial")
 public class ResultBean extends Base {
 
+    private Object obj;
+
     private Result result;
 
     private Notice notice;
@@ -22,6 +24,14 @@ public class ResultBean extends Base {
 //    private MessageDetail message;
 
     private int relation;
+
+    public Object getObj() {
+        return obj;
+    }
+
+    public void setObj(Object obj) {
+        this.obj = obj;
+    }
 
     public Result getResult() {
 	return result;

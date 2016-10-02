@@ -173,13 +173,12 @@ public class TweetDetailFragment extends
     }
 
 //  提交评论后的句柄
-    private final AsyncHttpResponseHandler mCommentHandler = new AsyncHttpResponseHandler() {
+    private final OperationResponseHandler mCommentHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             try {
-                ResultBean rsb = JsonUtils.toBean(ResultBean.class,
-                        new ByteArrayInputStream(arg2));
+                ResultBean rsb = JsonUtils.toBean(ResultBean.class,is);
                 Result res = rsb.getResult();
                 if (res.OK()) {
                     hideWaitDialog();
@@ -194,17 +193,16 @@ public class TweetDetailFragment extends
                 outAty.emojiFragment.clean();
             } catch (Exception e) {
                 e.printStackTrace();
-                onFailure(arg0, arg1, arg2, e);
+                onFailure(code, e.getMessage(),args);
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                Throwable arg3) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
             hideWaitDialog();
-            String errorMessage = new String(arg2);
             Log.d("评论失败",errorMessage);
-            AppContext.showToastShort(R.string.comment_publish_faile);
+            // AppContext.showToastShort(R.string.comment_publish_faile);
+            AppContext.showToast(errorMessage + code);
         }
     };
 
@@ -350,10 +348,10 @@ public class TweetDetailFragment extends
     private void likeOption() {
         if (mTweet == null)
             return;
-        AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
+        OperationResponseHandler handler = new OperationResponseHandler() {
 
             @Override
-            public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {}
+            public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {}
 
             @Override
             public void onFailure(int arg0, Header[] arg1, byte[] arg2,

@@ -12,8 +12,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.AreaListAdapter;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.base.ListBaseAdapter;
@@ -54,16 +56,13 @@ public class AreaCatalogListFragment extends BaseFragment implements
 	private String selectedCity;
 	private String selectedCounty;
 
-	private AsyncHttpResponseHandler mProvinceHandler = new AsyncHttpResponseHandler() {
+	private OperationResponseHandler mProvinceHandler = new OperationResponseHandler() {
 
 		@Override
-		public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+		public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
 			try {
-				String s = new String(arg2);
-				Log.d("chh",s);
 				AreaList list = JsonUtils.toBean(
-						AreaList.class, new ByteArrayInputStream(
-								arg2));
+						AreaList.class, is);
 				if (mState == STATE_REFRESH)
 					mProvinceAdapter.clear();
 				List<Area> data = list.getAreaList();
@@ -81,13 +80,13 @@ public class AreaCatalogListFragment extends BaseFragment implements
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				onFailure(arg0, arg1, arg2, e);
+				onFailure(code,e.getMessage(),args);
 			}
 		}
 
 		@Override
-		public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-				Throwable arg3) {
+		public void onFailure(int code, String errorMessage, Object[] args) {
+			AppContext.showToast(errorMessage + code);
 			mEmptyView.setErrorType(EmptyLayout.NETWORK_ERROR);
 		}
 
@@ -96,14 +95,13 @@ public class AreaCatalogListFragment extends BaseFragment implements
 		}
 	};
 
-	private AsyncHttpResponseHandler mCityHandler = new AsyncHttpResponseHandler() {
+	private OperationResponseHandler mCityHandler = new OperationResponseHandler() {
 
 		@Override
-		public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+		public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
 			try {
 				AreaList list = JsonUtils.toBean(
-						AreaList.class, new ByteArrayInputStream(
-								arg2));
+						AreaList.class, is);
 				if (mState == STATE_REFRESH)
 					mCityAdapter.clear();
 				List<Area> data = list.getAreaList();
@@ -120,7 +118,7 @@ public class AreaCatalogListFragment extends BaseFragment implements
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				onFailure(arg0, arg1, arg2, e);
+				onFailure(code,e.getMessage(),args);
 			}
 		}
 
@@ -135,7 +133,7 @@ public class AreaCatalogListFragment extends BaseFragment implements
 		}
 	};
 
-	private AsyncHttpResponseHandler mCountyHandler = new AsyncHttpResponseHandler() {
+	private OperationResponseHandler mCountyHandler = new OperationResponseHandler() {
 
 		@Override
 		public void onSuccess(int statusCode, Header[] headers,

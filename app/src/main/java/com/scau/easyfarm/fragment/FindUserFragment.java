@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.FindUserAdapter;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ListEntity;
@@ -54,13 +55,12 @@ public class FindUserFragment extends BaseFragment implements AdapterView.OnItem
 
     private FindUserAdapter mAdapter;
 
-    private AsyncHttpResponseHandler mHandle = new AsyncHttpResponseHandler() {
+    private OperationResponseHandler mHandle = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-            UserList list = JsonUtils.toBean(UserList.class,
-                    new ByteArrayInputStream(arg2));
+            UserList list = JsonUtils.toBean(UserList.class,is);
             executeOnLoadDataSuccess(list.getList());
         }
 

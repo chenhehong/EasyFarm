@@ -10,12 +10,15 @@ import android.widget.EditText;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.LoginUserBean;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
+
+import java.io.ByteArrayInputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -71,13 +74,11 @@ public class ChangePasswordFragment extends BaseFragment{
         }
     }
 
-    private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-            String s = new String(arg2);
-            Log.d("chh",s);
-            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, arg2);
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
+            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, is);
             if (resultBean != null) {
                 handleResultBean(resultBean);
             }

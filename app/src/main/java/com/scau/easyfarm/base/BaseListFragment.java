@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.ListEntity;
 import com.scau.easyfarm.bean.Result;
@@ -344,7 +345,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
     }
 
     //  父类处理子类的请求网络返回的数据
-    protected AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    protected OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
         public void onSuccess(int statusCode, Header[] headers,

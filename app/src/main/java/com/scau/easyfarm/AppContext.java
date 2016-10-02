@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
 import com.scau.easyfarm.api.ApiHttpClient;
+import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseApplication;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.User;
@@ -30,7 +31,11 @@ import java.util.UUID;
  */
 public class AppContext extends BaseApplication {
 
-    public static final String ACCESS = "?access_token=ACCESS_TOKEN";
+    public static String ACCESS = "ACCESS_TOKEN";
+    public static String ACCESS_TOKEN_PARAMS = "access_token";
+    public static final int ACCESS_ERROR_CODE = 3;
+    public static final String ACCESS_TOKEN_USERCODE = "wsnwsn640";
+    public static final String ACCESS_TOKEN_USERSECRET = "wsnwsn640";
 
     public static final int PAGE_SIZE = 20;// 默认分页大小
 //  定义用户登录的角色类型
@@ -73,6 +78,9 @@ public class AppContext extends BaseApplication {
 
         // Bitmap缓存地址
         HttpConfig.CACHEPATH = "EasyFarm/imagecache";
+
+//      获取access_token
+//        EasyFarmServerApi.getAccessToken();
     }
 
     //  初始化登录,利用AppConfig类读取Properties文件，获得用户的配置信息.登录与注销就是用的Properties来保存的

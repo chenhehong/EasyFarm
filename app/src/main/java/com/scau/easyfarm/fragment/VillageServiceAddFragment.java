@@ -26,6 +26,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.SelectedUserAdapter;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Entity;
@@ -37,6 +38,7 @@ import com.scau.easyfarm.util.SimpleTextWatcher;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -74,20 +76,20 @@ public class VillageServiceAddFragment extends BaseFragment{
     private AlertDialog.Builder datePickBuilder;
     private DatePicker datePicker;
 
-    private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, arg2);
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
+            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, is);
             if (resultBean != null) {
                 handleResultBean(resultBean);
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
-            AppContext.showToast("网络出错" + arg0);
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            hideWaitDialog();
+            AppContext.showToast(errorMessage + code);
         }
 
         @Override

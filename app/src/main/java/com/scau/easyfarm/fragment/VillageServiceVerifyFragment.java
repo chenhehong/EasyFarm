@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ResultBean;
@@ -138,26 +139,24 @@ public class VillageServiceVerifyFragment extends BaseFragment {
                 mHandler);
     }
 
-    private final AsyncHttpResponseHandler mHandler = new AsyncHttpResponseHandler() {
+    private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-            String s = new String(arg2);
-            Log.d("chh", s);
-            VillageService villageService = JsonUtils.toBean(VillageServiceDetail.class,
-                    new ByteArrayInputStream(arg2)).getVillageService();
+            VillageService  villageService = JsonUtils.toBean(VillageServiceDetail.class,
+                    is).getVillageService();
             if (villageService!=null) {
                 mVillageService = villageService;
                 fillUI();
             } else {
-                this.onFailure(arg0, arg1, arg2, null);
+                this.onFailure(code,null,args);
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            AppContext.showToast(errorMessage + code);
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         }
     };
@@ -222,20 +221,19 @@ public class VillageServiceVerifyFragment extends BaseFragment {
         EasyFarmServerApi.verifyVillageService(mVillageServiceId, selectStatus, optinionEditText.getText().toString(), mSubmitHandler);
     }
 
-    private final AsyncHttpResponseHandler mSubmitHandler = new AsyncHttpResponseHandler() {
+    private final OperationResponseHandler mSubmitHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, arg2);
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
+            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, is);
             if (resultBean != null) {
                 handleResultBean(resultBean);
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
-            AppContext.showToast("网络出错" + arg0);
+        public void onFailure(int code, String errorMessage, Object[] args){
+            AppContext.showToast("网络出错" + code);
         }
 
         @Override
