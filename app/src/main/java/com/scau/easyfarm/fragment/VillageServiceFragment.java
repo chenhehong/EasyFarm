@@ -218,7 +218,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     if (i == 0) {
-                        handleDeleteTweet(villageService);
+                        handleDeleteVillageService(villageService);
                     }
                 }
             }).show();
@@ -226,7 +226,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
     }
 
 //  删除申请
-    private void handleDeleteTweet(final VillageService villageService) {
+    private void handleDeleteVillageService(final VillageService villageService) {
         DialogHelp.getConfirmDialog(getActivity(), "是否删除该申请?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

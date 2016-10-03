@@ -15,12 +15,9 @@ import android.widget.AdapterView;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.VillageServiceAdapter;
-import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
-import com.scau.easyfarm.bean.Result;
-import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.bean.VillageService;
@@ -30,11 +27,8 @@ import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.UIHelper;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/8/26.

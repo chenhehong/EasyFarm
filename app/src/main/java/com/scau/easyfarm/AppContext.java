@@ -31,9 +31,11 @@ import java.util.UUID;
  */
 public class AppContext extends BaseApplication {
 
-    public static String ACCESS = "ACCESS_TOKEN";
+    public static String ACCESS = "";
     public static String ACCESS_TOKEN_PARAMS = "access_token";
     public static final int ACCESS_ERROR_CODE = 3;
+    public static final int ACCESS_TIMEOUT_CODE = 110;
+    public static final int ACCESS_INVALID_CODE = 111;
     public static final String ACCESS_TOKEN_USERCODE = "wsnwsn640";
     public static final String ACCESS_TOKEN_USERSECRET = "wsnwsn640";
 
@@ -80,7 +82,7 @@ public class AppContext extends BaseApplication {
         HttpConfig.CACHEPATH = "EasyFarm/imagecache";
 
 //      获取access_token
-//        EasyFarmServerApi.getAccessToken();
+        EasyFarmServerApi.getAccessToken();
     }
 
     //  初始化登录,利用AppConfig类读取Properties文件，获得用户的配置信息.登录与注销就是用的Properties来保存的

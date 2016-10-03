@@ -40,7 +40,8 @@ public class OperationResponseHandler extends AsyncHttpResponseHandler {
 //			验证是否AuthToken已经过期
 			ResultBean resultBean = JsonUtils.toBean(ResultBean.class,arg2);
 			Result result = resultBean.getResult();
-			if(!result.OK()&&result.getErrorCode()== AppContext.ACCESS_ERROR_CODE){
+		 	int errorCode = result.getErrorCode();
+			if(!result.OK()&&(errorCode==AppContext.ACCESS_ERROR_CODE||errorCode==AppContext.ACCESS_INVALID_CODE||errorCode==AppContext.ACCESS_TIMEOUT_CODE)){
 				onFailure(result.getErrorCode(),result.getErrorMessage(),args);
 				EasyFarmServerApi.getAccessToken();
 				return;

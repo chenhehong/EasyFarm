@@ -79,7 +79,7 @@ public class EasyFarmServerApi {
     public static void getMyInformation(int uid,AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("personalid", uid);
-        ApiHttpClient.get("front/mobile/api/base/getuser", params, handler);
+        ApiHttpClient.post("front/mobile/user/getuser", params, handler);
     }
 
 //  获取版本更新
@@ -237,13 +237,13 @@ public class EasyFarmServerApi {
     }
 
     public static void getProvinceList(AsyncHttpResponseHandler handler){
-        ApiHttpClient.post("front/mobile/area/getProvinces"+ AppContext.ACCESS,handler);
+        ApiHttpClient.post("front/mobile/area/getProvinces",handler);
     }
 
     public static void getCityList(int CityID,AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("ProID",CityID);
-        ApiHttpClient.post("front/mobile/area/getCitys"+ AppContext.ACCESS,params,handler);
+        ApiHttpClient.post("front/mobile/area/getCitys",params,handler);
     }
 
     public static void getCountyList(int jsonId,AsyncHttpResponseHandler handler){
@@ -398,7 +398,7 @@ public class EasyFarmServerApi {
                                 AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("searchKey", loginName);
-        ApiHttpClient.get("front/mobile/village/api/searchExpertByName"+ AppContext.ACCESS, params, handler);
+        ApiHttpClient.post("front/mobile/village/api/searchExpertByName", params, handler);
     }
 
     public static void getVillageServiceReasonList(int currenPage,int pageSize,AsyncHttpResponseHandler handler){

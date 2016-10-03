@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -82,6 +83,11 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
 
     private String theLarge, theThumbnail;
     private File imgFile;
+
+//  标示第一次是否是第一次进入activity，此字段用于拍照时返回需要自动退出该activity的情况
+    private boolean firstStart = true;
+//  指示是否拍照成功，此字段用于拍照时返回需要自动退出该activity的情况
+    private boolean takePhotoSuccess = false;
 
     private final Handler handler = new Handler() {
         @Override
@@ -246,13 +252,14 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
     public void onClick(View v) {
         final int id = v.getId();
         if (id == R.id.btn_village_type){
-            UIHelper.showVillageServiceProofChoose(this,REQUESTCODE_CHOOSE_VILLAGESERVICE);
+            UIHelper.showVillageServiceProofChoose(this, REQUESTCODE_CHOOSE_VILLAGESERVICE);
         }
     }
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode,
                                  final Intent imageReturnIntent) {
+        Log.d("chh","拍照返回");
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode==REQUESTCODE_CHOOSE_VILLAGESERVICE){
@@ -260,11 +267,10 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
             mVillageType.setText(imageReturnIntent.getStringExtra(VillageServiceProofListFragment.SELECTED_VILLAGESERVICE_DEC));
         }
         if (requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA) {
+            takePhotoSuccess = true;
             mResourceAddress.setText("广东省-广州市-天河区-华南农业大学");
             mResourceTime.setText(DateTimeUtil.getCurrentDateStr("yyyy-MM-dd HH:mm:ss"));
             new Thread() {
-                private String selectedImagePath;
-
                 @Override
                 public void run() {
                     Bitmap bitmap = null;
@@ -322,6 +328,13 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
     @Override
     public void onResume() {
         super.onResume();
+//      如果没有拍照成功并且不是第一次进入activity，自动退出
+        if (!firstStart&&!takePhotoSuccess){
+            getActivity().finish();
+        }
+        if (firstStart==true){
+            firstStart = false;
+        }
     }
 
     private void takePhoto() {
