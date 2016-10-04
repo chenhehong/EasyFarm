@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -248,6 +249,10 @@ public class VillageServiceAddFragment extends BaseFragment{
             UIHelper.showLoginActivity(getActivity());
             return;
         }
+        if (etBusinessDate.getText().toString().compareTo(etReturnDate.getText().toString())>0){
+            AppContext.showToast("返回时间不能大于服务时间");
+            return;
+        }
         String villageServiceUserIds = "";
         for (int i=0;i<personArray.size();i++){
             if (i==(personArray.size()-1)){
@@ -321,7 +326,7 @@ public class VillageServiceAddFragment extends BaseFragment{
         cal.setTimeInMillis(System.currentTimeMillis());
         datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), null);
         datePickBuilder.setView(dateAlertView);
-        datePickBuilder.setTitle("选取下乡时间");
+        datePickBuilder.setTitle("选取服务时间");
         datePickBuilder.setPositiveButton("确  定", new DialogInterface.OnClickListener() {
 
             @Override

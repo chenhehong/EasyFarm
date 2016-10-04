@@ -30,6 +30,7 @@ import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.VillageProofResource;
+import com.scau.easyfarm.service.LocationUtils;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.FileUtil;
@@ -75,6 +76,9 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
     @InjectView(R.id.et_description)
     EditText mResourceDescription;
 
+    @InjectView(R.id.btn_description)
+    ImageView mImvDescriptioon;
+
     private int selectedVillageServiceTypeId = 0;
 
     private MenuItem mSendMenu;
@@ -83,6 +87,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
 
     private String theLarge, theThumbnail;
     private File imgFile;
+    private int descriptionId;
 
 //  标示第一次是否是第一次进入activity，此字段用于拍照时返回需要自动退出该activity的情况
     private boolean firstStart = true;
@@ -226,7 +231,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
             }
         });
         mImvVillageType.setOnClickListener(this);
-
+        mImvDescriptioon.setOnClickListener(this);
     }
 
     @Override
@@ -253,6 +258,8 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         final int id = v.getId();
         if (id == R.id.btn_village_type){
             UIHelper.showVillageServiceProofChoose(this, REQUESTCODE_CHOOSE_VILLAGESERVICE);
+        }else if (id==R.id.btn_description){
+            UIHelper.chooseProofResourceDescription(this,ProofResourceDescriptionChooseFragment.REQUEST_CODE_DESCRIPTION_SELECT);
         }
     }
 
@@ -266,9 +273,20 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
             selectedVillageServiceTypeId = imageReturnIntent.getIntExtra(VillageServiceProofListFragment.SELECTED_VILLAGESERVICE_ID,0);
             mVillageType.setText(imageReturnIntent.getStringExtra(VillageServiceProofListFragment.SELECTED_VILLAGESERVICE_DEC));
         }
+        if (requestCode==ProofResourceDescriptionChooseFragment.REQUEST_CODE_DESCRIPTION_SELECT){
+            String selectedDescription = imageReturnIntent.getStringExtra(ProofResourceDescriptionChooseFragment.BUNDLE_SELECT_DESCRIPTION_STR);
+            descriptionId = imageReturnIntent.getIntExtra(ProofResourceDescriptionChooseFragment.BUNDLE_SELECT_DESCRIPTION_ID,0);
+            if (selectedDescription.equals("其他")){
+                mResourceDescription.setEnabled(true);
+                mResourceDescription.setText("其他");
+            }else {
+                mResourceDescription.setEnabled(false);
+                mResourceDescription.setText(selectedDescription);
+            }
+        }
         if (requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA) {
             takePhotoSuccess = true;
-            mResourceAddress.setText("广东省-广州市-天河区-华南农业大学");
+            locate();
             mResourceTime.setText(DateTimeUtil.getCurrentDateStr("yyyy-MM-dd HH:mm:ss"));
             new Thread() {
                 @Override
@@ -323,6 +341,26 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
                 };
             }.start();
         }
+    }
+
+    /**
+     * 该方法用于实现定位
+     */
+    public void locate(){
+        //异步处理地址
+        Handler mhandler = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 0: {
+                        //显示地址
+                        mResourceAddress.setText((msg.obj).toString());
+                        break;
+                    }
+                }
+            }
+        };
+        LocationUtils locationUtils = new LocationUtils(mhandler);
+        locationUtils.start();
     }
 
     @Override

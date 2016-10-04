@@ -40,7 +40,7 @@
                     style="@style/functionIcon"/>
                 <TextView
                     style="@style/functionIconText"
-                    android:text="下乡审核"/>
+                    android:text="服务审核"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/functionLayoutColumn">
@@ -50,7 +50,7 @@
                     style="@style/functionIcon"/>
                 <TextView
                     style="@style/functionIconText"
-                    android:text="下乡统计"/>
+                    android:text="服务统计"/>
             </LinearLayout>
         </LinearLayout>
 

@@ -504,6 +504,10 @@ public class UIHelper {
         ImagePreviewActivity.showImagePrivew(context, 0, imageUrls);
     }
 
+    public static void chooseProofResourceDescription(Fragment fragment,int requestCode){
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_PROOF_RESOURCE_DESCRIPTITON);
+    }
+
 }
 
 

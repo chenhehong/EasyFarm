@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lv_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#ffffffff"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="?attr/lineColor"
+            android:dividerHeight="1.0px"
+            android:listSelector="@android:color/transparent" />
+
+        <com.scau.easyfarm.ui.empty.EmptyLayout
+            android:id="@+id/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+</RelativeLayout>

@@ -20,7 +20,7 @@
                     style="@style/functionIcon"/>
                 <TextView
                     style="@style/functionIconText"
-                    android:text="下乡管理"/>
+                    android:text="服务管理"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/functionLayoutColumn">

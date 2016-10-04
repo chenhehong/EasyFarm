@@ -1,24 +1,18 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
-import android.support.v4.util.TimeUtils;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
-import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceDetail;
-import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.bean.VillageServiceOpinion;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DateTimeUtil;
@@ -28,7 +22,6 @@ import java.io.ByteArrayInputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/9/9.
@@ -147,7 +140,7 @@ public class VillageServiceDetailFragment extends BaseFragment {
         tvPerson.setText(servicePerson);
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
-        tvServiceDate.setText(DateTimeUtil.DateTimeToDate(mVillageService.getBusinessDate())+"至"+DateTimeUtil.DateTimeToDate(mVillageService.getReturnDate()));
+        tvServiceDate.setText(DateTimeUtil.dateTimeToDate(mVillageService.getBusinessDate())+"至"+DateTimeUtil.dateTimeToDate(mVillageService.getReturnDate()));
         if (mVillageService.getStatus()== VillageService.VILLAGE_SERVICE_WAITING){
             tvStatue.setText("待审核");
         }else if (mVillageService.getStatus()==VillageService.VILLAGE_SERVICE_PASS){

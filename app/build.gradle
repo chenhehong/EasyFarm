@@ -28,7 +28,8 @@ dependencies {
     compile 'org.kymjs.kjframe:kjframe:2.6'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
-//  图标工具库
+    //  图标工具库
     compile 'com.joanzapata.android:android-iconify:1.0.9'
     compile 'com.alibaba:fastjson:1.2.17'
+    compile files('src/main/libs/BaiduLBS_Android.jar')
 }

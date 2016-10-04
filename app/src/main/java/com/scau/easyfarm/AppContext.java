@@ -1,8 +1,10 @@
 package com.scau.easyfarm;
 
+import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Vibrator;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
@@ -12,6 +14,7 @@ import com.scau.easyfarm.base.BaseApplication;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.cache.DataCleanManager;
+import com.scau.easyfarm.service.LocationService;
 import com.scau.easyfarm.util.CyptoUtils;
 import com.scau.easyfarm.util.MethodsCompat;
 import com.scau.easyfarm.util.TLog;
@@ -52,6 +55,9 @@ public class AppContext extends BaseApplication {
     private boolean login=false;
 
     private String roleName=" ";
+//  百度地图定位类
+    public LocationService locationService;
+    public Vibrator mVibrator;
 
     @Override
     public void onCreate() {
@@ -83,6 +89,11 @@ public class AppContext extends BaseApplication {
 
 //      获取access_token
         EasyFarmServerApi.getAccessToken();
+        /***
+         * 初始化定位sdk
+         */
+        locationService = new LocationService(getApplicationContext());
+        mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
     }
 
     //  初始化登录,利用AppConfig类读取Properties文件，获得用户的配置信息.登录与注销就是用的Properties来保存的

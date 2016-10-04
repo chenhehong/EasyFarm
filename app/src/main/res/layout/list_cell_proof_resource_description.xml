@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="?attr/textColor"
-        tools:text="服务事由"
         android:textSize="16sp" />
 
 </RelativeLayout>

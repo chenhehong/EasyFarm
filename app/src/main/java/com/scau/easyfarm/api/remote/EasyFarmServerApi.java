@@ -399,5 +399,12 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/getServiceReason", params, handler);
     }
 
+    public static void getProofResourceDescriptionList(int currenPage,int pageSize,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("currenPage",currenPage);
+        params.put("pageSize", pageSize);
+        ApiHttpClient.post("front/mobile/village/api/getResourceType", params, handler);
+    }
+
 
 }

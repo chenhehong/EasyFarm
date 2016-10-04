@@ -19,7 +19,7 @@
                 style="@style/village_service_add_layout">
                 <TextView
                     style="@style/village_service_add_left_textview"
-                    android:text="下乡人员："/>
+                    android:text="服务人员："/>
                 <Button
                     android:id="@+id/btn_add_person"
                     android:layout_width="90dp"
@@ -48,7 +48,7 @@
                 style="@style/village_service_add_layout">
                 <TextView
                     style="@style/village_service_add_left_textview"
-                    android:text="下乡区域："/>
+                    android:text="服务区域："/>
                 <EditText
                     android:id="@+id/et_area"
                     android:editable="false"
@@ -67,7 +67,7 @@
                 style="@style/village_service_add_layout">
                 <TextView
                     style="@style/village_service_add_left_textview"
-                    android:text="下乡事由："/>
+                    android:text="服务事由："/>
                 <EditText
                     android:id="@+id/et_reason"
                     android:lines="2"
@@ -85,7 +85,7 @@
                 style="@style/village_service_add_layout">
                 <TextView
                     style="@style/village_service_add_left_textview"
-                    android:text="下乡时间："/>
+                    android:text="服务时间："/>
                 <EditText
                     android:id="@+id/et_business_date"
                     android:editable="false"

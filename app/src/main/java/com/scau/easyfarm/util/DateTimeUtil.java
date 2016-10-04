@@ -68,7 +68,7 @@ public class DateTimeUtil {
         return  d;
     }
 
-    public static String DateTimeToDate(String DateTime){
+    public static String dateTimeToDate(String DateTime){
         String format = "yyyy-MM-dd";
         //把string转化为date
         SimpleDateFormat sdf = new SimpleDateFormat(format);

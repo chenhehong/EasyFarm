@@ -1,9 +1,9 @@
 package com.scau.easyfarm.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.scau.easyfarm.util.DateTimeUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class VillageService extends Entity {
     }
 
     public void setBusinessDate(String businessDate) {
-        this.businessDate = businessDate;
+        this.businessDate = DateTimeUtil.dateTimeToDate(businessDate);
     }
 
     public String getReturnDate() {
@@ -101,7 +101,7 @@ public class VillageService extends Entity {
     }
 
     public void setBusinessReason(String businessReason) {
-        this.businessReason = businessReason;
+        this.businessReason = DateTimeUtil.dateTimeToDate(businessReason);
     }
 
     public int getStatus() {

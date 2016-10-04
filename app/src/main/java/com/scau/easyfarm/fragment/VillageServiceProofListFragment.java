@@ -39,6 +39,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     private static final String CACHE_KEY_PREFIX = "villageServiceProofList_";
     public static final String VILLAGESERVICEPROOF_ACTION = "village_service_proof_action";
     public static final int ACTION_SELECT = 1;
+    private int action;
 
     public static final String SELECTED_VILLAGESERVICE_ID = "selected_village_service_id";
     public static final String SELECTED_VILLAGESERVICE_DEC = "selected_villageservice_dec";
@@ -54,6 +55,10 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            action = bundle.getInt(VILLAGESERVICEPROOF_ACTION);
+        }
     }
 
     @Override
@@ -134,37 +139,6 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
         }else {
             EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_PASS, mHandler);
         }
-//        start-模拟问答数据
-//        List<VillageService> data = new ArrayList<VillageService>();
-//        VillageService m1 = new VillageService();
-//        m1.setId(2012);
-//        m1.setBusinessArea("广东-广州-从化");
-//        m1.setBusinessAddress("陈家村");
-//        m1.setApplyDate("2016-09-12");
-//        m1.setBusinessReason("下乡考察");
-//        m1.setBusinessDate("2016-9-1");
-//        m1.setReturnDate("2016-9-18");
-//        data.add(m1);
-//        VillageService m2 = new VillageService();
-//        m2.setId(2013);
-//        m2.setBusinessArea("广东-广州-从化");
-//        m2.setBusinessAddress("陈家村");
-//        m2.setApplyDate("2016-09-12");
-//        m2.setBusinessReason("下乡考察");
-//        m2.setBusinessDate("2016-9-1");
-//        m2.setReturnDate("2016-9-18");
-//        data.add(m2);
-//        VillageService m3 = new VillageService();
-//        m3.setId(2014);
-//        m3.setBusinessArea("广东-广州-从化");
-//        m3.setBusinessAddress("陈家村");
-//        m3.setApplyDate("2016-09-12");
-//        m3.setBusinessReason("下乡考察");
-//        m3.setBusinessDate("2016-9-1");
-//        m3.setReturnDate("2016-9-18");
-//        data.add(m3);
-//        executeOnLoadDataSuccess(data);
-//        end-模拟问答数据
     }
 
 //  重载点击事件，自定义子类的点击事件
@@ -173,8 +147,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                             long id) {
         VillageService villageService = mAdapter.getItem(position);
         if (villageService != null) {
-            Bundle bundle = getArguments();
-            if (bundle != null&&bundle.getInt(VILLAGESERVICEPROOF_ACTION)==ACTION_SELECT){
+            if (action==ACTION_SELECT){
                 Intent result = new Intent();
                 result.putExtra(SELECTED_VILLAGESERVICE_ID,villageService.getId());
                 String s = "";
@@ -193,6 +166,9 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     public void initView(View view) {
         super.initView(view);
         setHasOptionsMenu(true);
+        if (action==ACTION_SELECT){
+            setHasOptionsMenu(false);
+        }
         mListView.setOnItemLongClickListener(this);
 //      设置状态栏点击事件
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
