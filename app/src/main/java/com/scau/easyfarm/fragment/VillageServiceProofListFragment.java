@@ -130,9 +130,9 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
         Bundle bundle = getArguments();
         if (bundle != null&&bundle.getInt(BUNDLE_KEY_ALL)==ALL_LIST) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
-            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_PASS, mHandler);
+            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_PASS, mHandler);
         }else {
-            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_PASS, mHandler);
+            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_PASS, mHandler);
         }
 //        start-模拟问答数据
 //        List<VillageService> data = new ArrayList<VillageService>();
@@ -228,7 +228,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
 
     private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        if (villageService.getStatus()==VillageServiceList.VILLAGE_SERVICE_WAITING){
+        if (villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING){
             items = new String[] {"详情" };
             DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
                 @Override

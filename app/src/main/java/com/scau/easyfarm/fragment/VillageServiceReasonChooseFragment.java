@@ -36,6 +36,7 @@ public class VillageServiceReasonChooseFragment extends BaseFragment implements 
 
     public static final int REQUEST_CODE_VSREASON_SELECT = 112;
     public static final String BUNDLE_SELECT_REASON_STR = "bundle_select_reason_str";
+    public static final String BUNDLE_SELECT_REASON_ID = "bundle_select_reason_id";
 
     private static EmptyLayout mEmptyView;
     private VillageServiceReasonListAdapter villageServiceReasonListAdapter;
@@ -167,6 +168,7 @@ public class VillageServiceReasonChooseFragment extends BaseFragment implements 
             if (selectedReason==null) return;
             Intent result = new Intent();
             result.putExtra(BUNDLE_SELECT_REASON_STR, selectedReason.getName());
+            result.putExtra(BUNDLE_SELECT_REASON_ID,selectedReason.getId());
             getActivity().setResult(getActivity().RESULT_OK, result);
             getActivity().finish();
         }

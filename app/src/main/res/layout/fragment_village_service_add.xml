@@ -71,7 +71,8 @@
                 <EditText
                     android:id="@+id/et_reason"
                     android:lines="2"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/village_service_add_edittext"
+                    android:enabled="false"/>
                 <Button
                     android:id="@+id/btn_add_reason"
                     android:layout_width="90dp"

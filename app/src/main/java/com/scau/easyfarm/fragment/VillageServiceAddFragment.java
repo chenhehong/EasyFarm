@@ -76,6 +76,8 @@ public class VillageServiceAddFragment extends BaseFragment{
     private AlertDialog.Builder datePickBuilder;
     private DatePicker datePicker;
 
+    public int reasonId;
+
     private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
@@ -255,7 +257,7 @@ public class VillageServiceAddFragment extends BaseFragment{
             }
         }
         showWaitDialog("发送申请中，请稍后");
-        EasyFarmServerApi.addVillageService(etArea.getText().toString(),etAddress.getText().toString(),etReason.getText().toString(),
+        EasyFarmServerApi.addVillageService(etArea.getText().toString(),etAddress.getText().toString(),reasonId,etReason.getText().toString(),
                 etBusinessDate.getText().toString(),etReturnDate.getText().toString(),villageServiceUserIds,mHandler);
     }
 
@@ -363,11 +365,13 @@ public class VillageServiceAddFragment extends BaseFragment{
             setListViewHeight();
         }else if (requestCode==VillageServiceReasonChooseFragment.REQUEST_CODE_VSREASON_SELECT){
             String selectedReason = returnIntent.getStringExtra(VillageServiceReasonChooseFragment.BUNDLE_SELECT_REASON_STR);
+            reasonId = returnIntent.getIntExtra(VillageServiceReasonChooseFragment.BUNDLE_SELECT_REASON_ID,0);
             if (selectedReason.equals("其他")){
                 etReason.setEnabled(true);
                 etReason.setText("");
                 etReason.setHint("请填写其他事由");
             }else {
+                etReason.setEnabled(false);
                 etReason.setText(selectedReason);
             }
         }

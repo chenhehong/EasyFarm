@@ -252,15 +252,6 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/area/getCountys", params, handler);
     }
 
-    public static void getAllMyVillageServiceList(int categoryId, int page,
-                                                  AsyncHttpResponseHandler handler) {
-        RequestParams params = new RequestParams();
-        params.put("personalID", AppContext.getInstance().getLoginUid());
-        params.put("page", page+1);
-        params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getAllServiceByPersonalID", params, handler);
-    }
-
     public static void getMyVillageServiceList(int categoryId, int page, int status,
                                                AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
@@ -277,17 +268,17 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/getServiceDetail", params, handler);
     }
 
-    public static void addVillageService(String businessArea,String businessAddress,String businessReason,
+    public static void addVillageService(String businessArea,String businessAddress,int businessReasonType,String businessReason,
                                          String businessDate,String returnDate,String villageServicePersonIds, AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
-        params.put("personalID",AppContext.getInstance().getLoginUid());
+        params.put("uid",AppContext.getInstance().getLoginUid());
         params.put("businessArea",businessArea);
         params.put("businessAddress",businessAddress);
         params.put("businessDate",businessDate);
         params.put("returnDate",returnDate);
+        params.put("reasonType",businessReasonType);
         params.put("businessReason",businessReason);
         params.put("personIDs",villageServicePersonIds);
-        params.put("applyMan",AppContext.getInstance().getLoginUser().getRealName());
         ApiHttpClient.post("front/mobile/village/api/addService", params, handler);
     }
 

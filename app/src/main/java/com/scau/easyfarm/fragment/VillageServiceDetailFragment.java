@@ -1,6 +1,8 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
+import android.support.v4.util.TimeUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.scau.easyfarm.bean.VillageServiceDetail;
 import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.bean.VillageServiceOpinion;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
+import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.JsonUtils;
 
 import java.io.ByteArrayInputStream;
@@ -32,6 +35,8 @@ import cz.msebera.android.httpclient.Header;
  */
 public class VillageServiceDetailFragment extends BaseFragment {
 
+    @InjectView(R.id.tv_applyman)
+    TextView tvApplyMan;
     @InjectView(R.id.tv_person)
     TextView tvPerson;
     @InjectView(R.id.tv_address)
@@ -134,6 +139,7 @@ public class VillageServiceDetailFragment extends BaseFragment {
     };
 
     public void fillUI() {
+        tvApplyMan.setText(mVillageService.getApplyManName());
         String servicePerson = "";
         for (int i=0;i<mVillageService.getVillageServicePerson().size();i++){
             servicePerson+=mVillageService.getVillageServicePerson().get(i).getRealName()+"、";
@@ -141,17 +147,20 @@ public class VillageServiceDetailFragment extends BaseFragment {
         tvPerson.setText(servicePerson);
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
-        tvServiceDate.setText(mVillageService.getBusinessDate()+"至"+mVillageService.getReturnDate());
-        if (mVillageService.getStatus()== VillageServiceList.VILLAGE_SERVICE_WAITING){
+        tvServiceDate.setText(DateTimeUtil.DateTimeToDate(mVillageService.getBusinessDate())+"至"+DateTimeUtil.DateTimeToDate(mVillageService.getReturnDate()));
+        if (mVillageService.getStatus()== VillageService.VILLAGE_SERVICE_WAITING){
             tvStatue.setText("待审核");
-        }else if (mVillageService.getStatus()==VillageServiceList.VILLAGE_SERVICE_PASS){
+        }else if (mVillageService.getStatus()==VillageService.VILLAGE_SERVICE_PASS){
             tvStatue.setText("通过");
         }
         String optionion = "";
         if (mVillageService.getVillageServiceOpinions()!=null){
+            boolean flage = false;
             for (int i=0;i<mVillageService.getVillageServiceOpinions().size();i++){
+                if (flage) optionion+="\n\n";
+                else flage = true;
                 VillageServiceOpinion eachOpinion = mVillageService.getVillageServiceOpinions().get(i);
-                optionion += eachOpinion.getOpinionPerson()+":"+eachOpinion.getOpinion()+"\n";
+                optionion += eachOpinion.getOpinionPerson()+":"+eachOpinion.getOpinion();
             }
         }
         tvOpinion.setText(optionion);

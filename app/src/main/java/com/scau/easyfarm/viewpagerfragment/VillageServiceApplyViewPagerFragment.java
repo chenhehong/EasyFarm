@@ -22,7 +22,6 @@ import com.scau.easyfarm.util.UIHelper;
  */
 public class VillageServiceApplyViewPagerFragment extends BaseViewPagerFragment{
 
-
     @Override
     protected void onSetupTabAdapter(ViewPageFragmentAdapter adapter) {
 //      显示右上角菜单栏
@@ -32,9 +31,9 @@ public class VillageServiceApplyViewPagerFragment extends BaseViewPagerFragment{
                 R.array.village_service_aply_viewpage_arrays);
 //      传人频道号为参数
         adapter.addTab(title[0], "all_village_service", VillageServiceFragment.class,
-                getBundle(VillageServiceList.ALL_VILLAGE_SERVICE));
+                getBundle(VillageServiceFragment.ALL_VILLAGE_SERVICE));
         adapter.addTab(title[1], "pass_village_service", VillageServiceFragment.class,
-                getBundle(VillageServiceList.PASS_VILAGE_SERVICE));
+                getBundle(VillageServiceFragment.PASS_VILAGE_SERVICE));
     }
 
     private Bundle getBundle(int catalog) {

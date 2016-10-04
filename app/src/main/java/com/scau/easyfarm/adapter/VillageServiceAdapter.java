@@ -9,6 +9,9 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.util.DateTimeUtil;
+
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -22,12 +25,12 @@ public class VillageServiceAdapter extends ListBaseAdapter<VillageService>{
     static class ViewHold{
         @InjectView(R.id.tv_villageservice_address)
         TextView address;
-        @InjectView(R.id.tv_villageservice_reason)
-        TextView reason;
+        @InjectView(R.id.tv_villageservice_apply_man)
+        TextView applyMan;
         @InjectView(R.id.tv_villageservice_apply_time)
         TextView applyTime;
-        @InjectView(R.id.tv_villageservice_date)
-        TextView date;
+        @InjectView(R.id.tv_villageservice_status)
+        TextView status;
 
         public ViewHold(View view) {
             ButterKnife.inject(this, view);
@@ -48,10 +51,9 @@ public class VillageServiceAdapter extends ListBaseAdapter<VillageService>{
 
         VillageService villageService = (VillageService) mDatas.get(position);
         vh.address.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
-        vh.applyTime.setText("申请时间："+villageService.getApplyDate()+"；申请人："+villageService.getApplyManName());
-        vh.reason.setText(villageService.getBusinessReason());
-        vh.date.setText("下乡时间:"+villageService.getBusinessDate()+"-"+villageService.getReturnDate());
+        vh.applyTime.setText("申请时间："+villageService.getApplyDate());
+        vh.applyMan.setText("申请人："+villageService.getApplyManName());
+        vh.status.setText("申请状态："+VillageService.statusIntMap.get(villageService.getStatus()));
         return convertView;
-
     }
 }

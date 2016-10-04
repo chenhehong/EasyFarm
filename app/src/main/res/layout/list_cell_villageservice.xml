@@ -30,17 +30,17 @@
             android:textColor="?attr/infoTextColor" />
 
         <TextView
-            android:id="@+id/tv_villageservice_reason"
+            android:id="@+id/tv_villageservice_apply_man"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_villageservice_apply_time"
             android:textColor="?attr/infoTextColor" />
 
         <TextView
-            android:id="@+id/tv_villageservice_date"
+            android:id="@+id/tv_villageservice_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_villageservice_reason"
+            android:layout_below="@id/tv_villageservice_apply_man"
             android:textColor="?attr/infoTextColor" />
     </LinearLayout>
 

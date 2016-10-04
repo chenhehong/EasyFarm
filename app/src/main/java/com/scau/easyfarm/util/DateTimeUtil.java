@@ -2,6 +2,7 @@ package com.scau.easyfarm.util;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,6 +66,19 @@ public class DateTimeUtil {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         String d = sdf.format(preDateTime);
         return  d;
+    }
+
+    public static String DateTimeToDate(String DateTime){
+        String format = "yyyy-MM-dd";
+        //把string转化为date
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date date = null;
+        try {
+            date = sdf.parse(DateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return sdf.format(date);
     }
 
 }

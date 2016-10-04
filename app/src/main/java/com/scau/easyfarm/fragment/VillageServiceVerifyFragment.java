@@ -1,7 +1,6 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
@@ -23,19 +21,15 @@ import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceDetail;
-import com.scau.easyfarm.bean.VillageServiceList;
-import com.scau.easyfarm.bean.VillageServiceOpinion;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
-import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/9/9.
@@ -58,8 +52,6 @@ public class VillageServiceVerifyFragment extends BaseFragment {
     EmptyLayout mErrorLayout;
 
     private ArrayAdapter<String> spinnerAdapter;
-    public static final HashMap<String,Integer> statusMap = new HashMap<String,Integer>(){{ put("待审核",VillageServiceList.VILLAGE_SERVICE_WAITING);  put("通过",10);  put("不通过",11);} };
-    public static final String[] statusArray = {"待审核","通过","不通过"};
 
     public static final String VILLAGE_SERVICE_ID_CODE = "village_service_id_code";
 
@@ -85,14 +77,14 @@ public class VillageServiceVerifyFragment extends BaseFragment {
     public void initView(View view) {
         super.initView(view);
         ButterKnife.inject(this, view);
-        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, statusArray);
+        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, VillageService.statusStrArray);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// 设置下拉风格
         statusSpinner.setAdapter(spinnerAdapter);
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedStr = statusArray[position];
-                selectStatus = statusMap.get(selectedStr);
+                String selectedStr = VillageService.statusStrArray[position];
+                selectStatus = VillageService.statusStrMap.get(selectedStr);
             }
 
             @Override
@@ -181,9 +173,9 @@ public class VillageServiceVerifyFragment extends BaseFragment {
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(mVillageService.getBusinessDate()+"至"+mVillageService.getReturnDate());
-        for (int i=0;i<statusArray.length;i++){
-            String selectedString = statusArray[i];
-            if (statusMap.get(selectedString)==mVillageService.getStatus()){
+        for (int i=0;i<VillageService.statusStrArray.length;i++){
+            String selectedString = VillageService.statusStrArray[i];
+            if (VillageService.statusStrMap.get(selectedString)==mVillageService.getStatus()){
                 statusSpinner.setSelection(i);
                 break;
             }

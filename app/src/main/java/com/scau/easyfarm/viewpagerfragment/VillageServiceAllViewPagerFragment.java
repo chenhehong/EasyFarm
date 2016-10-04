@@ -31,9 +31,9 @@ public class VillageServiceAllViewPagerFragment extends BaseViewPagerFragment{
                 R.array.village_service_verify_viewpage_arrays);
 //      传人频道号为参数
         adapter.addTab(title[0], "all_village_service", AllVillageServiceFragment.class,
-                getBundle(VillageServiceList.WAITING_VILAGE_SERVICE));
+                getBundle(AllVillageServiceFragment.WAITING_VILAGE_SERVICE));
         adapter.addTab(title[1], "pass_village_service", AllVillageServiceFragment.class,
-                getBundle(VillageServiceList.ALL_VILLAGE_SERVICE));
+                getBundle(AllVillageServiceFragment.ALL_VILLAGE_SERVICE));
     }
 
     private Bundle getBundle(int catalog) {

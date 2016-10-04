@@ -16,6 +16,20 @@
             android:orientation="vertical" >
 
             <RelativeLayout
+            style="@style/village_service_detail_layout">
+            <TextView
+                style="@style/village_service_detail_left_textview"
+                android:text="申请人："/>
+            <TextView
+                style="@style/village_service_detail_right_textview"
+                android:id="@+id/tv_applyman"
+                android:text="" />
+        </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
                 style="@style/village_service_detail_layout">
                 <TextView
                     style="@style/village_service_detail_left_textview"

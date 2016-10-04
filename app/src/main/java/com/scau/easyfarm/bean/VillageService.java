@@ -4,12 +4,24 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by ChenHehong on 2016/9/2.
  */
 public class VillageService extends Entity {
+
+    public static final HashMap<String,Integer> statusStrMap = new HashMap<String,Integer>(){{ put("待审核",VILLAGE_SERVICE_WAITING);  put("通过",VILLAGE_SERVICE_PASS);  put("不通过",VILLAGE_SERVICE_REJECT);} };
+    public static final String[] statusStrArray = {"待审核","通过","不通过"};
+    public static final HashMap<Integer,String> statusIntMap = new HashMap<Integer,String>(){{ put(VILLAGE_SERVICE_WAITING,"待审核");  put(VILLAGE_SERVICE_PASS,"通过");  put(VILLAGE_SERVICE_REJECT,"不通过");} };
+
+
+    public final static int VILLAGE_SERVICE_ALL = 0;
+    public final static int VILLAGE_SERVICE_PASS = 7;
+    public final static int VILLAGE_SERVICE_REJECT = 8;
+    public final static int VILLAGE_SERVICE_WAITING = 9;
+
 
     @JSONField(name = "personalID")
     private int applyManId;

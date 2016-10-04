@@ -40,6 +40,10 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 
     private static final String CACHE_KEY_PREFIX = "villageServicelist_";
 
+    public final static int ALL_VILLAGE_SERVICE = 0;
+    public final static int PASS_VILAGE_SERVICE = 1;
+    public final static int WAITING_VILAGE_SERVICE = 2;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +88,6 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
     @Override
     protected void requestData(boolean refresh) {
         if (AppContext.getInstance().isLogin()) {
-//            mCatalog = AppContext.getInstance().getLoginUid();
             super.requestData(refresh);
         } else {
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
@@ -125,10 +128,10 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-        if (mCatalog==VillageServiceList.PASS_VILAGE_SERVICE){
-            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_PASS, mHandler);
-        }else{
-            EasyFarmServerApi.getAllMyVillageServiceList(mCatalog, mCurrentPage, mHandler);
+        if (mCatalog==PASS_VILAGE_SERVICE){
+            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_PASS, mHandler);
+        }else if (mCatalog == ALL_VILLAGE_SERVICE){
+            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_ALL, mHandler);
         }
 //        start-模拟问答数据
 //        List<VillageService> data = new ArrayList<VillageService>();
@@ -212,7 +215,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 
     private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        if (villageService.getStatus()==VillageServiceList.VILLAGE_SERVICE_WAITING){
+        if (villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING){
             items = new String[] {getResources().getString(R.string.delete) };
             DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
                 @Override
@@ -230,6 +233,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
         DialogHelp.getConfirmDialog(getActivity(), "是否删除该申请?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                showWaitDialog("删除中...");
                 EasyFarmServerApi.deleteVillageService(villageService.getId(), new DeleteVillageServiceResponseHandler(villageService));
             }
         }).show();
@@ -249,6 +253,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
                 Result res = JsonUtils.toBean(ResultBean.class, is).getResult();
 //              更新列表
                 if (res != null && res.OK()) {
+                    hideWaitDialog();
                     AppContext.showToastShort(R.string.delete_success);
                     VillageService villageService = (VillageService) args[0];
                     mAdapter.removeItem(villageService);
@@ -263,13 +268,9 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
         }
 
         @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-            AppContext.showToastShort(R.string.delete_faile);
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            super.onFailure(code,errorMessage,args);
+            AppContext.showToastShort(R.string.delete_faile+errorMessage);
         }
     }
 

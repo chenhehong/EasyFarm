@@ -7,8 +7,20 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 public class VillageServiceReason extends Entity {
 
+    private int id;
+
     @JSONField(name = "text")
     private String name = "";
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

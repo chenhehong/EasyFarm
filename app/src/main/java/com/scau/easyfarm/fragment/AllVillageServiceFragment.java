@@ -41,6 +41,10 @@ public class AllVillageServiceFragment extends BaseListFragment<VillageService> 
 
     private static final String CACHE_KEY_PREFIX = "allVillageServicelist_";
 
+    public final static int ALL_VILLAGE_SERVICE = 0;
+    public final static int PASS_VILAGE_SERVICE = 1;
+    public final static int WAITING_VILAGE_SERVICE = 2;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,10 +130,10 @@ public class AllVillageServiceFragment extends BaseListFragment<VillageService> 
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-        if (mCatalog==VillageServiceList.WAITING_VILAGE_SERVICE){
-            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_WAITING, mHandler);
-        }else if (mCatalog==VillageServiceList.ALL_VILLAGE_SERVICE){
-            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageServiceList.VILLAGE_SERVICE_ALL, mHandler);
+        if (mCatalog==WAITING_VILAGE_SERVICE){
+            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_WAITING, mHandler);
+        }else if (mCatalog==ALL_VILLAGE_SERVICE){
+            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_ALL, mHandler);
         }
 //        start-模拟问答数据
 //        List<VillageService> data = new ArrayList<VillageService>();
