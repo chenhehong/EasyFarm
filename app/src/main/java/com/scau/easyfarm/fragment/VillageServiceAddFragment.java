@@ -405,5 +405,4 @@ public class VillageServiceAddFragment extends BaseFragment{
         lp.height=h+(selectedUserListView.getDividerHeight()*(selectedUserAdapter.getCount()-1));
         selectedUserListView.setLayoutParams(lp);
     }
-
 }

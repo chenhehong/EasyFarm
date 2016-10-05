@@ -40,7 +40,7 @@ import cz.msebera.android.httpclient.protocol.HttpContext;
 /**
  * 用户登录界面
  */
-public class LoginActivity extends BaseActivity{
+    public class LoginActivity extends BaseActivity{
 
     public static final int REQUEST_CODE_INIT = 0;
     private static final String BUNDLE_KEY_REQUEST_CODE = "BUNDLE_KEY_REQUEST_CODE";
@@ -138,9 +138,8 @@ public class LoginActivity extends BaseActivity{
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
-            AppContext.showToast("网络出错" + arg0);
+        public void onFailure(int code, String errorMessage, Object[] args){
+            AppContext.showToast("网络出错" + errorMessage);
         }
 
         @Override

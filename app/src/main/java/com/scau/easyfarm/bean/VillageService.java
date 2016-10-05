@@ -93,7 +93,7 @@ public class VillageService extends Entity {
     }
 
     public void setReturnDate(String returnDate) {
-        this.returnDate = returnDate;
+        this.returnDate = DateTimeUtil.dateTimeToDate(returnDate);
     }
 
     public String getBusinessReason() {
@@ -101,7 +101,7 @@ public class VillageService extends Entity {
     }
 
     public void setBusinessReason(String businessReason) {
-        this.businessReason = DateTimeUtil.dateTimeToDate(businessReason);
+        this.businessReason = businessReason;
     }
 
     public int getStatus() {

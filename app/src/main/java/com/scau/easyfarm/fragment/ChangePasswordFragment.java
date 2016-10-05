@@ -85,9 +85,8 @@ public class ChangePasswordFragment extends BaseFragment{
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
-            AppContext.showToast("网络出错" + arg0);
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            AppContext.showToast("网络出错" + errorMessage);
         }
 
         @Override

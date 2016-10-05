@@ -575,14 +575,17 @@ public class StringUtils {
      * @return byte[]
      * @throws IOException
      */
-    public static byte[] InputStreamTOByte(InputStream in) throws IOException{
+    public static byte[] InputStreamTOByte(InputStream in){
 
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] data = new byte[BUFFER_SIZE];
         int count = -1;
-        while((count = in.read(data,0,BUFFER_SIZE)) != -1)
-            outStream.write(data, 0, count);
-
+        try {
+            while((count = in.read(data,0,BUFFER_SIZE)) != -1)
+                outStream.write(data, 0, count);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         data = null;
         return outStream.toByteArray();
     }

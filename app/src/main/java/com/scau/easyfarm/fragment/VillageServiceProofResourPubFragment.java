@@ -115,9 +115,8 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
-            AppContext.showToast("网络出错" + arg0);
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            AppContext.showToast("网络出错" + errorMessage);
         }
 
         @Override
@@ -270,8 +269,8 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode==REQUESTCODE_CHOOSE_VILLAGESERVICE){
-            selectedVillageServiceTypeId = imageReturnIntent.getIntExtra(VillageServiceProofListFragment.SELECTED_VILLAGESERVICE_ID,0);
-            mVillageType.setText(imageReturnIntent.getStringExtra(VillageServiceProofListFragment.SELECTED_VILLAGESERVICE_DEC));
+            selectedVillageServiceTypeId = imageReturnIntent.getIntExtra(VillageServiceProofChooseFragment.SELECTED_VILLAGESERVICE_ID,0);
+            mVillageType.setText(imageReturnIntent.getStringExtra(VillageServiceProofChooseFragment.SELECTED_VILLAGESERVICE_DEC));
         }
         if (requestCode==ProofResourceDescriptionChooseFragment.REQUEST_CODE_DESCRIPTION_SELECT){
             String selectedDescription = imageReturnIntent.getStringExtra(ProofResourceDescriptionChooseFragment.BUNDLE_SELECT_DESCRIPTION_STR);

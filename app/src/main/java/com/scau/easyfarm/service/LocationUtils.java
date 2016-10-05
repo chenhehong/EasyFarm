@@ -2,6 +2,7 @@ package com.scau.easyfarm.service;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -40,7 +41,11 @@ public class LocationUtils {
         public void onReceiveLocation(BDLocation location) {
             // TODO Auto-generated method stub
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
-                locationStr=location.getProvince()+"-"+location.getCity()+"-"+location.getDistrict()+","+location.getStreet();
+                if (location.getProvince()!=null&&location.getCity()!=null&&location.getDistrict()!=null){
+                    locationStr=location.getProvince()+"-"+location.getCity()+"-"+location.getDistrict()+","+location.getStreet();
+                }else {
+                    locationStr = "获取定位失败，请检查网络是否正常！";
+                }
             }else {
                 locationStr = "获取定位失败，请检查网络是否正常！";
             }

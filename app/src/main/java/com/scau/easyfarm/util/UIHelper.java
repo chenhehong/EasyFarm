@@ -359,9 +359,7 @@ public class UIHelper {
     }
 
     public static void showVillageServiceProofChoose(Fragment fragment,int requestCode) {
-        Bundle args = new Bundle();
-        args.putInt(VillageServiceProofListFragment.VILLAGESERVICEPROOF_ACTION,VillageServiceProofListFragment.ACTION_SELECT);
-        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.VILLAGE_SERVICE_PROOF, args);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_PROOF_VILLAGE_SERVICE);
     }
 
     public static void showVillageServicProofList(Context context) {
@@ -375,9 +373,7 @@ public class UIHelper {
     }
 
     public static void showAllVillageServiceProofList(Fragment fragment) {
-        Bundle args = new Bundle();
-        args.putInt(VillageServiceProofListFragment.BUNDLE_KEY_ALL,VillageServiceProofListFragment.ALL_LIST);
-        showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_ALL_PROOF,args);
+        showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_ALL_PROOF);
     }
 
     /**

@@ -36,16 +36,10 @@ import java.io.Serializable;
 public class VillageServiceProofListFragment extends BaseListFragment<VillageService> implements
         AdapterView.OnItemLongClickListener{
 
+    public static final int UNDERWAY_SERVICE = 1;
+    public static final int COMPLETED_SERVICE = 2;
+
     private static final String CACHE_KEY_PREFIX = "villageServiceProofList_";
-    public static final String VILLAGESERVICEPROOF_ACTION = "village_service_proof_action";
-    public static final int ACTION_SELECT = 1;
-    private int action;
-
-    public static final String SELECTED_VILLAGESERVICE_ID = "selected_village_service_id";
-    public static final String SELECTED_VILLAGESERVICE_DEC = "selected_villageservice_dec";
-
-    public static final String BUNDLE_KEY_ALL = "bundle_key_all";
-    public static final int ALL_LIST = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,10 +49,6 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
-        Bundle bundle = getArguments();
-        if (bundle!=null){
-            action = bundle.getInt(VILLAGESERVICEPROOF_ACTION);
-        }
     }
 
     @Override
@@ -95,7 +85,6 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     @Override
     protected void requestData(boolean refresh) {
         if (AppContext.getInstance().isLogin()) {
-//            mCatalog = AppContext.getInstance().getLoginUid();
             super.requestData(refresh);
         } else {
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
@@ -107,12 +96,6 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     @Override
     protected String getCacheKeyPrefix() {
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            String str = bundle.getString("topic");
-            if (str != null) {
-                return str;
-            }
-        }
         return CACHE_KEY_PREFIX + mCatalog;
     }
 
@@ -132,12 +115,10 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
 
     @Override
     protected void sendRequestData() {
-        Bundle bundle = getArguments();
-        if (bundle != null&&bundle.getInt(BUNDLE_KEY_ALL)==ALL_LIST) {
-//            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
-            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_PASS, mHandler);
-        }else {
-            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_PASS, mHandler);
+        if (mCatalog==UNDERWAY_SERVICE) {
+            EasyFarmServerApi.getMyVillageServiceProofList(0, mCurrentPage,mHandler);
+        }else if (mCatalog==COMPLETED_SERVICE){
+            EasyFarmServerApi.getMyVillageServiceProofList(1, mCurrentPage,mHandler);
         }
     }
 
@@ -147,17 +128,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                             long id) {
         VillageService villageService = mAdapter.getItem(position);
         if (villageService != null) {
-            if (action==ACTION_SELECT){
-                Intent result = new Intent();
-                result.putExtra(SELECTED_VILLAGESERVICE_ID,villageService.getId());
-                String s = "";
-                s+=villageService.getBusinessDate()+"至"+villageService.getReturnDate()+"于"+villageService.getBusinessArea()+villageService.getBusinessAddress()+"。事由:"+villageService.getBusinessReason();
-                result.putExtra(SELECTED_VILLAGESERVICE_DEC,s);
-                getActivity().setResult(getActivity().RESULT_OK, result);
-                getActivity().finish();
-            }else {
                 UIHelper.showVillageServiceProofResource(this,villageService.getId());
-            }
         }
     }
 
@@ -165,10 +136,6 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     @Override
     public void initView(View view) {
         super.initView(view);
-        setHasOptionsMenu(true);
-        if (action==ACTION_SELECT){
-            setHasOptionsMenu(false);
-        }
         mListView.setOnItemLongClickListener(this);
 //      设置状态栏点击事件
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
@@ -204,46 +171,19 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
 
     private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        if (villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING){
-            items = new String[] {"详情" };
-            DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (i == 0) {
-                        handleVillageDetail(villageService);
-                    }
+        items = new String[] {"详情" };
+        DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (i == 0) {
+                    handleVillageDetail(villageService);
                 }
-            }).show();
-        }
+            }
+        }).show();
     }
 
 //  删除申请
     private void handleVillageDetail(final VillageService villageService) {
         UIHelper.showVillageServiceDetail(getActivity(), villageService.getId());
     }
-
-    @Override
-    protected long getAutoRefreshTime() {
-        // 最新问答3分钟刷新一次
-        if (mCatalog == TweetsList.CATALOG_LATEST) {
-            return 3 * 60;
-        }
-        return super.getAutoRefreshTime();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.add_menu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.public_menu_add:
-                UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE_ADD);
-                break;
-        }
-        return true;
-    }
-
 }

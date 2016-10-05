@@ -36,8 +36,7 @@ public class UpdateManager {
     private OperationResponseHandler mCheckUpdateHandle = new OperationResponseHandler() {
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
             hideCheckDialog();
             if (isShow) {
                 showFaileDialog();
@@ -48,7 +47,6 @@ public class UpdateManager {
         public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             hideCheckDialog();
             mUpdate = JsonUtils.toBean(Update.class,is);
-
             onFinshCheck();
         }
     };

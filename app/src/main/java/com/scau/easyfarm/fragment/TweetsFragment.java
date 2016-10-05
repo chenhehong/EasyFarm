@@ -281,12 +281,7 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
         }
 
         @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
             AppContext.showToastShort(R.string.delete_faile);
         }
     }

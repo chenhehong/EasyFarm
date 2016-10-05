@@ -348,8 +348,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
     protected OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int statusCode, Header[] headers,
-                              byte[] responseBytes) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args){
             if (mCurrentPage == 0 && needAutoRefresh()) {
                 AppContext.putToLastRefreshTime(getCacheKey(),
                         StringUtils.getCurTimeStr());
@@ -358,13 +357,12 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
                 if (mState == STATE_REFRESH) {
                     onRefreshNetworkSuccess();
                 }
-                executeParserTask(responseBytes);
+                executeParserTask(StringUtils.InputStreamTOByte(is));
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
             if (isAdded()) {
                 readCacheData(getCacheKey());
             }

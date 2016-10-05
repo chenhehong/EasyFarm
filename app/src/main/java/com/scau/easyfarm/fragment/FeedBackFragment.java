@@ -71,8 +71,7 @@ public class FeedBackFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                                          Throwable arg3) {
+                    public void onFailure(int code, String errorMessage, Object[] args) {
                         AppContext.showToast("网络异常，请稍后重试");
                     }
                 });

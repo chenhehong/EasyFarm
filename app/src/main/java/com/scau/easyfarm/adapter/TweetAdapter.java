@@ -23,6 +23,8 @@ import com.scau.easyfarm.util.UIHelper;
 import com.scau.easyfarm.widget.AvatarView;
 
 
+import java.io.ByteArrayInputStream;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cz.msebera.android.httpclient.Header;
@@ -131,15 +133,13 @@ public class TweetAdapter extends ListBaseAdapter<Tweet> {
                 EasyFarmServerApi.deleteTweet(tweet.getAuthorid(), tweet.getId(),
                         new OperationResponseHandler() {
                             @Override
-                            public void onSuccess(int arg0, Header[] arg1,
-                                                  byte[] arg2) {
+                            public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
                                 mDatas.remove(position);
                                 notifyDataSetChanged();
                             }
 
                             @Override
-                            public void onFailure(int arg0, Header[] arg1,
-                                                  byte[] arg2, Throwable arg3) {
+                            public void onFailure(int code, String errorMessage, Object[] args) {
                             }
                         });
             }

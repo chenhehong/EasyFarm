@@ -123,8 +123,7 @@ public class AreaCatalogListFragment extends BaseFragment implements
 		}
 
 		@Override
-		public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-				Throwable arg3) {
+		public void onFailure(int code, String errorMessage, Object[] args) {
 			mEmptyView.setErrorType(EmptyLayout.NETWORK_ERROR);
 		}
 
@@ -136,11 +135,9 @@ public class AreaCatalogListFragment extends BaseFragment implements
 	private OperationResponseHandler mCountyHandler = new OperationResponseHandler() {
 
 		@Override
-		public void onSuccess(int statusCode, Header[] headers,
-				byte[] responseBytes) {
+		public void onSuccess(int code, ByteArrayInputStream is, Object[] args){
 			try {
-				AreaList list = JsonUtils.toBean(AreaList.class,
-						new ByteArrayInputStream(responseBytes));
+				AreaList list = JsonUtils.toBean(AreaList.class,is);
 				if (mState == STATE_REFRESH)
 					mCountyAdapter.clear();
 				List<Area> data = list.getAreaList();
@@ -153,13 +150,12 @@ public class AreaCatalogListFragment extends BaseFragment implements
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				onFailure(statusCode, headers, responseBytes, null);
+				onFailure(code,e.getMessage(),args);
 			}
 		}
 
 		@Override
-		public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-				Throwable arg3) {
+		public void onFailure(int code, String errorMessage, Object[] args) {
 			mEmptyView.setErrorType(EmptyLayout.NETWORK_ERROR);
 		}
 

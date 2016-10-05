@@ -269,18 +269,8 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 
         @Override
         public void onFailure(int code, String errorMessage, Object[] args) {
-            super.onFailure(code,errorMessage,args);
             AppContext.showToastShort(R.string.delete_faile+errorMessage);
         }
-    }
-
-    @Override
-    protected long getAutoRefreshTime() {
-        // 最新问答3分钟刷新一次
-        if (mCatalog == TweetsList.CATALOG_LATEST) {
-            return 3 * 60;
-        }
-        return super.getAutoRefreshTime();
     }
 
 }

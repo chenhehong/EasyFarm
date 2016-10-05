@@ -48,7 +48,7 @@ public class ApiHttpClient {
     public static void get(String partUrl, AsyncHttpResponseHandler handler) {
 //      添加access_token参数
         RequestParams params = new RequestParams();
-        params.put(AppContext.ACCESS_TOKEN_PARAMS, AppContext.ACCESS);
+        params.put(AppContext.ACCESS_TOKEN_PARAMS, AppContext.getInstance().ACCESS);
         client.get(getAbsoluteApiUrl(partUrl),params, handler);
         log(new StringBuilder("GET ").append(partUrl).toString());
     }
@@ -56,7 +56,7 @@ public class ApiHttpClient {
     public static void get(String partUrl, RequestParams params,
                            AsyncHttpResponseHandler handler) {
 //      添加access_token参数
-        params.put(AppContext.ACCESS_TOKEN_PARAMS, AppContext.ACCESS);
+        params.put(AppContext.ACCESS_TOKEN_PARAMS, AppContext.getInstance().ACCESS);
         client.get(getAbsoluteApiUrl(partUrl), params, handler);
         log(new StringBuilder("GET ").append(partUrl).append("&")
                 .append(params).toString());
@@ -88,7 +88,7 @@ public class ApiHttpClient {
     public static void post(String partUrl, AsyncHttpResponseHandler handler) {
 //      添加access_token参数
         RequestParams params = new RequestParams();
-        params.put(AppContext.ACCESS_TOKEN_PARAMS, AppContext.ACCESS);
+        params.put(AppContext.ACCESS_TOKEN_PARAMS, AppContext.getInstance().ACCESS);
         client.post(getAbsoluteApiUrl(partUrl),params, handler);
         log(new StringBuilder("POST ").append(partUrl).toString());
     }
@@ -96,7 +96,7 @@ public class ApiHttpClient {
     public static void post(String partUrl, RequestParams params,
                             AsyncHttpResponseHandler handler) {
 //      添加access_token参数
-        params.put(AppContext.ACCESS_TOKEN_PARAMS, AppContext.ACCESS);
+        params.put(AppContext.ACCESS_TOKEN_PARAMS, AppContext.getInstance().ACCESS);
         client.post(getAbsoluteApiUrl(partUrl), params, handler);
         log(new StringBuilder("POST ").append(partUrl).append("&")
                 .append(params).toString());

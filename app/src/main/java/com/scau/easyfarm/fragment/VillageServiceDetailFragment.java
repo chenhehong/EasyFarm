@@ -69,6 +69,14 @@ public class VillageServiceDetailFragment extends BaseFragment {
         super.initView(view);
         ButterKnife.inject(this, view);
         setHasOptionsMenu(true);
+        mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
+                sendRequiredData();
+            }
+        });
     }
 
     @Override

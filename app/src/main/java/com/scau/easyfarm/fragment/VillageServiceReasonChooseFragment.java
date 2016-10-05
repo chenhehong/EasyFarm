@@ -49,21 +49,18 @@ public class VillageServiceReasonChooseFragment extends BaseFragment implements 
     private OperationResponseHandler mHandler = new OperationResponseHandler() {
 
         @Override
-        public void onSuccess(int statusCode, Header[] headers,
-                              byte[] responseBytes) {
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args){
             try {
-                VillageServiceReasonList list = JsonUtils.toBean(VillageServiceReasonList.class,
-                        new ByteArrayInputStream(responseBytes));
+                VillageServiceReasonList list = JsonUtils.toBean(VillageServiceReasonList.class,is);
                 executeOnLoadDataSuccess(list.getVillageServiceReasonsList());
             } catch (Exception e) {
                 e.printStackTrace();
-                onFailure(statusCode, headers, responseBytes, null);
+                onFailure(code, e.getMessage(),args);
             }
         }
 
         @Override
-        public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                              Throwable arg3) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
             mEmptyView.setErrorType(EmptyLayout.NETWORK_ERROR);
         }
 

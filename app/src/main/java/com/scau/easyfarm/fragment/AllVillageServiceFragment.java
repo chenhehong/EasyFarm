@@ -247,10 +247,8 @@ public class AllVillageServiceFragment extends BaseListFragment<VillageService> 
             super(args);
         }
 
-        @Override
-        public void onSuccess(int code, ByteArrayInputStream is, Object[] args)
-                throws Exception {
-            try {
+    public void onSuccess(int code, ByteArrayInputStream is, Object[] args){
+        try {
                 Result res = JsonUtils.toBean(ResultBean.class, is).getResult();
 //              更新列表
                 if (res != null && res.OK()) {
@@ -268,7 +266,7 @@ public class AllVillageServiceFragment extends BaseListFragment<VillageService> 
         }
 
         @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
             AppContext.showToastShort(R.string.delete_faile);
         }
     }

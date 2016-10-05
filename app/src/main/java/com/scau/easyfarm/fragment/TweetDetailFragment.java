@@ -230,12 +230,7 @@ public class TweetDetailFragment extends
         }
 
         @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+        public void onFailure(int code, String errorMessage, Object[] args) {
             AppContext.showToastShort(R.string.delete_faile);
         }
     }
@@ -354,8 +349,7 @@ public class TweetDetailFragment extends
             public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {}
 
             @Override
-            public void onFailure(int arg0, Header[] arg1, byte[] arg2,
-                    Throwable arg3) {}
+            public void onFailure(int code, String errorMessage, Object[] args) {}
         };
         if (AppContext.getInstance().isLogin()) {
 

@@ -26,7 +26,7 @@ public class EasyFarmServerApi {
         public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             ResultBean resultBean = JsonUtils.toBean(ResultBean.class, is);
             if (resultBean != null) {
-                AppContext.ACCESS = resultBean.getObj().toString();
+                AppContext.getInstance().ACCESS = resultBean.getObj().toString();
             }
         }
 
@@ -260,6 +260,16 @@ public class EasyFarmServerApi {
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
         ApiHttpClient.get("front/mobile/village/api/getServiceByPersonalID", params, handler);
+    }
+
+    public static void getMyVillageServiceProofList(int isFinish, int page,
+                                               AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("personalID", AppContext.getInstance().getLoginUid());
+        params.put("isfinish",isFinish);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/village/api/getServiceByTime", params, handler);
     }
 
     public static void getVillageServiceDetail(int id,AsyncHttpResponseHandler handler){

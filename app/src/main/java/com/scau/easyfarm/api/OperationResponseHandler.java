@@ -13,7 +13,7 @@ import java.io.ByteArrayInputStream;
 
 import cz.msebera.android.httpclient.Header;
 
-public class OperationResponseHandler extends AsyncHttpResponseHandler {
+public abstract class OperationResponseHandler extends AsyncHttpResponseHandler {
 
 	private Object[] args;
 
@@ -31,8 +31,7 @@ public class OperationResponseHandler extends AsyncHttpResponseHandler {
 		onFailure(arg0, "网络错误", args);
 	}
 
-	public void onFailure(int code, String errorMessage, Object[] args) {
-	}
+	public abstract void onFailure(int code, String errorMessage, Object[] args);
 
 	@Override
 	public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -53,8 +52,7 @@ public class OperationResponseHandler extends AsyncHttpResponseHandler {
 		}
 	}
 
-	public void onSuccess(int code, ByteArrayInputStream is, Object[] args)
-			throws Exception {
-	}
+	public abstract void onSuccess(int code, ByteArrayInputStream is, Object[] args)
+			throws Exception;
 
 }

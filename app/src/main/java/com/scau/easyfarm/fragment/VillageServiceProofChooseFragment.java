@@ -11,37 +11,31 @@ import android.widget.AdapterView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.adapter.VillageServiceProofResourceAdapter;
-import com.scau.easyfarm.api.OperationResponseHandler;
+import com.scau.easyfarm.adapter.VillageServiceAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
-import com.scau.easyfarm.bean.Result;
-import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.TweetsList;
-import com.scau.easyfarm.bean.VillageProofResource;
-import com.scau.easyfarm.bean.VillageProofResourceList;
 import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.UIHelper;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class VillageServiceProofResourceFragment extends BaseListFragment<VillageProofResource> implements
+public class VillageServiceProofChooseFragment extends BaseListFragment<VillageService> implements
         AdapterView.OnItemLongClickListener{
 
-    private static final String CACHE_KEY_PREFIX = "villageServiceProofResourcelist_";
-    public static final String BUNDLEKEY_VILLAGESERVICE_ID = "bundlekey_villageservice_id";
-    private int villageServiceId = 0;
+    private static final String CACHE_KEY_PREFIX = "villageServiceProofChoose_";
+
+    public static final String SELECTED_VILLAGESERVICE_ID = "selected_village_service_id";
+    public static final String SELECTED_VILLAGESERVICE_DEC = "selected_villageservice_dec";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +55,8 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 
     @Override
 //  重载设置子类的列表适配器
-    protected VillageServiceProofResourceAdapter getListAdapter() {
-        return new VillageServiceProofResourceAdapter();
+    protected VillageServiceAdapter getListAdapter() {
+        return new VillageServiceAdapter();
     }
 
 //  用户登录状态广播接收器
@@ -87,7 +81,6 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
     @Override
     protected void requestData(boolean refresh) {
         if (AppContext.getInstance().isLogin()) {
-//            mCatalog = AppContext.getInstance().getLoginUid();
             super.requestData(refresh);
         } else {
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
@@ -98,47 +91,41 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 //  重载该方法，定义子类自己的cachekey
     @Override
     protected String getCacheKeyPrefix() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String str = bundle.getString("topic");
-            if (str != null) {
-                return str;
-            }
-        }
         return CACHE_KEY_PREFIX + mCatalog;
     }
 
 //  重载该方法，对服务器返回的数据进行解析
     @Override
-    protected VillageProofResourceList parseList(InputStream is) throws Exception {
-        VillageProofResourceList list = JsonUtils.toBean(VillageProofResourceList.class, is);
+    protected VillageServiceList parseList(InputStream is) throws Exception {
+        VillageServiceList list = JsonUtils.toBean(VillageServiceList.class, is);
         return list;
     }
 
 //  用于从缓存中读出序列化数据
     @Override
-    protected VillageProofResourceList readList(Serializable seri) {
-        return ((VillageProofResourceList) seri);
+    protected VillageServiceList readList(Serializable seri) {
+        return ((VillageServiceList) seri);
     }
 
 
     @Override
     protected void sendRequestData() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-//            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
-            villageServiceId = bundle.getInt(BUNDLEKEY_VILLAGESERVICE_ID);
-        }
-        EasyFarmServerApi.getVillageServiceProofResourceList(mCatalog, mCurrentPage, villageServiceId, mHandler);
+        EasyFarmServerApi.getMyVillageServiceProofList(0, mCurrentPage, mHandler);
     }
 
 //  重载点击事件，自定义子类的点击事件
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
-        VillageProofResource villageProofResource = mAdapter.getItem(position);
-        if (villageProofResource != null) {
-//            UIHelper.showVillageServiceDetail(view.getContext(), villageProofResource.getId());
+        VillageService villageService = mAdapter.getItem(position);
+        if (villageService != null) {
+            Intent result = new Intent();
+            result.putExtra(SELECTED_VILLAGESERVICE_ID,villageService.getId());
+            String s = "";
+            s+=villageService.getBusinessDate()+"至"+villageService.getReturnDate()+"于"+villageService.getBusinessArea()+villageService.getBusinessAddress()+"。事由:"+villageService.getBusinessReason();
+            result.putExtra(SELECTED_VILLAGESERVICE_DEC,s);
+            getActivity().setResult(getActivity().RESULT_OK, result);
+            getActivity().finish();
         }
     }
 
@@ -171,80 +158,28 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 //  长按监听
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        VillageProofResource villageProofResource = mAdapter.getItem(position);
-        if (villageProofResource != null) {
-            handleLongClick(villageProofResource);
+        VillageService villageService = mAdapter.getItem(position);
+        if (villageService != null) {
+            handleLongClick(villageService);
             return true;
         }
         return false;
     }
 
-    private void handleLongClick(final VillageProofResource villageProofResource) {
+    private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        items = new String[] {getResources().getString(R.string.delete) };
+        items = new String[] {"详情" };
         DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
-                    handleDeleteResource(villageProofResource);
+                    handleVillageDetail(villageService);
                 }
             }
         }).show();
     }
 
-//  删除申请
-    private void handleDeleteResource(final VillageProofResource villageProofResource) {
-        DialogHelp.getConfirmDialog(getActivity(), "是否删除该佐证材料?", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                showWaitDialog("删除中");
-                EasyFarmServerApi.deleteVillageServiceProofResource(villageProofResource.getId(), new DeleteVillageServiceResponseHandler(villageProofResource));
-            }
-        }).show();
+    private void handleVillageDetail(final VillageService villageService) {
+        UIHelper.showVillageServiceDetail(getActivity(), villageService.getId());
     }
-
-//  问答删除句柄
-    class DeleteVillageServiceResponseHandler extends OperationResponseHandler {
-
-        DeleteVillageServiceResponseHandler(Object... args) {
-            super(args);
-        }
-
-        @Override
-        public void onSuccess(int code, ByteArrayInputStream is, Object[] args)
-                throws Exception {
-            hideWaitDialog();
-            try {
-                Result res = JsonUtils.toBean(ResultBean.class, is).getResult();
-//              更新列表
-                if (res != null && res.OK()) {
-                    AppContext.showToastShort(R.string.delete_success);
-                    VillageService villageService = (VillageService) args[0];
-                    mAdapter.removeItem(villageService);
-                    mAdapter.notifyDataSetChanged();
-                } else {
-                    onFailure(code, res.getErrorMessage(), args);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                onFailure(code, e.getMessage(), args);
-            }
-        }
-
-        @Override
-        public void onFailure(int code, String errorMessage, Object[] args) {
-            hideWaitDialog();
-            AppContext.showToastShort(R.string.delete_faile);
-        }
-    }
-
-    @Override
-    protected long getAutoRefreshTime() {
-        // 最新问答3分钟刷新一次
-        if (mCatalog == TweetsList.CATALOG_LATEST) {
-            return 3 * 60;
-        }
-        return super.getAutoRefreshTime();
-    }
-
 }

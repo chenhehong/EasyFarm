@@ -34,8 +34,8 @@ import java.util.UUID;
  */
 public class AppContext extends BaseApplication {
 
-    public static String ACCESS = "";
-    public static String ACCESS_TOKEN_PARAMS = "access_token";
+    public  String ACCESS = "";
+    public  static final String ACCESS_TOKEN_PARAMS = "access_token";
     public static final int ACCESS_ERROR_CODE = 3;
     public static final int ACCESS_TIMEOUT_CODE = 110;
     public static final int ACCESS_INVALID_CODE = 111;
