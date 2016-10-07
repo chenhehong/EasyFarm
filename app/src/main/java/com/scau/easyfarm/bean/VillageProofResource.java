@@ -28,17 +28,18 @@ public class VillageProofResource extends Entity{
 
 
     @JSONField(name = "metaDescription")
-    private String address;
-    private String description;
-    private String createDate;
-    private String imgSmall;
-    private String imgBig;
+    private String address="";
+    private String description="";
+    private String createDate="";
+    private String imgSmall="";
+    private String imgBig="";
     @JSONField(name = "metaID")
     private int villageServiceId;
-    private String villageServiceAddress;
-    private String villageServiceReason;
+    private String villageServiceDescription="";
+    private String villageServiceAddress="";
+    private String villageServiceReason="";
     @JSONField(name = "metaPath")
-    private String imageFilePath;
+    private String imageFilePath="";
 
 
     public String getCreateDate() {
@@ -111,5 +112,13 @@ public class VillageProofResource extends Entity{
 
     public void setImageFilePath(String imageFilePath) {
         this.imageFilePath = imageFilePath;
+    }
+
+    public String getVillageServiceDescription() {
+        return villageServiceDescription;
+    }
+
+    public void setVillageServiceDescription(String villageServiceDescription) {
+        this.villageServiceDescription = villageServiceDescription;
     }
 }

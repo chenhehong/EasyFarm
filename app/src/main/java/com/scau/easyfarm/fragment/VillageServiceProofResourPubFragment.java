@@ -22,7 +22,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
@@ -31,6 +30,7 @@ import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.service.LocationUtils;
+import com.scau.easyfarm.service.ServerTaskUtils;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.FileUtil;
@@ -49,14 +49,12 @@ import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 public class VillageServiceProofResourPubFragment extends BaseFragment{
 
-    public static final int REQUESTCODE_CHOOSE_VILLAGESERVICE = 2;
-    public static final String FROM_IMAGEPAGE_KEY = "from_image_page";
+    public static final String BUNDLE_PUB_PROOFRESOURCE = "bundle_pub_proofresource";
 
-    public static final String ACTION_TYPE = "action_type";
+    public static final int REQUESTCODE_CHOOSE_VILLAGESERVICE = 2;
 
     @InjectView(R.id.img_resource)
     ImageView mResource;
@@ -192,13 +190,13 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         villageProofResource.setCreateDate(mResourceTime.getText().toString());
         villageProofResource.setAddress(mResourceAddress.getText().toString());
         villageProofResource.setVillageServiceId(selectedVillageServiceTypeId);
-        villageProofResource.setDescription(mResourceDescription.toString());
+        villageProofResource.setDescription(mResourceDescription.getText().toString());
+        villageProofResource.setVillageServiceDescription(mVillageType.getText().toString());
         if (imgFile != null && imgFile.exists()) {
             villageProofResource.setImageFilePath(imgFile.getAbsolutePath());
         }
-
-        showWaitDialog("上传佐证中");
-        EasyFarmServerApi.pubVillageServiceProof(villageProofResource, mHandler);
+        ServerTaskUtils.uploadProofResource(getActivity(), villageProofResource);
+        getActivity().finish();
     }
 
     @Override
@@ -214,7 +212,43 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        takePhoto();
+        initData();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void initData() {
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            VillageProofResource villageProofResource = (VillageProofResource) bundle.getSerializable(BUNDLE_PUB_PROOFRESOURCE);
+//      如果外界传入了对象
+            if (villageProofResource!=null){
+//              初始化参数
+                Bitmap bitmap = ImageUtils.loadImgThumbnail(villageProofResource.getImageFilePath(),100,100);
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = bitmap;
+                handler.sendMessage(msg);
+                mResourceTime.setText(villageProofResource.getCreateDate());
+                mResourceAddress.setText(villageProofResource.getAddress());
+                mVillageType.setText(villageProofResource.getVillageServiceDescription());
+                mResourceDescription.setText(villageProofResource.getDescription());
+                if (villageProofResource.getImageFilePath()!=null){
+                    imgFile = new File(villageProofResource.getImageFilePath());
+                }
+                selectedVillageServiceTypeId = villageProofResource.getVillageServiceId();
+//              表明已经拍照成功,防止resume方法finish
+                takePhotoSuccess = true;
+            }else {
+                takePhoto();
+            }
+        }else{
+            takePhoto();
+        }
     }
 
     @Override
@@ -291,12 +325,12 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
                 @Override
                 public void run() {
                     Bitmap bitmap = null;
-                    // 拍摄图片
                     if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
                         bitmap = ImageUtils
                                 .loadImgThumbnail(theLarge, 100, 100);
                     }
-                    if (bitmap != null) {// 存放照片的文件夹
+                    if (bitmap != null) {
+                        // 存放照片的文件夹
                         String savePath = Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/EasyFarm/Camera/";
                         File savedir = new File(savePath);
@@ -312,7 +346,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
                             theThumbnail = largeFilePath;
                             imgFile = new File(theThumbnail);
                         } else {
-                            // 生成上传的800宽度图片
+                            // 生成860的缩略图并作为上传的图片
                             String thumbFileName = "thumb_" + largeFileName;
                             theThumbnail = savePath + thumbFileName;
                             if (new File(theThumbnail).exists()) {
@@ -395,7 +429,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
 
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
                 .format(new Date());
-        String fileName = "osc_" + timeStamp + ".jpg";// 照片命名
+        String fileName = "easyfarm_" + timeStamp + ".jpg";// 照片命名
         File out = new File(savePath, fileName);
         Uri uri = Uri.fromFile(out);
 
@@ -405,10 +439,6 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent,
                 ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
-    }
-
-    @Override
-    public void initData() {
     }
 
 }

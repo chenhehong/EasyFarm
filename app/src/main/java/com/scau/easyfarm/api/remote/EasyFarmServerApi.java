@@ -332,6 +332,8 @@ public class EasyFarmServerApi {
         RequestParams params = new RequestParams();
         params.put("villageServiceId",v.getVillageServiceId());
         params.put("area",v.getAddress());
+        params.put("description",v.getDescription());
+        params.put("createDate",v.getCreateDate());
         // Map<String, File> files = new HashMap<String, File>();
         if (!TextUtils.isEmpty(v.getImageFilePath())) {
             try {

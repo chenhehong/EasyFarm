@@ -55,4 +55,9 @@ public abstract class OperationResponseHandler extends AsyncHttpResponseHandler 
 	public abstract void onSuccess(int code, ByteArrayInputStream is, Object[] args)
 			throws Exception;
 
+//	执行所有操作后必定执行onfinish
+	@Override
+	public void onFinish() {
+		super.onFinish();
+	}
 }

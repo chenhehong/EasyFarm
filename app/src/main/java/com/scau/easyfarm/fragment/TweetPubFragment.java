@@ -203,7 +203,6 @@ public class TweetPubFragment extends BaseFragment{
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tweet_pub, container,
                 false);
-
         initView(view);
         return view;
     }

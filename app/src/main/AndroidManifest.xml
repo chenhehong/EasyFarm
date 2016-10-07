@@ -76,10 +76,13 @@
             android:process=":notice" />
         <service android:name=".service.DownloadService" />
 
-        <service android:name=".service.ServerTaskService" >
-            <intent-filter>
-                <action android:name="EASYFARM.ACTION_PUB_TWEET" />
-            </intent-filter>
+        <service android:name=".service.BaseService" >
+        </service>
+
+        <service android:name=".service.TweetService" >
+        </service>
+
+        <service android:name=".service.ProofResourceService" >
         </service>
 
         <service

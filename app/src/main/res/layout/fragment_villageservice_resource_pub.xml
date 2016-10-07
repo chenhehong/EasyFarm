@@ -69,6 +69,7 @@
             android:lines="2"
             android:background="@drawable/bg_edittext"
             android:enabled="false"
+            android:text="现场证明"
             android:hint="请输入图片描述"/>
 
         <ImageView

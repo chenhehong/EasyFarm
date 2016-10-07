@@ -4,11 +4,9 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
@@ -23,15 +21,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerTaskService extends IntentService {
+public class TweetService extends IntentService {
 
-	private static final String SERVICE_NAME = "ServerTaskService";
+	private static final String SERVICE_NAME = "TweetService";
 
     public static final String ACTION_PUB_TWEET = "EASYFARM.ACTION_PUB_TWEET";
 
     public static final String BUNDLE_PUB_TWEET_TASK = "BUNDLE_PUB_TWEET_TASK";
     private static final String KEY_TWEET = "tweet_";
 
+//	记录Service的所有排队执行中的事务
     public static List<String> penddingTasks = new ArrayList<String>();
 
     class PublicTweetResponseHandler extends OperationResponseHandler {
@@ -64,7 +63,7 @@ public class ServerTaskService extends IntentService {
 				if (tweet.getImageFilePath() != null) {
 				    File imgFile = new File(tweet.getImageFilePath());
 				    if (imgFile.exists()) {
-					imgFile.delete();
+						imgFile.delete();
 				    }
 				}
 		    } else {
@@ -86,10 +85,10 @@ public class ServerTaskService extends IntentService {
 	    removePenddingTask(key + id);
 	}
 
-	@Override
-	public void onFinish() {
-	    tryToStopServie();
-	}
+		@Override
+		public void onFinish() {
+	    	tryToStopServie();
+		}
     }
 
     private synchronized void tryToStopServie() {
@@ -106,8 +105,8 @@ public class ServerTaskService extends IntentService {
 	penddingTasks.remove(key);
     }
 
-    public ServerTaskService(String name) {
-	super(name);
+    public TweetService(String name) {
+		super(name);
     }
 
     @Override
@@ -116,8 +115,12 @@ public class ServerTaskService extends IntentService {
 
     }
 
+//	IntentService在onCreate()函数中通过HandlerThread单独开启一个线程来处理所有Intent请求对象（通过startService的方式发送过来的）所对应的任务，
+// 这样以免事务处理阻塞主线程,把处理一个intent所对应的事务都封装到叫做onHandleIntent的虚函数；
+// 因此我们直接实现虚函数onHandleIntent，再在里面根据Intent的不同进行不同的事务处理就可以了。
+//  注意：IntentService是用单线程（一个工作线程）处理所有工作的，所以所有的任务需要排队执行
     @Override
-    protected void onHandleIntent(Intent intent) {
+	protected void onHandleIntent(Intent intent) {
 		String action = intent.getAction();
 
 		if (ACTION_PUB_TWEET.equals(action)) {
@@ -165,7 +168,7 @@ public class ServerTaskService extends IntentService {
 		NotificationManagerCompat.from(this).cancel(id);
     }
 
-	public ServerTaskService() {
+	public TweetService() {
 		this(SERVICE_NAME);
 	}
 

@@ -84,6 +84,14 @@ public class ProofResourceDescriptionChooseFragment extends BaseFragment impleme
             proofResourceDescriptionListAdapter = new ProofResourceDescriptionAdapter();
         }
         proofResourceDescriptionListView.setAdapter(proofResourceDescriptionListAdapter);
+        mEmptyView.setOnLayoutClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mEmptyView.setErrorType(EmptyLayout.NETWORK_LOADING);
+                sendRequestExpertData();
+            }
+        });
     }
 
     @Override
