@@ -366,9 +366,10 @@ public class UIHelper {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_PROOF);
     }
 
-    public static void showVillageServiceProofResource(Fragment fragment,int villageServiceId) {
+    public static void showVillageServiceProofResource(Fragment fragment,int villageServiceId,int resourceCatalog) {
         Bundle args = new Bundle();
         args.putInt(VillageServiceProofResourceFragment.BUNDLEKEY_VILLAGESERVICE_ID, villageServiceId);
+        args.putInt(VillageServiceProofResourceFragment.BUNDLE_RESOURCE_CATALOG,resourceCatalog);
         showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE,args);
     }
 

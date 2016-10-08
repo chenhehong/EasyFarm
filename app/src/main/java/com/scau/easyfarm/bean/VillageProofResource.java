@@ -27,7 +27,6 @@ import java.util.List;
 public class VillageProofResource extends Entity{
 
 
-    @JSONField(name = "metaDescription")
     private String address="";
     private String description="";
     private String createDate="";

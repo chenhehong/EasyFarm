@@ -41,7 +41,9 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 
     private static final String CACHE_KEY_PREFIX = "villageServiceProofResourcelist_";
     public static final String BUNDLEKEY_VILLAGESERVICE_ID = "bundlekey_villageservice_id";
+    public static final String BUNDLE_RESOURCE_CATALOG = "bundle_resource_catalog";
     private int villageServiceId = 0;
+    private int villageServiceCatalog = VillageServiceProofListFragment.COMPLETED_SERVICE;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,13 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+//            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
+            villageServiceId = bundle.getInt(BUNDLEKEY_VILLAGESERVICE_ID);
+            villageServiceCatalog = bundle.getInt(BUNDLE_RESOURCE_CATALOG);
+        }
     }
 
     @Override
@@ -124,11 +133,6 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 
     @Override
     protected void sendRequestData() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-//            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
-            villageServiceId = bundle.getInt(BUNDLEKEY_VILLAGESERVICE_ID);
-        }
         EasyFarmServerApi.getVillageServiceProofResourceList(mCatalog, mCurrentPage, villageServiceId, mHandler);
     }
 
@@ -181,15 +185,17 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 
     private void handleLongClick(final VillageProofResource villageProofResource) {
         String[] items = null;
-        items = new String[] {getResources().getString(R.string.delete) };
-        DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (i == 0) {
-                    handleDeleteResource(villageProofResource);
+        if (villageServiceCatalog==VillageServiceProofListFragment.UNDERWAY_SERVICE){
+            items = new String[] {getResources().getString(R.string.delete) };
+            DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (i == 0) {
+                        handleDeleteResource(villageProofResource);
+                    }
                 }
-            }
-        }).show();
+            }).show();
+        }
     }
 
 //  删除申请

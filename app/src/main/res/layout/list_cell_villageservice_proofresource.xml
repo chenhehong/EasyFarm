@@ -20,7 +20,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/tv_resource_address"
+            android:id="@+id/tv_resource_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -29,7 +29,7 @@
             android:textColor="?attr/textColor" />
 
         <TextView
-            android:id="@+id/tv_resource_time"
+            android:id="@+id/tv_resource_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_resource_address"
@@ -37,7 +37,7 @@
             android:textColor="?attr/infoTextColor" />
 
         <TextView
-            android:id="@+id/tv_resource_reason"
+            android:id="@+id/tv_resource_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_resource_time"

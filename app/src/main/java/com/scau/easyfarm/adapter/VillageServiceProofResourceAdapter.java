@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.bean.VillageService;
@@ -24,12 +25,12 @@ public class VillageServiceProofResourceAdapter extends ListBaseAdapter<VillageP
     static class ViewHold{
         @InjectView(R.id.iv_resource_img)
         ImageView img;
+        @InjectView(R.id.tv_resource_description)
+        TextView description;
         @InjectView(R.id.tv_resource_address)
         TextView address;
         @InjectView(R.id.tv_resource_time)
         TextView time;
-        @InjectView(R.id.tv_resource_reason)
-        TextView reason;
 
         public ViewHold(View view) {
             ButterKnife.inject(this, view);
@@ -49,11 +50,10 @@ public class VillageServiceProofResourceAdapter extends ListBaseAdapter<VillageP
         }
 
         VillageProofResource villageServiceProofResource = (VillageProofResource) mDatas.get(position);
-        new Core.Builder().view(vh.img).url(villageServiceProofResource.getImageFilePath()).doTask();
+        new Core.Builder().view(vh.img).url(ApiHttpClient.getAbsoluteApiUrl(villageServiceProofResource.getImageFilePath())).doTask();
+        vh.description.setText(villageServiceProofResource.getDescription());
+        vh.time.setText(villageServiceProofResource.getCreateDate());
         vh.address.setText(villageServiceProofResource.getAddress());
-        vh.time.setText("2016-09-21");
-        vh.reason.setText(villageServiceProofResource.getVillageServiceReason());
         return convertView;
-
     }
 }
