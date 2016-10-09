@@ -30,13 +30,21 @@
             </LinearLayout>
 
             <LinearLayout
+                style="@style/village_service_add_layout">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="是否领队"
+                    android:textColor="@color/red"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/lay_person"
                 style="@style/village_service_add_layout">
                 <ListView
                     android:id="@+id/lv_person"
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"
-                    android:layout_marginLeft="100dp"
+                    android:layout_height="10dp"
                     android:cacheColorHint="#ffffffff"
                     android:descendantFocusability="blocksDescendants"
                     android:divider="?attr/lineColor"
@@ -80,6 +88,15 @@
                     android:text="选择事由"
                     android:textColor="@android:color/black"
                     android:src="@drawable/btn_quickoption_selector" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_add_layout">
+                <TextView
+                    style="@style/village_service_add_left_textview"
+                    android:text="服务类型："/>
+                <Spinner
+                    android:id="@+id/sp_server_type"
+                    style="@style/spinner_style"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/village_service_add_layout">

@@ -252,14 +252,14 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/area/getCountys", params, handler);
     }
 
-    public static void getMyVillageServiceList(int categoryId, int page, int status,
-                                               AsyncHttpResponseHandler handler) {
+    public static void getMyApplyVillageServiceList(int categoryId, int page, int status,
+                                                    AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("personalID", AppContext.getInstance().getLoginUid());
         params.put("status",status);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getServiceByPersonalID", params, handler);
+        ApiHttpClient.get("front/mobile/village/api/getServiceByApplyMan", params, handler);
     }
 
     public static void getMyVillageServiceProofList(int isFinish, int page,
@@ -279,7 +279,7 @@ public class EasyFarmServerApi {
     }
 
     public static void addVillageService(String businessArea,String businessAddress,int businessReasonType,String businessReason,
-                                         String businessDate,String returnDate,String villageServicePersonIds, AsyncHttpResponseHandler handler){
+                                         String businessDate,String returnDate,String villageServicePersonIds,String leaderIds,int serverType, AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("uid",AppContext.getInstance().getLoginUid());
         params.put("businessArea",businessArea);
@@ -289,6 +289,8 @@ public class EasyFarmServerApi {
         params.put("reasonType",businessReasonType);
         params.put("businessReason",businessReason);
         params.put("personIDs",villageServicePersonIds);
+        params.put("leaderIDs",leaderIds);
+        params.put("villageType",serverType);
         ApiHttpClient.post("front/mobile/village/api/addService", params, handler);
     }
 
@@ -418,5 +420,12 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/getResourceType", params, handler);
     }
 
+    public static void sendServerSummary(String data,int serverId, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("villageServiceID",serverId);
+        params.put("uid",AppContext.getInstance().getLoginUid());
+        params.put("serviceSummary",data);
+        ApiHttpClient.post("front/mobile/village/api/finishVillage",params,handler);
+    }
 
 }

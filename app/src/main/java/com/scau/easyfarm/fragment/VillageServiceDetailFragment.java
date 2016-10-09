@@ -32,6 +32,8 @@ public class VillageServiceDetailFragment extends BaseFragment {
     TextView tvApplyMan;
     @InjectView(R.id.tv_person)
     TextView tvPerson;
+    @InjectView(R.id.tv_leader)
+    TextView tvLeader;
     @InjectView(R.id.tv_address)
     TextView tvAddress;
     @InjectView(R.id.tv_reason)
@@ -142,18 +144,25 @@ public class VillageServiceDetailFragment extends BaseFragment {
     public void fillUI() {
         tvApplyMan.setText(mVillageService.getApplyManName());
         String servicePerson = "";
+        boolean flag=false;
         for (int i=0;i<mVillageService.getVillageServicePerson().size();i++){
-            servicePerson+=mVillageService.getVillageServicePerson().get(i).getRealName()+"、";
+            if (flag) servicePerson+="、";
+            else flag=true;
+            servicePerson+=mVillageService.getVillageServicePerson().get(i).getRealName();
+        }
+        String leaders = "";
+        flag=false;
+        for (int i=0;i<mVillageService.getLeaders().size();i++){
+            if (flag) leaders+="、";
+            else flag=true;
+            leaders+=mVillageService.getVillageServicePerson().get(i).getRealName();
         }
         tvPerson.setText(servicePerson);
+        tvLeader.setText(leaders);
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(DateTimeUtil.dateTimeToDate(mVillageService.getBusinessDate())+"至"+DateTimeUtil.dateTimeToDate(mVillageService.getReturnDate()));
-        if (mVillageService.getStatus()== VillageService.VILLAGE_SERVICE_WAITING){
-            tvStatue.setText("待审核");
-        }else if (mVillageService.getStatus()==VillageService.VILLAGE_SERVICE_PASS){
-            tvStatue.setText("通过");
-        }
+        tvStatue.setText(VillageService.statusIntMap.get(mVillageService.getStatus()));
         String optionion = "";
         if (mVillageService.getVillageServiceOpinions()!=null){
             boolean flage = false;

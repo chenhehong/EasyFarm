@@ -23,6 +23,7 @@ public class User extends Entity {
     @JSONField(name = "roleNames")
     private String roleName="";
     private boolean isRememberMe=false;
+    private boolean isServerLeader=false;//是否是服务事件的领队
 
     public String getLoginName() {
         return loginName;
@@ -126,5 +127,13 @@ public class User extends Entity {
 
     public void setRememberMe(boolean isRememberMe) {
         this.isRememberMe = isRememberMe;
+    }
+
+    public boolean isServerLeader() {
+        return isServerLeader;
+    }
+
+    public void setIsServerLeader(boolean isServerLeader) {
+        this.isServerLeader = isServerLeader;
     }
 }

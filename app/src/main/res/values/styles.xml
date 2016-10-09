@@ -247,8 +247,6 @@
     </style>
 
     <style name="village_service_add_delimgview">
-        <item name="android:layout_marginLeft">3dp</item>
-        <item name="android:layout_gravity">center</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:src">@drawable/btn_delete_icon</item>
@@ -298,6 +296,15 @@
     <style name="dialog_animation" parent="android:Animation">
         <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
         <item name="@android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <!-- spinner -->
+    <style name="spinner_style">
+        <item name="android:background">@drawable/spinner_selector</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
 </resources>

@@ -41,7 +41,7 @@
 
     <string-array name="village_service_proof_viewpage_arrays">
         <item>进行中</item>
-        <item>已完成</item>
+        <item>已结束</item>
     </string-array>
     
 </resources>

@@ -107,14 +107,7 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 //  重载该方法，定义子类自己的cachekey
     @Override
     protected String getCacheKeyPrefix() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String str = bundle.getString("topic");
-            if (str != null) {
-                return str;
-            }
-        }
-        return CACHE_KEY_PREFIX + mCatalog;
+        return CACHE_KEY_PREFIX + villageServiceId;
     }
 
 //  重载该方法，对服务器返回的数据进行解析

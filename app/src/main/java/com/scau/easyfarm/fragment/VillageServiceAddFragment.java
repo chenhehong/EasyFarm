@@ -15,12 +15,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,6 +36,7 @@ import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.User;
+import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.SimpleTextWatcher;
@@ -69,6 +73,10 @@ public class VillageServiceAddFragment extends BaseFragment{
     EditText etReturnDate;
     @InjectView(R.id.lv_person)
     ListView selectedUserListView;
+    @InjectView(R.id.sp_server_type)
+    Spinner spServerType;
+
+    private ArrayAdapter<String> spinnerAdapter;
 
     private MenuItem mSendMenu;
     private ArrayList<User> personArray = new ArrayList<User>();
@@ -78,6 +86,7 @@ public class VillageServiceAddFragment extends BaseFragment{
     private DatePicker datePicker;
 
     public int reasonId;
+    private String serverType;
 
     private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
@@ -153,35 +162,27 @@ public class VillageServiceAddFragment extends BaseFragment{
                 updateMenuState();
             }
         });
-        //      测试start
-//        User m1 = new User();
-//        m1.setRealName("陈河宏");
-//        m1.setId(2012);
-//        User m2 = new User();
-//        m2.setRealName("李林");
-//        m2.setId(2013);
-//        User m3 = new User();
-//        m3.setRealName("李刚");
-//        m3.setId(2014);
-//        User m4 = new User();
-//        m4.setRealName("刘备");
-//        m4.setId(2015);
-//        User m5 = new User();
-//        m5.setRealName("项羽");
-//        m5.setId(2016);
-//        User m6 = new User();
-//        m6.setRealName("孙权");
-//        m6.setId(2017);
-//        ArrayList<User> mList = new ArrayList<User>();
-//        mList.add(m1);mList.add(m2);mList.add(m3);mList.add(m4);mList.add(m5);mList.add(m6);
-//        personArray = mList;
-//      测试end
         if (selectedUserAdapter==null){
             selectedUserAdapter = new SelectedUserAdapter(this);
         }
         selectedUserListView.setAdapter(selectedUserAdapter);
         selectedUserAdapter.setData(personArray);
         setListViewHeight();
+
+        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, VillageService.serverTypeArray);
+//      simple_spinner_dropdown_item.xml设置的是下拉看到的效果
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// 设置下拉风格
+        spServerType.setAdapter(spinnerAdapter);
+        spServerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                serverType = VillageService.serverTypeArray[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     @Override
@@ -249,21 +250,42 @@ public class VillageServiceAddFragment extends BaseFragment{
             UIHelper.showLoginActivity(getActivity());
             return;
         }
+        if (personArray.size()==0||personArray==null){
+            AppContext.showToast("请添加服务人员后再提交！");
+            return;
+        }
+        ArrayList<Integer> leaderIdArray = new ArrayList<Integer>();
+        for (int i=0;i<personArray.size();i++){
+            if (personArray.get(i).isServerLeader()){
+                leaderIdArray.add(personArray.get(i).getId());
+            }
+        }
+        if (leaderIdArray.size()==0||leaderIdArray==null){
+            AppContext.showToast("请至少选择一名领队！");
+            return;
+        }
         if (etBusinessDate.getText().toString().compareTo(etReturnDate.getText().toString())>0){
             AppContext.showToast("返回时间不能大于服务时间");
             return;
         }
         String villageServiceUserIds = "";
+        boolean flag = false;
         for (int i=0;i<personArray.size();i++){
-            if (i==(personArray.size()-1)){
-                villageServiceUserIds+=personArray.get(i).getId();
-            }else {
-                villageServiceUserIds+=personArray.get(i).getId()+",";
-            }
+            if (flag) villageServiceUserIds+=",";
+            else flag=true;
+            villageServiceUserIds+=personArray.get(i).getId();
         }
+        String serverLeaderIds = "";
+        flag = false;
+        for (int i=0;i<leaderIdArray.size();i++){
+            if (flag) serverLeaderIds+=",";
+            else flag=true;
+            serverLeaderIds += leaderIdArray.get(i);
+        }
+        int serverTypeId = VillageService.serverTypeStrMap.get(serverType);
         showWaitDialog("发送申请中，请稍后");
         EasyFarmServerApi.addVillageService(etArea.getText().toString(),etAddress.getText().toString(),reasonId,etReason.getText().toString(),
-                etBusinessDate.getText().toString(),etReturnDate.getText().toString(),villageServiceUserIds,mHandler);
+                etBusinessDate.getText().toString(),etReturnDate.getText().toString(),villageServiceUserIds,serverLeaderIds,serverTypeId,mHandler);
     }
 
     @Override

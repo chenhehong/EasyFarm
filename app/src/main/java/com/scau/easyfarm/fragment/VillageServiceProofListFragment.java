@@ -1,5 +1,6 @@
 package com.scau.easyfarm.fragment;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.VillageServiceAdapter;
+import com.scau.easyfarm.adapter.VillageServiceProofAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
@@ -59,8 +61,8 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
 
     @Override
 //  重载设置子类的列表适配器
-    protected VillageServiceAdapter getListAdapter() {
-        return new VillageServiceAdapter();
+    protected VillageServiceProofAdapter getListAdapter() {
+        return new VillageServiceProofAdapter(this);
     }
 
 //  用户登录状态广播接收器
@@ -118,7 +120,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
         if (mCatalog==UNDERWAY_SERVICE) {
             EasyFarmServerApi.getMyVillageServiceProofList(0, mCurrentPage,mHandler);
         }else if (mCatalog==COMPLETED_SERVICE){
-            EasyFarmServerApi.getMyVillageServiceProofList(1, mCurrentPage,mHandler);
+            EasyFarmServerApi.getMyApplyVillageServiceList(0, mCurrentPage, VillageService.VILLAGE_SERVICE_COMPLETED,mHandler);
         }
     }
 
@@ -185,5 +187,17 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
 //  删除申请
     private void handleVillageDetail(final VillageService villageService) {
         UIHelper.showVillageServiceDetail(getActivity(), villageService.getId());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        if (requestCode==ServerSummaryFragment.REQUESTCODE_SERVERSUMMARY){
+            int positin = data.getIntExtra(ServerSummaryFragment.BUNDLEKEY_POSITION,0);
+            VillageService v = mAdapter.getItem(positin);
+            mAdapter.removeItem(v);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

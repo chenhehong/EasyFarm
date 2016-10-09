@@ -12,15 +12,25 @@ import java.util.List;
  */
 public class VillageService extends Entity {
 
-    public static final HashMap<String,Integer> statusStrMap = new HashMap<String,Integer>(){{ put("待审核",VILLAGE_SERVICE_WAITING);  put("通过",VILLAGE_SERVICE_PASS);  put("不通过",VILLAGE_SERVICE_REJECT);} };
+    public static final HashMap<String,Integer> statusStrMap = new HashMap<String,Integer>(){
+        { put("待审核",VILLAGE_SERVICE_WAITING);  put("通过",VILLAGE_SERVICE_PASS);  put("不通过",VILLAGE_SERVICE_REJECT);put("已结束",VILLAGE_SERVICE_COMPLETED);}
+    };
     public static final String[] statusStrArray = {"待审核","通过","不通过"};
-    public static final HashMap<Integer,String> statusIntMap = new HashMap<Integer,String>(){{ put(VILLAGE_SERVICE_WAITING,"待审核");  put(VILLAGE_SERVICE_PASS,"通过");  put(VILLAGE_SERVICE_REJECT,"不通过");} };
-
-
+    public static final HashMap<Integer,String> statusIntMap = new HashMap<Integer,String>(){
+        { put(VILLAGE_SERVICE_WAITING,"待审核");  put(VILLAGE_SERVICE_PASS,"通过");  put(VILLAGE_SERVICE_REJECT,"不通过");put(VILLAGE_SERVICE_COMPLETED,"已结束");}
+    };
     public final static int VILLAGE_SERVICE_ALL = 0;
     public final static int VILLAGE_SERVICE_PASS = 7;
     public final static int VILLAGE_SERVICE_REJECT = 8;
     public final static int VILLAGE_SERVICE_WAITING = 9;
+    public final static int VILLAGE_SERVICE_COMPLETED = 49;
+
+    public static final String[] serverTypeArray = {"公益性","非公益性"};
+    public static final HashMap<String,Integer> serverTypeStrMap = new HashMap<String,Integer>(){
+        { put("公益性",SERVER_TYPE_FREE);  put("非公益性",SERVER_TYPE_NOFREE);}
+    };
+    public final static int SERVER_TYPE_FREE = 56;
+    public final static int SERVER_TYPE_NOFREE = 57;
 
 
     @JSONField(name = "personalID")
@@ -35,10 +45,13 @@ public class VillageService extends Entity {
     private String returnDate;
     private String businessReason;
     private int status;
+    private int serverType;//服务类型
     @JSONField(name = "villageServiceOpinionList")
     List<VillageServiceOpinion> villageServiceOpinions = new ArrayList<VillageServiceOpinion>();
     @JSONField(name = "villagePersonList")
     List<User> villageServicePerson = new ArrayList<User>();
+    @JSONField(name = "villageLeaderList")
+    List<User> leaders = new ArrayList<User>();
 
     public int getApplyManId() {
         return applyManId;
@@ -126,5 +139,21 @@ public class VillageService extends Entity {
 
     public void setVillageServicePerson(List<User> villageServicePerson) {
         this.villageServicePerson = villageServicePerson;
+    }
+
+    public int getServerType() {
+        return serverType;
+    }
+
+    public void setServerType(int serverType) {
+        this.serverType = serverType;
+    }
+
+    public List<User> getLeaders() {
+        return leaders;
+    }
+
+    public void setLeaders(List<User> leaders) {
+        this.leaders = leaders;
     }
 }

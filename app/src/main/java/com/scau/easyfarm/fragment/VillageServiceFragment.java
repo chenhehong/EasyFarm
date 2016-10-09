@@ -18,7 +18,6 @@ import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
-import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
@@ -29,8 +28,6 @@ import com.scau.easyfarm.util.UIHelper;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/8/26.
@@ -129,9 +126,9 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
         if (mCatalog==PASS_VILAGE_SERVICE){
-            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_PASS, mHandler);
+            EasyFarmServerApi.getMyApplyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_PASS, mHandler);
         }else if (mCatalog == ALL_VILLAGE_SERVICE){
-            EasyFarmServerApi.getMyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_ALL, mHandler);
+            EasyFarmServerApi.getMyApplyVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_ALL, mHandler);
         }
 //        start-模拟问答数据
 //        List<VillageService> data = new ArrayList<VillageService>();

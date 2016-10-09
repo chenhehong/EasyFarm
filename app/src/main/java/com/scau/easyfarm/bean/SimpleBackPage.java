@@ -12,6 +12,7 @@ import com.scau.easyfarm.fragment.ManualContentDetailFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.ProofResourceDescriptionChooseFragment;
+import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.SettingsFragment;
 import com.scau.easyfarm.fragment.SettingsNotificationFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
@@ -66,7 +67,8 @@ public enum SimpleBackPage {
     FIND_USER(26, R.string.actionbar_title_search_user, FindUserFragment.class),
     CHOOSE_VILLAGE_SERVICE_REASON(27, R.string.actionbar_title_choose_village_service_reason, VillageServiceReasonChooseFragment.class),
     CHOOSE_PROOF_RESOURCE_DESCRIPTITON(28, R.string.actionbar_title_choose_proof_resource_description, ProofResourceDescriptionChooseFragment.class),
-    CHOOSE_PROOF_VILLAGE_SERVICE(29, R.string.village_service_proof_choose, VillageServiceProofChooseFragment.class);
+    CHOOSE_PROOF_VILLAGE_SERVICE(29, R.string.village_service_proof_choose, VillageServiceProofChooseFragment.class),
+    SERVER_SUMMARY(30, R.string.village_service_summary, ServerSummaryFragment.class);
 
     private int title;
     private Class<?> clz;

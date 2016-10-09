@@ -27,10 +27,10 @@ import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
+import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
-import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.interf.OnWebViewImageListener;
@@ -40,11 +40,6 @@ import com.scau.easyfarm.ui.DetailActivity;
 import com.scau.easyfarm.ui.ImagePreviewActivity;
 import com.scau.easyfarm.ui.LoginActivity;
 import com.scau.easyfarm.ui.SimpleBackActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.net.URLDecoder;
 
 /**
  * 界面帮助类
@@ -503,6 +498,13 @@ public class UIHelper {
 
     public static void chooseProofResourceDescription(Fragment fragment,int requestCode){
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_PROOF_RESOURCE_DESCRIPTITON);
+    }
+
+    public static void showServerSummary(Fragment fragment, VillageService service,int position, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ServerSummaryFragment.BUNDLEKEY_SERVICE, service);
+        bundle.putInt(ServerSummaryFragment.BUNDLEKEY_POSITION,position);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.SERVER_SUMMARY, bundle);
     }
 
 }

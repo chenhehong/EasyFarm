@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="?attr/layout_item_bg"
-    android:orientation="horizontal"
-    android:padding="@dimen/space_15">
+    android:paddingBottom="@dimen/space_10"
+    android:paddingTop="@dimen/space_10">
+
+    <com.scau.easyfarm.widget.ToggleButton
+        android:id="@+id/tb_isleader"
+        android:layout_height="35dp"
+        android:layout_width="60dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"/>
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tb_isleader"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
         android:textColor="?attr/textColor"
-        tools:text="姓名"
+        android:text="姓名"
         android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/im_del"
-        style="@style/village_service_add_delimgview"/>
+        style="@style/village_service_add_delimgview"
+        android:layout_alignParentRight="true"/>
 
-</LinearLayout>
+</RelativeLayout>
