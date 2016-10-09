@@ -75,19 +75,15 @@ public class VillageFunctionFragment extends BaseFragment{
     }
 
     private void showgVilageServiceVerify(){
-        if ( AppContext.getInstance().getLoginUser()==null||!AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
-            AppContext.showToast("权限不够");
+        if ( !AppContext.getInstance().getLoginUser().isCanAuditServer()){
+            AppContext.showToast("当前用户没有审核服务申请的权限！");
             return;
         }
-        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_ALL_LIST);
+        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_VERIFY_VIEWPAGER);
     }
 
     private void showgVilageServiceStatistic(){
-        if ( AppContext.getInstance().getLoginUser()==null|| !AppContext.getInstance().getLoginUser().getRoleName().equals("超级管理员")){
-            AppContext.showToast("权限不够");
-            return;
-        }
-        UIHelper.showAllVillageServiceProofList(this);
+        UIHelper.showServiceStatisticList(this);
     }
 
 }

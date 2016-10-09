@@ -11,7 +11,6 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
-import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceDetail;
 import com.scau.easyfarm.bean.VillageServiceOpinion;
@@ -27,7 +26,7 @@ import butterknife.InjectView;
 /**
  * Created by chenhehong on 2016/9/9.
  */
-public class VillageServiceDetailFragment extends BaseFragment {
+public class ServiceStatisticDetailFragment extends BaseFragment {
 
     @InjectView(R.id.tv_applyman)
     TextView tvApplyMan;
@@ -41,10 +40,6 @@ public class VillageServiceDetailFragment extends BaseFragment {
     TextView tvReason;
     @InjectView(R.id.tv_service_date)
     TextView tvServiceDate;
-    @InjectView(R.id.tv_statue)
-    TextView tvStatue;
-    @InjectView(R.id.tv_optionion)
-    TextView tvOpinion;
     @InjectView(R.id.error_layout)
     EmptyLayout mErrorLayout;
 
@@ -56,7 +51,7 @@ public class VillageServiceDetailFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_village_service_detail,container,false);
+        View view = inflater.inflate(R.layout.fragment_village_service_statistic_detail,container,false);
         initView(view);
         return view;
     }
@@ -88,29 +83,6 @@ public class VillageServiceDetailFragment extends BaseFragment {
         Bundle bundle = getArguments();
         mVillageServiceId = bundle.getInt(VILLAGE_SERVICE_ID_CODE);
         sendRequiredData();
-//      start-模拟数据
-//        User u1 = new User();
-//        u1.setRealName("陈河宏");
-//        User u2 = new User();
-//        u2.setRealName("李强");
-//        VillageServiceOpinion o1 = new VillageServiceOpinion();
-//        o1.setOpinionPerson("刘主任");o1.setOpinion("同意通过");
-//        VillageServiceOpinion o2 = new VillageServiceOpinion();
-//        o2.setOpinionPerson("马处长");o2.setOpinion("时间不方便");
-//        VillageService v = new VillageService();
-//        v.getVillageServicePerson().add(u1);
-//        v.getVillageServicePerson().add(u2);
-//        v.getVillageServiceOpinions().add(o1);
-//        v.getVillageServiceOpinions().add(o2);
-//        v.setBusinessArea("广东省-广州市-天河区");
-//        v.setBusinessAddress("华南农业大学");
-//        v.setBusinessReason("考察");
-//        v.setBusinessDate("2016-8-23");
-//        v.setReturnDate("2016-9-25");
-//        v.setStatus(0);
-//        mVillageService = v;
-//        fillUI();
-//      end--模拟数据
     }
 
     public void sendRequiredData() {
@@ -163,17 +135,5 @@ public class VillageServiceDetailFragment extends BaseFragment {
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(DateTimeUtil.dateTimeToDate(mVillageService.getBusinessDate())+"至"+DateTimeUtil.dateTimeToDate(mVillageService.getReturnDate()));
-        tvStatue.setText(VillageService.statusIntMap.get(mVillageService.getStatus()));
-        String optionion = "";
-        if (mVillageService.getVillageServiceOpinions()!=null){
-            boolean flage = false;
-            for (int i=0;i<mVillageService.getVillageServiceOpinions().size();i++){
-                if (flage) optionion+="\n\n";
-                else flage = true;
-                VillageServiceOpinion eachOpinion = mVillageService.getVillageServiceOpinions().get(i);
-                optionion += eachOpinion.getOpinionPerson()+":"+eachOpinion.getOpinion();
-            }
-        }
-        tvOpinion.setText(optionion);
     }
 }

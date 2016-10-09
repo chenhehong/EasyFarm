@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
+import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.util.UIHelper;
 
@@ -23,8 +24,8 @@ public class MyFunctionFragment extends BaseFragment{
     ImageView imgVillageServiceManage;
     @InjectView(R.id.ImgVilageServicePermance)
     ImageView imgVilageServicePermance;
-    @InjectView(R.id.ImgKnowledgeBase)
-    ImageView imgKnowledgeBase;
+    @InjectView(R.id.ImgIndustryBase)
+    ImageView imgIndustryBase;
     @InjectView(R.id.ImgSkillBase)
     ImageView imgSkillBase;
     @InjectView(R.id.ImgAchievementBase)
@@ -44,7 +45,7 @@ public class MyFunctionFragment extends BaseFragment{
     public void initView(View view) {
         imgVillageServiceManage.setOnClickListener(this);
         imgVilageServicePermance.setOnClickListener(this);
-        imgKnowledgeBase.setOnClickListener(this);
+        imgIndustryBase.setOnClickListener(this);
         imgSkillBase.setOnClickListener(this);
         imgAchievementBase.setOnClickListener(this);
         imgVarietyBase.setOnClickListener(this);
@@ -60,8 +61,17 @@ public class MyFunctionFragment extends BaseFragment{
             case R.id.ImgVilageServicePermance:
                 showgVilageServicePermance();
                 break;
-            case R.id.ImgKnowledgeBase:
-                showKnowledgeBase();
+            case R.id.ImgIndustryBase:
+                showIndustryBase();
+                break;
+            case R.id.ImgSkillBase:
+                showSkillBase();
+                break;
+            case R.id.ImgAchievementBase:
+                showAchievementBase();
+                break;
+            case R.id.ImgVarietyBase:
+                showVarietyBase();
                 break;
             default:
                 break;
@@ -76,7 +86,19 @@ public class MyFunctionFragment extends BaseFragment{
 
     }
 
-    private void showKnowledgeBase(){
-        UIHelper.showManualCategory(this,0);
+    private void showVarietyBase(){
+        UIHelper.showManualCategory(this,0, ManualCategory.VARIETY);
+    }
+
+    private void showIndustryBase(){
+        UIHelper.showManualCategory(this,0,ManualCategory.INDUSTRY);
+    }
+
+    private void showSkillBase(){
+        UIHelper.showManualCategory(this,0,ManualCategory.TECHNOLOGY);
+    }
+
+    private void showAchievementBase(){
+        UIHelper.showManualCategory(this,0,ManualCategory.ACHIEVEMENT);
     }
 }

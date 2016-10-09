@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
@@ -43,10 +44,6 @@ public class AppContext extends BaseApplication {
     public static final String ACCESS_TOKEN_USERSECRET = "wsnwsn640";
 
     public static final int PAGE_SIZE = 20;// 默认分页大小
-//  定义用户登录的角色类型
-    public static final String MEMBER = "member";
-    public static final String USER="user";
-    public static final String ADMIN="admin";
 
     private static AppContext instance;
 
@@ -187,14 +184,16 @@ public class AppContext extends BaseApplication {
                 setProperty("user.phoneNumber", user.getPhoneNumber());
                 setProperty("user.techType", user.getTechType());
                 setProperty("user.description", user.getDescription());
-                setProperty("user.sex", user.getSex());
+                setProperty("user.sex", user.getSex()+"");
                 setProperty("user.age", user.getAge() + "");
                 setProperty("user.email", user.getEmail());
                 setProperty("user.address", user.getAddress());
-                setProperty("user.isRememberMe",
-                        String.valueOf(user.isRememberMe()));// 是否记住我的信息
+                setProperty("user.canAuditServer", String.valueOf(user.isCanAuditServer()));
+                setProperty("user.isRememberMe",String.valueOf(user.isRememberMe()));// 是否记住我的信息
             }
         });
+        Properties p = getProperties();
+        Log.d("canAuditServer1", getProperty("user.canAuditServer"));
     }
 
     /**
@@ -209,7 +208,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.phoneNumber", user.getPhoneNumber());
                 setProperty("user.techType", user.getTechType());
                 setProperty("user.description", user.getDescription());
-                setProperty("user.sex", user.getSex());
+                setProperty("user.sex", user.getSex()+"");
                 setProperty("user.age", user.getAge() + "");
                 setProperty("user.email", user.getEmail());
                 setProperty("user.address", user.getAddress());
@@ -230,11 +229,12 @@ public class AppContext extends BaseApplication {
         user.setPhoneNumber(getProperty("user.phoneNumber"));
         user.setTechType(getProperty("user.techType"));
         user.setDescription(getProperty("user.description"));
-        user.setSex(getProperty("user.sex"));
+        user.setSex(StringUtils.toInt(getProperty("user.sex")));
         user.setAge(StringUtils.toInt(getProperty("user.age")));
         user.setEmail(getProperty("user.email"));
         user.setAddress(getProperty("user.address"));
         user.setRememberMe(StringUtils.toBool(getProperty("user.isRememberMe")));
+        user.setCanAuditServer(StringUtils.toBool(getProperty("user.canAuditServer")));
         return user;
     }
 
@@ -246,7 +246,7 @@ public class AppContext extends BaseApplication {
         this.login = false;
         this.roleName = "";
         removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
-                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe");
+                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe","user.canAuditServer");
     }
 
     public int getLoginUid() {

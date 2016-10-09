@@ -14,7 +14,7 @@ public class ChooseManualCategoryFragment extends BaseManualCategoryListFragment
     @Override
     void handleSelectManualCategory(ManualCategory selectManualCategory) {
         if (selectManualCategory.isParent()){
-            UIHelper.showManualCategory(this,selectManualCategory.getId());
+            UIHelper.showManualCategory(this,selectManualCategory.getId(),"");
         }else {
             UIHelper.showManualList(this,selectManualCategory.getCategoryCode());
         }

@@ -3,11 +3,17 @@ package com.scau.easyfarm.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.HashMap;
+
 /**
  * 登录专家实体类
  */
 @SuppressWarnings("serial")
 public class User extends Entity {
+
+    public static final HashMap<Integer,String> genderIntMap = new HashMap<Integer,String>(){
+        { put(1,"男");  put(0,"女"); }
+    };
 
     private String loginName="";
     private String password="";
@@ -16,7 +22,7 @@ public class User extends Entity {
     private String phoneNumber="";
     private String techType="";
     private String description="";
-    private String sex="";
+    private int sex;
     private int age=0;
     private String email="";
     private String address="";
@@ -24,6 +30,8 @@ public class User extends Entity {
     private String roleName="";
     private boolean isRememberMe=false;
     private boolean isServerLeader=false;//是否是服务事件的领队
+    @JSONField(name = "auditor")
+    private boolean canAuditServer=false;//是否有审核服务申请的权限
 
     public String getLoginName() {
         return loginName;
@@ -81,14 +89,6 @@ public class User extends Entity {
         this.description = description;
     }
 
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
     public int getAge() {
         return age;
     }
@@ -135,5 +135,21 @@ public class User extends Entity {
 
     public void setIsServerLeader(boolean isServerLeader) {
         this.isServerLeader = isServerLeader;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public boolean isCanAuditServer() {
+        return canAuditServer;
+    }
+
+    public void setCanAuditServer(boolean canAuditServer) {
+        this.canAuditServer = canAuditServer;
     }
 }

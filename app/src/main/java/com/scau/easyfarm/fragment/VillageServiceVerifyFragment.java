@@ -38,6 +38,8 @@ public class VillageServiceVerifyFragment extends BaseFragment {
 
     @InjectView(R.id.tv_person)
     TextView tvPerson;
+    @InjectView(R.id.tv_leader)
+    TextView tvLeader;
     @InjectView(R.id.tv_address)
     TextView tvAddress;
     @InjectView(R.id.tv_reason)
@@ -134,7 +136,7 @@ public class VillageServiceVerifyFragment extends BaseFragment {
     private void handleResultBean(ResultBean resultBean){
         if (resultBean.getResult().OK()){
             hideWaitDialog();
-            AppContext.showToastShort("发布成功！");
+            AppContext.showToastShort("审核成功！");
             getActivity().finish();
         }else {
             hideWaitDialog();
@@ -144,10 +146,21 @@ public class VillageServiceVerifyFragment extends BaseFragment {
 
     public void fillUI() {
         String servicePerson = "";
+        boolean flag=false;
         for (int i=0;i<mVillageService.getVillageServicePerson().size();i++){
-            servicePerson+=mVillageService.getVillageServicePerson().get(i).getRealName()+"、";
+            if (flag) servicePerson+="、";
+            else flag=true;
+            servicePerson+=mVillageService.getVillageServicePerson().get(i).getRealName();
+        }
+        String leaders = "";
+        flag=false;
+        for (int i=0;i<mVillageService.getLeaders().size();i++){
+            if (flag) leaders+="、";
+            else flag=true;
+            leaders+=mVillageService.getVillageServicePerson().get(i).getRealName();
         }
         tvPerson.setText(servicePerson);
+        tvLeader.setText(leaders);
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(mVillageService.getBusinessDate()+"至"+mVillageService.getReturnDate());

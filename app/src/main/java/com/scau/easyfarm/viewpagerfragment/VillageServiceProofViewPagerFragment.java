@@ -11,7 +11,6 @@ import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
 import com.scau.easyfarm.bean.SimpleBackPage;
-import com.scau.easyfarm.fragment.AllVillageServiceFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
 import com.scau.easyfarm.util.UIHelper;
 

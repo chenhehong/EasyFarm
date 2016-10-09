@@ -1,6 +1,5 @@
 package com.scau.easyfarm.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ManualCategoryListAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
@@ -21,25 +19,24 @@ import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.ManualCategoryList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
-import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/9/9.
  */
 public abstract class BaseManualCategoryListFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
 
-    public static final String MANUALCOTEGORYPARENT = "manual_cotegory_parent";
+    public static final String BUNDLEKEY_PARENTID = "bundlekey_parentid";
+    public static final String BUNDLEKEY_TYPE = "bundlekey_type";
     public static final int MANUAL_COTEGORY_LIST_REQUEST_CODE = 100;
 
     private int parentId=0;
+    private String type="";
 
     private ManualCategoryListAdapter manualCategoryListAdapter;
     private static int mState = STATE_NONE;
@@ -107,14 +104,21 @@ public abstract class BaseManualCategoryListFragment extends BaseFragment implem
     public void initData() {
         super.initData();
         Bundle bundle = getArguments();
-        parentId = bundle.getInt(MANUALCOTEGORYPARENT, 0);
+        parentId = bundle.getInt(BUNDLEKEY_PARENTID, 0);
+        if (parentId==0&&bundle.getString(BUNDLEKEY_TYPE)!=null){
+            type = bundle.getString(BUNDLEKEY_TYPE);
+        }
         sendRequestManualCatalogData();
     }
 
     private void sendRequestManualCatalogData() {
         mState = STATE_REFRESH;
         mEmptyView.setErrorType(EmptyLayout.NETWORK_LOADING);
-        EasyFarmServerApi.getManualCatalogList(parentId, currenPage, pageSize, mHandler);
+        if (parentId==0){
+            EasyFarmServerApi.getManualCatalogListByCode(type, currenPage, pageSize, mHandler);
+        }else {
+            EasyFarmServerApi.getManualCatalogListByParentId(parentId, currenPage, pageSize, mHandler);
+        }
 //      测试start
 //        ManualCategory m1 = new ManualCategory();
 //        m1.setCategoryName("畜牧");

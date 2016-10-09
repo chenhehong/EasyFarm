@@ -161,7 +161,7 @@
     <string name="village_service_proof_choose">选择佐证事件</string>
     <string name="village_service_proof_resource">佐证材料列表</string>
     <string name="village_service_proof_resource_add">上传佐证材料</string>
-    <string name="village_service_all_proof_list">服务统计</string>
+    <string name="service_statistic">服务统计</string>
     <string name="village_service_summary">服务总结</string>
 
     <string name="actionbar_title_news">资讯详情</string>
@@ -171,5 +171,6 @@
     <string name="actionbar_title_choose_village_service_reason">选择服务事由</string>
     <string name="actionbar_title_choose_proof_resource_description">选择佐证材料类型</string>
 
+    <string name="village_service_statistic_detail">服务统计详情</string>
 
 </resources>

@@ -13,6 +13,8 @@ import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.ProofResourceDescriptionChooseFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
+import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
+import com.scau.easyfarm.fragment.ServiceStatisticFragment;
 import com.scau.easyfarm.fragment.SettingsFragment;
 import com.scau.easyfarm.fragment.SettingsNotificationFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
@@ -58,17 +60,18 @@ public enum SimpleBackPage {
     MANUAL_LIST(17,R.string.manuallist_actionbar_title, ManualListFragment.class),
     MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class),
     VILLAGE_FUNCTION(19,R.string.village_function, VillageFunctionFragment.class),
-    VILLAGE_SERVICE_ALL_LIST(20, R.string.village_service_apply, VillageServiceAllViewPagerFragment.class),
+    VILLAGE_SERVICE_VERIFY_VIEWPAGER(20, R.string.village_service_verify, VillageServiceAllViewPagerFragment.class),
     VILLAGE_SERVICE_VERIFY(21, R.string.village_service_verify, VillageServiceVerifyFragment.class),
     VILLAGE_SERVICE_PROOF(22, R.string.village_service_proof_list, VillageServiceProofViewPagerFragment.class),
     VILLAGE_SERVICE_PROOF_RESOURCE(23, R.string.village_service_proof_resource, VillageServiceProofResourceFragment.class),
     VILLAGE_SERVICE_PROOF_RESOURCE_ADD(24, R.string.village_service_proof_resource_add, VillageServiceProofResourPubFragment.class),
-    VILLAGE_SERVICE_ALL_PROOF(25, R.string.village_service_all_proof_list, VillageServiceProofListFragment.class),
+    SERVICE_STATISTIC(25, R.string.service_statistic, ServiceStatisticFragment.class),
     FIND_USER(26, R.string.actionbar_title_search_user, FindUserFragment.class),
     CHOOSE_VILLAGE_SERVICE_REASON(27, R.string.actionbar_title_choose_village_service_reason, VillageServiceReasonChooseFragment.class),
     CHOOSE_PROOF_RESOURCE_DESCRIPTITON(28, R.string.actionbar_title_choose_proof_resource_description, ProofResourceDescriptionChooseFragment.class),
     CHOOSE_PROOF_VILLAGE_SERVICE(29, R.string.village_service_proof_choose, VillageServiceProofChooseFragment.class),
-    SERVER_SUMMARY(30, R.string.village_service_summary, ServerSummaryFragment.class);
+    SERVER_SUMMARY(30, R.string.village_service_summary, ServerSummaryFragment.class),
+    VILLAGE_SERVICE_STATISTIC_DETAIL(31,R.string.village_service_statistic_detail, ServiceStatisticDetailFragment.class);
 
     private int title;
     private Class<?> clz;

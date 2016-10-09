@@ -6,6 +6,12 @@ package com.scau.easyfarm.bean;
  */
 public class ManualCategory extends Entity{
 
+//  知识库条目
+    public static final String VARIETY = "Variety";
+    public static final String INDUSTRY = "Industry";
+    public static final String ACHIEVEMENT = "Achievement";
+    public static final String TECHNOLOGY = "Technology";
+
     private int parentId;
     private boolean isParent;
     private String categoryName;

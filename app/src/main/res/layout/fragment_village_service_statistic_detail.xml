@@ -15,7 +15,21 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <RelativeLayout
+            style="@style/village_service_detail_layout">
+            <TextView
+                style="@style/village_service_detail_left_textview"
+                android:text="申请人："/>
+            <TextView
+                style="@style/village_service_detail_right_textview"
+                android:id="@+id/tv_applyman"
+                android:text="" />
+        </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
                 style="@style/village_service_detail_layout">
                 <TextView
                     style="@style/village_service_detail_left_textview"
@@ -24,8 +38,12 @@
                     style="@style/village_service_detail_right_textview"
                     android:id="@+id/tv_person"
                     android:text="" />
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
                 style="@style/village_service_detail_layout">
                 <TextView
                     style="@style/village_service_detail_left_textview"
@@ -34,8 +52,12 @@
                     style="@style/village_service_detail_right_textview"
                     android:id="@+id/tv_leader"
                     android:text="" />
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
                 style="@style/village_service_detail_layout">
                 <TextView
                     style="@style/village_service_detail_left_textview"
@@ -44,8 +66,12 @@
                     style="@style/village_service_detail_right_textview"
                     android:id="@+id/tv_address"
                     android:text="" />
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
                 style="@style/village_service_detail_layout">
                 <TextView
                     style="@style/village_service_detail_left_textview"
@@ -54,8 +80,12 @@
                     style="@style/village_service_detail_right_textview"
                     android:id="@+id/tv_reason"
                     android:text="" />
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
                 style="@style/village_service_detail_layout">
                 <TextView
                     style="@style/village_service_detail_left_textview"
@@ -64,26 +94,24 @@
                     style="@style/village_service_detail_right_textview"
                     android:id="@+id/tv_service_date"
                     android:text="" />
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
                 style="@style/village_service_detail_layout">
                 <TextView
                     style="@style/village_service_detail_left_textview"
-                    android:text="审核状态："/>
-                <Spinner
-                    android:id="@+id/sp_status"
-                    style="@style/spinner_style"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/village_service_detail_layout">
+                    android:text="审核工作量："/>
                 <TextView
-                    style="@style/village_service_detail_left_textview"
-                    android:text="审核意见："/>
-                <EditText
-                    android:id="@+id/et_optinion"
-                    android:lines="3"
-                    style="@style/village_service_add_edittext"/>
-            </LinearLayout>
+                    style="@style/village_service_detail_right_textview"
+                    android:text="未核算" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
 
         </LinearLayout>
 

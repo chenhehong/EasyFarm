@@ -147,7 +147,7 @@ public class MyInformationFragmentDetail extends BaseFragment {
         mPhonenumber.setText(mUser.getPhoneNumber());
         mRealname.setText(mUser.getRealName());
         mRoletype.setText(mUser.getRoleName());
-        mSex.setText(mUser.getSex());
+        mSex.setText(User.genderIntMap.get(mUser.getSex()));
         mTechtype.setText(mUser.getTechType());
     }
 

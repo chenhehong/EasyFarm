@@ -35,22 +35,22 @@
             <LinearLayout
                 style="@style/functionLayoutColumn">
                 <ImageView
-                    android:id="@+id/ImgVilageServiceVerify"
-                    android:src="@drawable/func_village_service_performance_icon"
-                    style="@style/functionIcon"/>
-                <TextView
-                    style="@style/functionIconText"
-                    android:text="服务审核"/>
-            </LinearLayout>
-            <LinearLayout
-                style="@style/functionLayoutColumn">
-                <ImageView
                     android:id="@+id/ImgVilageServiceStatistic"
                     android:src="@drawable/func_agriculture_knowledge_base_icon"
                     style="@style/functionIcon"/>
                 <TextView
                     style="@style/functionIconText"
                     android:text="服务统计"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+                <ImageView
+                    android:id="@+id/ImgVilageServiceVerify"
+                    android:src="@drawable/func_village_service_performance_icon"
+                    style="@style/functionIcon"/>
+                <TextView
+                    style="@style/functionIconText"
+                    android:text="服务审批"/>
             </LinearLayout>
         </LinearLayout>
 

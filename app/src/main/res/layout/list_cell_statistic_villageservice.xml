@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/layout_item_bg"
+    android:orientation="vertical"
+    android:padding="@dimen/space_15">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_10"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_villageservice_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址"
+            android:textSize="16sp"
+            android:layout_marginRight="@dimen/space_15"
+            android:layout_marginBottom="@dimen/space_10"
+            android:textColor="?attr/textColor" />
+
+        <TextView
+            android:id="@+id/tv_villageservice_business_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_villageservice_address"
+            android:text="服务时间"
+            android:textColor="?attr/infoTextColor" />
+
+        <TextView
+            android:id="@+id/tv_villageservice_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="事由"
+            android:layout_below="@id/tv_villageservice_business_date"
+            android:textColor="?attr/infoTextColor" />
+
+        <TextView
+            android:id="@+id/tv_villageservice_workload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工作量"
+            android:layout_below="@id/tv_villageservice_reason"
+            android:textColor="?attr/infoTextColor" />
+
+    </LinearLayout>
+
+</RelativeLayout>

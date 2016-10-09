@@ -28,6 +28,7 @@ import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
+import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
@@ -296,7 +297,7 @@ public class UIHelper {
 
     public static void showTweetTypeChoose(Fragment fragment, int parentId, int requestCode) {
         Bundle args = new Bundle();
-        args.putInt(TweetChooseManualCategoryFragment.MANUALCOTEGORYPARENT, parentId);
+        args.putInt(TweetChooseManualCategoryFragment.BUNDLEKEY_PARENTID, parentId);
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.TWEET_CHOOSE_TYPE, args);
     }
 
@@ -325,6 +326,12 @@ public class UIHelper {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_DETAIL, bundle);
     }
 
+    public static void showVillageServiceStatisticDetail(Context context, int villageServiceId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ServiceStatisticDetailFragment.VILLAGE_SERVICE_ID_CODE, villageServiceId);
+        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_STATISTIC_DETAIL, bundle);
+    }
+
     public static void showVillageServiceVerify(Context context, int villageServiceId) {
         Bundle bundle = new Bundle();
         bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
@@ -335,9 +342,10 @@ public class UIHelper {
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_AREA);
     }
 
-    public static void showManualCategory(Fragment fragment,int parentId){
+    public static void showManualCategory(Fragment fragment,int parentId,String type){
         Bundle budle = new Bundle();
-        budle.putInt(BaseManualCategoryListFragment.MANUALCOTEGORYPARENT,parentId);
+        budle.putInt(BaseManualCategoryListFragment.BUNDLEKEY_PARENTID,parentId);
+        budle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE,type);
         showSimpleBack(fragment, SimpleBackPage.CHOOSE_MANUAL_CATEGORY, budle);
     }
 
@@ -368,8 +376,8 @@ public class UIHelper {
         showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE,args);
     }
 
-    public static void showAllVillageServiceProofList(Fragment fragment) {
-        showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_ALL_PROOF);
+    public static void showServiceStatisticList(Fragment fragment) {
+        showSimpleBack(fragment,SimpleBackPage.SERVICE_STATISTIC);
     }
 
     /**

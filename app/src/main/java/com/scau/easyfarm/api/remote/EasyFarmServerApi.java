@@ -162,12 +162,20 @@ public class EasyFarmServerApi {
         ApiHttpClient.get("front/mobile/communicate/api/getquestionListByID", params, handler);
     }
 
-    public static void getManualCatalogList(int parentId,int currenPage,int pageSize,AsyncHttpResponseHandler handler){
+    public static void getManualCatalogListByParentId(int parentId, int currenPage, int pageSize, AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("manualCategoryID",parentId);
         params.put("currenPage",currenPage);
         params.put("pageSize", pageSize);
         ApiHttpClient.post("front/mobile/manual/api/getChildById", params, handler);
+    }
+
+    public static void getManualCatalogListByCode(String parentCode, int currenPage, int pageSize, AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("manualCategoryCode",parentCode);
+        params.put("currenPage",currenPage);
+        params.put("pageSize", pageSize);
+        ApiHttpClient.post("front/mobile/manual/api/getChildByCode", params, handler);
     }
 
     public static void getExpertList(int typeId,int currenPage,int pageSize,AsyncHttpResponseHandler handler){
@@ -311,20 +319,21 @@ public class EasyFarmServerApi {
         ApiHttpClient.get("front/mobile/manual/api/getContentByCode", params, handler);
     }
 
-    public static void getVillageServiceList(int categoryId, int page, int status,
-                                               AsyncHttpResponseHandler handler) {
+    public static void getVerifyServiceList(int categoryId, int page, int status,
+                                            AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("status",status);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getAllServiceDetail", params, handler);
+        params.put("uid",AppContext.getInstance().getLoginUid());
+        ApiHttpClient.get("front/mobile/village/api/getServiceByAuditor", params, handler);
     }
 
     public static void verifyVillageService(int villageServiceId, int status,String optinion,
                                              AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("opinionStatus",status);
-        params.put("PersonalID", AppContext.getInstance().getLoginUid());
+        params.put("uid", AppContext.getInstance().getLoginUid());
         params.put("villageServiceID", villageServiceId);
         params.put("opinion",optinion);
         ApiHttpClient.get("front/mobile/village/api/audit", params, handler);

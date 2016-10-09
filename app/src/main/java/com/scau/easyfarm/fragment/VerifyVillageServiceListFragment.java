@@ -18,7 +18,6 @@ import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
-import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceList;
@@ -31,15 +30,13 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 
-import cz.msebera.android.httpclient.Header;
-
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class AllVillageServiceFragment extends BaseListFragment<VillageService> implements
+public class VerifyVillageServiceListFragment extends BaseListFragment<VillageService> implements
         AdapterView.OnItemLongClickListener{
 
-    private static final String CACHE_KEY_PREFIX = "allVillageServicelist_";
+    private static final String CACHE_KEY_PREFIX = "verifyVillageServiceList_";
 
     public final static int ALL_VILLAGE_SERVICE = 0;
     public final static int PASS_VILAGE_SERVICE = 1;
@@ -131,41 +128,10 @@ public class AllVillageServiceFragment extends BaseListFragment<VillageService> 
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
         if (mCatalog==WAITING_VILAGE_SERVICE){
-            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_WAITING, mHandler);
+            EasyFarmServerApi.getVerifyServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_WAITING, mHandler);
         }else if (mCatalog==ALL_VILLAGE_SERVICE){
-            EasyFarmServerApi.getVillageServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_ALL, mHandler);
+            EasyFarmServerApi.getVerifyServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_ALL, mHandler);
         }
-//        start-模拟问答数据
-//        List<VillageService> data = new ArrayList<VillageService>();
-//        VillageService m1 = new VillageService();
-//        m1.setId(2012);
-//        m1.setBusinessArea("广东-广州-从化");
-//        m1.setBusinessAddress("陈家村");
-//        m1.setApplyDate("2016-09-12");
-//        m1.setBusinessReason("下乡考察");
-//        m1.setBusinessDate("2016-9-1");
-//        m1.setReturnDate("2016-9-18");
-//        data.add(m1);
-//        VillageService m2 = new VillageService();
-//        m2.setId(2013);
-//        m2.setBusinessArea("广东-广州-从化");
-//        m2.setBusinessAddress("陈家村");
-//        m2.setApplyDate("2016-09-12");
-//        m2.setBusinessReason("下乡考察");
-//        m2.setBusinessDate("2016-9-1");
-//        m2.setReturnDate("2016-9-18");
-//        data.add(m2);
-//        VillageService m3 = new VillageService();
-//        m3.setId(2014);
-//        m3.setBusinessArea("广东-广州-从化");
-//        m3.setBusinessAddress("陈家村");
-//        m3.setApplyDate("2016-09-12");
-//        m3.setBusinessReason("下乡考察");
-//        m3.setBusinessDate("2016-9-1");
-//        m3.setReturnDate("2016-9-18");
-//        data.add(m3);
-//        executeOnLoadDataSuccess(data);
-//        end-模拟问答数据
     }
 
 //  重载点击事件，自定义子类的点击事件

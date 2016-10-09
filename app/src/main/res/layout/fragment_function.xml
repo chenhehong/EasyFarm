@@ -35,22 +35,22 @@
             <LinearLayout
                 style="@style/functionLayoutColumn">
                 <ImageView
-                    android:id="@+id/ImgKnowledgeBase"
+                    android:id="@+id/ImgVarietyBase"
                     android:src="@drawable/func_agriculture_knowledge_base_icon"
                     style="@style/functionIcon"/>
                 <TextView
                     style="@style/functionIconText"
-                    android:text="@string/agriculture_knowledge_base"/>
+                    android:text="品种库"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/functionLayoutColumn">
                 <ImageView
-                    android:id="@+id/ImgAchievementBase"
+                    android:id="@+id/ImgIndustryBase"
                     android:src="@drawable/func_agriculture_knowledge_base_icon"
                     style="@style/functionIcon"/>
                 <TextView
                     style="@style/functionIconText"
-                    android:text="成果库"/>
+                    android:text="产业库"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -66,15 +66,16 @@
                     style="@style/functionIconText"
                     android:text="技术库"/>
             </LinearLayout>
+
             <LinearLayout
                 style="@style/functionLayoutColumn">
                 <ImageView
-                    android:id="@+id/ImgVarietyBase"
+                    android:id="@+id/ImgAchievementBase"
                     android:src="@drawable/func_agriculture_knowledge_base_icon"
                     style="@style/functionIcon"/>
                 <TextView
                     style="@style/functionIconText"
-                    android:text="品种库"/>
+                    android:text="成果库"/>
             </LinearLayout>
 
             <LinearLayout
