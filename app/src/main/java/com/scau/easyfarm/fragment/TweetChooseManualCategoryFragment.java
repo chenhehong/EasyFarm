@@ -17,7 +17,7 @@ public class TweetChooseManualCategoryFragment extends BaseManualCategoryListFra
     @Override
     void handleSelectManualCategory(ManualCategory selectManualCategory) {
         if (selectManualCategory.isParent()){
-            UIHelper.showTweetTypeChoose(this,selectManualCategory.getId(),MANUAL_COTEGORY_LIST_REQUEST_CODE);
+            UIHelper.showTweetTypeChoose(this,selectManualCategory.getId(),"",MANUAL_COTEGORY_LIST_REQUEST_CODE);
         }else {
             Intent result = new Intent();
             result.putExtra(SELECTED_MANUAL_COTEGORY_ID, selectManualCategory.getId());

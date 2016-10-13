@@ -295,16 +295,6 @@ public class TweetDetailFragment extends
         } else {
             readDetailCacheData(key);
         }
-//      start--模拟数据
-//        Tweet a1 = new Tweet();
-//        a1.setAuthor("姚忠良 ");
-//        a1.setContent("苦瓜籽栽培用什么除草剂比较安全可靠，不求全部杂草，只有能解决大部分杂草？");
-//        a1.setCreateDate("2016-07-05 11:47:42");
-//        a1.setCommentCount("10");
-//        a1.setId(2011);
-//        executeOnLoadDetailSuccess(a1);
-//        sendRequestData();
-//      end--模拟数据
     }
 
     @Override
@@ -374,7 +364,8 @@ public class TweetDetailFragment extends
 
     @Override
     protected TweetDetail getDetailBean(ByteArrayInputStream is) {
-        return JsonUtils.toBean(TweetDetail.class, is);
+        TweetDetail tweetDetail = JsonUtils.toBean(TweetDetail.class, is);
+        return  tweetDetail;
     }
 
     @Override

@@ -46,8 +46,10 @@ public class VillageServiceVerifyFragment extends BaseFragment {
     TextView tvReason;
     @InjectView(R.id.tv_service_date)
     TextView tvServiceDate;
-    @InjectView(R.id.sp_status)
-    Spinner statusSpinner;
+    @InjectView(R.id.tv_status)
+    TextView tvStatus;
+    @InjectView(R.id.sp_my_status)
+    Spinner myStatusSpinner;
     @InjectView(R.id.et_optinion)
     EditText optinionEditText;
     @InjectView(R.id.error_layout)
@@ -80,16 +82,17 @@ public class VillageServiceVerifyFragment extends BaseFragment {
         super.initView(view);
         ButterKnife.inject(this, view);
 //      my_spinner_item.xml设置的是选中后看到的效果
-        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, VillageService.statusStrArray);
+        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, VillageService.myStatusStrArray);
 //      simple_spinner_dropdown_item.xml设置的是下拉看到的效果
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// 设置下拉风格
-        statusSpinner.setAdapter(spinnerAdapter);
-        statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        myStatusSpinner.setAdapter(spinnerAdapter);
+        myStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedStr = VillageService.statusStrArray[position];
-                selectStatus = VillageService.statusStrMap.get(selectedStr);
+                String selectedStr = VillageService.myStatusStrArray[position];
+                selectStatus = VillageService.myStatusStrMap.get(selectedStr);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -164,13 +167,8 @@ public class VillageServiceVerifyFragment extends BaseFragment {
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(mVillageService.getBusinessDate()+"至"+mVillageService.getReturnDate());
-        for (int i=0;i<VillageService.statusStrArray.length;i++){
-            String selectedString = VillageService.statusStrArray[i];
-            if (VillageService.statusStrMap.get(selectedString)==mVillageService.getStatus()){
-                statusSpinner.setSelection(i);
-                break;
-            }
-        }
+        tvStatus.setText(VillageService.statusIntMap.get(mVillageService.getStatus()));
+        myStatusSpinner.setSelection(0);
     }
 
     @Override

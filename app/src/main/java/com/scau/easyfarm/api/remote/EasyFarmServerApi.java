@@ -125,9 +125,9 @@ public class EasyFarmServerApi {
         params.put("expertPersonalID",1);
         params.put("expertName",tweet.getExpertName());
         // Map<String, File> files = new HashMap<String, File>();
-        if (!TextUtils.isEmpty(tweet.getImageFilePath())) {
+        if (tweet.getImageFiles()!=null&&tweet.getImageFiles().size()>0) {
             try {
-                params.put("file", new File(tweet.getImageFilePath()));
+                params.put("file", new File(tweet.getImageFiles().get(0).getPath()));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

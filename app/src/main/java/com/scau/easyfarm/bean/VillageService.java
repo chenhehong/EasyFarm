@@ -12,10 +12,10 @@ import java.util.List;
  */
 public class VillageService extends Entity {
 
+    public static final String[] statusStrArray = {"待审核","通过","不通过"};
     public static final HashMap<String,Integer> statusStrMap = new HashMap<String,Integer>(){
         { put("待审核",VILLAGE_SERVICE_WAITING);  put("通过",VILLAGE_SERVICE_PASS);  put("不通过",VILLAGE_SERVICE_REJECT);put("已结束",VILLAGE_SERVICE_COMPLETED);}
     };
-    public static final String[] statusStrArray = {"待审核","通过","不通过"};
     public static final HashMap<Integer,String> statusIntMap = new HashMap<Integer,String>(){
         { put(VILLAGE_SERVICE_WAITING,"待审核");  put(VILLAGE_SERVICE_PASS,"通过");  put(VILLAGE_SERVICE_REJECT,"不通过");put(VILLAGE_SERVICE_COMPLETED,"已结束");}
     };
@@ -24,6 +24,13 @@ public class VillageService extends Entity {
     public final static int VILLAGE_SERVICE_REJECT = 8;
     public final static int VILLAGE_SERVICE_WAITING = 9;
     public final static int VILLAGE_SERVICE_COMPLETED = 49;
+
+    public static final String[] myStatusStrArray = {"通过","不通过"};
+    public static final HashMap<String,Integer> myStatusStrMap = new HashMap<String,Integer>(){
+        { put("通过",MY_STATUS_PASS);  put("不通过",MY_STATUS_REJECT);}
+    };
+    public final static int MY_STATUS_PASS = 10;
+    public final static int MY_STATUS_REJECT = 11;
 
     public static final String[] serverTypeArray = {"公益性","非公益性"};
     public static final HashMap<String,Integer> serverTypeStrMap = new HashMap<String,Integer>(){

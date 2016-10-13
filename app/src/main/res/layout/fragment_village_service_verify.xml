@@ -69,9 +69,19 @@
                 style="@style/village_service_detail_layout">
                 <TextView
                     style="@style/village_service_detail_left_textview"
-                    android:text="审核状态："/>
+                    android:text="当前状态："/>
+                <TextView
+                    style="@style/village_service_detail_right_textview"
+                    android:id="@+id/tv_status"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_detail_layout">
+                <TextView
+                    style="@style/village_service_detail_left_textview"
+                    android:text="我的审核："/>
                 <Spinner
-                    android:id="@+id/sp_status"
+                    android:id="@+id/sp_my_status"
                     style="@style/spinner_style"/>
             </LinearLayout>
             <LinearLayout

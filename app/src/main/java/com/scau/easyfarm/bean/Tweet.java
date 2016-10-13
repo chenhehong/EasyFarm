@@ -1,7 +1,6 @@
 package com.scau.easyfarm.bean;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.SpannableString;
@@ -14,8 +13,8 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.scau.easyfarm.AppContext;
-import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.util.ArrayList;
@@ -49,7 +48,8 @@ public class Tweet extends Entity implements Parcelable {
 
     private List<User> likeUser = new ArrayList<User>();
 
-    private String imageFilePath;
+    @JSONField(name = "resourceMetaList")
+    private ArrayList<FileResource> imageFiles = new ArrayList<FileResource>();
 
     public Tweet() {
     }
@@ -64,7 +64,7 @@ public class Tweet extends Entity implements Parcelable {
         imgSmall = dest.readString();
         imgBig = dest.readString();
         attach = dest.readString();
-        imageFilePath = dest.readString();
+        imageFiles = dest.readArrayList(FileResource.class.getClassLoader());
         isLike = dest.readInt();
         title = dest.readString();
         readCount = dest.readInt();
@@ -134,14 +134,6 @@ public class Tweet extends Entity implements Parcelable {
         this.imgBig = imgBig;
     }
 
-    public String getImageFilePath() {
-        return imageFilePath;
-    }
-
-    public void setImageFilePath(String imageFilePath) {
-        this.imageFilePath = imageFilePath;
-    }
-
     public List<User> getLikeUser() {
         return likeUser;
     }
@@ -206,6 +198,14 @@ public class Tweet extends Entity implements Parcelable {
         this.manualCategoryID = manualCategoryID;
     }
 
+    public ArrayList<FileResource> getImageFiles() {
+        return imageFiles;
+    }
+
+    public void setImageFiles(ArrayList<FileResource> imageFiles) {
+        this.imageFiles = imageFiles;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -222,7 +222,7 @@ public class Tweet extends Entity implements Parcelable {
         dest.writeString(imgSmall);
         dest.writeString(imgBig);
         dest.writeString(attach);
-        dest.writeString(imageFilePath);
+        dest.writeList(imageFiles);
         dest.writeInt(isLike);
         dest.writeString(title);
         dest.writeInt(readCount);

@@ -295,9 +295,10 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-    public static void showTweetTypeChoose(Fragment fragment, int parentId, int requestCode) {
+    public static void showTweetTypeChoose(Fragment fragment, int parentId,String type,int requestCode) {
         Bundle args = new Bundle();
-        args.putInt(TweetChooseManualCategoryFragment.BUNDLEKEY_PARENTID, parentId);
+        args.putInt(BaseManualCategoryListFragment.BUNDLEKEY_PARENTID, parentId);
+        args.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, type);
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.TWEET_CHOOSE_TYPE, args);
     }
 

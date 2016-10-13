@@ -21,17 +21,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TweetService extends IntentService {
-
-	private static final String SERVICE_NAME = "TweetService";
-
-    public static final String ACTION_PUB_TWEET = "EASYFARM.ACTION_PUB_TWEET";
+public class TweetService extends BaseService {
 
     public static final String BUNDLE_PUB_TWEET_TASK = "BUNDLE_PUB_TWEET_TASK";
     private static final String KEY_TWEET = "tweet_";
-
-//	记录Service的所有排队执行中的事务
-    public static List<String> penddingTasks = new ArrayList<String>();
 
     class PublicTweetResponseHandler extends OperationResponseHandler {
 
@@ -60,8 +53,8 @@ public class TweetService extends IntentService {
 //				    }
 //				}, 3000);
 				removePenddingTask(key + id);
-				if (tweet.getImageFilePath() != null) {
-				    File imgFile = new File(tweet.getImageFilePath());
+				if (tweet.getImageFiles()!=null&&tweet.getImageFiles().size()>0) {
+				    File imgFile = new File(tweet.getImageFiles().get(0).getPath());
 				    if (imgFile.exists()) {
 						imgFile.delete();
 				    }
@@ -91,47 +84,24 @@ public class TweetService extends IntentService {
 		}
     }
 
-    private synchronized void tryToStopServie() {
-	if (penddingTasks == null || penddingTasks.size() == 0) {
-	    stopSelf();
-	}
-    }
-
-    private synchronized void addPenddingTask(String key) {
-		penddingTasks.add(key);
-    }
-
-    private synchronized void removePenddingTask(String key) {
-	penddingTasks.remove(key);
-    }
-
     public TweetService(String name) {
 		super(name);
     }
 
     @Override
     public void onCreate() {
-	super.onCreate();
-
+		super.onCreate();
     }
 
-//	IntentService在onCreate()函数中通过HandlerThread单独开启一个线程来处理所有Intent请求对象（通过startService的方式发送过来的）所对应的任务，
-// 这样以免事务处理阻塞主线程,把处理一个intent所对应的事务都封装到叫做onHandleIntent的虚函数；
-// 因此我们直接实现虚函数onHandleIntent，再在里面根据Intent的不同进行不同的事务处理就可以了。
-//  注意：IntentService是用单线程（一个工作线程）处理所有工作的，所以所有的任务需要排队执行
-    @Override
-	protected void onHandleIntent(Intent intent) {
-		String action = intent.getAction();
-
-		if (ACTION_PUB_TWEET.equals(action)) {
-	    	Tweet tweet = intent.getParcelableExtra(BUNDLE_PUB_TWEET_TASK);
-			if (tweet != null) {
-				pubTweet(tweet);
-			}
+	@Override
+	public void onMyHandleIntent(Intent intent) {
+		Tweet tweet = intent.getParcelableExtra(BUNDLE_PUB_TWEET_TASK);
+		if (tweet != null) {
+			pubTweet(tweet);
 		}
-    }
+	}
 
-    private void pubTweet(final Tweet tweet) {
+	private void pubTweet(final Tweet tweet) {
 		tweet.setId((int) System.currentTimeMillis());
 		int id = tweet.getId();
 		addPenddingTask(KEY_TWEET + id);
@@ -163,13 +133,4 @@ public class TweetService extends IntentService {
 
 		NotificationManagerCompat.from(this).notify(id, notification);
     }
-
-	private void cancellNotification(int id) {
-		NotificationManagerCompat.from(this).cancel(id);
-    }
-
-	public TweetService() {
-		this(SERVICE_NAME);
-	}
-
 }

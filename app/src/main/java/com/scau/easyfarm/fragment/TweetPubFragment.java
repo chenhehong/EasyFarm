@@ -30,12 +30,18 @@ import android.widget.Toast;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.OperationResponseHandler;
+import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
+import com.scau.easyfarm.bean.FileResource;
+import com.scau.easyfarm.bean.ManualCategory;
+import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.service.ServerTaskUtils;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.FileUtil;
 import com.scau.easyfarm.util.ImageUtils;
+import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.SimpleTextWatcher;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
@@ -46,9 +52,11 @@ import org.kymjs.kjframe.bitmap.BitmapCallBack;
 import org.kymjs.kjframe.bitmap.DiskImageRequest;
 import org.kymjs.kjframe.utils.FileUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.ButterKnife;
@@ -105,6 +113,40 @@ public class TweetPubFragment extends BaseFragment{
 
     private String theLarge, theThumbnail;
     private File imgFile;
+
+    private final OperationResponseHandler mHandler = new OperationResponseHandler() {
+
+        @Override
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
+            ResultBean resultBean = JsonUtils.toBean(ResultBean.class, is);
+            if (resultBean != null) {
+                handleResultBean(resultBean);
+            }
+        }
+
+        @Override
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            hideWaitDialog();
+            AppContext.showToast(errorMessage + code);
+        }
+
+        @Override
+        public void onFinish() {
+            super.onFinish();
+            hideWaitDialog();
+        }
+    };
+
+    private void handleResultBean(ResultBean resultBean){
+        if (resultBean.getResult().OK()){
+            hideWaitDialog();
+            AppContext.showToastShort("发布成功！");
+            getActivity().finish();
+        }else {
+            hideWaitDialog();
+            AppContext.showToast(resultBean.getResult().getErrorMessage());
+        }
+    }
 
     private final Handler handler = new Handler() {
         @Override
@@ -188,14 +230,19 @@ public class TweetPubFragment extends BaseFragment{
         tweet.setExpertName(selectedExpertName);
         tweet.setManualCategoryID(selectedTweetTypeId);
         if (imgFile != null && imgFile.exists()) {
-            tweet.setImageFilePath(imgFile.getAbsolutePath());
+            FileResource fileResource = new FileResource();
+            fileResource.setPath(imgFile.getPath());
+            ArrayList<FileResource> fileResourceArrayList = new ArrayList<FileResource>();
+            fileResourceArrayList.add(fileResource);
+            tweet.setImageFiles(fileResourceArrayList);
         }
 //      通过服务后台发送问题
-        ServerTaskUtils.pubTweet(getActivity(), tweet);
+//      ServerTaskUtils.pubTweet(getActivity(), tweet);
+        showWaitDialog("发布问题中");
+        EasyFarmServerApi.pubTweet(tweet, mHandler);
         if (mIsKeyboardVisible) {
             TDevice.hideSoftKeyboard(getActivity().getCurrentFocus());
         }
-        getActivity().finish();
     }
 
     @Override
@@ -353,7 +400,7 @@ public class TweetPubFragment extends BaseFragment{
     }
 
     public void handlerSelectType(){
-        UIHelper.showTweetTypeChoose(this,0,TweetChooseManualCategoryFragment.MANUAL_COTEGORY_LIST_REQUEST_CODE);
+        UIHelper.showTweetTypeChoose(this,0, ManualCategory.INDUSTRY,TweetChooseManualCategoryFragment.MANUAL_COTEGORY_LIST_REQUEST_CODE);
     }
 
     public void handleSelectExpert(){

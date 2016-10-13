@@ -39,7 +39,9 @@ public class ExpertListAdapter extends ListBaseAdapter<User>{
         }
 
         User expert = (User) mDatas.get(position);
-        vh.name.setText(expert.getRealName());
+        if (expert!=null){
+            vh.name.setText(expert.getRealName());
+        }
         return convertView;
     }
 }

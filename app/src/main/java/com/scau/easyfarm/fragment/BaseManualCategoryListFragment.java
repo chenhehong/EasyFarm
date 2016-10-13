@@ -92,6 +92,13 @@ public abstract class BaseManualCategoryListFragment extends BaseFragment implem
             manualCategoryListAdapter = new ManualCategoryListAdapter();
         }
         manualCategoryListView.setAdapter(manualCategoryListAdapter);
+
+        mEmptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendRequestManualCatalogData();
+            }
+        });
     }
 
     @Override
@@ -119,35 +126,6 @@ public abstract class BaseManualCategoryListFragment extends BaseFragment implem
         }else {
             EasyFarmServerApi.getManualCatalogListByParentId(parentId, currenPage, pageSize, mHandler);
         }
-//      测试start
-//        ManualCategory m1 = new ManualCategory();
-//        m1.setCategoryName("畜牧");
-//        m1.setIsParent(false);
-//        m1.setId(2012);
-//        ManualCategory m2 = new ManualCategory();
-//        m2.setCategoryName("水稻");
-//        m2.setIsParent(true);
-//        m2.setId(2013);
-//        ManualCategory m3 = new ManualCategory();
-//        m3.setCategoryName("茶叶产业");
-//        m3.setIsParent(false);
-//        m3.setId(2012);
-//        ManualCategory m4 = new ManualCategory();
-//        m4.setCategoryName("植检土壤");
-//        m4.setIsParent(false);
-//        m4.setId(2012);
-//        ManualCategory m5 = new ManualCategory();
-//        m5.setCategoryName("兽药植保");
-//        m5.setIsParent(false);
-//        m5.setId(2012);
-//        ManualCategory m6 = new ManualCategory();
-//        m6.setCategoryName("饲料兽医");
-//        m6.setIsParent(false);
-//        m6.setId(2012);
-//        List<ManualCategory> mList = new ArrayList<ManualCategory>();
-//        mList.add(m1);mList.add(m2);mList.add(m3);mList.add(m4);mList.add(m5);mList.add(m6);
-//        executeOnLoadDataSuccess(mList);
-//      测试end
     }
 
     private AdapterView.OnItemClickListener manualCategoryOnItemClick = new AdapterView.OnItemClickListener() {

@@ -89,6 +89,12 @@ public class TweetExpertChooseFragment extends BaseFragment implements AdapterVi
             expertListAdapter = new ExpertListAdapter();
         }
         expertListView.setAdapter(expertListAdapter);
+        mEmptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendRequestExpertData();
+            }
+        });
     }
 
     @Override

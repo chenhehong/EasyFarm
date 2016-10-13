@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -11,6 +12,7 @@ import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
+import com.scau.easyfarm.util.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
