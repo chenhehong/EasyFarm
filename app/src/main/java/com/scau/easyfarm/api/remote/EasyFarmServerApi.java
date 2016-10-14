@@ -16,6 +16,9 @@ import com.scau.easyfarm.util.JsonUtils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class EasyFarmServerApi {
@@ -124,15 +127,18 @@ public class EasyFarmServerApi {
         params.put("manualCategoryID",tweet.getManualCategoryID());
         params.put("expertPersonalID",1);
         params.put("expertName",tweet.getExpertName());
-        // Map<String, File> files = new HashMap<String, File>();
+        File[] files = new File[tweet.getImageFiles().size()];
         if (tweet.getImageFiles()!=null&&tweet.getImageFiles().size()>0) {
-            try {
-                params.put("file", new File(tweet.getImageFiles().get(0).getPath()));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            for (int i=0;i<tweet.getImageFiles().size();i++){
+                files[i] = new File(tweet.getImageFiles().get(i).getPath());
             }
         }
-        ApiHttpClient.post("front/mobile/communicate/api/addquestion", params, handler);
+        try {
+            params.put("file",files);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ApiHttpClient.post("front/mobile/communicate/api/addQuestionWithImage", params, handler);
     }
 
     public static void deleteTweet(int uid, int tweetid,

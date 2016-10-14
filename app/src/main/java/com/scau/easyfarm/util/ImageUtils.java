@@ -67,6 +67,9 @@ public class ImageUtils {
      */
     public static final int REQUEST_CODE_GETIMAGE_IMAGEPAVER = 3;
 
+    //  请求选择多张图片
+    public static final int REQUEST_CODE_MULTISELECT_PICTURE = 4;
+
     /**
      * 写图片文件 在Android系统中，文件保存在 /data/data/PACKAGE_NAME/files 目录下
      *

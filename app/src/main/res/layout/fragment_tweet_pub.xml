@@ -84,13 +84,13 @@
 
         <!-- 图片缩略图-->
         <RelativeLayout
-            android:id="@+id/rl_img"
+            android:id="@+id/rl_img1"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <ImageView
-                android:id="@+id/iv_img"
+                android:id="@+id/iv_img1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="8dp"
@@ -100,7 +100,82 @@
                 android:scaleType="centerCrop" />
 
             <ImageView
-                android:id="@+id/iv_clear_img"
+                android:id="@+id/iv_clear_img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ib_clear_image_selector" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_img2"
+            android:layout_toRightOf="@id/rl_img1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_img2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/light_gray"
+                android:clickable="true"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_clear_img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ib_clear_image_selector" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_img3"
+            android:layout_toRightOf="@id/rl_img2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_img3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/light_gray"
+                android:clickable="true"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_clear_img3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ib_clear_image_selector" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_img4"
+            android:layout_toRightOf="@id/rl_img3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_img4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/light_gray"
+                android:clickable="true"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_clear_img4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -112,11 +187,11 @@
             android:id="@+id/tv_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/rl_img"
+            android:layout_alignBottom="@id/rl_img1"
             android:layout_alignParentRight="true"
             android:background="@drawable/compose_clear_selector"
             android:clickable="true"
-            tools:text="120"
+            tools:text="500"
             android:gravity="center_vertical"
             android:textColor="?attr/textColor"
             android:textSize="@dimen/text_size_14" />
@@ -138,8 +213,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:padding="@dimen/space_8"
-            android:src="@drawable/compose_toolbar_picture_selector"
-            android:visibility="gone"/>
+            android:src="@drawable/compose_toolbar_picture_selector"/>
 
     </LinearLayout>
 
