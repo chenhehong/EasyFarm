@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.interf.BaseViewInterface;
@@ -31,6 +33,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends ActionBarActivity implements
         DialogControl, View.OnClickListener, BaseViewInterface {
+
     public static final String INTENT_ACTION_EXIT_APP = "INTENT_ACTION_EXIT_APP";
 
     private boolean _isVisible;
@@ -209,4 +212,5 @@ public abstract class BaseActivity extends ActionBarActivity implements
         // setOverflowIconVisible(featureId, menu);
         return super.onMenuOpened(featureId, menu);
     }
+
 }

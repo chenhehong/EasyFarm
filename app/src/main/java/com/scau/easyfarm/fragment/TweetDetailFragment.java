@@ -15,14 +15,18 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.CommentAdapter;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BeseHaveHeaderListFragment;
@@ -36,6 +40,7 @@ import com.scau.easyfarm.bean.TweetDetail;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.emoji.OnSendClickListener;
 import com.scau.easyfarm.ui.DetailActivity;
+import com.scau.easyfarm.ui.ImageGalleryActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.HTMLUtil;
@@ -68,6 +73,7 @@ public class TweetDetailFragment extends
     private AvatarView mIvAvatar;
     private TextView mTvName, mTvFrom, mTvTime, mTvCommentCount;
     private TextView mContent;
+    private GridLayout mLayoutGrid;
     private int mTweetId;
     private Tweet mTweet;
 
@@ -107,25 +113,6 @@ public class TweetDetailFragment extends
     protected void sendRequestData() {
         EasyFarmServerApi.getCommentList(mTweetId, CommentList.CATALOG_TWEET,
                 mCurrentPage, mHandler);
-//      start--模拟数据
-//        List<Comment> data = new ArrayList<Comment>();
-//        Comment c1 = new Comment();
-//        c1.setComenterName("许渭根[专家]");
-//        c1.setCommentDate("2016-07-05 11:47:42");
-//        c1.setContent("一是你种在什么地方？那里有什么杂草？是已经种下去了，还是打算种的空地？都没有说清楚，希望你到当地农业技术部门咨询，比较可靠。谢谢");
-//        data.add(c1);
-//        Comment c2 = new Comment();
-//        c2.setComenterName("张富仙");
-//        c2.setCommentDate("2016-07-05 11:47:42");
-//        c2.setContent("如以禾本科杂草为主可用选择性除草剂精喹禾灵,这对苦瓜相对安全；如阔叶杂草较多得用草甘磷，但必须禁止喷到瓜苗，苦瓜是立架栽培，可采用纸板等隔离物边遮档瓜苗边压低喷头喷施。");
-//        data.add(c2);
-//        Comment c3 = new Comment();
-//        c3.setComenterName("怀燕");
-//        c3.setCommentDate("2016-07-09 11:47:42");
-//        c3.setContent("合理密植。保持通风透光，加强中耕除草、培土，尤其是拔节后培土，遇到不良气候而影响正常授粉时，采用人工辅助授粉技术。");
-//        data.add(c3);
-//        executeOnLoadDataSuccess(data);
-//      end--模拟数据
     }
 
     @Override
@@ -144,9 +131,39 @@ public class TweetDetailFragment extends
         mIvAvatar.setUserInfo(mTweet.getAuthorid(), mTweet.getAuthor());
         mTvName.setText(mTweet.getAuthor());
         mTvTime.setText(StringUtils.friendly_time(mTweet.getCreateDate()));
-
         mTvCommentCount.setText(mTweet.getCommentCount() + "");
         mContent.setText(mTweet.getContent());
+        if (mTweet.getImageFiles() != null && (mTweet.getImageFiles().size() > 0)) {
+            mLayoutGrid.setVisibility(View.VISIBLE);
+            mLayoutGrid.removeAllViews();
+            final View.OnClickListener l = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = (int) v.getTag();
+                    ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(mTweet.getImageFiles().get(position).getPath()));
+                }
+            };
+            for (int i = 0; i < mTweet.getImageFiles().size(); i++) {
+                ImageView mImage = new ImageView(getActivity());
+                GridLayout.LayoutParams mParams = new GridLayout.LayoutParams();
+                mParams.setMargins(0, (int) TDevice.dpToPixel(8), (int) TDevice.dpToPixel(8), 0);
+                mParams.width = (int) TDevice.dpToPixel(80);
+                mParams.height = (int) TDevice.dpToPixel(80);
+                mImage.setLayoutParams(mParams);
+                mImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                mLayoutGrid.addView(mImage);
+                getImageLoader()
+                        .load(ApiHttpClient.getAbsoluteApiUrl(mTweet.getImageFiles().get(i).getPath()))
+                        .asBitmap()
+                        .placeholder(R.color.gray)
+                        .error(R.drawable.ic_default_image)
+                        .into(mImage);
+                mImage.setTag(i);
+                mImage.setOnClickListener(l);
+            }
+        } else {
+            mLayoutGrid.setVisibility(View.GONE);
+        }
         setLikeState();
     }
 
@@ -318,6 +335,7 @@ public class TweetDetailFragment extends
         mTvTime = (TextView) header.findViewById(R.id.tv_time);
         mTvCommentCount = (TextView) header.findViewById(R.id.tv_comment_count);
         mContent = (TextView) header.findViewById(R.id.contentview);
+        mLayoutGrid = (GridLayout)header.findViewById(R.id.layout_grid);
         mTvLikeState = (TextView) header.findViewById(R.id.tv_like_state);
         mTvLikeState.setOnClickListener(new OnClickListener() {
 

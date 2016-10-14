@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.interf.BaseFragmentInterface;
@@ -18,6 +20,8 @@ import com.scau.easyfarm.ui.dialog.DialogControl;
  */
 public class BaseFragment extends Fragment implements
         View.OnClickListener, BaseFragmentInterface {
+
+    protected RequestManager mImageLoader;
 
     //  定义多种状态，子类可用到
     public static final int STATE_NONE = 0;
@@ -113,5 +117,11 @@ public class BaseFragment extends Fragment implements
     @Override
     public void onClick(View v) {
 
+    }
+
+    public synchronized RequestManager getImageLoader() {
+        if (mImageLoader == null)
+            mImageLoader = Glide.with(this);
+        return mImageLoader;
     }
 }

@@ -10,6 +10,7 @@ import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.ui.ImageGalleryActivity;
 
 import org.kymjs.kjframe.Core;
 
@@ -38,7 +39,7 @@ public class VillageServiceProofResourceAdapter extends ListBaseAdapter<VillageP
     }
 
     @Override
-    protected View getRealView(int position, View convertView, ViewGroup parent) {
+    protected View getRealView(final int position, View convertView, final ViewGroup parent) {
         ViewHold vh = null;
 
         if (convertView == null || convertView.getTag() == null) {
@@ -49,8 +50,14 @@ public class VillageServiceProofResourceAdapter extends ListBaseAdapter<VillageP
             vh = (ViewHold)convertView.getTag();
         }
 
-        VillageProofResource villageServiceProofResource = (VillageProofResource) mDatas.get(position);
+        final VillageProofResource villageServiceProofResource = (VillageProofResource) mDatas.get(position);
         new Core.Builder().view(vh.img).url(ApiHttpClient.getAbsoluteApiUrl(villageServiceProofResource.getImageFilePath())).doTask();
+        vh.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageGalleryActivity.show(parent.getContext(), ApiHttpClient.getAbsoluteApiUrl(villageServiceProofResource.getImageFilePath()));
+            }
+        });
         vh.description.setText(villageServiceProofResource.getDescription());
         vh.time.setText(villageServiceProofResource.getCreateDate());
         vh.address.setText(villageServiceProofResource.getAddress());

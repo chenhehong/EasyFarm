@@ -51,6 +51,16 @@
         android:layout_marginLeft="48dip"
         android:scrollbars="none" />
 
+    <GridLayout
+        android:id="@+id/layout_grid"
+        android:rowCount="3"
+        android:columnCount="3"
+        android:layout_marginLeft="48dip"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

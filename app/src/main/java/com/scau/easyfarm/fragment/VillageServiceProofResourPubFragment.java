@@ -24,6 +24,7 @@ import android.widget.ImageView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
@@ -31,6 +32,7 @@ import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.service.LocationUtils;
 import com.scau.easyfarm.service.ServerTaskUtils;
+import com.scau.easyfarm.ui.ImageGalleryActivity;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.FileUtil;
@@ -80,8 +82,6 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
     private int selectedVillageServiceTypeId = 0;
 
     private MenuItem mSendMenu;
-
-    private boolean mIsKeyboardVisible;
 
     private String theLarge, theThumbnail;
     private File imgFile;
@@ -265,6 +265,13 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         });
         mImvVillageType.setOnClickListener(this);
         mImvDescriptioon.setOnClickListener(this);
+
+        mResource.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageGalleryActivity.show(getActivity(),theLarge);
+            }
+        });
     }
 
     @Override
