@@ -391,10 +391,10 @@ public class EasyFarmServerApi {
     public static void getNewsList(int catalog, int page,
                                    AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("catalog", catalog);
-        params.put("pageIndex", page);
-        params.put("pageSize", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("action/api/news_list", params, handler);
+        params.put("categoryTypeID", catalog);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.post("front/mobile/news/api/getListPublish", params, handler);
     }
 
     /**

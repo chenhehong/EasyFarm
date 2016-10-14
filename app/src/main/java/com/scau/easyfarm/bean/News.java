@@ -1,16 +1,19 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Created by chenhehong on 2016/9/26.
  */
 public class News extends Entity {
 
-    private String title;
-    private String url;
-    private String content;
+    private String title="";
+    private String url="";
+    private String content="";
     private int authorId;
-    private String author;
-    private String pubDate;
+    private String author="";
+    @JSONField(name = "publishDate")
+    private String pubDate="";
 
     public String getTitle() {
         return title;

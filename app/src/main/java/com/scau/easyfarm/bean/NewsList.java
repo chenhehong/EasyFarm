@@ -1,5 +1,7 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +10,12 @@ import java.util.List;
  */
 public class NewsList extends Entity implements ListEntity<News> {
 
-    public final static int CATALOG_HOT = 1;
-    public final static int CATALOG_ANNOUNCE = 2;
+    public final static int CATALOG_HOT = 15;
+    public final static int CATALOG_ANNOUNCE = 16;
 
 
     private int catalog;
+    @JSONField(name = "obj")
     private List<News> newsList = new ArrayList<News>();
 
     public int getCatalog() {

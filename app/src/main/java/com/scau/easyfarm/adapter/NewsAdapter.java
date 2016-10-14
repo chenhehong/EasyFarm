@@ -32,12 +32,12 @@ public class NewsAdapter extends ListBaseAdapter<News> {
         News news = mDatas.get(position);
         vh.title.setText(news.getTitle());
 
-        String description = news.getContent();
-        vh.description.setVisibility(View.GONE);
-        if (description != null && !StringUtils.isEmpty(description)) {
-            vh.description.setVisibility(View.VISIBLE);
-            vh.description.setText(description.trim());
-        }
+//        String description = news.getContent();
+//        vh.description.setVisibility(View.GONE);
+//        if (description != null && !StringUtils.isEmpty(description)) {
+//            vh.description.setVisibility(View.VISIBLE);
+//            vh.description.setText(description.trim());
+//        }
 
         vh.source.setText(news.getAuthor());
         vh.time.setText(StringUtils.friendly_time(news.getPubDate()));

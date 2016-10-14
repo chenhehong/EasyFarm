@@ -395,8 +395,7 @@ public class VillageServiceAddFragment extends BaseFragment{
             reasonId = returnIntent.getIntExtra(VillageServiceReasonChooseFragment.BUNDLE_SELECT_REASON_ID,0);
             if (selectedReason.equals("其他")){
                 etReason.setEnabled(true);
-                etReason.setText("");
-                etReason.setHint("请填写其他事由");
+                etReason.setText("其他");
             }else {
                 etReason.setEnabled(false);
                 etReason.setText(selectedReason);
