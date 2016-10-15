@@ -51,11 +51,6 @@ public class ManualListFragment extends BaseListFragment<ManualContent>{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//      监听用户登录状态的广播
-        IntentFilter filter = new IntentFilter(
-                Constants.INTENT_ACTION_USER_CHANGE);
-        filter.addAction(Constants.INTENT_ACTION_LOGOUT);
-        getActivity().registerReceiver(mReceiver, filter);
         Bundle args = getArguments();
         if (args != null) {
             seletedManualCategoryCode = args.getString(MANUALCATEGORYCODE);
@@ -64,7 +59,6 @@ public class ManualListFragment extends BaseListFragment<ManualContent>{
 
     @Override
     public void onDestroy() {
-        getActivity().unregisterReceiver(mReceiver);
         super.onDestroy();
     }
 
@@ -74,46 +68,14 @@ public class ManualListFragment extends BaseListFragment<ManualContent>{
         return new ManualAdapter();
     }
 
-//  用户登录状态广播接收器
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            setupContent();
-        }
-    };
-
-//  处理用户登录状态广播，登录了的话”我的问答“栏目可以加载数据，否则显示未登录
-    private void setupContent() {
-        if (AppContext.getInstance().isLogin()) {
-            mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-            requestData(true);
-        } else {
-            mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
-            mErrorLayout.setErrorMessage(getString(R.string.unlogin_tip));
-        }
-    }
-
     @Override
     protected void requestData(boolean refresh) {
-        if (AppContext.getInstance().isLogin()) {
-            mCatalog = AppContext.getInstance().getLoginUid();
-            super.requestData(refresh);
-        } else {
-            mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
-            mErrorLayout.setErrorMessage(getString(R.string.unlogin_tip));
-        }
+        super.requestData(refresh);
     }
 
 //  重载该方法，定义子类自己的cachekey
     @Override
     protected String getCacheKeyPrefix() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String str = bundle.getString("topic");
-            if (str != null) {
-                return str;
-            }
-        }
         return CACHE_KEY_PREFIX + seletedManualCategoryCode;
     }
 
@@ -138,48 +100,17 @@ public class ManualListFragment extends BaseListFragment<ManualContent>{
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
         EasyFarmServerApi.getManualList(mCatalog,seletedManualCategoryCode, mCurrentPage, mHandler);
-//        start-模拟问答数据
-//        List<VillageService> data = new ArrayList<VillageService>();
-//        VillageService m1 = new VillageService();
-//        m1.setId(2012);
-//        m1.setBusinessArea("病虫情报2016年第6期——单季稻当前病虫发生及防治意见");
-//        m1.setBusinessAddress("陈家村");
-//        m1.setApplyDate("2016-09-12");
-//        m1.setBusinessReason("发布人：富阳区联络支站（金小华）");
-//        m1.setBusinessDate("2016-9-1");
-//        m1.setReturnDate("2016-9-18");
-//        data.add(m1);
-//        VillageService m2 = new VillageService();
-//        m2.setId(2013);
-//        m2.setBusinessArea("余杭区探索单季粳稻稀植高产栽培技术");
-////        m2.setBusinessAddress("陈家村");
-//        m2.setApplyDate("2016-09-12");
-//        m2.setBusinessReason("发布人：富阳区联络支站（金小华）");
-//        m2.setBusinessDate("2016-9-1");
-//        m2.setReturnDate("2016-9-18");
-//        data.add(m2);
-//        VillageService m3 = new VillageService();
-//        m3.setId(2014);
-//        m3.setBusinessArea("葡萄套袋后的管理");
-////        m3.setBusinessAddress("陈家村");
-//        m3.setApplyDate("2016-09-12");
-//        m3.setBusinessReason("发布人：富阳区联络支站（金小华）");
-//        m3.setBusinessDate("2016-9-1");
-//        m3.setReturnDate("2016-9-18");
-//        data.add(m3);
-//        executeOnLoadDataSuccess(data);
-//        end-模拟问答数据
     }
 
 //  重载点击事件，自定义子类的点击事件
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position,
-//                            long id) {
-//        VillageService villageService = mAdapter.getItem(position);
-//        if (villageService != null) {
-//            UIHelper.showManualContentDetail(view.getContext(), villageService.getId());
-//        }
-//    }
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+                            long id) {
+        ManualContent manualContent = mAdapter.getItem(position);
+        if (manualContent != null) {
+            UIHelper.showManualContentDetail(view.getContext(), manualContent.getId());
+        }
+    }
 
 
     @Override
@@ -190,23 +121,10 @@ public class ManualListFragment extends BaseListFragment<ManualContent>{
 
             @Override
             public void onClick(View v) {
-                if (mCatalog > 0) {
-                    if (AppContext.getInstance().isLogin()) {
-                        mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-                        requestData(true);
-                    } else {
-                        UIHelper.showLoginActivity(getActivity());
-                    }
-                } else {
                     mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
                     requestData(true);
-                }
             }
         });
-    }
-
-    protected long getAutoRefreshTime() {
-        return super.getAutoRefreshTime();
     }
 
 }

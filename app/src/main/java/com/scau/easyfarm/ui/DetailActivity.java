@@ -12,6 +12,7 @@ import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.emoji.KJEmojiFragment;
 import com.scau.easyfarm.emoji.OnSendClickListener;
 import com.scau.easyfarm.emoji.ToolbarFragment;
+import com.scau.easyfarm.fragment.ManualContentDetailFragment;
 import com.scau.easyfarm.fragment.NewsDetailFragment;
 import com.scau.easyfarm.fragment.TweetDetailFragment;
 
@@ -23,6 +24,7 @@ public class DetailActivity extends BaseActivity implements OnSendClickListener 
 //    多个标志位来区分进行不同的Fragment操作
     public static final int DISPLAY_NEWS = 0;
     public static final int DISPLAY_TWEET = 1;
+    public static final int DISPLAY_MAANUAL = 2;
 
     public static final String BUNDLE_KEY_DISPLAY_TYPE = "BUNDLE_KEY_DISPLAY_TYPE";
 
@@ -60,6 +62,10 @@ public class DetailActivity extends BaseActivity implements OnSendClickListener 
             case DISPLAY_NEWS:
                 actionBarTitle = R.string.actionbar_title_news;
                 fragment = new NewsDetailFragment();
+                break;
+            case DISPLAY_MAANUAL:
+                actionBarTitle = R.string.manualdetail_actionbar_title;
+                fragment = new ManualContentDetailFragment();
                 break;
             default:
                 break;

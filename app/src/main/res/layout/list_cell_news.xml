@@ -28,7 +28,8 @@
         android:layout_marginBottom="@dimen/space_5"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="?attr/infoTextColor" />
+        android:textColor="?attr/infoTextColor"
+        android:visibility="gone"/>
 
 
     <LinearLayout

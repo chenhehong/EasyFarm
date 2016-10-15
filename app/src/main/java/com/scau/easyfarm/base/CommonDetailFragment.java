@@ -208,7 +208,6 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
         mWebView.loadUrl(FontSizeUtils.getSaveFontSize());
         boolean favoriteState = getFavoriteState() == 1;
         setFavoriteState(favoriteState);
-
     }
 
     protected void executeOnLoadDataError() {

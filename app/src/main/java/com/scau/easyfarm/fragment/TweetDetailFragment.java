@@ -33,6 +33,7 @@ import com.scau.easyfarm.base.BeseHaveHeaderListFragment;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Comment;
 import com.scau.easyfarm.bean.CommentList;
+import com.scau.easyfarm.bean.CommentResult;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
@@ -195,7 +196,7 @@ public class TweetDetailFragment extends
         @Override
         public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
             try {
-                ResultBean rsb = JsonUtils.toBean(ResultBean.class,is);
+                CommentResult rsb = JsonUtils.toBean(CommentResult.class,is);
                 Result res = rsb.getResult();
                 if (res.OK()) {
                     hideWaitDialog();

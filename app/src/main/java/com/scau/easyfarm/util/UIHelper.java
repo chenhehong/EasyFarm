@@ -313,7 +313,7 @@ public class UIHelper {
     }
 
     public static void chooseVillageServiceReason(Fragment fragment,int requestCode){
-        showSimpleBackForResult(fragment,requestCode,SimpleBackPage.CHOOSE_VILLAGE_SERVICE_REASON);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_VILLAGE_SERVICE_REASON);
     }
 
     //  显示添加问答界面
@@ -357,9 +357,11 @@ public class UIHelper {
     }
 
     public static void showManualContentDetail(Context context, int ManualContentId) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE, ManualContentId);
-        showSimpleBack(context,SimpleBackPage.MANUAL_DETAIL,bundle);
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra("id", ManualContentId);
+        intent.putExtra(DetailActivity.BUNDLE_KEY_DISPLAY_TYPE,
+                DetailActivity.DISPLAY_MAANUAL);
+        context.startActivity(intent);
     }
 
     public static void showVillageServiceProofChoose(Fragment fragment,int requestCode) {

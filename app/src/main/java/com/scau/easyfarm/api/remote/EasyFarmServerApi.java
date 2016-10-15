@@ -405,7 +405,12 @@ public class EasyFarmServerApi {
      */
     public static void getNewsDetail(int id, AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams("id", id);
-        ApiHttpClient.get("action/api/news_detail", params, handler);
+        ApiHttpClient.get("front/mobile/news/api/getArticle", params, handler);
+    }
+
+    public static void getManualDetail(int id, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams("id", id);
+        ApiHttpClient.get("front/mobile/manual/api/getContentById", params, handler);
     }
 
     /**

@@ -43,7 +43,7 @@ public class ManualAdapter extends ListBaseAdapter<ManualContent>{
 
         ManualContent manualContent = (ManualContent) mDatas.get(position);
         vh.title.setText(manualContent.getTitle());
-        vh.content.setText(manualContent.getContent());
+//        vh.content.setText(manualContent.getContent());
         return convertView;
 
     }

@@ -58,7 +58,7 @@ public enum SimpleBackPage {
     TWEET_CHOOSE_TYPE(15,R.string.tweet_type_choose, TweetChooseManualCategoryFragment.class),
     CHOOSE_MANUAL_CATEGORY(16,R.string.manualcategory_actionbar_title, ChooseManualCategoryFragment.class),
     MANUAL_LIST(17,R.string.manuallist_actionbar_title, ManualListFragment.class),
-    MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class),
+//    MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class),
     VILLAGE_FUNCTION(19,R.string.village_function, VillageFunctionFragment.class),
     VILLAGE_SERVICE_VERIFY_VIEWPAGER(20, R.string.village_service_verify, VillageServiceAllViewPagerFragment.class),
     VILLAGE_SERVICE_VERIFY(21, R.string.village_service_verify, VillageServiceVerifyFragment.class),
