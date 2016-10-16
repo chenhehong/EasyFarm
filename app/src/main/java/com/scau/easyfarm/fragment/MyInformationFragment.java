@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -62,8 +63,8 @@ public class MyInformationFragment extends BaseFragment{
     View mUserContainer;
     @InjectView(R.id.rl_user_unlogin)
     View mUserUnLogin;
-    @InjectView(R.id.rootview)
-    LinearLayout rootView;
+    @InjectView(R.id.btn_logout)
+    Button btnLogout;
 
     private static BadgeView mMesCount;
     private boolean mIsWatingLogin;
@@ -125,6 +126,7 @@ public class MyInformationFragment extends BaseFragment{
     public void initView(View view) {
         mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mIvAvatar.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,9 +166,11 @@ public class MyInformationFragment extends BaseFragment{
         if (mIsWatingLogin) {
             mUserContainer.setVisibility(View.GONE);
             mUserUnLogin.setVisibility(View.VISIBLE);
+            btnLogout.setVisibility(View.GONE);
         } else {
             mUserContainer.setVisibility(View.VISIBLE);
             mUserUnLogin.setVisibility(View.GONE);
+            btnLogout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -204,22 +208,6 @@ public class MyInformationFragment extends BaseFragment{
     private void sendRequestData() {
         int uid = AppContext.getInstance().getLoginUid();
         EasyFarmServerApi.getMyInformation(uid, mHandler);
-//      测试start:
-//      模拟获取用户信息并填充组件
-//        User user = new User();
-//        user.setLoginName("chh");
-//        user.setPassword("123456");
-//        user.setRoleName("expert");
-//        user.setRealName("chh");
-//        user.setSex("man");
-//        user.setId(2012);
-//        user.setAddress("");user.setAge(0);user.setDescription("");user.setEmail("");user.setOrganization("");user.setPhoneNumber("");user.setRememberMe(true);user.setTechType("");
-//        mInfo = user;
-//        fillUI();
-//        AppContext.getInstance().updateUserInfo(mInfo);
-//        new SaveCacheTask(getActivity(), mInfo, getCacheKey())
-//                .execute();
-//        测试end
     }
 
 
@@ -327,6 +315,11 @@ public class MyInformationFragment extends BaseFragment{
             case R.id.rl_message:
                 UIHelper.showMyMes(getActivity());
                 setNoticeReaded();
+                break;
+            case R.id.btn_logout:
+                AppContext.getInstance().Logout();
+                steupUser();
+                AppContext.showToastShort(R.string.tip_logout_success);
                 break;
             default:
                 break;

@@ -177,9 +177,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
         return true;
     }
 
-    protected String getCacheKeyPrefix() {
-        return null;
-    }
+    protected abstract String getCacheKeyPrefix();
 
     protected ListEntity<T> parseList(InputStream is) throws Exception {
         return null;
@@ -382,10 +380,11 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
         }
 
         mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+//      如果是从获取最新的数据，先把之前的数据给清空
         if (mCurrentPage == 0) {
             mAdapter.clear();
         }
-
+//      如果是获取下一页的数据，则添加下一页的数据即可
         for (int i = 0; i < data.size(); i++) {
             if (compareTo(mAdapter.getData(), data.get(i))) {
                 data.remove(i);

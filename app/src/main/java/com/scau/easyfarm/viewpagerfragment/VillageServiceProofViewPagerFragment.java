@@ -41,13 +41,13 @@ public class VillageServiceProofViewPagerFragment extends BaseViewPagerFragment{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.add_menu, menu);
+        inflater.inflate(R.menu.takephoto_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.public_menu_add:
+            case R.id.public_menu_takephoto:
                 UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE_ADD);
                 break;
         }

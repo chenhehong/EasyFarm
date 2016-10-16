@@ -45,6 +45,7 @@ public class VillageServiceProofChooseFragment extends BaseListFragment<VillageS
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
+        requestData(true);
     }
 
     @Override
@@ -136,19 +137,13 @@ public class VillageServiceProofChooseFragment extends BaseListFragment<VillageS
         mListView.setOnItemLongClickListener(this);
 //      设置状态栏点击事件
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                if (mCatalog > 0) {
-                    if (AppContext.getInstance().isLogin()) {
-                        mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-                        requestData(true);
-                    } else {
-                        UIHelper.showLoginActivity(getActivity());
-                    }
-                } else {
+                if (AppContext.getInstance().isLogin()) {
                     mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
                     requestData(true);
+                } else {
+                    UIHelper.showLoginActivity(getActivity());
                 }
             }
         });

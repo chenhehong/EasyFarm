@@ -121,7 +121,7 @@
 
     <!-- 应用模块-->
     <string name="village_service_apply">服务申请</string>
-    <string name="village_service_proof">服务佐证</string>
+    <string name="village_service_proof">上传佐证</string>
     <string name="village_service_performance">绩效管理</string>
     <string name="agriculture_knowledge_base">知识库</string>
     <string name="area_choose">选择地区</string>

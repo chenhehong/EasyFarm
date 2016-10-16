@@ -49,6 +49,8 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
+
+        requestData(true);
     }
 
     @Override
@@ -95,14 +97,7 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 //  重载该方法，定义子类自己的cachekey
     @Override
     protected String getCacheKeyPrefix() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String str = bundle.getString("topic");
-            if (str != null) {
-                return str;
-            }
-        }
-        return CACHE_KEY_PREFIX + mCatalog;
+        return AppContext.getInstance().getLoginUid()+"_"+CACHE_KEY_PREFIX + mCatalog;
     }
 
 //  重载该方法，对服务器返回的数据进行解析
@@ -180,19 +175,13 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
         mListView.setOnItemLongClickListener(this);
 //      设置状态栏点击事件
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                if (mCatalog > 0) {
-                    if (AppContext.getInstance().isLogin()) {
-                        mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-                        requestData(true);
-                    } else {
-                        UIHelper.showLoginActivity(getActivity());
-                    }
-                } else {
+                if (AppContext.getInstance().isLogin()) {
                     mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
                     requestData(true);
+                } else {
+                    UIHelper.showLoginActivity(getActivity());
                 }
             }
         });

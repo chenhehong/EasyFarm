@@ -50,7 +50,7 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //      如果是有用户个人的栏目的，要监听用户登录状态的广播
-        if (mCatalog > 0) {
+        if (mCatalog ==TweetsList.CATALOG_ME) {
             IntentFilter filter = new IntentFilter(
                     Constants.INTENT_ACTION_USER_CHANGE);
             filter.addAction(Constants.INTENT_ACTION_LOGOUT);
@@ -60,7 +60,7 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 
     @Override
     public void onDestroy() {
-        if (mCatalog > 0) {
+        if (mCatalog ==TweetsList.CATALOG_ME) {
             getActivity().unregisterReceiver(mReceiver);
         }
         super.onDestroy();
@@ -95,7 +95,7 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
     protected void requestData(boolean refresh) {
 //      如果是用户个人栏目”我的问答“，要判断是否登录了
 //      获取数据直接引用父类的requestData方法即可，该方法会进行缓存的保存和读取，没有缓存时调用sendRequestData方法获取数据，子类实现sendRequestData方法即可
-        if (mCatalog > 0) {
+        if (mCatalog ==TweetsList.CATALOG_ME) {
             if (AppContext.getInstance().isLogin()) {
                 super.requestData(refresh);
             } else {
@@ -110,12 +110,8 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 //  重载该方法，定义子类自己的cachekey
     @Override
     protected String getCacheKeyPrefix() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String str = bundle.getString("topic");
-            if (str != null) {
-                return str;
-            }
+        if (mCatalog==TweetsList.CATALOG_ME){
+            return AppContext.getInstance().getLoginUid()+"_"+CACHE_KEY_PREFIX + mCatalog;
         }
         return CACHE_KEY_PREFIX + mCatalog;
     }
@@ -194,7 +190,7 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 
             @Override
             public void onClick(View v) {
-                if (mCatalog > 0) {
+                if (mCatalog ==TweetsList.CATALOG_ME) {
                     if (AppContext.getInstance().isLogin()) {
                         mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
                         requestData(true);

@@ -333,10 +333,10 @@ public class UIHelper {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_STATISTIC_DETAIL, bundle);
     }
 
-    public static void showVillageServiceVerify(Context context, int villageServiceId) {
+    public static void showVillageServiceVerify(Fragment fragment,int requestCode,int villageServiceId) {
         Bundle bundle = new Bundle();
         bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
-        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_VERIFY, bundle);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.VILLAGE_SERVICE_VERIFY, bundle);
     }
 
     public static void showAreaChoose(Fragment fragment, int requestCode) {

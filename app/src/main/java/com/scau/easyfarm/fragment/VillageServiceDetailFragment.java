@@ -47,6 +47,8 @@ public class VillageServiceDetailFragment extends BaseFragment {
     TextView tvOpinion;
     @InjectView(R.id.error_layout)
     EmptyLayout mErrorLayout;
+    @InjectView(R.id.tv_serverNumber)
+    TextView tvServerNumber;
 
     public static final String VILLAGE_SERVICE_ID_CODE = "village_service_id_code";
 
@@ -160,6 +162,7 @@ public class VillageServiceDetailFragment extends BaseFragment {
         }
         tvPerson.setText(servicePerson);
         tvLeader.setText(leaders);
+        tvServerNumber.setText(mVillageService.getServerNumber());
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(DateTimeUtil.dateTimeToDate(mVillageService.getBusinessDate())+"至"+DateTimeUtil.dateTimeToDate(mVillageService.getReturnDate()));

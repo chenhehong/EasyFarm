@@ -64,6 +64,17 @@
             <View
                 style="@style/h_line" />
 
+            <Button
+                android:id="@+id/btn_logout"
+                android:padding="10dp"
+                android:text="注销账号"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_red"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
         </LinearLayout>
     </ScrollView>
 

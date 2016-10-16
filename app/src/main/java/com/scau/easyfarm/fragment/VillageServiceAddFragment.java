@@ -75,6 +75,10 @@ public class VillageServiceAddFragment extends BaseFragment{
     ListView selectedUserListView;
     @InjectView(R.id.sp_server_type)
     Spinner spServerType;
+    @InjectView(R.id.et_applyman)
+    EditText applyMan;
+    @InjectView(R.id.btn_submit)
+    Button btnSubmit;
 
     private ArrayAdapter<String> spinnerAdapter;
 
@@ -87,6 +91,8 @@ public class VillageServiceAddFragment extends BaseFragment{
 
     public int reasonId;
     private String serverType;
+
+    public static int REQUESTCODE_SERVICE_ADD = 131;
 
     private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
@@ -115,6 +121,7 @@ public class VillageServiceAddFragment extends BaseFragment{
         if (resultBean.getResult().OK()){
             hideWaitDialog();
             AppContext.showToastShort("发布成功！");
+            getActivity().setResult(getActivity().RESULT_OK);
             getActivity().finish();
         }else {
             hideWaitDialog();
@@ -183,11 +190,23 @@ public class VillageServiceAddFragment extends BaseFragment{
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        btnSubmit.setOnClickListener(this);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        initData();
+    }
+
+    @Override
+    public void initData(){
+//      申请人默认为成员并设置为领导
+        applyMan.setText(AppContext.getInstance().getLoginUser().getRealName());
+        User u = AppContext.getInstance().getLoginUser();
+        u.setIsServerLeader(true);
+        personArray.add(u);
+        selectedUserAdapter.notifyDataSetChanged();
+        setListViewHeight();
     }
 
     @Override
@@ -264,6 +283,26 @@ public class VillageServiceAddFragment extends BaseFragment{
             AppContext.showToast("请至少选择一名领队！");
             return;
         }
+        if (etArea.getText().toString().length()==0||etArea.getText().toString()==null){
+            AppContext.showToast("请选择下乡区域");
+            return;
+        }
+        if (etAddress.getText().toString().length()==0||etAddress.getText().toString()==null){
+            AppContext.showToast("请填写下乡详细地址");
+            return;
+        }
+        if (etReason.getText().toString().length()==0||etReason.getText().toString()==null){
+            AppContext.showToast("请选择服务方式");
+            return;
+        }
+        if (etBusinessDate.getText().toString().length()==0||etBusinessDate.getText().toString()==null){
+            AppContext.showToast("请选择服务时间");
+            return;
+        }
+        if (etReturnDate.getText().toString().length()==0||etReturnDate.getText().toString()==null){
+            AppContext.showToast("请选择返回时间");
+            return;
+        }
         if (etBusinessDate.getText().toString().compareTo(etReturnDate.getText().toString())>0){
             AppContext.showToast("返回时间不能大于服务时间");
             return;
@@ -301,6 +340,8 @@ public class VillageServiceAddFragment extends BaseFragment{
             handleSelectArea();
         }else if (id==R.id.btn_add_reason){
             handleSelectReason();
+        }else if(id==R.id.btn_submit){
+            handleSubmit();
         }
     }
 

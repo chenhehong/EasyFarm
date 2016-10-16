@@ -9,7 +9,10 @@ import android.widget.TextView;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.User;
+import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.widget.AvatarView;
+
+import java.util.regex.Pattern;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,7 +42,7 @@ public class FindUserAdapter extends ListBaseAdapter<User> {
 
 		final User item = (User) mDatas.get(position);
 
-		vh.loginName.setText(item.getLoginName());
+		vh.loginName.setText(StringUtils.formatJobNumber(item.getLoginName()));
 
 		vh.organization.setText(item.getOrganization());
 		vh.realName.setText(item.getRealName());

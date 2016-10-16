@@ -96,7 +96,6 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
     @Override
     protected void requestData(boolean refresh) {
         if (AppContext.getInstance().isLogin()) {
-//            mCatalog = AppContext.getInstance().getLoginUid();
             super.requestData(refresh);
         } else {
             mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
@@ -107,7 +106,7 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 //  重载该方法，定义子类自己的cachekey
     @Override
     protected String getCacheKeyPrefix() {
-        return CACHE_KEY_PREFIX + villageServiceId;
+            return CACHE_KEY_PREFIX + villageServiceId;
     }
 
 //  重载该方法，对服务器返回的数据进行解析
@@ -146,22 +145,17 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
         mListView.setOnItemLongClickListener(this);
 //      设置状态栏点击事件
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                if (mCatalog > 0) {
-                    if (AppContext.getInstance().isLogin()) {
-                        mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-                        requestData(true);
-                    } else {
-                        UIHelper.showLoginActivity(getActivity());
-                    }
-                } else {
+                if (AppContext.getInstance().isLogin()) {
                     mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
                     requestData(true);
+                } else {
+                    UIHelper.showLoginActivity(getActivity());
                 }
             }
         });
+        requestData(true);
     }
 
 

@@ -1,5 +1,6 @@
 package com.scau.easyfarm.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,6 +59,7 @@ public class VillageServiceVerifyFragment extends BaseFragment {
     private ArrayAdapter<String> spinnerAdapter;
 
     public static final String VILLAGE_SERVICE_ID_CODE = "village_service_id_code";
+    public static final int REQUESTCODE_VERIFY = 121;
 
     private int mVillageServiceId;
     private VillageService mVillageService;
@@ -98,6 +100,13 @@ public class VillageServiceVerifyFragment extends BaseFragment {
             }
         });
         setHasOptionsMenu(true);
+
+        mErrorLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendRequiredData();
+            }
+        });
     }
 
     @Override
@@ -140,6 +149,7 @@ public class VillageServiceVerifyFragment extends BaseFragment {
         if (resultBean.getResult().OK()){
             hideWaitDialog();
             AppContext.showToastShort("审核成功！");
+            getActivity().setResult(getActivity().RESULT_OK);
             getActivity().finish();
         }else {
             hideWaitDialog();

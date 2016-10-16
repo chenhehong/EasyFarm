@@ -157,7 +157,7 @@ public class FindUserFragment extends BaseFragment implements AdapterView.OnItem
         if (user != null) {
             Intent result = new Intent();
             result.putExtra(BUNDLE_SELECT_USER_ID, user.getId());
-            result.putExtra(BUNDLE_SELECT_USER_NAME,user.getRealName()+"("+user.getLoginName()+")");
+            result.putExtra(BUNDLE_SELECT_USER_NAME,user.getRealName()+"("+StringUtils.formatJobNumber(user.getLoginName())+")");
             getActivity().setResult(getActivity().RESULT_OK, result);
             getActivity().finish();
         }

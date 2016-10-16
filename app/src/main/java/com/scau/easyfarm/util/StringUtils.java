@@ -590,4 +590,27 @@ public class StringUtils {
         return outStream.toByteArray();
     }
 
+    //	显示工号时，前六位使用X表示
+    public static String formatJobNumber(String s){
+        Pattern pattern = Pattern.compile("[0-9]*");
+//		如果是整数
+        if (pattern.matcher(s).matches()){
+            int number = Integer.valueOf(s);
+//			如果长度大于3
+            if (number>99){
+                int length = s.length();
+//				获取个位和十位
+                int lastTwo = number%100;
+                String ts = "";
+                for (int i=0;i<length-2;i++){
+                    ts+="X";
+                }
+                return ts+lastTwo;
+            }else {
+                return s;
+            }
+        }
+        return s;
+    }
+
 }

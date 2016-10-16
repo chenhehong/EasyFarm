@@ -28,6 +28,8 @@ public class VillageFunctionFragment extends BaseFragment{
     ImageView imgVilageServiceVerify;
     @InjectView(R.id.ImgVilageServiceStatistic)
     ImageView imgVilageServiceStatistic;
+    @InjectView(R.id.lyVilageServiceVerify)
+    View lyVilageServiceVerify;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +45,13 @@ public class VillageFunctionFragment extends BaseFragment{
         imgVillageServiceProof.setOnClickListener(this);
         imgVilageServiceVerify.setOnClickListener(this);
         imgVilageServiceStatistic.setOnClickListener(this);
+        setIconVisual();
+    }
+
+    public void setIconVisual(){
+        if ( !AppContext.getInstance().getLoginUser().isCanAuditServer()){
+            lyVilageServiceVerify.setVisibility(View.GONE);
+        }
     }
 
     @Override

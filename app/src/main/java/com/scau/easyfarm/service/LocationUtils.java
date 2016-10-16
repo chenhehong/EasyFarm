@@ -44,10 +44,10 @@ public class LocationUtils {
                 if (location.getProvince()!=null&&location.getCity()!=null&&location.getDistrict()!=null){
                     locationStr=location.getProvince()+"-"+location.getCity()+"-"+location.getDistrict()+","+location.getStreet();
                 }else {
-                    locationStr = "获取定位失败，请检查网络是否正常！";
+                    locationStr = "获取定位失败，请检查是否已打开gps！或者gps信号弱";
                 }
             }else {
-                locationStr = "获取定位失败，请检查网络是否正常！";
+                locationStr = "获取定位失败，请检查是否已打开gps！或者gps信号弱";
             }
             sendMsg(locationStr);
         }

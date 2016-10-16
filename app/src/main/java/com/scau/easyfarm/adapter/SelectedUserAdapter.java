@@ -66,6 +66,9 @@ public class SelectedUserAdapter extends ListBaseAdapter<User>{
                 ((VillageServiceAddFragment) fragment).setListViewHeight();
             }
         });
+        if (user.isServerLeader()){
+            vh.isleader.setToggleOn();
+        }
         vh.isleader.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
             @Override
             public void onToggle(boolean on) {

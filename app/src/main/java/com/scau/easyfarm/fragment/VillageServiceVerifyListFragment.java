@@ -33,7 +33,7 @@ import java.io.Serializable;
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class VerifyVillageServiceListFragment extends BaseListFragment<VillageService> implements
+public class VillageServiceVerifyListFragment extends BaseListFragment<VillageService> implements
         AdapterView.OnItemLongClickListener{
 
     private static final String CACHE_KEY_PREFIX = "verifyVillageServiceList_";
@@ -50,6 +50,8 @@ public class VerifyVillageServiceListFragment extends BaseListFragment<VillageSe
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
+//      刷新数据
+        requestData(true);
     }
 
     @Override
@@ -83,28 +85,20 @@ public class VerifyVillageServiceListFragment extends BaseListFragment<VillageSe
         }
     }
 
-    @Override
-    protected void requestData(boolean refresh) {
-        if (AppContext.getInstance().isLogin()) {
-//            mCatalog = AppContext.getInstance().getLoginUid();
-            super.requestData(refresh);
-        } else {
-            mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
-            mErrorLayout.setErrorMessage(getString(R.string.unlogin_tip));
+        @Override
+        protected void requestData(boolean refresh) {
+            if (AppContext.getInstance().isLogin()) {
+                super.requestData(refresh);
+            } else {
+                mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
+                mErrorLayout.setErrorMessage(getString(R.string.unlogin_tip));
+            }
         }
-    }
 
 //  重载该方法，定义子类自己的cachekey
     @Override
     protected String getCacheKeyPrefix() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String str = bundle.getString("topic");
-            if (str != null) {
-                return str;
-            }
-        }
-        return CACHE_KEY_PREFIX + mCatalog;
+        return AppContext.getInstance().getLoginUid()+"_"+CACHE_KEY_PREFIX + mCatalog;
     }
 
 //  重载该方法，对服务器返回的数据进行解析
@@ -125,7 +119,7 @@ public class VerifyVillageServiceListFragment extends BaseListFragment<VillageSe
     protected void sendRequestData() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-//            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
+//          如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
         if (mCatalog==WAITING_VILAGE_SERVICE){
             EasyFarmServerApi.getVerifyServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_WAITING, mHandler);
@@ -151,19 +145,13 @@ public class VerifyVillageServiceListFragment extends BaseListFragment<VillageSe
         mListView.setOnItemLongClickListener(this);
 //      设置状态栏点击事件
         mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                if (mCatalog > 0) {
-                    if (AppContext.getInstance().isLogin()) {
-                        mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-                        requestData(true);
-                    } else {
-                        UIHelper.showLoginActivity(getActivity());
-                    }
-                } else {
+                if (AppContext.getInstance().isLogin()) {
                     mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
                     requestData(true);
+                } else {
+                    UIHelper.showLoginActivity(getActivity());
                 }
             }
         });
@@ -189,7 +177,7 @@ public class VerifyVillageServiceListFragment extends BaseListFragment<VillageSe
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
                     handleDeleteVillageService(villageService);
-                }else if (i==1){
+                } else if (i == 1) {
                     handleVerifyVillageService(villageService);
                 }
             }
@@ -239,17 +227,16 @@ public class VerifyVillageServiceListFragment extends BaseListFragment<VillageSe
 
     private void handleVerifyVillageService(VillageService villageService){
         if (villageService != null) {
-            UIHelper.showVillageServiceVerify(getActivity(), villageService.getId());
+            UIHelper.showVillageServiceVerify(this, VillageServiceVerifyFragment.REQUESTCODE_VERIFY,villageService.getId());
         }
     }
 
     @Override
-    protected long getAutoRefreshTime() {
-        // 最新问答3分钟刷新一次
-        if (mCatalog == TweetsList.CATALOG_LATEST) {
-            return 3 * 60;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode!=getActivity().RESULT_OK)
+            return;
+        if (requestCode==VillageServiceVerifyFragment.REQUESTCODE_VERIFY){
+            onRefresh();
         }
-        return super.getAutoRefreshTime();
     }
-
 }
