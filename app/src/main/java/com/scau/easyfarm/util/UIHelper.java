@@ -22,6 +22,7 @@ import android.widget.ZoomButtonsController;
 
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
+import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
@@ -372,10 +373,10 @@ public class UIHelper {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_PROOF);
     }
 
-    public static void showVillageServiceProofResource(Fragment fragment,int villageServiceId,int resourceCatalog) {
+    public static void showVillageServiceProofResource(Fragment fragment,VillageService villageService,int resourceCatalog) {
         Bundle args = new Bundle();
-        args.putInt(VillageServiceProofResourceFragment.BUNDLEKEY_VILLAGESERVICE_ID, villageServiceId);
-        args.putInt(VillageServiceProofResourceFragment.BUNDLE_RESOURCE_CATALOG,resourceCatalog);
+        args.putSerializable(VillageServiceProofResourceFragment.BUNDLEKEY_VILLAGESERVICE, villageService);
+        args.putInt(BaseListFragment.BUNDLE_KEY_CATALOG,resourceCatalog);
         showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE,args);
     }
 

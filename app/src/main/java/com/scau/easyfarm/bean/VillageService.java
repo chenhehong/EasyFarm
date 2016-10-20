@@ -44,6 +44,7 @@ public class VillageService extends Entity {
     private int applyManId;
     @JSONField(name = "applyMan")
     private String applyManName;
+    private boolean isLeader = false;
     @JSONField(name = "ApplyDate")
     private String applyDate;
     private String businessArea;
@@ -172,5 +173,13 @@ public class VillageService extends Entity {
 
     public void setServerNumber(String serverNumber) {
         this.serverNumber = serverNumber;
+    }
+
+    public boolean isLeader() {
+        return isLeader;
+    }
+
+    public void setIsLeader(boolean isLeader) {
+        this.isLeader = isLeader;
     }
 }

@@ -162,7 +162,7 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         VillageService villageService = mAdapter.getItem(position);
-        if (villageService != null) {
+        if (villageService != null&&mCatalog==WAITING_VILAGE_SERVICE) {
             handleLongClick(villageService);
             return true;
         }
@@ -171,13 +171,22 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
 
     private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        items = new String[] {getResources().getString(R.string.delete),"审批" };
+//        items = new String[] {getResources().getString(R.string.delete),"审批" };
+//        DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                if (i == 0) {
+//                    handleDeleteVillageService(villageService);
+//                } else if (i == 1) {
+//                    handleVerifyVillageService(villageService);
+//                }
+//            }
+//        }).show();
+        items = new String[] {"审批" };
         DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
-                    handleDeleteVillageService(villageService);
-                } else if (i == 1) {
                     handleVerifyVillageService(villageService);
                 }
             }
@@ -194,7 +203,7 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
         }).show();
     }
 
-//  问答删除句柄
+//  删除句柄
     class DeleteVillageServiceResponseHandler extends OperationResponseHandler {
 
         DeleteVillageServiceResponseHandler(Object... args) {

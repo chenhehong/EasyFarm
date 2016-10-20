@@ -131,7 +131,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                             long id) {
         VillageService villageService = mAdapter.getItem(position);
         if (villageService != null) {
-                UIHelper.showVillageServiceProofResource(this,villageService.getId(),mCatalog);
+                UIHelper.showVillageServiceProofResource(this,villageService,mCatalog);
         }
     }
 

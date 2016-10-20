@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.VillageServiceProofResourceAdapter;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
@@ -22,6 +23,7 @@ import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.bean.VillageProofResourceList;
 import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.ui.ImageGalleryActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
@@ -40,10 +42,8 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
         AdapterView.OnItemLongClickListener{
 
     private static final String CACHE_KEY_PREFIX = "villageServiceProofResourcelist_";
-    public static final String BUNDLEKEY_VILLAGESERVICE_ID = "bundlekey_villageservice_id";
-    public static final String BUNDLE_RESOURCE_CATALOG = "bundle_resource_catalog";
-    private int villageServiceId = 0;
-    private int villageServiceCatalog = VillageServiceProofListFragment.COMPLETED_SERVICE;
+    public static final String BUNDLEKEY_VILLAGESERVICE = "bundlekey_villageservice";
+    private VillageService villageService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,9 +57,9 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
         Bundle bundle = getArguments();
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
-            villageServiceId = bundle.getInt(BUNDLEKEY_VILLAGESERVICE_ID);
-            villageServiceCatalog = bundle.getInt(BUNDLE_RESOURCE_CATALOG);
+            villageService = (VillageService) bundle.getSerializable(BUNDLEKEY_VILLAGESERVICE);
         }
+
     }
 
     @Override
@@ -106,7 +106,7 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 //  重载该方法，定义子类自己的cachekey
     @Override
     protected String getCacheKeyPrefix() {
-            return CACHE_KEY_PREFIX + villageServiceId;
+            return AppContext.getInstance().getLoginUid()+"_"+CACHE_KEY_PREFIX + villageService.getId();
     }
 
 //  重载该方法，对服务器返回的数据进行解析
@@ -125,7 +125,7 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 
     @Override
     protected void sendRequestData() {
-        EasyFarmServerApi.getVillageServiceProofResourceList(mCatalog, mCurrentPage, villageServiceId, mHandler);
+        EasyFarmServerApi.getVillageServiceProofResourceList(mCatalog, mCurrentPage, villageService.getId(), mHandler);
     }
 
 //  重载点击事件，自定义子类的点击事件
@@ -134,7 +134,7 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
                             long id) {
         VillageProofResource villageProofResource = mAdapter.getItem(position);
         if (villageProofResource != null) {
-//            UIHelper.showVillageServiceDetail(view.getContext(), villageProofResource.getId());
+            ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(villageProofResource.getImageFilePath()));
         }
     }
 
@@ -172,7 +172,7 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
 
     private void handleLongClick(final VillageProofResource villageProofResource) {
         String[] items = null;
-        if (villageServiceCatalog==VillageServiceProofListFragment.UNDERWAY_SERVICE){
+        if (mCatalog==VillageServiceProofListFragment.UNDERWAY_SERVICE&&villageService.isLeader()){
             items = new String[] {getResources().getString(R.string.delete) };
             DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
                 @Override
@@ -230,14 +230,4 @@ public class VillageServiceProofResourceFragment extends BaseListFragment<Villag
             AppContext.showToastShort(R.string.delete_faile);
         }
     }
-
-    @Override
-    protected long getAutoRefreshTime() {
-        // 最新问答3分钟刷新一次
-        if (mCatalog == TweetsList.CATALOG_LATEST) {
-            return 3 * 60;
-        }
-        return super.getAutoRefreshTime();
-    }
-
 }
