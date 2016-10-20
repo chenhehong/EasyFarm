@@ -19,10 +19,10 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
-                    android:text="申请人："/>
+                    android:text="专家姓名："/>
                 <TextView
                     style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_applyman"
+                    android:id="@+id/tv_realname"
                     android:text="" />
             </RelativeLayout>
 
@@ -33,10 +33,10 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
-                    android:text="服务单号："/>
+                    android:text="专家性别："/>
                 <TextView
                     style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_serverNumber"
+                    android:id="@+id/tv_gender"
                     android:text="" />
             </RelativeLayout>
 
@@ -47,10 +47,10 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
-                    android:text="服务人员："/>
+                    android:text="单位："/>
                 <TextView
                     style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_person"
+                    android:id="@+id/tv_organization"
                     android:text="" />
             </RelativeLayout>
 
@@ -61,10 +61,10 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
-                    android:text="领队："/>
+                    android:text="技术类别："/>
                 <TextView
                     style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_leader"
+                    android:id="@+id/tv_techtype"
                     android:text="" />
             </RelativeLayout>
 
@@ -75,10 +75,10 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
-                    android:text="服务地址："/>
+                    android:text="电话："/>
                 <TextView
                     style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_address"
+                    android:id="@+id/tv_phonenumber"
                     android:text="" />
             </RelativeLayout>
 
@@ -89,10 +89,10 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
-                    android:text="服务事由："/>
+                    android:text="邮箱："/>
                 <TextView
                     style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_reason"
+                    android:id="@+id/tv_email"
                     android:text="" />
             </RelativeLayout>
 
@@ -103,44 +103,15 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
-                    android:text="服务时间："/>
+                    android:text="描述："/>
                 <TextView
                     style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_service_date"
+                    android:id="@+id/tv_description"
                     android:text="" />
             </RelativeLayout>
 
             <View
                 style="@style/h_line" />
-
-            <RelativeLayout
-                style="@style/detail_list_layout">
-                <TextView
-                    style="@style/detail_list_left_textview"
-                    android:text="审核状态："/>
-                <TextView
-                    style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_statue"
-                    android:text="" />
-            </RelativeLayout>
-
-            <View
-                style="@style/h_line" />
-
-            <RelativeLayout
-                style="@style/detail_list_layout">
-                <TextView
-                    style="@style/detail_list_left_textview"
-                    android:text="审核意见："/>
-                <TextView
-                    style="@style/detail_list_right_textview"
-                    android:id="@+id/tv_optionion"
-                    android:text="" />
-            </RelativeLayout>
-
-            <View
-                style="@style/h_line" />
-
 
         </LinearLayout>
 

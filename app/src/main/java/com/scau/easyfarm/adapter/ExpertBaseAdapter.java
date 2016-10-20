@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
-import com.scau.easyfarm.bean.User;
+import com.scau.easyfarm.bean.ExpertBase;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.widget.AvatarView;
 
@@ -21,7 +21,7 @@ import butterknife.InjectView;
  * @created 2014年11月6日 上午11:22:27
  * 
  */
-public class FindUserAdapter extends ListBaseAdapter<User> {
+public class ExpertBaseAdapter extends ListBaseAdapter<ExpertBase> {
 
     @SuppressLint("InflateParams")
     @Override
@@ -30,34 +30,37 @@ public class FindUserAdapter extends ListBaseAdapter<User> {
 	ViewHolder vh = null;
 	if (convertView == null || convertView.getTag() == null) {
 	    convertView = getLayoutInflater(parent.getContext()).inflate(
-		    R.layout.list_cell_findeusers, null);
+		    R.layout.list_cell_expertbase, null);
 	    vh = new ViewHolder(convertView);
 	    convertView.setTag(vh);
 	} else {
 	    vh = (ViewHolder) convertView.getTag();
 	}
 
-		final User item = (User) mDatas.get(position);
+		final ExpertBase item = (ExpertBase) mDatas.get(position);
 
-		vh.loginName.setText(StringUtils.formatJobNumber(item.getLoginName()));
-
-		vh.organization.setText(item.getOrganization());
 		vh.realName.setText(item.getRealName());
 
+		vh.organization.setText(item.getOrganization());
+		vh.techtype.setText(item.getTechType());
+		vh.phoneNumber.setText(item.getPhoneNumber());
+
 //	vh.avatar.setAvatarUrl(item.getPortrait());
-//	vh.avatar.setUserInfo(item.getId(), item.getName());
+//	vh.avatar.setExpertBaseInfo(item.getId(), item.getName());
 
 		return convertView;
     }
 
     static class ViewHolder {
 
-	@InjectView(R.id.tv_loginname)
-	TextView loginName;
-	@InjectView(R.id.tv_organization)
-	TextView organization;
 	@InjectView(R.id.tv_realname)
 	TextView realName;
+	@InjectView(R.id.tv_organization)
+	TextView organization;
+	@InjectView(R.id.tv_techtype)
+	TextView techtype;
+	@InjectView(R.id.tv_phonenumber)
+	TextView phoneNumber;
 	@InjectView(R.id.iv_avatar)
 	AvatarView avatar;
 

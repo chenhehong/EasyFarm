@@ -6,6 +6,8 @@ import com.scau.easyfarm.fragment.AboutAppFragment;
 import com.scau.easyfarm.fragment.AreaCatalogListFragment;
 import com.scau.easyfarm.fragment.ChangePasswordFragment;
 import com.scau.easyfarm.fragment.ChooseManualCategoryFragment;
+import com.scau.easyfarm.fragment.ExpertBaseDetailFragment;
+import com.scau.easyfarm.fragment.ExpertBaseListFragment;
 import com.scau.easyfarm.fragment.FeedBackFragment;
 import com.scau.easyfarm.fragment.FindUserFragment;
 import com.scau.easyfarm.fragment.ManualContentDetailFragment;
@@ -71,7 +73,9 @@ public enum SimpleBackPage {
     CHOOSE_PROOF_RESOURCE_DESCRIPTITON(28, R.string.actionbar_title_choose_proof_resource_description, ProofResourceDescriptionChooseFragment.class),
     CHOOSE_PROOF_VILLAGE_SERVICE(29, R.string.village_service_proof_choose, VillageServiceProofChooseFragment.class),
     SERVER_SUMMARY(30, R.string.village_service_summary, ServerSummaryFragment.class),
-    VILLAGE_SERVICE_STATISTIC_DETAIL(31,R.string.village_service_statistic_detail, ServiceStatisticDetailFragment.class);
+    VILLAGE_SERVICE_STATISTIC_DETAIL(31,R.string.village_service_statistic_detail, ServiceStatisticDetailFragment.class),
+    EXPERTBASE_LIST(32,R.string.actionbar_expertbase_list, ExpertBaseListFragment.class),
+    EXPERTBASE_DETAIL(33,R.string.actionbar_expertbase_detail, ExpertBaseDetailFragment.class);
 
     private int title;
     private Class<?> clz;

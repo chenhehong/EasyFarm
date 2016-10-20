@@ -16,12 +16,12 @@
             android:orientation="vertical" >
 
             <RelativeLayout
-            style="@style/village_service_detail_layout">
+            style="@style/detail_list_layout">
             <TextView
-                style="@style/village_service_detail_left_textview"
+                style="@style/detail_list_left_textview"
                 android:text="申请人："/>
             <TextView
-                style="@style/village_service_detail_right_textview"
+                style="@style/detail_list_right_textview"
                 android:id="@+id/tv_applyman"
                 android:text="" />
         </RelativeLayout>
@@ -30,12 +30,12 @@
                 style="@style/h_line" />
 
             <RelativeLayout
-                style="@style/village_service_detail_layout">
+                style="@style/detail_list_layout">
                 <TextView
-                    style="@style/village_service_detail_left_textview"
+                    style="@style/detail_list_left_textview"
                     android:text="服务人员："/>
                 <TextView
-                    style="@style/village_service_detail_right_textview"
+                    style="@style/detail_list_right_textview"
                     android:id="@+id/tv_person"
                     android:text="" />
             </RelativeLayout>
@@ -44,12 +44,12 @@
                 style="@style/h_line" />
 
             <RelativeLayout
-                style="@style/village_service_detail_layout">
+                style="@style/detail_list_layout">
                 <TextView
-                    style="@style/village_service_detail_left_textview"
+                    style="@style/detail_list_left_textview"
                     android:text="领队："/>
                 <TextView
-                    style="@style/village_service_detail_right_textview"
+                    style="@style/detail_list_right_textview"
                     android:id="@+id/tv_leader"
                     android:text="" />
             </RelativeLayout>
@@ -58,12 +58,12 @@
                 style="@style/h_line" />
 
             <RelativeLayout
-                style="@style/village_service_detail_layout">
+                style="@style/detail_list_layout">
                 <TextView
-                    style="@style/village_service_detail_left_textview"
+                    style="@style/detail_list_left_textview"
                     android:text="服务地址："/>
                 <TextView
-                    style="@style/village_service_detail_right_textview"
+                    style="@style/detail_list_right_textview"
                     android:id="@+id/tv_address"
                     android:text="" />
             </RelativeLayout>
@@ -72,12 +72,12 @@
                 style="@style/h_line" />
 
             <RelativeLayout
-                style="@style/village_service_detail_layout">
+                style="@style/detail_list_layout">
                 <TextView
-                    style="@style/village_service_detail_left_textview"
+                    style="@style/detail_list_left_textview"
                     android:text="服务事由："/>
                 <TextView
-                    style="@style/village_service_detail_right_textview"
+                    style="@style/detail_list_right_textview"
                     android:id="@+id/tv_reason"
                     android:text="" />
             </RelativeLayout>
@@ -86,12 +86,12 @@
                 style="@style/h_line" />
 
             <RelativeLayout
-                style="@style/village_service_detail_layout">
+                style="@style/detail_list_layout">
                 <TextView
-                    style="@style/village_service_detail_left_textview"
+                    style="@style/detail_list_left_textview"
                     android:text="服务时间："/>
                 <TextView
-                    style="@style/village_service_detail_right_textview"
+                    style="@style/detail_list_right_textview"
                     android:id="@+id/tv_service_date"
                     android:text="" />
             </RelativeLayout>
@@ -100,12 +100,12 @@
                 style="@style/h_line" />
 
             <RelativeLayout
-                style="@style/village_service_detail_layout">
+                style="@style/detail_list_layout">
                 <TextView
-                    style="@style/village_service_detail_left_textview"
+                    style="@style/detail_list_left_textview"
                     android:text="审核工作量："/>
                 <TextView
-                    style="@style/village_service_detail_right_textview"
+                    style="@style/detail_list_right_textview"
                     android:text="未核算" />
             </RelativeLayout>
 

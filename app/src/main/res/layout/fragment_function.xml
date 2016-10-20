@@ -80,6 +80,13 @@
 
             <LinearLayout
                 style="@style/functionLayoutColumn">
+                <ImageView
+                    android:id="@+id/ImgExpertBase"
+                    android:src="@drawable/func_agriculture_knowledge_base_icon"
+                    style="@style/functionIcon"/>
+                <TextView
+                    style="@style/functionIconText"
+                    android:text="专家库"/>
             </LinearLayout>
 
             <LinearLayout

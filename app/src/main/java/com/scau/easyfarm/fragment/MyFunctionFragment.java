@@ -32,6 +32,8 @@ public class MyFunctionFragment extends BaseFragment{
     ImageView imgAchievementBase;
     @InjectView(R.id.ImgVarietyBase)
     ImageView imgVarietyBase;
+    @InjectView(R.id.ImgExpertBase)
+    ImageView imgExpertBase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class MyFunctionFragment extends BaseFragment{
         imgSkillBase.setOnClickListener(this);
         imgAchievementBase.setOnClickListener(this);
         imgVarietyBase.setOnClickListener(this);
+        imgExpertBase.setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +75,9 @@ public class MyFunctionFragment extends BaseFragment{
                 break;
             case R.id.ImgVarietyBase:
                 showVarietyBase();
+                break;
+            case R.id.ImgExpertBase:
+                showExpertBase();
                 break;
             default:
                 break;
@@ -100,5 +106,9 @@ public class MyFunctionFragment extends BaseFragment{
 
     private void showAchievementBase(){
         UIHelper.showManualCategory(this,0,ManualCategory.ACHIEVEMENT);
+    }
+
+    private void showExpertBase(){
+        UIHelper.showExpertBaseList(this);
     }
 }

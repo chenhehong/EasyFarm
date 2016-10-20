@@ -23,10 +23,12 @@ import android.widget.ZoomButtonsController;
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.base.BaseListFragment;
+import com.scau.easyfarm.bean.ExpertBaseDetail;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
+import com.scau.easyfarm.fragment.ExpertBaseDetailFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
@@ -517,6 +519,16 @@ public class UIHelper {
         bundle.putSerializable(ServerSummaryFragment.BUNDLEKEY_SERVICE, service);
         bundle.putInt(ServerSummaryFragment.BUNDLEKEY_POSITION,position);
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.SERVER_SUMMARY, bundle);
+    }
+
+    public static void showExpertBaseList(Fragment fragment){
+        showSimpleBack(fragment, SimpleBackPage.EXPERTBASE_LIST);
+    }
+
+    public static void showExpertBseDetail(Fragment fragment, int expertBaseId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ExpertBaseDetailFragment.BUNDLEKEY_EXPERTBASE_ID,expertBaseId);
+        showSimpleBack(fragment,SimpleBackPage.EXPERTBASE_DETAIL,bundle);
     }
 
 }

@@ -16,12 +16,12 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                style="@style/village_service_detail_layout">
+                style="@style/detail_list_layout">
                 <TextView
-                    style="@style/village_service_detail_left_textview"
+                    style="@style/detail_list_left_textview"
                     android:text="详细内容："/>
                 <TextView
-                    style="@style/village_service_detail_right_textview"
+                    style="@style/detail_list_right_textview"
                     android:id="@+id/tv_person"
                     android:text="梨花开放一般在清早8时之后，当天开放的花就可授粉，花开1～2天授粉最好，第三天授粉坐果率就很低了。
                     在一天里授粉最好的时间是8～14时。天气越晴朗，授粉效果越好。在授粉过程中，如何认定花朵开放的时间，可以通过花药的颜色来辨认。

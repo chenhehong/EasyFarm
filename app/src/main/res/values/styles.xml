@@ -252,7 +252,7 @@
         <item name="android:src">@drawable/btn_delete_icon</item>
     </style>
 
-    <style name="village_service_detail_layout">
+    <style name="detail_list_layout">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">?attr/layout_item_bg</item>
@@ -261,7 +261,7 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
-    <style name="village_service_detail_left_textview">
+    <style name="detail_list_left_textview">
         <item name="android:id">@id/text</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -270,7 +270,7 @@
         <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
-    <style name="village_service_detail_right_textview">
+    <style name="detail_list_right_textview">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_16</item>
