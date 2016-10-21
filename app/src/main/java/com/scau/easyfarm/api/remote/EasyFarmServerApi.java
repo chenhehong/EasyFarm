@@ -448,20 +448,20 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/finishVillage",params,handler);
     }
 
-    public static void getExpertBaseList(int uid,String categoryCode, int page,
+    public static void getExpertBaseList(int uid,int categoryCodeId, int page,
                                      AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("uid", uid);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        params.put("categoryCode", categoryCode);
-        ApiHttpClient.get("front/mobile/manual/api/getContentByCode", params, handler);
+        params.put("id", categoryCodeId);
+        ApiHttpClient.get("front/mobile/expert/getEpxertByManualID", params, handler);
     }
 
     public static void getExpertBaseDetail(int id,AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("id",id);
-        ApiHttpClient.post("front/mobile/village/api/getServiceDetail", params, handler);
+        ApiHttpClient.post("front/mobile/expert/getEpxertByPersonalID", params, handler);
     }
 
 }

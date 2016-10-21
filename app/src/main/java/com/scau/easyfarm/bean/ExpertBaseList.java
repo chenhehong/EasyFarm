@@ -23,7 +23,7 @@ public class ExpertBaseList extends Entity implements ListEntity<ExpertBase>{
 
     @Override
     public List<ExpertBase> getList() {
-        return null;
+        return expertBaseArrayList;
     }
 
 }

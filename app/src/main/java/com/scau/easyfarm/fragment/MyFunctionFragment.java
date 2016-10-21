@@ -109,6 +109,6 @@ public class MyFunctionFragment extends BaseFragment{
     }
 
     private void showExpertBase(){
-        UIHelper.showExpertBaseList(this);
+        UIHelper.showExpertBaseManualCategory(this,0,ManualCategory.EXPERT);
     }
 }

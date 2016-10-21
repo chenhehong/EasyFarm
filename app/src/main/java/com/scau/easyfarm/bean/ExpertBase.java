@@ -1,17 +1,30 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
+import java.util.HashMap;
+
 /**
  * Created by chenhehong on 2016/10/20.
  */
 public class ExpertBase extends Entity {
 
+    public static final HashMap<Integer,String> genderIntMap = new HashMap<Integer,String>(){
+        { put(1,"男");  put(0,"女"); }
+    };
+
     private String realName="";
-    private String gender="";
+    @JSONField(name = "organizationName")
     private String organization="";
+    private int sex;
+    private int age;
+    private String address="";
     private String phoneNumber="";
+    private String techTitle="";
     private String techType="";
     private String description="";
     private String email="";
+    private String imagePath;	//用户图像路径
 
     public String getRealName() {
         return realName;
@@ -19,14 +32,6 @@ public class ExpertBase extends Entity {
 
     public void setRealName(String realName) {
         this.realName = realName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getOrganization() {
@@ -67,5 +72,49 @@ public class ExpertBase extends Entity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public static HashMap<Integer, String> getGenderIntMap() {
+        return genderIntMap;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTechTitle() {
+        return techTitle;
+    }
+
+    public void setTechTitle(String techTitle) {
+        this.techTitle = techTitle;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

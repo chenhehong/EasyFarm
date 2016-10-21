@@ -29,6 +29,7 @@ import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
 import com.scau.easyfarm.fragment.ExpertBaseDetailFragment;
+import com.scau.easyfarm.fragment.ExpertBaseListFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
@@ -521,8 +522,17 @@ public class UIHelper {
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.SERVER_SUMMARY, bundle);
     }
 
-    public static void showExpertBaseList(Fragment fragment){
-        showSimpleBack(fragment, SimpleBackPage.EXPERTBASE_LIST);
+    public static void showExpertBaseManualCategory(Fragment fragment,int parentId,String type){
+        Bundle budle = new Bundle();
+        budle.putInt(BaseManualCategoryListFragment.BUNDLEKEY_PARENTID, parentId);
+        budle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, type);
+        showSimpleBack(fragment, SimpleBackPage.EXPERTBASE_CHOOSE_MANUAL_CATEGORY, budle);
+    }
+
+    public static void showExpertBaseList(Fragment fragment,int categoryCodeId){
+        Bundle bundle = new Bundle();
+        bundle.putInt(ExpertBaseListFragment.BUNDLEKEY_MANUALCOTEGORY_ID, categoryCodeId);
+        showSimpleBack(fragment, SimpleBackPage.EXPERTBASE_LIST,bundle);
     }
 
     public static void showExpertBseDetail(Fragment fragment, int expertBaseId) {

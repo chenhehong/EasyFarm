@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.ExpertBase;
 import com.scau.easyfarm.util.StringUtils;
@@ -45,8 +46,8 @@ public class ExpertBaseAdapter extends ListBaseAdapter<ExpertBase> {
 		vh.techtype.setText(item.getTechType());
 		vh.phoneNumber.setText(item.getPhoneNumber());
 
-//	vh.avatar.setAvatarUrl(item.getPortrait());
-//	vh.avatar.setExpertBaseInfo(item.getId(), item.getName());
+		vh.avatar.setAvatarUrl(ApiHttpClient.getAbsoluteApiUrl(item.getImagePath()));
+//	vh.avatar.setUserInfo(item.getId(), item.getRealName());
 
 		return convertView;
     }

@@ -120,7 +120,7 @@ public class ExpertBaseDetailFragment extends BaseFragment {
 
     public void fillUI() {
         tvRealName.setText(mExpertBase.getRealName());
-        tvGender.setText(mExpertBase.getGender());
+        tvGender.setText(ExpertBase.genderIntMap.get(mExpertBase.getSex()));
         tvOrganization.setText(mExpertBase.getOrganization());
         tvTechType.setText(mExpertBase.getTechType());
         tvPhoneNumber.setText(mExpertBase.getPhoneNumber());

@@ -173,6 +173,7 @@
 
     <string name="village_service_statistic_detail">服务统计详情</string>
 
+    <string name="actionbar_expertbase_type">选择专家类别</string>
     <string name="actionbar_expertbase_list">专家库列表</string>
     <string name="actionbar_expertbase_detail">专家详情</string>
 

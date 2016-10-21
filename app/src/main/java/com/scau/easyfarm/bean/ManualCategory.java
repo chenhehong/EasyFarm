@@ -11,6 +11,7 @@ public class ManualCategory extends Entity{
     public static final String INDUSTRY = "Industry";
     public static final String ACHIEVEMENT = "Achievement";
     public static final String TECHNOLOGY = "Technology";
+    public static final String EXPERT = "Expert";
 
     private int parentId;
     private boolean isParent;

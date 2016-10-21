@@ -54,7 +54,7 @@ public class VillageService extends Entity {
     private String businessReason;
     private int status;
     private int serverType;//服务类型
-    @JSONField(name = "serverCode")
+    @JSONField(name = "serialCode")
     private String serverNumber="";//服务单号
     @JSONField(name = "villageServiceOpinionList")
     List<VillageServiceOpinion> villageServiceOpinions = new ArrayList<VillageServiceOpinion>();

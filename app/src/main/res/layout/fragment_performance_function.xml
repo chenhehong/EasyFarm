@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="?attr/layout_item_bg"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            style="@style/functionLayoutRow">
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+                <ImageView
+                    android:id="@+id/ImgPerformanceApply"
+                    android:src="@drawable/func_agriculture_knowledge_base_icon"
+                    style="@style/functionIcon"/>
+                <TextView
+                    style="@style/functionIconText"
+                    android:text="业绩申请"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+                <ImageView
+                    android:id="@+id/ImgPerformanceStatistic"
+                    android:src="@drawable/func_village_service_performance_icon"
+                    style="@style/functionIcon"/>
+                <TextView
+                    style="@style/functionIconText"
+                    android:text="业绩统计"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+                <ImageView
+                    android:id="@+id/ImgPerformanceVerify"
+                    android:src="@drawable/func_agriculture_knowledge_base_icon"
+                    style="@style/functionIcon"/>
+                <TextView
+                    style="@style/functionIconText"
+                    android:text="业绩审核"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/functionLayoutColumn">
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
