@@ -317,4 +317,27 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="performace_add_file_lay">
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="performace_add_file_img">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+    
+    <style name="performace_add_file_clearimg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/ib_clear_image_selector</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
 </resources>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="?attr/windows_bg"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                style="@style/village_service_add_layout"
+                android:layout_marginTop="10dp">
+                <TextView
+                    style="@style/village_service_add_left_textview"
+                    android:text="申请人："/>
+                <EditText
+                    android:id="@+id/et_applyman"
+                    android:editable="false"
+                    style="@style/village_service_add_edittext"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/village_service_add_layout">
+                <TextView
+                    style="@style/village_service_add_left_textview"
+                    android:text="业绩类型："/>
+                <EditText
+                    android:id="@+id/et_type"
+                    android:lines="2"
+                    style="@style/village_service_add_edittext"
+                    android:enabled="false"/>
+                <Button
+                    android:id="@+id/btn_select_type"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="选择类型"
+                    android:textColor="@android:color/black"
+                    android:src="@drawable/btn_quickoption_selector" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_add_layout">
+                <TextView
+                    style="@style/village_service_add_left_textview"
+                    android:text="开始时间："/>
+                <EditText
+                    android:id="@+id/et_start_date"
+                    android:editable="false"
+                    style="@style/village_service_add_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_add_layout">
+                <TextView
+                    style="@style/village_service_add_left_textview"
+                    android:text="结束时间："/>
+                <EditText
+                    android:id="@+id/et_end_date"
+                    android:editable="false"
+                    style="@style/village_service_add_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/village_service_add_layout">
+                <TextView
+                    style="@style/village_service_add_left_textview"
+                    android:text="佐证材料："/>
+                <Button
+                    android:id="@+id/btn_add_file"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="添加材料"
+                    android:textColor="@android:color/black"
+                    android:src="@drawable/btn_quickoption_selector" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_img1"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img1"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img1"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_img2"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img2"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img2"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_img3"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img3"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img3"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_img4"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img4"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img4"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_img5"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img5"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img5"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_img6"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img6"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img6"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/rl_img7"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img7"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img7"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_img8"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img8"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img8"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_img9"
+                        style="@style/performace_add_file_lay">
+
+                        <ImageView
+                            android:id="@+id/iv_img9"
+                            style="@style/performace_add_file_img"/>
+
+                        <ImageView
+                            android:id="@+id/iv_clear_img9"
+                            style="@style/performace_add_file_clearimg"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_submit"
+                style="@style/button_common_blue"
+                android:layout_marginTop="20dp"
+                android:text="提交" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -89,7 +89,7 @@ public class MyFunctionFragment extends BaseFragment{
     }
 
     private void showgVilageServicePermance(){
-
+        UIHelper.showSimpleBack(getActivity(),SimpleBackPage.SERVICE_PERFORMANCE_FUNCTION);
     }
 
     private void showVarietyBase(){

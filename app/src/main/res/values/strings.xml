@@ -177,4 +177,10 @@
     <string name="actionbar_expertbase_list">专家库列表</string>
     <string name="actionbar_expertbase_detail">专家详情</string>
 
+    <string name="service_performance_function">绩效管理</string>
+
+    <string name="performance_add">添加业绩</string>
+    <string name="actionbar_performance_list">业绩列表</string>
+    <string name="actionbar_choose_performance_type">选择业绩类型</string>
+
 </resources>

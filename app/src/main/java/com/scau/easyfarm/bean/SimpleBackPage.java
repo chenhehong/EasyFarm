@@ -14,6 +14,9 @@ import com.scau.easyfarm.fragment.FindUserFragment;
 import com.scau.easyfarm.fragment.ManualContentDetailFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
+import com.scau.easyfarm.fragment.PerformanceAddFragment;
+import com.scau.easyfarm.fragment.PerformanceFunctionFragment;
+import com.scau.easyfarm.fragment.PerformanceTypeChooseFragment;
 import com.scau.easyfarm.fragment.ProofResourceDescriptionChooseFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
@@ -34,6 +37,7 @@ import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
 import com.scau.easyfarm.fragment.VillageServiceReasonChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
+import com.scau.easyfarm.viewpagerfragment.PerformanceApplyViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceAllViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceApplyViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceProofViewPagerFragment;
@@ -77,7 +81,11 @@ public enum SimpleBackPage {
     VILLAGE_SERVICE_STATISTIC_DETAIL(31,R.string.village_service_statistic_detail, ServiceStatisticDetailFragment.class),
     EXPERTBASE_LIST(32,R.string.actionbar_expertbase_list, ExpertBaseListFragment.class),
     EXPERTBASE_DETAIL(33,R.string.actionbar_expertbase_detail, ExpertBaseDetailFragment.class),
-    EXPERTBASE_CHOOSE_MANUAL_CATEGORY(34,R.string.actionbar_expertbase_type, ExpertBaseChooseManualCategoryFragment.class);
+    EXPERTBASE_CHOOSE_MANUAL_CATEGORY(34,R.string.actionbar_expertbase_type, ExpertBaseChooseManualCategoryFragment.class),
+    PERFORMANCE_ADD(35,R.string.performance_add, PerformanceAddFragment.class),
+    CHOOSE_PERFORMANCE_TYPE(36, R.string.actionbar_choose_performance_type, PerformanceTypeChooseFragment.class),
+    SERVICE_PERFORMANCE_FUNCTION(37,R.string.service_performance_function, PerformanceFunctionFragment.class),
+    PERFORMANCE_APPLY_LIST(38,R.string.actionbar_performance_list, PerformanceApplyViewPagerFragment.class);
 
     private int title;
     private Class<?> clz;

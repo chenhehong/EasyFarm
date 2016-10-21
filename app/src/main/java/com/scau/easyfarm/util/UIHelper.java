@@ -537,8 +537,18 @@ public class UIHelper {
 
     public static void showExpertBseDetail(Fragment fragment, int expertBaseId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(ExpertBaseDetailFragment.BUNDLEKEY_EXPERTBASE_ID,expertBaseId);
+        bundle.putInt(ExpertBaseDetailFragment.BUNDLEKEY_EXPERTBASE_ID, expertBaseId);
         showSimpleBack(fragment,SimpleBackPage.EXPERTBASE_DETAIL,bundle);
+    }
+
+    public static void showPerformanceDetail(Context context, int performanceId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE, performanceId);
+        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_DETAIL, bundle);
+    }
+
+    public static void choosePerformanceType(Fragment fragment,int requestCode){
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_PERFORMANCE_TYPE);
     }
 
 }

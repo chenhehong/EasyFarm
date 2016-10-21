@@ -61,7 +61,7 @@ public class PerformanceFunctionFragment extends BaseFragment{
     }
 
     private void showPerformanceApply(){
-        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_FUNCTION);
+        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.PERFORMANCE_APPLY_LIST);
     }
 
     private void showgPerformanceStatistic(){

@@ -464,4 +464,35 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/expert/getEpxertByPersonalID", params, handler);
     }
 
+    public static void getApplyPerformanceList(int categoryId, int page, int status,
+                                                    AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("status",status);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/performance/getApplyListDataGrid", params, handler);
+    }
+
+    public static void deletePerformance(int performanceId,
+                                            AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("id", performanceId);
+        ApiHttpClient.post("front/mobile/village/api/deleteServiceById", params, handler);
+    }
+
+    public static void addPerformanceApply(AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("uid",AppContext.getInstance().getLoginUid());
+        ApiHttpClient.post("front/mobile/village/api/addService", params, handler);
+    }
+
+    public static void getPerformanceTypeList(int currenPage,int pageSize,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("currenPage",currenPage);
+        params.put("pageSize", pageSize);
+        ApiHttpClient.post("front/mobile/performance/getTypeList", params, handler);
+    }
+
+
 }
