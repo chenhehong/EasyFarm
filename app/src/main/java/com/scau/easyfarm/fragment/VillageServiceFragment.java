@@ -199,17 +199,17 @@ public class VillageServiceFragment extends BaseListFragment<VillageService> imp
 
     private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        if (villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING){
-            items = new String[] {getResources().getString(R.string.delete) };
-            DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (i == 0) {
-                        handleDeleteVillageService(villageService);
-                    }
-                }
-            }).show();
-        }
+//        if (villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING){
+//            items = new String[] {getResources().getString(R.string.delete) };
+//            DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    if (i == 0) {
+//                        handleDeleteVillageService(villageService);
+//                    }
+//                }
+//            }).show();
+//        }
     }
 
 //  删除申请

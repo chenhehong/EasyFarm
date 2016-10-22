@@ -182,5 +182,6 @@
     <string name="performance_add">添加业绩</string>
     <string name="actionbar_performance_list">业绩列表</string>
     <string name="actionbar_choose_performance_type">选择业绩类型</string>
+    <string name="performance_detail">业绩详情</string>
 
 </resources>

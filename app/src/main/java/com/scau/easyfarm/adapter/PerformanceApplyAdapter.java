@@ -49,7 +49,7 @@ public class PerformanceApplyAdapter extends ListBaseAdapter<Performance>{
         vh.type.setText(performance.getPerformanceTypeStr());
         vh.applyDate.setText("申报时间："+performance.getApplyDate());
         vh.applyMan.setText("申报人："+performance.getApplyManName());
-        vh.status.setText("审核状态："+Performance.statusIntMap.get(performance.getStatus()));
+        vh.status.setText("审核状态："+performance.getStatusString());
         return convertView;
     }
 }

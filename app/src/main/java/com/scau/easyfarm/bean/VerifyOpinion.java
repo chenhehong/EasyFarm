@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by ChenHehong on 2016/9/2.
  */
-public class VillageServiceOpinion extends Entity{
+public class VerifyOpinion extends Entity{
 
     private String opinionPerson;
     private int seq;

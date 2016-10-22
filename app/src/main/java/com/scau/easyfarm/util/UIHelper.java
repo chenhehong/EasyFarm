@@ -24,6 +24,7 @@ import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.ExpertBaseDetail;
+import com.scau.easyfarm.bean.Performance;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
@@ -31,6 +32,7 @@ import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
 import com.scau.easyfarm.fragment.ExpertBaseDetailFragment;
 import com.scau.easyfarm.fragment.ExpertBaseListFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
+import com.scau.easyfarm.fragment.PerformanceDetailFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
@@ -543,8 +545,8 @@ public class UIHelper {
 
     public static void showPerformanceDetail(Context context, int performanceId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE, performanceId);
-        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_DETAIL, bundle);
+        bundle.putInt(PerformanceDetailFragment.PERFORMANCE_ID_CODE, performanceId);
+        showSimpleBack(context, SimpleBackPage.PERFORMANCE_DETAIL, bundle);
     }
 
     public static void choosePerformanceType(Fragment fragment,int requestCode){

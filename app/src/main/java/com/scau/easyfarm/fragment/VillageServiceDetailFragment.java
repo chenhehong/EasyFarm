@@ -11,10 +11,9 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
-import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceDetail;
-import com.scau.easyfarm.bean.VillageServiceOpinion;
+import com.scau.easyfarm.bean.VerifyOpinion;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.JsonUtils;
@@ -143,14 +142,14 @@ public class VillageServiceDetailFragment extends BaseFragment {
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(DateTimeUtil.dateTimeToDate(mVillageService.getBusinessDate())+"至"+DateTimeUtil.dateTimeToDate(mVillageService.getReturnDate()));
-        tvStatue.setText(VillageService.statusIntMap.get(mVillageService.getStatus()));
+        tvStatue.setText(mVillageService.getStatusString());
         String optionion = "";
-        if (mVillageService.getVillageServiceOpinions()!=null){
+        if (mVillageService.getVerifyOpinions()!=null){
             boolean flage = false;
-            for (int i=0;i<mVillageService.getVillageServiceOpinions().size();i++){
+            for (int i=0;i<mVillageService.getVerifyOpinions().size();i++){
                 if (flage) optionion+="\n\n";
                 else flage = true;
-                VillageServiceOpinion eachOpinion = mVillageService.getVillageServiceOpinions().get(i);
+                VerifyOpinion eachOpinion = mVillageService.getVerifyOpinions().get(i);
                 optionion += eachOpinion.getOpinionPerson()+":"+eachOpinion.getOpinion();
             }
         }

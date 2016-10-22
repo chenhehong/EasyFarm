@@ -15,6 +15,7 @@ import com.scau.easyfarm.fragment.ManualContentDetailFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.PerformanceAddFragment;
+import com.scau.easyfarm.fragment.PerformanceDetailFragment;
 import com.scau.easyfarm.fragment.PerformanceFunctionFragment;
 import com.scau.easyfarm.fragment.PerformanceTypeChooseFragment;
 import com.scau.easyfarm.fragment.ProofResourceDescriptionChooseFragment;
@@ -85,7 +86,8 @@ public enum SimpleBackPage {
     PERFORMANCE_ADD(35,R.string.performance_add, PerformanceAddFragment.class),
     CHOOSE_PERFORMANCE_TYPE(36, R.string.actionbar_choose_performance_type, PerformanceTypeChooseFragment.class),
     SERVICE_PERFORMANCE_FUNCTION(37,R.string.service_performance_function, PerformanceFunctionFragment.class),
-    PERFORMANCE_APPLY_LIST(38,R.string.actionbar_performance_list, PerformanceApplyViewPagerFragment.class);
+    PERFORMANCE_APPLY_LIST(38,R.string.actionbar_performance_list, PerformanceApplyViewPagerFragment.class),
+    PERFORMANCE_DETAIL(39,R.string.performance_detail, PerformanceDetailFragment.class);
 
     private int title;
     private Class<?> clz;

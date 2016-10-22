@@ -1,7 +1,10 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by chenhehong on 2016/10/21.
@@ -16,23 +19,41 @@ public class Performance extends Entity {
         { put(PERFORMANCE_WAITING,"待审核");  put(PERFORMANCE_PASS,"通过");  put(PERFORMANCE_REJECT,"不通过");;}
     };
     public final static int PERFORMANCE_ALL = 0;
-    public final static int PERFORMANCE_PASS = 7;
-    public final static int PERFORMANCE_REJECT = 8;
-    public final static int PERFORMANCE_WAITING = 9;
+    public final static int PERFORMANCE_PASS = 65;
+    public final static int PERFORMANCE_REJECT = 66;
+    public final static int PERFORMANCE_WAITING = 67;
 
+    public static final String[] myStatusStrArray = {"通过","不通过"};
+    public static final HashMap<String,Integer> myStatusStrMap = new HashMap<String,Integer>(){
+        { put("通过",MY_STATUS_PASS);  put("不通过",MY_STATUS_REJECT);}
+    };
+    public final static int MY_STATUS_PASS = 68;
+    public final static int MY_STATUS_REJECT = 69;
+
+    @JSONField(name = "serialCode")
     private String performanceCode;
     private String applyDate;
+    @JSONField(name = "personalID")
     private int applyManId;
+    @JSONField(name = "applyMan")
     private String applyManName;
-    private String applyManOrganization;
+    @JSONField(name = "applyType")
     private int performanceTypeId;
+    @JSONField(name = "applyTypeDesc")
     private String performanceTypeStr;
-    private String performanceStartDate;
-    private String performanceEndDate;
-    private Float WorkingHours;
-    private ArrayList<String> fileList = new ArrayList<String>();
+    @JSONField(name = "declareDate")
+    private String performanceServerDate;
+    @JSONField(name = "declareDateDesc")
+    private String performanceServerDateDesc;
     private int status;
-    private String verifyOption;
+    @JSONField(name = "waitAuditOrganizationDesc")
+    private String nextVerifyOrganization;
+    private float applyWorkTime;//申报的工作量
+    @JSONField(name = "attachmentList")
+    private ArrayList<FileResource> fileList = new ArrayList<>();
+    List<VerifyOpinion> verifyOpinions = new ArrayList<VerifyOpinion>();
+    @JSONField(name = "auditPersonalWorkingHourList")
+    List<PerformanceMemberWorkTime> performanceMemberWorkTimeList = new ArrayList<PerformanceMemberWorkTime>();
 
     public String getPerformanceCode() {
         return performanceCode;
@@ -66,14 +87,6 @@ public class Performance extends Entity {
         this.applyManName = applyManName;
     }
 
-    public String getApplyManOrganization() {
-        return applyManOrganization;
-    }
-
-    public void setApplyManOrganization(String applyManOrganization) {
-        this.applyManOrganization = applyManOrganization;
-    }
-
     public int getPerformanceTypeId() {
         return performanceTypeId;
     }
@@ -90,28 +103,12 @@ public class Performance extends Entity {
         this.performanceTypeStr = performanceTypeStr;
     }
 
-    public String getPerformanceStartDate() {
-        return performanceStartDate;
+    public String getPerformanceServerDate() {
+        return performanceServerDate;
     }
 
-    public void setPerformanceStartDate(String performanceStartDate) {
-        this.performanceStartDate = performanceStartDate;
-    }
-
-    public String getPerformanceEndDate() {
-        return performanceEndDate;
-    }
-
-    public void setPerformanceEndDate(String performanceEndDate) {
-        this.performanceEndDate = performanceEndDate;
-    }
-
-    public Float getWorkingHours() {
-        return WorkingHours;
-    }
-
-    public void setWorkingHours(Float workingHours) {
-        WorkingHours = workingHours;
+    public void setPerformanceServerDate(String performanceServerDate) {
+        this.performanceServerDate = performanceServerDate;
     }
 
     public int getStatus() {
@@ -122,19 +119,58 @@ public class Performance extends Entity {
         this.status = status;
     }
 
-    public String getVerifyOption() {
-        return verifyOption;
+    public List<PerformanceMemberWorkTime> getPerformanceMemberWorkTimeList() {
+        return performanceMemberWorkTimeList;
     }
 
-    public void setVerifyOption(String verifyOption) {
-        this.verifyOption = verifyOption;
+    public void setPerformanceMemberWorkTimeList(List<PerformanceMemberWorkTime> performanceMemberWorkTimeList) {
+        this.performanceMemberWorkTimeList = performanceMemberWorkTimeList;
     }
 
-    public ArrayList<String> getFileList() {
+    public float getApplyWorkTime() {
+        return applyWorkTime;
+    }
+
+    public void setApplyWorkTime(float applyWorkTime) {
+        this.applyWorkTime = applyWorkTime;
+    }
+
+    public String getNextVerifyOrganization() {
+        return nextVerifyOrganization;
+    }
+
+    public void setNextVerifyOrganization(String nextVerifyOrganization) {
+        this.nextVerifyOrganization = nextVerifyOrganization;
+    }
+
+    public List<VerifyOpinion> getVerifyOpinions() {
+        return verifyOpinions;
+    }
+
+    public void setVerifyOpinions(List<VerifyOpinion> verifyOpinions) {
+        this.verifyOpinions = verifyOpinions;
+    }
+
+    public String getPerformanceServerDateDesc() {
+        return performanceServerDateDesc;
+    }
+
+    public void setPerformanceServerDateDesc(String performanceServerDateDesc) {
+        this.performanceServerDateDesc = performanceServerDateDesc;
+    }
+
+    public String getStatusString(){
+        if (status==PERFORMANCE_WAITING){
+            return "等待"+nextVerifyOrganization+"审核";
+        }
+        return statusIntMap.get(status);
+    }
+
+    public ArrayList<FileResource> getFileList() {
         return fileList;
     }
 
-    public void setFileList(ArrayList<String> fileList) {
+    public void setFileList(ArrayList<FileResource> fileList) {
         this.fileList = fileList;
     }
 }

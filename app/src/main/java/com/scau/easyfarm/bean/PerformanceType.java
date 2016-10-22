@@ -7,20 +7,9 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 public class PerformanceType extends Entity {
 
-    private int id;
-
-    @JSONField(name = "text")
+    @JSONField(name = "description")
     private String name = "";
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
+    private String unit = "";
 
     public String getName() {
         return name;
@@ -28,5 +17,13 @@ public class PerformanceType extends Entity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

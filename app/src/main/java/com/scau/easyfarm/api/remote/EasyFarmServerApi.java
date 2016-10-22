@@ -8,6 +8,7 @@ import com.loopj.android.http.RequestParams;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
+import com.scau.easyfarm.bean.Performance;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageProofResource;
@@ -481,10 +482,25 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/deleteServiceById", params, handler);
     }
 
-    public static void addPerformanceApply(AsyncHttpResponseHandler handler){
+    public static void addPerformanceApply(AsyncHttpResponseHandler handler,Performance performance){
         RequestParams params = new RequestParams();
         params.put("uid",AppContext.getInstance().getLoginUid());
-        ApiHttpClient.post("front/mobile/village/api/addService", params, handler);
+        params.put("saveFlag",1);
+        params.put("declareDate",performance.getPerformanceServerDate());
+        params.put("applyType",performance.getPerformanceTypeId());
+        params.put("unittimes",performance.getApplyWorkTime());
+        File[] files = new File[performance.getFileList().size()];
+        if (performance.getFileList()!=null&&performance.getFileList().size()>0) {
+            for (int i=0;i<performance.getFileList().size();i++){
+                files[i] = new File(performance.getFileList().get(i).getPath());
+            }
+        }
+        try {
+            params.put("file",files);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ApiHttpClient.post("front/mobile/performance/addApplyPerformance", params, handler);
     }
 
     public static void getPerformanceTypeList(int currenPage,int pageSize,AsyncHttpResponseHandler handler){
@@ -494,5 +510,10 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/performance/getTypeList", params, handler);
     }
 
+    public static void getPerformanceDetail(int id,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("id",id);
+        ApiHttpClient.post("front/mobile/performance/auditPage", params, handler);
+    }
 
 }

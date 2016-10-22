@@ -19,26 +19,27 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
-import com.scau.easyfarm.bean.Entity;
+import com.scau.easyfarm.bean.FileResource;
+import com.scau.easyfarm.bean.Performance;
 import com.scau.easyfarm.bean.ResultBean;
-import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.ImageUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.SimpleTextWatcher;
+import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -58,10 +59,14 @@ public class PerformanceAddFragment extends BaseFragment{
     EditText etApplyMan;
     @InjectView(R.id.et_type)
     EditText etType;
-    @InjectView(R.id.et_start_date)
-    EditText etStartDate;
-    @InjectView(R.id.et_end_date)
-    EditText etEndDate;
+    @InjectView(R.id.et_server_date)
+    EditText etServerDate;
+    @InjectView(R.id.lay_worktime)
+    View layWorkTime;
+    @InjectView(R.id.et_apply_worktime)
+    EditText etApplyWorkTime;
+    @InjectView(R.id.tv_worktime_unit)
+    TextView workTimeUnit;
     @InjectView(R.id.btn_submit)
     Button btnSubmit;
 
@@ -172,29 +177,7 @@ public class PerformanceAddFragment extends BaseFragment{
         btnAddFile.setOnClickListener(this);
         btnSelectType.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
-        etStartDate.setOnClickListener(this);
-        etEndDate.setOnClickListener(this);
-        etType.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
-        etStartDate.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
-        etEndDate.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
+        etServerDate.setOnClickListener(this);
         mlyImageList = new ArrayList<View>(){{add(mlyImage1);add(mlyImage2);add(mlyImage3);add(mlyImage4);;add(mlyImage5);add(mlyImage6);add(mlyImage7);;add(mlyImage8);add(mlyImage9);}} ;
         mIvImageList = new ArrayList<ImageView>(){{add(mIvImage1);add(mIvImage2);add(mIvImage3);add(mIvImage4);add(mIvImage5);add(mIvImage6);add(mIvImage7);add(mIvImage8);add(mIvImage9);}};
         mIvClearImageList = new ArrayList<ImageView>(){{add(mIvClearImage1);add(mIvClearImage2);add(mIvClearImage3);add(mIvClearImage4);add(mIvClearImage5);add(mIvClearImage6);add(mIvClearImage7);add(mIvClearImage8);add(mIvClearImage9);}};
@@ -233,27 +216,6 @@ public class PerformanceAddFragment extends BaseFragment{
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.submit_menu,menu);
-        mSendMenu = menu.findItem(R.id.public_menu_send);
-        updateMenuState();
-    }
-
-    public void updateMenuState() {
-        if (mSendMenu == null) {
-            return;
-        }
-        if (etType.getText().length() > 0&&etStartDate.getText().length()>0&&etEndDate.getText().length()>0) {
-            mSendMenu.setEnabled(true);
-            mSendMenu.setIcon(R.drawable.actionbar_send_icon);
-        } else {
-            mSendMenu.setEnabled(false);
-            mSendMenu.setIcon(R.drawable.actionbar_unsend_icon);
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.public_menu_send:
@@ -278,20 +240,34 @@ public class PerformanceAddFragment extends BaseFragment{
             AppContext.showToast("请选择业绩类型");
             return;
         }
-        if (etStartDate.getText().toString().length()==0||etStartDate.getText().toString()==null){
-            AppContext.showToast("请选择开始时间");
+        if (etServerDate.getText().toString().length()==0|| etServerDate.getText().toString()==null){
+            AppContext.showToast("请选择服务时间");
             return;
         }
-        if (etEndDate.getText().toString().length()==0||etEndDate.getText().toString()==null){
-            AppContext.showToast("请选择结束时间");
+        if (etApplyWorkTime.getText().toString().length()==0||etApplyWorkTime.getText().toString()==null){
+            AppContext.showToast("请填写申报的工作量");
             return;
         }
-        if (etStartDate.getText().toString().compareTo(etEndDate.getText().toString())>0){
-            AppContext.showToast("返回时间不能大于服务时间");
+        if (!StringUtils.isDouble(etApplyWorkTime.getText().toString())&&!StringUtils.isInteger(etApplyWorkTime.getText().toString())){
+            AppContext.showToast("申报的工作量格式填写错误");
             return;
         }
+        Performance performance = new Performance();
+        if (imagePathList!=null&&imagePathList.size()>0){
+            ArrayList<FileResource> fileResourceArrayList = new ArrayList<FileResource>();
+            for (int i=0;i<imagePathList.size();i++){
+                FileResource fileResource = new FileResource();
+                fileResource.setPath(imagePathList.get(i));
+                fileResourceArrayList.add(fileResource);
+            }
+            performance.setFileList(fileResourceArrayList);
+        }
+        performance.setApplyWorkTime(Float.valueOf(etApplyWorkTime.getText().toString()));
+        performance.setPerformanceServerDate(etServerDate.getText().toString());
+        performance.setPerformanceTypeId(performanceTypeId);
+        performance.setPerformanceTypeStr(performanceTypeStr);
         showWaitDialog("发送申请中，请稍后");
-        EasyFarmServerApi.addPerformanceApply(mHandler);
+        EasyFarmServerApi.addPerformanceApply(mHandler,performance);
     }
 
     @Override
@@ -299,10 +275,8 @@ public class PerformanceAddFragment extends BaseFragment{
         final int id = v.getId();
         if (id==R.id.btn_select_type){
             handleSelectType();
-        }else if (id==R.id.et_start_date){
+        }else if (id==R.id.et_server_date){
             handleSelectStartDate();
-        }else if (id==R.id.et_end_date){
-            handleSelectEndDate();
         }else if (id==R.id.btn_add_file){
             handleAddFiles();
         }else if(id==R.id.btn_submit){
@@ -344,7 +318,7 @@ public class PerformanceAddFragment extends BaseFragment{
         cal.setTimeInMillis(System.currentTimeMillis());
         datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), null);
         datePickBuilder.setView(dateAlertView);
-        datePickBuilder.setTitle("选取开始时间");
+        datePickBuilder.setTitle("选取服务时间");
         datePickBuilder.setPositiveButton("确  定", new DialogInterface.OnClickListener() {
 
             @Override
@@ -355,35 +329,7 @@ public class PerformanceAddFragment extends BaseFragment{
                         datePicker.getYear(),
                         datePicker.getMonth() + 1,
                         datePicker.getDayOfMonth()));
-                etStartDate.setText(sb);
-                etEndDate.requestFocus();
-                dialog.dismiss();
-            }
-        });
-        Dialog dialog = datePickBuilder.create();
-        dialog.show();
-    }
-
-    private void handleSelectEndDate(){
-        datePickBuilder = new AlertDialog.Builder(getActivity());
-        View dateAlertView = View.inflate(getActivity(),R.layout.date_time_dialog,null);
-        datePicker = (DatePicker)dateAlertView.findViewById(R.id.date_picker);
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
-        datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), null);
-        datePickBuilder.setView(dateAlertView);
-        datePickBuilder.setTitle("选取结束时间");
-        datePickBuilder.setPositiveButton("确  定", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                StringBuffer sb = new StringBuffer();
-                sb.append(String.format("%d-%02d-%02d",
-                        datePicker.getYear(),
-                        datePicker.getMonth() + 1,
-                        datePicker.getDayOfMonth()));
-                etEndDate.setText(sb);
+                etServerDate.setText(sb);
                 dialog.dismiss();
             }
         });
@@ -400,6 +346,8 @@ public class PerformanceAddFragment extends BaseFragment{
             performanceTypeStr = returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_STR);
             performanceTypeId = returnIntent.getIntExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_ID, 0);
             etType.setText(performanceTypeStr);
+            layWorkTime.setVisibility(View.VISIBLE);
+            workTimeUnit.setText(returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_WORKUNIT));
         }else if (requestCode==ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE){
             imagePathList =  returnIntent.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
             new Thread() {

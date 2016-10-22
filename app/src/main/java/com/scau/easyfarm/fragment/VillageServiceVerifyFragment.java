@@ -177,7 +177,7 @@ public class VillageServiceVerifyFragment extends BaseFragment {
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         tvReason.setText(mVillageService.getBusinessReason());
         tvServiceDate.setText(mVillageService.getBusinessDate()+"至"+mVillageService.getReturnDate());
-        tvStatus.setText(VillageService.statusIntMap.get(mVillageService.getStatus()));
+        tvStatus.setText(mVillageService.getStatusString());
         myStatusSpinner.setSelection(0);
     }
 

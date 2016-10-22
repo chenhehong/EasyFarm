@@ -34,7 +34,7 @@
                     android:text="业绩类型："/>
                 <EditText
                     android:id="@+id/et_type"
-                    android:lines="2"
+                    android:lines="4"
                     style="@style/village_service_add_edittext"
                     android:enabled="false"/>
                 <Button
@@ -45,23 +45,30 @@
                     android:textColor="@android:color/black"
                     android:src="@drawable/btn_quickoption_selector" />
             </LinearLayout>
+
             <LinearLayout
-                style="@style/village_service_add_layout">
+                android:id="@+id/lay_worktime"
+                style="@style/village_service_add_layout"
+                android:visibility="gone">
                 <TextView
                     style="@style/village_service_add_left_textview"
-                    android:text="开始时间："/>
+                    android:text="工作量："/>
                 <EditText
-                    android:id="@+id/et_start_date"
-                    android:editable="false"
+                    android:id="@+id/et_apply_worktime"
                     style="@style/village_service_add_edittext"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="天"
+                    android:id="@+id/tv_worktime_unit"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/village_service_add_layout">
                 <TextView
                     style="@style/village_service_add_left_textview"
-                    android:text="结束时间："/>
+                    android:text="服务时间："/>
                 <EditText
-                    android:id="@+id/et_end_date"
+                    android:id="@+id/et_server_date"
                     android:editable="false"
                     style="@style/village_service_add_edittext"/>
             </LinearLayout>

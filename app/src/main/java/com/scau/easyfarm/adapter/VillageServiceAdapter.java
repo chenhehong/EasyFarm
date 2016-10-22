@@ -53,7 +53,7 @@ public class VillageServiceAdapter extends ListBaseAdapter<VillageService>{
         vh.address.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
         vh.applyTime.setText("申请时间："+villageService.getApplyDate());
         vh.applyMan.setText("申请人："+villageService.getApplyManName());
-        vh.status.setText("申请状态："+VillageService.statusIntMap.get(villageService.getStatus()));
+        vh.status.setText("申请状态："+villageService.getStatusString());
         return convertView;
     }
 }

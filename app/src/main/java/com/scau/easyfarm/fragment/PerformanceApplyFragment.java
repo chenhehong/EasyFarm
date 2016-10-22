@@ -168,63 +168,6 @@ public class PerformanceApplyFragment extends BaseListFragment<Performance> impl
     }
 
     private void handleLongClick(final Performance performance) {
-        String[] items = null;
-        if (performance.getStatus()==Performance.PERFORMANCE_WAITING){
-            items = new String[] {getResources().getString(R.string.delete) };
-            DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (i == 0) {
-                        handleDeletePerformance(performance);
-                    }
-                }
-            }).show();
-        }
+
     }
-
-//  删除申请
-    private void handleDeletePerformance(final Performance performance) {
-        DialogHelp.getConfirmDialog(getActivity(), "是否删除该申请?", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                showWaitDialog("删除中...");
-                EasyFarmServerApi.deletePerformance(performance.getId(), new DeleteResponseHandler(performance));
-            }
-        }).show();
-    }
-
-//  问答删除句柄
-    class DeleteResponseHandler extends OperationResponseHandler {
-
-        DeleteResponseHandler(Object... args) {
-            super(args);
-        }
-
-        @Override
-        public void onSuccess(int code, ByteArrayInputStream is, Object[] args)
-                throws Exception {
-            try {
-                Result res = JsonUtils.toBean(ResultBean.class, is).getResult();
-//              更新列表
-                if (res != null && res.OK()) {
-                    hideWaitDialog();
-                    AppContext.showToastShort(R.string.delete_success);
-                    Performance performance = (Performance) args[0];
-                    mAdapter.removeItem(performance);
-                    mAdapter.notifyDataSetChanged();
-                } else {
-                    onFailure(code, res.getErrorMessage(), args);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                onFailure(code, e.getMessage(), args);
-            }
-        }
-
-        @Override
-        public void onFailure(int code, String errorMessage, Object[] args) {
-            AppContext.showToastShort(R.string.delete_faile+errorMessage);
-        }
-    }
-
 }

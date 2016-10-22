@@ -12,12 +12,12 @@ import java.util.List;
  */
 public class VillageService extends Entity {
 
-    public static final String[] statusStrArray = {"等待下一轮审核","通过","不通过"};
+    public static final String[] statusStrArray = {"待审核","通过","不通过"};
     public static final HashMap<String,Integer> statusStrMap = new HashMap<String,Integer>(){
-        { put("等待下一轮审核",VILLAGE_SERVICE_WAITING);  put("通过",VILLAGE_SERVICE_PASS);  put("不通过",VILLAGE_SERVICE_REJECT);put("已结束",VILLAGE_SERVICE_COMPLETED);}
+        { put("待审核",VILLAGE_SERVICE_WAITING);  put("通过",VILLAGE_SERVICE_PASS);  put("不通过",VILLAGE_SERVICE_REJECT);put("已结束",VILLAGE_SERVICE_COMPLETED);}
     };
     public static final HashMap<Integer,String> statusIntMap = new HashMap<Integer,String>(){
-        { put(VILLAGE_SERVICE_WAITING,"等待下一轮审核");  put(VILLAGE_SERVICE_PASS,"通过");  put(VILLAGE_SERVICE_REJECT,"不通过");put(VILLAGE_SERVICE_COMPLETED,"已结束");}
+        { put(VILLAGE_SERVICE_WAITING,"待审核");  put(VILLAGE_SERVICE_PASS,"通过");  put(VILLAGE_SERVICE_REJECT,"不通过");put(VILLAGE_SERVICE_COMPLETED,"已结束");}
     };
     public final static int VILLAGE_SERVICE_ALL = 0;
     public final static int VILLAGE_SERVICE_PASS = 7;
@@ -53,11 +53,13 @@ public class VillageService extends Entity {
     private String returnDate;
     private String businessReason;
     private int status;
+    @JSONField(name = "waitAuditOrganizationDesc")
+    private  String nextVerifyOrganization;
     private int serverType;//服务类型
     @JSONField(name = "serialCode")
     private String serverNumber="";//服务单号
     @JSONField(name = "villageServiceOpinionList")
-    List<VillageServiceOpinion> villageServiceOpinions = new ArrayList<VillageServiceOpinion>();
+    List<VerifyOpinion> verifyOpinions = new ArrayList<VerifyOpinion>();
     @JSONField(name = "villagePersonList")
     List<User> villageServicePerson = new ArrayList<User>();
     @JSONField(name = "villageLeaderList")
@@ -135,12 +137,12 @@ public class VillageService extends Entity {
         this.status = status;
     }
 
-    public List<VillageServiceOpinion> getVillageServiceOpinions() {
-        return villageServiceOpinions;
+    public List<VerifyOpinion> getVerifyOpinions() {
+        return verifyOpinions;
     }
 
-    public void setVillageServiceOpinions(List<VillageServiceOpinion> villageServiceOpinions) {
-        this.villageServiceOpinions = villageServiceOpinions;
+    public void setVerifyOpinions(List<VerifyOpinion> verifyOpinions) {
+        this.verifyOpinions = verifyOpinions;
     }
 
     public List<User> getVillageServicePerson() {
@@ -181,5 +183,20 @@ public class VillageService extends Entity {
 
     public void setIsLeader(boolean isLeader) {
         this.isLeader = isLeader;
+    }
+
+    public String getNextVerifyOrganization() {
+        return nextVerifyOrganization;
+    }
+
+    public void setNextVerifyOrganization(String nextVerifyOrganization) {
+        this.nextVerifyOrganization = nextVerifyOrganization;
+    }
+
+    public String getStatusString(){
+        if (status==VILLAGE_SERVICE_WAITING){
+            return "等待"+nextVerifyOrganization+"审核";
+        }
+        return statusIntMap.get(status);
     }
 }

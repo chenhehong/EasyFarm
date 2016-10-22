@@ -33,6 +33,7 @@ public class PerformanceTypeChooseFragment extends BaseFragment implements Adapt
     public static final int REQUEST_CODE_PERFORMANCETYPE_SELECT = 112;
     public static final String BUNDLE_SELECT_TYPE_STR = "bundle_select_type_str";
     public static final String BUNDLE_SELECT_TYPE_ID = "bundle_select_type_id";
+    public static final String BUNDLE_SELECT_WORKUNIT = "bundle_select_workunit";
 
     private static EmptyLayout mEmptyView;
     private PerformanceTypeListAdapter performanceTypeAdapter;
@@ -81,6 +82,13 @@ public class PerformanceTypeChooseFragment extends BaseFragment implements Adapt
             performanceTypeAdapter = new PerformanceTypeListAdapter();
         }
         mListView.setAdapter(performanceTypeAdapter);
+
+        mEmptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendRequestExpertData();
+            }
+        });
     }
 
     @Override
@@ -139,6 +147,7 @@ public class PerformanceTypeChooseFragment extends BaseFragment implements Adapt
             Intent result = new Intent();
             result.putExtra(BUNDLE_SELECT_TYPE_STR, selectedReason.getName());
             result.putExtra(BUNDLE_SELECT_TYPE_ID,selectedReason.getId());
+            result.putExtra(BUNDLE_SELECT_WORKUNIT,selectedReason.getUnit());
             getActivity().setResult(getActivity().RESULT_OK, result);
             getActivity().finish();
         }
