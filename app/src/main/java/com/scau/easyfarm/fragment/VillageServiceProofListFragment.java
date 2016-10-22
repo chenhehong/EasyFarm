@@ -51,8 +51,6 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
-
-        requestData(true);
     }
 
     @Override

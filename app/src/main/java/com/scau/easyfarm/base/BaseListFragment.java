@@ -89,6 +89,8 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.inject(this, view);
         initView(view);
+//      进入就刷新数据
+        requestData(true);
     }
 
     @Override

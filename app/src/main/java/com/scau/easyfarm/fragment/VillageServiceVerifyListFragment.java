@@ -50,8 +50,6 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
                 Constants.INTENT_ACTION_USER_CHANGE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         getActivity().registerReceiver(mReceiver, filter);
-//      刷新数据
-        requestData(true);
     }
 
     @Override
