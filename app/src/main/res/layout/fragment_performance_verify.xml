@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="?attr/windows_bg"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="申请人："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_applyman"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="业绩单号："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_serverNumber"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="业绩类型："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_type"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="业绩服务时间："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_server_date"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    android:id="@+id/tv_file"
+                    style="@style/detail_list_left_textview"
+                    android:text="佐证材料："/>
+                <GridLayout
+                    android:id="@+id/layout_grid"
+                    android:rowCount="3"
+                    android:columnCount="3"
+                    android:layout_toRightOf="@id/tv_file"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="审核状态："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_statue"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="审核意见："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_optionion"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="申报工作量："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_apply_worktime"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    android:id="@+id/tv_worktime"
+                    style="@style/detail_list_left_textview"
+                    android:layout_centerVertical="true"
+                    android:text="工作量核算："/>
+                <ListView
+                    android:id="@+id/lv_user_worktime"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_toRightOf="@id/tv_worktime"
+                    android:cacheColorHint="#ffffffff"
+                    android:descendantFocusability="afterDescendants"
+                    android:divider="?attr/lineColor"
+                    android:dividerHeight="1.0px"
+                    android:listSelector="@android:color/transparent" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <LinearLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="我的审核："/>
+                <Spinner
+                    android:id="@+id/sp_my_status"
+                    style="@style/spinner_style"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="我的意见："/>
+                <EditText
+                    android:id="@+id/et_my_optinion"
+                    android:lines="3"
+                    style="@style/village_service_add_edittext"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.scau.easyfarm.ui.empty.EmptyLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</FrameLayout>

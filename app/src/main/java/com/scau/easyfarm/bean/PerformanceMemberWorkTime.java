@@ -32,4 +32,5 @@ public class PerformanceMemberWorkTime extends Entity{
     public void setRealWorkTime(float realWorkTime) {
         this.realWorkTime = realWorkTime;
     }
+
 }

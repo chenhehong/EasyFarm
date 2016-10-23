@@ -184,4 +184,6 @@
     <string name="actionbar_choose_performance_type">选择业绩类型</string>
     <string name="performance_detail">业绩详情</string>
 
+    <string name="performance_verify">业绩申报审批</string>
+
 </resources>

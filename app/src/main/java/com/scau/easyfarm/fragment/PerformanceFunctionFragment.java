@@ -69,7 +69,7 @@ public class PerformanceFunctionFragment extends BaseFragment{
     }
 
     private void showPerformanceVerify(){
-        UIHelper.showManualCategory(this, 0, ManualCategory.VARIETY);
+        UIHelper.showSimpleBack(getActivity(),SimpleBackPage.PERFORMANCE_VERIFY_VIEWPAGER);
     }
 
 }

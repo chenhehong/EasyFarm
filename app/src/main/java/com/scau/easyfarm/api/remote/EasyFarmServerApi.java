@@ -516,4 +516,25 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/performance/auditPage", params, handler);
     }
 
+    public static void getVerifyPerformanceList(int categoryId, int page, int status,
+                                            AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("status",status);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        params.put("uid",AppContext.getInstance().getLoginUid());
+        ApiHttpClient.get("front/mobile/performance/getAuditListDataGrid", params, handler);
+    }
+
+    public static void verifyPerformance(int performanceId, int status,String optinion,String userWorkTime,
+                                            AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("auditFlag",status);
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("applyPerformanceID", performanceId);
+        params.put("auditPersonalWorkingHour",userWorkTime);
+        params.put("opinion",optinion);
+        ApiHttpClient.get("front/mobile/village/api/audit", params, handler);
+    }
+
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_gray"
+    android:paddingBottom="@dimen/space_10"
+    android:paddingTop="@dimen/space_10">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:textColor="?attr/textColor"
+        android:text="姓名"
+        android:textSize="16sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true">
+        <TextView
+            android:id="@+id/tv_worktime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工作时："
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_worktime"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext"/>
+    </LinearLayout>
+
+</RelativeLayout>

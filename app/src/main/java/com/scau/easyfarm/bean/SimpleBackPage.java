@@ -11,13 +11,13 @@ import com.scau.easyfarm.fragment.ExpertBaseDetailFragment;
 import com.scau.easyfarm.fragment.ExpertBaseListFragment;
 import com.scau.easyfarm.fragment.FeedBackFragment;
 import com.scau.easyfarm.fragment.FindUserFragment;
-import com.scau.easyfarm.fragment.ManualContentDetailFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.PerformanceAddFragment;
 import com.scau.easyfarm.fragment.PerformanceDetailFragment;
 import com.scau.easyfarm.fragment.PerformanceFunctionFragment;
 import com.scau.easyfarm.fragment.PerformanceTypeChooseFragment;
+import com.scau.easyfarm.fragment.PerformanceVerifyFragment;
 import com.scau.easyfarm.fragment.ProofResourceDescriptionChooseFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
@@ -32,14 +32,14 @@ import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.UserCenterFragment;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofChooseFragment;
-import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourPubFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
 import com.scau.easyfarm.fragment.VillageServiceReasonChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.PerformanceApplyViewPagerFragment;
-import com.scau.easyfarm.viewpagerfragment.VillageServiceAllViewPagerFragment;
+import com.scau.easyfarm.viewpagerfragment.PerformanceVerifyViewPagerFragment;
+import com.scau.easyfarm.viewpagerfragment.VillageServiceVerifyViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceApplyViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceProofViewPagerFragment;
 
@@ -68,7 +68,7 @@ public enum SimpleBackPage {
     MANUAL_LIST(17,R.string.manuallist_actionbar_title, ManualListFragment.class),
 //    MANUAL_DETAIL(18,R.string.manualdetail_actionbar_title, ManualContentDetailFragment.class),
     VILLAGE_FUNCTION(19,R.string.village_function, VillageFunctionFragment.class),
-    VILLAGE_SERVICE_VERIFY_VIEWPAGER(20, R.string.village_service_verify, VillageServiceAllViewPagerFragment.class),
+    VILLAGE_SERVICE_VERIFY_VIEWPAGER(20, R.string.village_service_verify, VillageServiceVerifyViewPagerFragment.class),
     VILLAGE_SERVICE_VERIFY(21, R.string.village_service_verify, VillageServiceVerifyFragment.class),
     VILLAGE_SERVICE_PROOF(22, R.string.village_service_proof_list, VillageServiceProofViewPagerFragment.class),
     VILLAGE_SERVICE_PROOF_RESOURCE(23, R.string.village_service_proof_resource, VillageServiceProofResourceFragment.class),
@@ -87,7 +87,9 @@ public enum SimpleBackPage {
     CHOOSE_PERFORMANCE_TYPE(36, R.string.actionbar_choose_performance_type, PerformanceTypeChooseFragment.class),
     SERVICE_PERFORMANCE_FUNCTION(37,R.string.service_performance_function, PerformanceFunctionFragment.class),
     PERFORMANCE_APPLY_LIST(38,R.string.actionbar_performance_list, PerformanceApplyViewPagerFragment.class),
-    PERFORMANCE_DETAIL(39,R.string.performance_detail, PerformanceDetailFragment.class);
+    PERFORMANCE_DETAIL(39,R.string.performance_detail, PerformanceDetailFragment.class),
+    PERFORMANCE_VERIFY(40, R.string.performance_verify, PerformanceVerifyFragment.class),
+    PERFORMANCE_VERIFY_VIEWPAGER(41, R.string.performance_verify, PerformanceVerifyViewPagerFragment.class);
 
     private int title;
     private Class<?> clz;

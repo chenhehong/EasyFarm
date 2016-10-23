@@ -252,6 +252,10 @@ public class PerformanceAddFragment extends BaseFragment{
             AppContext.showToast("申报的工作量格式填写错误");
             return;
         }
+        if (Float.valueOf(etApplyWorkTime.getText().toString())<0){
+            AppContext.showToast("申报的工作量不能小于0");
+            return;
+        }
         Performance performance = new Performance();
         if (imagePathList!=null&&imagePathList.size()>0){
             ArrayList<FileResource> fileResourceArrayList = new ArrayList<FileResource>();

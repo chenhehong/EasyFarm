@@ -23,8 +23,6 @@ import android.widget.ZoomButtonsController;
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.base.BaseListFragment;
-import com.scau.easyfarm.bean.ExpertBaseDetail;
-import com.scau.easyfarm.bean.Performance;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
@@ -33,12 +31,13 @@ import com.scau.easyfarm.fragment.ExpertBaseDetailFragment;
 import com.scau.easyfarm.fragment.ExpertBaseListFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.PerformanceDetailFragment;
+import com.scau.easyfarm.fragment.PerformanceVerifyFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
-import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
+import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.interf.OnWebViewImageListener;
 import com.scau.easyfarm.service.DownloadService;
@@ -341,7 +340,7 @@ public class UIHelper {
 
     public static void showVillageServiceVerify(Fragment fragment,int requestCode,int villageServiceId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(VillageServiceDetailFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
+        bundle.putInt(VillageServiceVerifyFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.VILLAGE_SERVICE_VERIFY, bundle);
     }
 
@@ -551,6 +550,12 @@ public class UIHelper {
 
     public static void choosePerformanceType(Fragment fragment,int requestCode){
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_PERFORMANCE_TYPE);
+    }
+
+    public static void showPerformanceVerify(Fragment fragment,int requestCode,int performanceId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(PerformanceVerifyFragment.PERFORMANCE_ID_CODE,performanceId);
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.PERFORMANCE_VERIFY, bundle);
     }
 
 }

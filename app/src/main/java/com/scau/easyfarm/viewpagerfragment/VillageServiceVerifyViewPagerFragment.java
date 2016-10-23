@@ -12,7 +12,7 @@ import com.scau.easyfarm.fragment.VillageServiceVerifyListFragment;
 /**
  * Created by ChenHehong on 2016/6/11.
  */
-public class VillageServiceAllViewPagerFragment extends BaseViewPagerFragment{
+public class VillageServiceVerifyViewPagerFragment extends BaseViewPagerFragment{
 
 
     @Override
