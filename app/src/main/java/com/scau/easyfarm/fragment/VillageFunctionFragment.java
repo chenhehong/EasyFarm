@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
+import com.scau.easyfarm.bean.Module;
 import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.UIHelper;
 
 import butterknife.ButterKnife;
@@ -18,81 +20,31 @@ import butterknife.InjectView;
 /**
  * Created by ChenHehong on 2016/6/11.
  */
-public class VillageFunctionFragment extends BaseFragment{
-
-    @InjectView(R.id.ImgVillageServiceApply)
-    ImageView imgVillageServiceApply;
-    @InjectView(R.id.ImgVillageServiceProof)
-    ImageView imgVillageServiceProof;
-    @InjectView(R.id.ImgVilageServiceVerify)
-    ImageView imgVilageServiceVerify;
-    @InjectView(R.id.ImgVilageServiceStatistic)
-    ImageView imgVilageServiceStatistic;
-    @InjectView(R.id.lyVilageServiceVerify)
-    View lyVilageServiceVerify;
+public class VillageFunctionFragment extends BaseFunctionFragment{
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_village_function, container, false);
-        ButterKnife.inject(this, view);
-        initView(view);
-        return view;
-    }
-
-    @Override
-    public void initView(View view) {
-        imgVillageServiceApply.setOnClickListener(this);
-        imgVillageServiceProof.setOnClickListener(this);
-        imgVilageServiceVerify.setOnClickListener(this);
-        imgVilageServiceStatistic.setOnClickListener(this);
-        setIconVisual();
-    }
-
-    public void setIconVisual(){
-        if ( !AppContext.getInstance().getLoginUser().isCanAuditServer()){
-            lyVilageServiceVerify.setVisibility(View.GONE);
+    public void initModuleList() {
+        User u = AppContext.getInstance().getLoginUser();
+        if (Module.existModule(u.getModuleList(), Module.MODULE_SERVICE_APPLY)){
+            Module serviceApply = new Module(SimpleBackPage.VILLAGE_SERVICE_APPLY,"服务申请",R.drawable.func_village_service_apply_icon,null);
+            moduleList.add(serviceApply);
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        final int id = v.getId();
-        switch (id) {
-            case R.id.ImgVillageServiceApply:
-                showVillageServiceApply();
-                break;
-            case R.id.ImgVillageServiceProof:
-                showVillageServiceProofList();
-                break;
-            case R.id.ImgVilageServiceVerify:
-                showgVilageServiceVerify();
-                break;
-            case R.id.ImgVilageServiceStatistic:
-                showgVilageServiceStatistic();
-                break;
-            default:
-                break;
+        if (Module.existModule(u.getModuleList(), Module.MODULE_SERVICE_PROOF)){
+            Module serviceProof = new Module(SimpleBackPage.VILLAGE_SERVICE_PROOF,"上传佐证",R.drawable.func_village_service_proof_icon,null);
+            moduleList.add(serviceProof);
         }
-    }
-
-    private void showVillageServiceApply(){
-        UIHelper.showVillageServiceApply(getActivity());
-    }
-
-    private void showVillageServiceProofList(){
-        UIHelper.showVillageServicProofList(getActivity());
-    }
-
-    private void showgVilageServiceVerify(){
-        if ( !AppContext.getInstance().getLoginUser().isCanAuditServer()){
-            AppContext.showToast("当前用户没有审核服务申请的权限！");
-            return;
+        if (Module.existModule(u.getModuleList(), Module.MODULE_SERVICE_VERIFY)){
+            Module serviceVerify = new Module(SimpleBackPage.VILLAGE_SERVICE_VERIFY_VIEWPAGER,"服务审批",R.drawable.func_village_service_performance_icon,null);
+            moduleList.add(serviceVerify);
         }
-        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_VERIFY_VIEWPAGER);
-    }
-
-    private void showgVilageServiceStatistic(){
-        UIHelper.showServiceStatisticList(this);
+        if (Module.existModule(u.getModuleList(), Module.MODULE_SERVICE_STATISTICS_EXPERT)){
+            Module serviceStatisticsExpert = new Module(SimpleBackPage.SERVICE_STATISTIC,"个人服务统计",R.drawable.func_agriculture_knowledge_base_icon,null);
+            moduleList.add(serviceStatisticsExpert);
+        }
+        if (Module.existModule(u.getModuleList(), Module.MODULE_PERFORMANCE_STATISTICS_VERIFIER)){
+            Module serviceStatisticsVerifier = new Module(SimpleBackPage.SERVICE_STATISTIC,"服务统计",R.drawable.func_agriculture_knowledge_base_icon,null);
+            moduleList.add(serviceStatisticsVerifier);
+        }
     }
 
 }

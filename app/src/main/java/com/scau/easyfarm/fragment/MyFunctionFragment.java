@@ -1,16 +1,22 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ManualCategory;
+import com.scau.easyfarm.bean.Module;
 import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.UIHelper;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -18,97 +24,38 @@ import butterknife.InjectView;
 /**
  * Created by ChenHehong on 2016/6/11.
  */
-public class MyFunctionFragment extends BaseFragment{
-
-    @InjectView(R.id.ImgVillageServiceManage)
-    ImageView imgVillageServiceManage;
-    @InjectView(R.id.ImgVilageServicePermance)
-    ImageView imgVilageServicePermance;
-    @InjectView(R.id.ImgIndustryBase)
-    ImageView imgIndustryBase;
-    @InjectView(R.id.ImgSkillBase)
-    ImageView imgSkillBase;
-    @InjectView(R.id.ImgAchievementBase)
-    ImageView imgAchievementBase;
-    @InjectView(R.id.ImgVarietyBase)
-    ImageView imgVarietyBase;
-    @InjectView(R.id.ImgExpertBase)
-    ImageView imgExpertBase;
+public class MyFunctionFragment extends BaseFunctionFragment{
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_function,container, false);
-        ButterKnife.inject(this, view);
-        initView(view);
-        return view;
-    }
-
-    @Override
-    public void initView(View view) {
-        imgVillageServiceManage.setOnClickListener(this);
-        imgVilageServicePermance.setOnClickListener(this);
-        imgIndustryBase.setOnClickListener(this);
-        imgSkillBase.setOnClickListener(this);
-        imgAchievementBase.setOnClickListener(this);
-        imgVarietyBase.setOnClickListener(this);
-        imgExpertBase.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        final int id = v.getId();
-        switch (id) {
-            case R.id.ImgVillageServiceManage:
-                showVillageServiceManage();
-                break;
-            case R.id.ImgVilageServicePermance:
-                showgVilageServicePermance();
-                break;
-            case R.id.ImgIndustryBase:
-                showIndustryBase();
-                break;
-            case R.id.ImgSkillBase:
-                showSkillBase();
-                break;
-            case R.id.ImgAchievementBase:
-                showAchievementBase();
-                break;
-            case R.id.ImgVarietyBase:
-                showVarietyBase();
-                break;
-            case R.id.ImgExpertBase:
-                showExpertBase();
-                break;
-            default:
-                break;
+    public void initModuleList() {
+        User u = AppContext.getInstance().getLoginUser();
+        if (Module.existModule(u.getModuleList(),Module.MODULE_SERVICE_MANAGE)){
+            Module serviceMange = new Module(SimpleBackPage.VILLAGE_FUNCTION,"服务管理",R.drawable.func_village_service_apply_icon,null);
+            moduleList.add(serviceMange);
         }
-    }
-
-    private void showVillageServiceManage(){
-        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_FUNCTION);
-    }
-
-    private void showgVilageServicePermance(){
-        UIHelper.showSimpleBack(getActivity(),SimpleBackPage.SERVICE_PERFORMANCE_FUNCTION);
-    }
-
-    private void showVarietyBase(){
-        UIHelper.showManualCategory(this,0, ManualCategory.VARIETY);
-    }
-
-    private void showIndustryBase(){
-        UIHelper.showManualCategory(this,0,ManualCategory.INDUSTRY);
-    }
-
-    private void showSkillBase(){
-        UIHelper.showManualCategory(this,0,ManualCategory.TECHNOLOGY);
-    }
-
-    private void showAchievementBase(){
-        UIHelper.showManualCategory(this,0,ManualCategory.ACHIEVEMENT);
-    }
-
-    private void showExpertBase(){
-        UIHelper.showExpertBaseManualCategory(this,0,ManualCategory.EXPERT);
+        if (Module.existModule(u.getModuleList(),Module.MODULE_PERFORMANCE_MANAGE)){
+            Module performanceManage = new Module(SimpleBackPage.SERVICE_PERFORMANCE_FUNCTION,"绩效管理",R.drawable.func_village_service_performance_icon,null);
+            moduleList.add(performanceManage);
+        }
+        Bundle varietyBaseBundle = new Bundle();
+        varietyBaseBundle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, ManualCategory.VARIETY);
+        Module varietyBase = new Module(SimpleBackPage.CHOOSE_MANUAL_CATEGORY,"品种库",R.drawable.func_agriculture_knowledge_base_icon,varietyBaseBundle);
+        moduleList.add(varietyBase);
+        Bundle industryBaseBundle = new Bundle();
+        industryBaseBundle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, ManualCategory.INDUSTRY);
+        Module industryBase = new Module(SimpleBackPage.CHOOSE_MANUAL_CATEGORY,"产业库",R.drawable.func_agriculture_knowledge_base_icon,industryBaseBundle);
+        moduleList.add(industryBase);
+        Bundle skillBaseBundle = new Bundle();
+        skillBaseBundle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, ManualCategory.TECHNOLOGY);
+        Module skillBase = new Module(SimpleBackPage.CHOOSE_MANUAL_CATEGORY,"技术库",R.drawable.func_agriculture_knowledge_base_icon,skillBaseBundle);
+        moduleList.add(skillBase);
+        Bundle achievementBaseBundle = new Bundle();
+        achievementBaseBundle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, ManualCategory.ACHIEVEMENT);
+        Module achievementBase = new Module(SimpleBackPage.CHOOSE_MANUAL_CATEGORY,"成果库",R.drawable.func_agriculture_knowledge_base_icon,achievementBaseBundle);
+        moduleList.add(achievementBase);
+        Bundle expertBaseBundle = new Bundle();
+        expertBaseBundle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, ManualCategory.EXPERT);
+        Module expertBase = new Module(SimpleBackPage.CHOOSE_MANUAL_CATEGORY,"专家库",R.drawable.func_agriculture_knowledge_base_icon,expertBaseBundle);
+        moduleList.add(expertBase);
     }
 }

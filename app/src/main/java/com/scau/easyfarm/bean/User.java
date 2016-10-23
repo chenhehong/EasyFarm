@@ -3,6 +3,7 @@ package com.scau.easyfarm.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -30,8 +31,8 @@ public class User extends Entity {
     private String roleName="";
     private boolean isRememberMe=false;
     private boolean isServerLeader=false;//是否是服务事件的领队
-    @JSONField(name = "auditor")
-    private boolean canAuditServer=false;//是否有审核服务申请的权限
+    @JSONField(name = "resourceList")
+    private ArrayList<String> moduleList = new ArrayList<>();
 
     public String getLoginName() {
         return loginName;
@@ -145,11 +146,19 @@ public class User extends Entity {
         this.sex = sex;
     }
 
-    public boolean isCanAuditServer() {
-        return canAuditServer;
+    public static HashMap<Integer, String> getGenderIntMap() {
+        return genderIntMap;
     }
 
-    public void setCanAuditServer(boolean canAuditServer) {
-        this.canAuditServer = canAuditServer;
+    public void setIsRememberMe(boolean isRememberMe) {
+        this.isRememberMe = isRememberMe;
+    }
+
+    public ArrayList<String> getModuleList() {
+        return moduleList;
+    }
+
+    public void setModuleList(ArrayList<String> moduleList) {
+        this.moduleList = moduleList;
     }
 }

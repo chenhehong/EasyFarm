@@ -13,6 +13,7 @@ import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseApplication;
 import com.scau.easyfarm.bean.Constants;
+import com.scau.easyfarm.bean.Module;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.cache.DataCleanManager;
 import com.scau.easyfarm.service.LocationService;
@@ -26,6 +27,8 @@ import org.kymjs.kjframe.http.HttpConfig;
 import org.kymjs.kjframe.utils.KJLoger;
 import org.kymjs.kjframe.utils.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -51,7 +54,6 @@ public class AppContext extends BaseApplication {
 
     private boolean login=false;
 
-    private String roleName=" ";
 //  百度地图定位类
     public LocationService locationService;
     public Vibrator mVibrator;
@@ -171,7 +173,6 @@ public class AppContext extends BaseApplication {
     public void saveUserInfo(final User user) {
         this.loginUid = user.getId();
         this.login = true;
-        this.roleName = user.getRoleName();
         setProperties(new Properties() {
             {
                 setProperty("user.uid", String.valueOf(user.getId()));
@@ -184,16 +185,14 @@ public class AppContext extends BaseApplication {
                 setProperty("user.phoneNumber", user.getPhoneNumber());
                 setProperty("user.techType", user.getTechType());
                 setProperty("user.description", user.getDescription());
-                setProperty("user.sex", user.getSex()+"");
+                setProperty("user.sex", user.getSex() + "");
                 setProperty("user.age", user.getAge() + "");
                 setProperty("user.email", user.getEmail());
                 setProperty("user.address", user.getAddress());
-                setProperty("user.canAuditServer", String.valueOf(user.isCanAuditServer()));
-                setProperty("user.isRememberMe",String.valueOf(user.isRememberMe()));// 是否记住我的信息
+                setProperty("user.moduleList", String.valueOf(user.getModuleList()));
+                setProperty("user.isRememberMe", String.valueOf(user.isRememberMe()));// 是否记住我的信息
             }
         });
-        Properties p = getProperties();
-        Log.d("canAuditServer1", getProperty("user.canAuditServer"));
     }
 
     /**
@@ -208,7 +207,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.phoneNumber", user.getPhoneNumber());
                 setProperty("user.techType", user.getTechType());
                 setProperty("user.description", user.getDescription());
-                setProperty("user.sex", user.getSex()+"");
+                setProperty("user.sex", user.getSex() + "");
                 setProperty("user.age", user.getAge() + "");
                 setProperty("user.email", user.getEmail());
                 setProperty("user.address", user.getAddress());
@@ -234,7 +233,11 @@ public class AppContext extends BaseApplication {
         user.setEmail(getProperty("user.email"));
         user.setAddress(getProperty("user.address"));
         user.setRememberMe(StringUtils.toBool(getProperty("user.isRememberMe")));
-        user.setCanAuditServer(StringUtils.toBool(getProperty("user.canAuditServer")));
+//      将arraylist的字符串转化为arraylist对象
+        String s = getProperty("user.moduleList");
+        String arrayString = s.substring(1, s.length() - 1);
+        String[] stringArray = arrayString.split(",");
+        user.setModuleList(Module.trimBlank(new ArrayList<String>(Arrays.asList(stringArray))));
         return user;
     }
 
@@ -244,7 +247,6 @@ public class AppContext extends BaseApplication {
     public void cleanLoginInfo() {
         this.loginUid = 0;
         this.login = false;
-        this.roleName = "";
         removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
                     "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe","user.canAuditServer");
     }
@@ -257,14 +259,6 @@ public class AppContext extends BaseApplication {
         return login;
     }
 
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
     /**
      * 用户注销
      */
@@ -274,7 +268,6 @@ public class AppContext extends BaseApplication {
         this.cleanCookie();
         this.login = false;
         this.loginUid = 0;
-        this.roleName = "";
         Intent intent = new Intent(Constants.INTENT_ACTION_LOGOUT);
         sendBroadcast(intent);
     }
