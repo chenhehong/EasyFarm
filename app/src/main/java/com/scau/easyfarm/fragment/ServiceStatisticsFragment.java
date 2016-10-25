@@ -3,7 +3,6 @@ package com.scau.easyfarm.fragment;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -12,15 +11,13 @@ import android.widget.AdapterView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.adapter.VillageServiceProofAdapter;
-import com.scau.easyfarm.adapter.VillageServiceStatisticAdapter;
+import com.scau.easyfarm.adapter.ServiceStatisticsAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
-import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.UIHelper;
 
@@ -30,10 +27,12 @@ import java.io.Serializable;
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class ServiceStatisticFragment extends BaseListFragment<VillageService> implements
+public class ServiceStatisticsFragment extends BaseListFragment<VillageService> implements
         AdapterView.OnItemLongClickListener{
 
     private static final String CACHE_KEY_PREFIX = "ServiceStatisticList_";
+    public static final String BUNDLE_KEY_MONTH = "bundlekey_month";
+    private String month;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,8 +52,8 @@ public class ServiceStatisticFragment extends BaseListFragment<VillageService> i
 
     @Override
 //  重载设置子类的列表适配器
-    protected VillageServiceStatisticAdapter getListAdapter() {
-        return new VillageServiceStatisticAdapter(this);
+    protected ServiceStatisticsAdapter getListAdapter() {
+        return new ServiceStatisticsAdapter(this);
     }
 
 //  用户登录状态广播接收器
@@ -108,7 +107,11 @@ public class ServiceStatisticFragment extends BaseListFragment<VillageService> i
 
     @Override
     protected void sendRequestData() {
-        EasyFarmServerApi.getMyApplyVillageServiceList(0, mCurrentPage, VillageService.VILLAGE_SERVICE_COMPLETED,mHandler);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            month = bundle.getString(BUNDLE_KEY_MONTH);
+        }
+        EasyFarmServerApi.getStatisticsServiceList(0, mCurrentPage, month+"-01 00:00:00", mHandler);
     }
 
 //  重载点击事件，自定义子类的点击事件
@@ -117,7 +120,7 @@ public class ServiceStatisticFragment extends BaseListFragment<VillageService> i
                             long id) {
         VillageService villageService = mAdapter.getItem(position);
         if (villageService != null) {
-            UIHelper.showVillageServiceStatisticDetail(getActivity(), villageService.getId());
+            UIHelper.showVillageServiceDetail(getActivity(), villageService.getId());
         }
     }
 
@@ -138,18 +141,6 @@ public class ServiceStatisticFragment extends BaseListFragment<VillageService> i
                 }
             }
         });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK)
-            return;
-        if (requestCode==ServerSummaryFragment.REQUESTCODE_SERVERSUMMARY){
-            int positin = data.getIntExtra(ServerSummaryFragment.BUNDLEKEY_POSITION,0);
-            VillageService v = mAdapter.getItem(positin);
-            mAdapter.removeItem(v);
-            mAdapter.notifyDataSetChanged();
-        }
     }
 
     @Override

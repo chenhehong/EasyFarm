@@ -8,8 +8,6 @@ import android.widget.TextView;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.VillageService;
-import com.scau.easyfarm.fragment.ServerSummaryFragment;
-import com.scau.easyfarm.util.UIHelper;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -18,7 +16,7 @@ import butterknife.InjectView;
  * Created by chenhehong on 2016/8/31.
  * 知识库类别列表适配器
  */
-public class VillageServiceStatisticAdapter extends ListBaseAdapter<VillageService>{
+public class MyServiceStatisticsAdapter extends ListBaseAdapter<VillageService>{
 
     private Fragment fragment;
 
@@ -29,15 +27,13 @@ public class VillageServiceStatisticAdapter extends ListBaseAdapter<VillageServi
         TextView businessDate;
         @InjectView(R.id.tv_villageservice_reason)
         TextView reason;
-        @InjectView(R.id.tv_villageservice_workload)
-        TextView workLoad;
 
         public ViewHold(View view) {
             ButterKnife.inject(this, view);
         }
     }
 
-    public VillageServiceStatisticAdapter(Fragment fragment) {
+    public MyServiceStatisticsAdapter(Fragment fragment) {
         this.fragment = fragment;
     }
 
@@ -46,7 +42,7 @@ public class VillageServiceStatisticAdapter extends ListBaseAdapter<VillageServi
         ViewHold vh = null;
 
         if (convertView == null || convertView.getTag() == null) {
-            convertView = getLayoutInflater(parent.getContext()).inflate(R.layout.list_cell_statistic_villageservice, null);
+            convertView = getLayoutInflater(parent.getContext()).inflate(R.layout.list_cell_myservice_statistics, null);
             vh = new ViewHold(convertView);
             convertView.setTag(vh);
         } else {
@@ -57,7 +53,6 @@ public class VillageServiceStatisticAdapter extends ListBaseAdapter<VillageServi
         vh.address.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
         vh.businessDate.setText("服务时间："+villageService.getBusinessDate()+"至"+villageService.getReturnDate());
         vh.reason.setText("事由："+villageService.getBusinessReason());
-        vh.workLoad.setText("审核工作量：未审核");
         return convertView;
     }
 }

@@ -23,7 +23,6 @@ import android.widget.ZoomButtonsController;
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.base.BaseListFragment;
-import com.scau.easyfarm.bean.PerformanceStatistics;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
@@ -32,11 +31,12 @@ import com.scau.easyfarm.fragment.ExpertBaseDetailFragment;
 import com.scau.easyfarm.fragment.ExpertBaseListFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyPerformanceStatisticsFragment;
+import com.scau.easyfarm.fragment.MyServiceStatisticsFragment;
 import com.scau.easyfarm.fragment.PerformanceDetailFragment;
 import com.scau.easyfarm.fragment.PerformanceStatisticsFragment;
 import com.scau.easyfarm.fragment.PerformanceVerifyFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
-import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
+import com.scau.easyfarm.fragment.ServiceStatisticsFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
@@ -335,12 +335,6 @@ public class UIHelper {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_DETAIL, bundle);
     }
 
-    public static void showVillageServiceStatisticDetail(Context context, int villageServiceId) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(ServiceStatisticDetailFragment.VILLAGE_SERVICE_ID_CODE, villageServiceId);
-        showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_STATISTIC_DETAIL, bundle);
-    }
-
     public static void showVillageServiceVerify(Fragment fragment,int requestCode,int villageServiceId) {
         Bundle bundle = new Bundle();
         bundle.putInt(VillageServiceVerifyFragment.VILLAGE_SERVICE_ID_CODE,villageServiceId);
@@ -385,10 +379,6 @@ public class UIHelper {
         args.putSerializable(VillageServiceProofResourceFragment.BUNDLEKEY_VILLAGESERVICE, villageService);
         args.putInt(BaseListFragment.BUNDLE_KEY_CATALOG,resourceCatalog);
         showSimpleBack(fragment,SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE,args);
-    }
-
-    public static void showServiceStatisticList(Fragment fragment) {
-        showSimpleBack(fragment,SimpleBackPage.SERVICE_STATISTIC);
     }
 
     /**
@@ -571,6 +561,18 @@ public class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putString(MyPerformanceStatisticsFragment.BUNDLE_KEY_MONTH,month);
         showSimpleBack(fragment,SimpleBackPage.MYPERFORMANCE_STATISTICS, bundle);
+    }
+
+    public static void showServiceStatistics(Fragment fragment,String month) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ServiceStatisticsFragment.BUNDLE_KEY_MONTH, month);
+        showSimpleBack(fragment, SimpleBackPage.SERVICE_STATISTICS, bundle);
+    }
+
+    public static void showMyServiceStatistics(Fragment fragment,String month) {
+        Bundle bundle = new Bundle();
+        bundle.putString(MyServiceStatisticsFragment.BUNDLE_KEY_MONTH, month);
+        showSimpleBack(fragment, SimpleBackPage.MYSERVICE_STATISTICS, bundle);
     }
 
 }

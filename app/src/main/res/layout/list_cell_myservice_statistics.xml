@@ -40,14 +40,6 @@
             android:layout_below="@id/tv_villageservice_business_date"
             android:textColor="?attr/infoTextColor" />
 
-        <TextView
-            android:id="@+id/tv_villageservice_workload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="工作量"
-            android:layout_below="@id/tv_villageservice_reason"
-            android:textColor="?attr/infoTextColor" />
-
     </LinearLayout>
 
 </RelativeLayout>

@@ -161,7 +161,6 @@
     <string name="village_service_proof_choose">选择佐证事件</string>
     <string name="village_service_proof_resource">佐证材料列表</string>
     <string name="village_service_proof_resource_add">上传佐证材料</string>
-    <string name="service_statistic">服务统计</string>
     <string name="village_service_summary">服务总结</string>
 
     <string name="actionbar_title_news">资讯详情</string>
@@ -191,5 +190,11 @@
 
     <string name="myperformance_month_statistics">个人业绩统计</string>
     <string name="myperformance_statistics">个人业绩统计</string>
+
+    <string name="service_month_statistics">部门服务统计</string>
+    <string name="service_statistics">部门服务统计</string>
+
+    <string name="myservice_month_statistics">个人服务统计</string>
+    <string name="myservice_statistics">个人服务统计</string>
 
 </resources>

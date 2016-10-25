@@ -15,6 +15,8 @@ import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.MyPerformanceMonthStatisticsFragment;
 import com.scau.easyfarm.fragment.MyPerformanceStatisticsFragment;
+import com.scau.easyfarm.fragment.MyServiceMonthStatisticsFragment;
+import com.scau.easyfarm.fragment.MyServiceStatisticsFragment;
 import com.scau.easyfarm.fragment.PerformanceAddFragment;
 import com.scau.easyfarm.fragment.PerformanceDetailFragment;
 import com.scau.easyfarm.fragment.PerformanceFunctionFragment;
@@ -24,8 +26,8 @@ import com.scau.easyfarm.fragment.PerformanceTypeChooseFragment;
 import com.scau.easyfarm.fragment.PerformanceVerifyFragment;
 import com.scau.easyfarm.fragment.ProofResourceDescriptionChooseFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
-import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
-import com.scau.easyfarm.fragment.ServiceStatisticFragment;
+import com.scau.easyfarm.fragment.ServiceMonthStatisticsFragment;
+import com.scau.easyfarm.fragment.ServiceStatisticsFragment;
 import com.scau.easyfarm.fragment.SettingsFragment;
 import com.scau.easyfarm.fragment.SettingsNotificationFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
@@ -77,13 +79,11 @@ public enum SimpleBackPage {
     VILLAGE_SERVICE_PROOF(22, R.string.village_service_proof_list, VillageServiceProofViewPagerFragment.class),
     VILLAGE_SERVICE_PROOF_RESOURCE(23, R.string.village_service_proof_resource, VillageServiceProofResourceFragment.class),
     VILLAGE_SERVICE_PROOF_RESOURCE_ADD(24, R.string.village_service_proof_resource_add, VillageServiceProofResourPubFragment.class),
-    SERVICE_STATISTIC(25, R.string.service_statistic, ServiceStatisticFragment.class),
     FIND_USER(26, R.string.actionbar_title_search_user, FindUserFragment.class),
     CHOOSE_VILLAGE_SERVICE_REASON(27, R.string.actionbar_title_choose_village_service_reason, VillageServiceReasonChooseFragment.class),
     CHOOSE_PROOF_RESOURCE_DESCRIPTITON(28, R.string.actionbar_title_choose_proof_resource_description, ProofResourceDescriptionChooseFragment.class),
     CHOOSE_PROOF_VILLAGE_SERVICE(29, R.string.village_service_proof_choose, VillageServiceProofChooseFragment.class),
     SERVER_SUMMARY(30, R.string.village_service_summary, ServerSummaryFragment.class),
-    VILLAGE_SERVICE_STATISTIC_DETAIL(31,R.string.village_service_statistic_detail, ServiceStatisticDetailFragment.class),
     EXPERTBASE_LIST(32,R.string.actionbar_expertbase_list, ExpertBaseListFragment.class),
     EXPERTBASE_DETAIL(33,R.string.actionbar_expertbase_detail, ExpertBaseDetailFragment.class),
     EXPERTBASE_CHOOSE_MANUAL_CATEGORY(34,R.string.actionbar_expertbase_type, ExpertBaseChooseManualCategoryFragment.class),
@@ -97,7 +97,11 @@ public enum SimpleBackPage {
     PERFORMANCE_MONTH_STATISTICS(42, R.string.performance_month_statistics, PerformanceMonthStatisticsFragment.class),
     PERFORMANCE_STATISTICS(43, R.string.performance_statistics, PerformanceStatisticsFragment.class),
     MYPERFORMANCE_MONTH_STATISTICS(44, R.string.myperformance_month_statistics, MyPerformanceMonthStatisticsFragment.class),
-    MYPERFORMANCE_STATISTICS(45, R.string.myperformance_statistics, MyPerformanceStatisticsFragment.class);
+    MYPERFORMANCE_STATISTICS(45, R.string.myperformance_statistics, MyPerformanceStatisticsFragment.class),
+    SERVICE_MONTH_STATISTICS(46, R.string.service_month_statistics, ServiceMonthStatisticsFragment.class),
+    SERVICE_STATISTICS(47, R.string.service_statistics, ServiceStatisticsFragment.class),
+    MYSERVICE_MONTH_STATISTICS(48, R.string.myservice_month_statistics, MyServiceMonthStatisticsFragment.class),
+    MYSERVICE_STATISTICS(49, R.string.myservice_statistics, MyServiceStatisticsFragment.class);
 
     private int title;
     private Class<?> clz;

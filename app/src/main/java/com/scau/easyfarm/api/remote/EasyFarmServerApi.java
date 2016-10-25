@@ -116,7 +116,7 @@ public class EasyFarmServerApi {
         params.put("personalid",AppContext.getInstance().getLoginUid());
         params.put("oldPwd",originalPassword);
         params.put("pwd",newPassword);
-        ApiHttpClient.post("front/mobile/user/api/editUserPwd",params,handler);
+        ApiHttpClient.post("front/mobile/user/api/editUserPwd", params, handler);
     }
 
     public static void pubTweet(Tweet tweet, AsyncHttpResponseHandler handler) {
@@ -575,6 +575,44 @@ public class EasyFarmServerApi {
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
         ApiHttpClient.get("front/mobile/performance/getStatisticsDataGrid", params, handler);
+    }
+
+    public static void getMonthStaticsServiceList(int categoryId, int page, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("isPersonal",0);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/village/api/statistics", params, handler);
+    }
+
+    public static void getStatisticsServiceList(int categoryId, int page, String  month,
+                                                    AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("queryDate",month);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/village/api/getServiceAuditorStatistics", params, handler);
+    }
+
+    public static void getMonthStaticsMyServiceList(int categoryId, int page, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("isPersonal",1);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/village/api/statistics", params, handler);
+    }
+
+    public static void getStatisticsMyServiceList(int categoryId, int page, String  month,
+                                                AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("queryDate",month);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/village/api/getServicePersonalStatistics", params, handler);
     }
 
 }
