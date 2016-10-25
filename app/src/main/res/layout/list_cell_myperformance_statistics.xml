@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/layout_item_bg"
+    android:orientation="vertical"
+    android:padding="@dimen/space_15">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_10"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_performance_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginRight="@dimen/space_15"
+            android:layout_marginBottom="@dimen/space_10"
+            android:textColor="?attr/textColor" />
+
+        <TextView
+            android:id="@+id/tv_performance_applydate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_performance_type"
+            android:textColor="?attr/infoTextColor" />
+
+        <TextView
+            android:id="@+id/tv_performance_applyman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_performance_applydate"
+            android:textColor="?attr/infoTextColor" />
+
+    </LinearLayout>
+
+</RelativeLayout>

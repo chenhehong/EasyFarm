@@ -13,9 +13,13 @@ import com.scau.easyfarm.fragment.FeedBackFragment;
 import com.scau.easyfarm.fragment.FindUserFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
+import com.scau.easyfarm.fragment.MyPerformanceMonthStatisticsFragment;
+import com.scau.easyfarm.fragment.MyPerformanceStatisticsFragment;
 import com.scau.easyfarm.fragment.PerformanceAddFragment;
 import com.scau.easyfarm.fragment.PerformanceDetailFragment;
 import com.scau.easyfarm.fragment.PerformanceFunctionFragment;
+import com.scau.easyfarm.fragment.PerformanceMonthStatisticsFragment;
+import com.scau.easyfarm.fragment.PerformanceStatisticsFragment;
 import com.scau.easyfarm.fragment.PerformanceTypeChooseFragment;
 import com.scau.easyfarm.fragment.PerformanceVerifyFragment;
 import com.scau.easyfarm.fragment.ProofResourceDescriptionChooseFragment;
@@ -89,7 +93,11 @@ public enum SimpleBackPage {
     PERFORMANCE_APPLY_LIST(38,R.string.actionbar_performance_list, PerformanceApplyViewPagerFragment.class),
     PERFORMANCE_DETAIL(39,R.string.performance_detail, PerformanceDetailFragment.class),
     PERFORMANCE_VERIFY(40, R.string.performance_verify, PerformanceVerifyFragment.class),
-    PERFORMANCE_VERIFY_VIEWPAGER(41, R.string.performance_verify, PerformanceVerifyViewPagerFragment.class);
+    PERFORMANCE_VERIFY_VIEWPAGER(41, R.string.performance_verify, PerformanceVerifyViewPagerFragment.class),
+    PERFORMANCE_MONTH_STATISTICS(42, R.string.performance_month_statistics, PerformanceMonthStatisticsFragment.class),
+    PERFORMANCE_STATISTICS(43, R.string.performance_statistics, PerformanceStatisticsFragment.class),
+    MYPERFORMANCE_MONTH_STATISTICS(44, R.string.myperformance_month_statistics, MyPerformanceMonthStatisticsFragment.class),
+    MYPERFORMANCE_STATISTICS(45, R.string.myperformance_statistics, MyPerformanceStatisticsFragment.class);
 
     private int title;
     private Class<?> clz;

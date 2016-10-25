@@ -233,11 +233,13 @@ public class AppContext extends BaseApplication {
         user.setEmail(getProperty("user.email"));
         user.setAddress(getProperty("user.address"));
         user.setRememberMe(StringUtils.toBool(getProperty("user.isRememberMe")));
+        if (getProperty("user.moduleList")!=null&&getProperty("user.moduleList").length()>0){
 //      将arraylist的字符串转化为arraylist对象
-        String s = getProperty("user.moduleList");
-        String arrayString = s.substring(1, s.length() - 1);
-        String[] stringArray = arrayString.split(",");
-        user.setModuleList(Module.trimBlank(new ArrayList<String>(Arrays.asList(stringArray))));
+            String s = getProperty("user.moduleList");
+            String arrayString = s.substring(1, s.length() - 1);
+            String[] stringArray = arrayString.split(",");
+            user.setModuleList(Module.trimBlank(new ArrayList<String>(Arrays.asList(stringArray))));
+        }
         return user;
     }
 

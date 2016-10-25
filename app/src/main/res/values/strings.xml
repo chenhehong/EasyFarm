@@ -186,4 +186,10 @@
 
     <string name="performance_verify">业绩申报审批</string>
 
+    <string name="performance_month_statistics">部门业绩统计</string>
+    <string name="performance_statistics">部门业绩统计</string>
+
+    <string name="myperformance_month_statistics">个人业绩统计</string>
+    <string name="myperformance_statistics">个人业绩统计</string>
+
 </resources>

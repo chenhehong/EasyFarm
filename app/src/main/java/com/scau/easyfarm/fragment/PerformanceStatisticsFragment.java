@@ -2,7 +2,6 @@ package com.scau.easyfarm.fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -12,35 +11,28 @@ import android.widget.AdapterView;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.PerformanceApplyAdapter;
-import com.scau.easyfarm.api.OperationResponseHandler;
+import com.scau.easyfarm.adapter.PerformanceStatisticsAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.Performance;
 import com.scau.easyfarm.bean.PerformanceList;
-import com.scau.easyfarm.bean.Result;
-import com.scau.easyfarm.bean.ResultBean;
-import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
-import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.UIHelper;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class PerformanceApplyFragment extends BaseListFragment<Performance> implements
+public class PerformanceStatisticsFragment extends BaseListFragment<Performance> implements
         AdapterView.OnItemLongClickListener{
 
-    private static final String CACHE_KEY_PREFIX = "performance_apply_list_";
-
-    public final static int ALL_PERFORMANCE = 0;
-    public final static int PASS_PERFORMANCE = 1;
-    public final static int WAITING_PERFORMANCE = 2;
+    private static final String CACHE_KEY_PREFIX = "performance_statistics_list_";
+    public static final String BUNDLE_KEY_MONTH = "bundlekey_month";
+    private String month;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,8 +52,8 @@ public class PerformanceApplyFragment extends BaseListFragment<Performance> impl
 
     @Override
 //  重载设置子类的列表适配器
-    protected PerformanceApplyAdapter getListAdapter() {
-        return new PerformanceApplyAdapter();
+    protected PerformanceStatisticsAdapter getListAdapter() {
+        return new PerformanceStatisticsAdapter();
     }
 
 //  用户登录状态广播接收器
@@ -117,13 +109,9 @@ public class PerformanceApplyFragment extends BaseListFragment<Performance> impl
     protected void sendRequestData() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-//            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
+            month = bundle.getString(BUNDLE_KEY_MONTH);
         }
-        if (mCatalog== PASS_PERFORMANCE){
-            EasyFarmServerApi.getApplyPerformanceList(mCatalog, mCurrentPage, Performance.PERFORMANCE_PASS, mHandler);
-        }else if (mCatalog == ALL_PERFORMANCE){
-            EasyFarmServerApi.getApplyPerformanceList(mCatalog, mCurrentPage, Performance.PERFORMANCE_ALL, mHandler);
-        }
+        EasyFarmServerApi.getStatisticsPerformanceList(mCatalog, mCurrentPage, month + "-01", mHandler);
     }
 
 //  重载点击事件，自定义子类的点击事件

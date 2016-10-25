@@ -17,8 +17,8 @@ import java.util.Locale;
 public class ApiHttpClient {
 
 //  注意：host开头不能添加http;//，只能是ip+端口
-    public final static String HOST = "192.168.191.1:8080";
-    private static String API_URL = "http://192.168.191.1:8080/EasyFarm/%s";
+    public final static String HOST = "125.216.241.64:8080";
+    private static String API_URL = "http://125.216.241.64:8080/EasyFarm/%s";
     public static final String DELETE = "DELETE";
     public static final String GET = "GET";
     public static final String POST = "POST";

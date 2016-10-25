@@ -23,6 +23,7 @@ import android.widget.ZoomButtonsController;
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.base.BaseListFragment;
+import com.scau.easyfarm.bean.PerformanceStatistics;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
@@ -30,7 +31,9 @@ import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
 import com.scau.easyfarm.fragment.ExpertBaseDetailFragment;
 import com.scau.easyfarm.fragment.ExpertBaseListFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
+import com.scau.easyfarm.fragment.MyPerformanceStatisticsFragment;
 import com.scau.easyfarm.fragment.PerformanceDetailFragment;
+import com.scau.easyfarm.fragment.PerformanceStatisticsFragment;
 import com.scau.easyfarm.fragment.PerformanceVerifyFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticDetailFragment;
@@ -556,6 +559,18 @@ public class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putInt(PerformanceVerifyFragment.PERFORMANCE_ID_CODE,performanceId);
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.PERFORMANCE_VERIFY, bundle);
+    }
+
+    public static void showPerformanceStatistics(Fragment fragment,String month) {
+        Bundle bundle = new Bundle();
+        bundle.putString(PerformanceStatisticsFragment.BUNDLE_KEY_MONTH, month);
+        showSimpleBack(fragment, SimpleBackPage.PERFORMANCE_STATISTICS, bundle);
+    }
+
+    public static void showMyPerformanceStatistics(Fragment fragment,String month) {
+        Bundle bundle = new Bundle();
+        bundle.putString(MyPerformanceStatisticsFragment.BUNDLE_KEY_MONTH,month);
+        showSimpleBack(fragment,SimpleBackPage.MYPERFORMANCE_STATISTICS, bundle);
     }
 
 }

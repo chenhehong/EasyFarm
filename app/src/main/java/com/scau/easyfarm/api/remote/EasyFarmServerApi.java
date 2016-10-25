@@ -537,4 +537,44 @@ public class EasyFarmServerApi {
         ApiHttpClient.get("front/mobile/village/api/audit", params, handler);
     }
 
+    public static void getMonthStaticsPerformanceList(int categoryId, int page, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("isPersonal",0);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/performance/getStatisticsForMonth", params, handler);
+    }
+
+    public static void getStatisticsPerformanceList(int categoryId, int page, String  month,
+                                               AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("declareDate",month);
+        params.put("isPersonal",0);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/performance/getStatisticsDataGrid", params, handler);
+    }
+
+    public static void getMonthStaticsMyPerformanceList(int categoryId, int page, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("isPersonal",1);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/performance/getStatisticsForMonth", params, handler);
+    }
+
+    public static void getStatisticsMyPerformanceList(int categoryId, int page, String  month,
+                                                    AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
+        params.put("declareDate",month);
+        params.put("isPersonal",1);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/performance/getStatisticsDataGrid", params, handler);
+    }
+
 }

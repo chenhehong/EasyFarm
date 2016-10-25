@@ -31,11 +31,11 @@ public class PerformanceFunctionFragment extends BaseFunctionFragment{
             moduleList.add(performanceApply);
         }
         if (Module.existModule(u.getModuleList(), Module.MODULE_PERFORMANCE_STATISTICS_EXPERT)){
-            Module performanceStatisticsExpert = new Module(SimpleBackPage.PERFORMANCE_APPLY_LIST,"个人业绩统计",R.drawable.func_village_service_performance_icon,null);
+            Module performanceStatisticsExpert = new Module(SimpleBackPage.MYPERFORMANCE_MONTH_STATISTICS,"个人业绩统计",R.drawable.func_village_service_performance_icon,null);
             moduleList.add(performanceStatisticsExpert);
         }
         if (Module.existModule(u.getModuleList(), Module.MODULE_PERFORMANCE_STATISTICS_VERIFIER)){
-            Module performanceStatisticsVerifier = new Module(SimpleBackPage.PERFORMANCE_APPLY_LIST,"业绩统计",R.drawable.func_village_service_performance_icon,null);
+            Module performanceStatisticsVerifier = new Module(SimpleBackPage.PERFORMANCE_MONTH_STATISTICS,"部门业绩统计",R.drawable.func_village_service_performance_icon,null);
             moduleList.add(performanceStatisticsVerifier);
         }
         if (Module.existModule(u.getModuleList(), Module.MODULE_PERFORMANCE_VIREFY)){

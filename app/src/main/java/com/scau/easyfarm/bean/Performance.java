@@ -27,8 +27,8 @@ public class Performance extends Entity {
     public static final HashMap<String,Integer> myStatusStrMap = new HashMap<String,Integer>(){
         { put("通过",MY_STATUS_PASS);  put("不通过",MY_STATUS_REJECT);}
     };
-    public final static int MY_STATUS_PASS = 68;
-    public final static int MY_STATUS_REJECT = 69;
+    public final static int MY_STATUS_PASS = 1;
+    public final static int MY_STATUS_REJECT = 0;
 
     @JSONField(name = "serialCode")
     private String performanceCode;
