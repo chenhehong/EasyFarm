@@ -64,6 +64,8 @@ public class VillageService extends Entity {
     List<User> villageServicePerson = new ArrayList<User>();
     @JSONField(name = "villageLeaderList")
     List<User> leaders = new ArrayList<User>();
+    @JSONField(name = "villageCommentCode")
+    private String commentQrcodePath;
 
     public int getApplyManId() {
         return applyManId;
@@ -191,6 +193,14 @@ public class VillageService extends Entity {
 
     public void setNextVerifyOrganization(String nextVerifyOrganization) {
         this.nextVerifyOrganization = nextVerifyOrganization;
+    }
+
+    public String getCommentQrcodePath() {
+        return commentQrcodePath;
+    }
+
+    public void setCommentQrcodePath(String commentQrcodePath) {
+        this.commentQrcodePath = commentQrcodePath;
     }
 
     public String getStatusString(){

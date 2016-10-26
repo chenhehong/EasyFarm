@@ -17,6 +17,7 @@ import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.VillageServiceAdapter;
 import com.scau.easyfarm.adapter.VillageServiceProofAdapter;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
@@ -24,6 +25,7 @@ import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.bean.VillageServiceList;
+import com.scau.easyfarm.ui.ImageGalleryActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
@@ -129,7 +131,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
                             long id) {
         VillageService villageService = mAdapter.getItem(position);
         if (villageService != null) {
-                UIHelper.showVillageServiceProofResource(this,villageService,mCatalog);
+                UIHelper.showVillageServiceProofResource(this, villageService, mCatalog);
         }
     }
 
@@ -166,12 +168,14 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
 
     private void handleLongClick(final VillageService villageService) {
         String[] items = null;
-        items = new String[] {"详情" };
+        items = new String[] {"详情","查看二维码" };
         DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (i == 0) {
                     handleVillageDetail(villageService);
+                }else if (i==1){
+                    showCommentQrCode(villageService);
                 }
             }
         }).show();
@@ -180,6 +184,10 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
 //  删除申请
     private void handleVillageDetail(final VillageService villageService) {
         UIHelper.showVillageServiceDetail(getActivity(), villageService.getId());
+    }
+
+    private void showCommentQrCode(VillageService villageService){
+        ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(villageService.getCommentQrcodePath()));
     }
 
     @Override
