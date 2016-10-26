@@ -5,18 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.Module;
 import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.util.ArrayList;
@@ -82,18 +85,27 @@ public abstract class BaseFunctionFragment extends BaseFragment{
     private void setupContent() {
         moduleList.clear();
         initModuleList();
+        initData();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_base_function,container, false);
         ButterKnife.inject(this, view);
-        initView(view);
         return view;
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        initData();
+    }
+
+    @Override
     public void initView(View view) {
+    }
+
+    @Override
+    public void initData() {
         iconList = new ArrayList<ImageView>(){{add(icon1);add(icon2);add(icon3);add(icon4);add(icon5);add(icon6);add(icon7);add(icon8);}};
         iconTextList = new ArrayList<TextView>(){{add(iconText1);add(iconText2);add(iconText3);add(iconText4);add(iconText5);add(iconText6);add(iconText7);add(iconText8);}};
         for (int i=0;i<moduleList.size();i++){

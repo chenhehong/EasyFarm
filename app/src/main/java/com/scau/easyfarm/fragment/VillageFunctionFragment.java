@@ -1,6 +1,7 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import com.scau.easyfarm.bean.Module;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.UIHelper;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

@@ -251,7 +251,7 @@ public class AppContext extends BaseApplication {
         this.loginUid = 0;
         this.login = false;
         removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
-                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe","user.moduleList");
+                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe","user.canAuditServer","user.moduleList");
     }
 
     public int getLoginUid() {
