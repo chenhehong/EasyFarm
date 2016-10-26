@@ -26,6 +26,8 @@ public class StringUtils {
     private final static Pattern emailer = Pattern
             .compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 
+    private final static Pattern mobileNumberFormat = Pattern.compile("[0-9]{11}");
+
     private final static Pattern IMG_URL = Pattern
             .compile(".*?(gif|jpeg|png|jpg|bmp)");
 
@@ -367,6 +369,20 @@ public class StringUtils {
         if (email == null || email.trim().length() == 0)
             return false;
         return emailer.matcher(email).matches();
+    }
+
+    public static boolean isMobileNumber(String mobileNumber){
+        if (mobileNumber==null||mobileNumber.trim().length()==0)
+            return false;
+        return mobileNumberFormat.matcher(mobileNumber).matches();
+    }
+
+//  验证是否是正确的登录名：由字母数字或下划线组成，不能超过16位
+    public static boolean isCorrectLoginNameFormat(String loginName){
+        if (loginName==null||loginName.trim().length()==0)
+            return false;
+        Pattern p = Pattern.compile("[a-zA-Z0-9_]{1,16}");
+        return p.matcher(loginName).matches();
     }
 
     /**

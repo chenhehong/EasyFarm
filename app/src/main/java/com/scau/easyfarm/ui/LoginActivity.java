@@ -3,6 +3,7 @@ package com.scau.easyfarm.ui;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -18,11 +19,13 @@ import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.LoginUserBean;
 import com.scau.easyfarm.bean.Notice;
 import com.scau.easyfarm.bean.Result;
+import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.CyptoUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.TLog;
+import com.scau.easyfarm.util.UIHelper;
 
 import org.kymjs.kjframe.http.HttpConfig;
 
@@ -52,6 +55,9 @@ import cz.msebera.android.httpclient.protocol.HttpContext;
     @InjectView(R.id.et_password)
     EditText mEtPassword;
 
+    @InjectView(R.id.register)
+    TextView register;
+
     private final int requestCode = REQUEST_CODE_INIT;
     private String mUserName = "";
     private String mPassword = "";
@@ -77,16 +83,22 @@ import cz.msebera.android.httpclient.protocol.HttpContext;
     }
 
     @Override
-    @OnClick({R.id.btn_login})
+    @OnClick({R.id.btn_login,R.id.register})
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
             case R.id.btn_login:
                 handleLogin();
                 break;
+            case R.id.register:
+                handleRegister();
             default:
                 break;
         }
+    }
+
+    private void handleRegister(){
+        UIHelper.showSimpleBack(this, SimpleBackPage.REGISTER);
     }
 
     private void handleLogin() {

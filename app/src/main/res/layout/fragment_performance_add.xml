@@ -16,26 +16,26 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                style="@style/village_service_add_layout"
+                style="@style/form_edit_layout"
                 android:layout_marginTop="10dp">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="申请人："/>
                 <EditText
                     android:id="@+id/et_applyman"
                     android:editable="false"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
             </LinearLayout>
 
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="业绩类型："/>
                 <EditText
                     android:id="@+id/et_type"
                     android:lines="4"
-                    style="@style/village_service_add_edittext"
+                    style="@style/form_edit_right_edittext"
                     android:enabled="false"/>
                 <Button
                     android:id="@+id/btn_select_type"
@@ -48,14 +48,14 @@
 
             <LinearLayout
                 android:id="@+id/lay_worktime"
-                style="@style/village_service_add_layout"
+                style="@style/form_edit_layout"
                 android:visibility="gone">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="工作量："/>
                 <EditText
                     android:id="@+id/et_apply_worktime"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,19 +63,19 @@
                     android:id="@+id/tv_worktime_unit"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="服务时间："/>
                 <EditText
                     android:id="@+id/et_server_date"
                     android:editable="false"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="佐证材料："/>
                 <Button
                     android:id="@+id/btn_add_file"

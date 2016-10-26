@@ -22,6 +22,8 @@ import java.io.File;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.FileUtil;
 import com.scau.easyfarm.util.MethodsCompat;
@@ -161,7 +163,9 @@ public class SettingsFragment extends BaseFragment {
                 if (!AppContext.getInstance().isLogin()){
                     showLoginActivity();
                 }else{
-
+                    if (AppContext.getInstance().getLoginUser().getRoleName().equals(User.NORMALROLE)){
+                        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.MODIFIED_MYINFORMATION);
+                    }
                 }
                 break;
             default:

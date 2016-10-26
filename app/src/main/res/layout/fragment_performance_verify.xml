@@ -173,7 +173,7 @@
                 <EditText
                     android:id="@+id/et_my_optinion"
                     android:lines="3"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
             </LinearLayout>
 
         </LinearLayout>

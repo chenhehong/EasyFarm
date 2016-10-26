@@ -16,21 +16,21 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                style="@style/village_service_add_layout"
+                style="@style/form_edit_layout"
                 android:layout_marginTop="10dp">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="申请人："/>
                 <EditText
                     android:id="@+id/et_applyman"
                     android:editable="false"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
             </LinearLayout>
 
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="服务人员："/>
                 <Button
                     android:id="@+id/btn_add_person"
@@ -42,7 +42,7 @@
             </LinearLayout>
 
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
 
             <LinearLayout
                 android:id="@+id/lay_person"
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <ListView
                     android:id="@+id/lv_person"
                     android:layout_width="match_parent"
@@ -65,33 +65,33 @@
             </LinearLayout>
 
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="服务区域："/>
                 <EditText
                     android:id="@+id/et_area"
                     android:editable="false"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="详细地点："/>
                 <EditText
                     android:id="@+id/et_address"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="服务方式："/>
                 <EditText
                     android:id="@+id/et_reason"
                     android:lines="2"
-                    style="@style/village_service_add_edittext"
+                    style="@style/form_edit_right_edittext"
                     android:enabled="false"/>
                 <Button
                     android:id="@+id/btn_add_reason"
@@ -102,33 +102,33 @@
                     android:src="@drawable/btn_quickoption_selector" />
             </LinearLayout>
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="服务类型："/>
                 <Spinner
                     android:id="@+id/sp_server_type"
                     style="@style/spinner_style"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="服务时间："/>
                 <EditText
                     android:id="@+id/et_business_date"
                     android:editable="false"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
             </LinearLayout>
             <LinearLayout
-                style="@style/village_service_add_layout">
+                style="@style/form_edit_layout">
                 <TextView
-                    style="@style/village_service_add_left_textview"
+                    style="@style/form_edit_left_textview"
                     android:text="返回时间："/>
                 <EditText
                     android:id="@+id/et_return_date"
                     android:editable="false"
-                    style="@style/village_service_add_edittext"/>
+                    style="@style/form_edit_right_edittext"/>
             </LinearLayout>
 
             <Button

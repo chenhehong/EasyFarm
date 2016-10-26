@@ -12,9 +12,18 @@ import java.util.HashMap;
 @SuppressWarnings("serial")
 public class User extends Entity {
 
+    public static final String NORMALROLE = "注册用户";
+
+    public static final String[] genderArray = {"男","女"};
     public static final HashMap<Integer,String> genderIntMap = new HashMap<Integer,String>(){
-        { put(1,"男");  put(0,"女"); }
+        { put(MAN,"男");  put(FEMALE,"女"); }
     };
+    public static final HashMap<String,Integer> genderStrMap = new HashMap<String,Integer>(){
+        {put("男",MAN);put("女",FEMALE);}
+    };
+
+    public final static int MAN = 1;
+    public final static int FEMALE=0;
 
     private String loginName="";
     private String password="";
