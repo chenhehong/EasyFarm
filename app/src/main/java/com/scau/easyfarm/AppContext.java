@@ -211,6 +211,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.age", user.getAge() + "");
                 setProperty("user.email", user.getEmail());
                 setProperty("user.address", user.getAddress());
+                setProperty("user.moduleList", String.valueOf(user.getModuleList()));
             }
         });
     }
@@ -250,7 +251,7 @@ public class AppContext extends BaseApplication {
         this.loginUid = 0;
         this.login = false;
         removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
-                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe","user.canAuditServer");
+                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe","user.moduleList");
     }
 
     public int getLoginUid() {

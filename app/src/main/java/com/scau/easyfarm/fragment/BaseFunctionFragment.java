@@ -1,5 +1,9 @@
 package com.scau.easyfarm.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.TextView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
+import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.Module;
 import com.scau.easyfarm.bean.SimpleBackPage;
@@ -51,6 +56,31 @@ public abstract class BaseFunctionFragment extends BaseFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initModuleList();
+//      监听用户登录状态的广播
+        IntentFilter filter = new IntentFilter(
+                Constants.INTENT_ACTION_USER_CHANGE);
+        filter.addAction(Constants.INTENT_ACTION_LOGOUT);
+        getActivity().registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(mReceiver);
+        super.onDestroy();
+    }
+
+    //  用户登录状态广播接收器
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setupContent();
+        }
+    };
+
+    //  处理用户登录状态广播
+    private void setupContent() {
+        moduleList.clear();
         initModuleList();
     }
 
