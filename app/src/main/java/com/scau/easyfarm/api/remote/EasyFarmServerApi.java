@@ -176,19 +176,19 @@ public class EasyFarmServerApi {
     }
 
 
-    public static void getTweetList(int uid, int page,
+    public static void getTweetList(int page,
                                     AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("uid", uid);
+        params.put("uid", AppContext.getInstance().getLoginUid());
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
         ApiHttpClient.get("front/mobile/communicate/api/getquestionList", params, handler);
     }
 
-    public static void getMyTweetList(int uid, int page,
+    public static void getMyTweetList(int page,
                                     AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("id", uid);
+        params.put("id", AppContext.getInstance().getLoginUid());
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
         ApiHttpClient.get("front/mobile/communicate/api/getquestionListByID", params, handler);

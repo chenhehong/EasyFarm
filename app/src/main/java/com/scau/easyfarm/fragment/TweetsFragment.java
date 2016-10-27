@@ -137,9 +137,9 @@ public class TweetsFragment extends BaseListFragment<Tweet> implements
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
         if (mCatalog==TweetsList.CATALOG_ME){
-            EasyFarmServerApi.getMyTweetList(mCatalog, mCurrentPage, mHandler);
+            EasyFarmServerApi.getMyTweetList(mCurrentPage, mHandler);
         }else {
-            EasyFarmServerApi.getTweetList(mCatalog, mCurrentPage, mHandler);
+            EasyFarmServerApi.getTweetList(mCurrentPage, mHandler);
         }
 //        start-模拟问答数据
 //        List<Tweet> data = new ArrayList<Tweet>();
