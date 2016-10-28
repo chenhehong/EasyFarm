@@ -9,6 +9,7 @@ public class News extends Entity {
 
     private String title="";
     private String url="";
+    @JSONField(name = "pageContent")
     private String content="";
     private int authorId;
     private String author="";

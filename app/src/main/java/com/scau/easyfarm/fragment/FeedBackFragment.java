@@ -75,6 +75,9 @@ public class FeedBackFragment extends BaseFragment {
                         AppContext.showToast("网络异常，请稍后重试");
                     }
                 });
+//              临时
+                AppContext.showToast("已收到你的建议，谢谢");
+                getActivity().finish();
             }
             break;
         }

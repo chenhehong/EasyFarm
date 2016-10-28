@@ -23,6 +23,7 @@ import android.widget.ZoomButtonsController;
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.base.BaseListFragment;
+import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
@@ -303,10 +304,9 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-    public static void showTweetTypeChoose(Fragment fragment, int parentId,String type,int requestCode) {
+    public static void showTweetTypeChoose(Fragment fragment, ManualCategory manualCategory,int requestCode) {
         Bundle args = new Bundle();
-        args.putInt(BaseManualCategoryListFragment.BUNDLEKEY_PARENTID, parentId);
-        args.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, type);
+        args.putSerializable(BaseManualCategoryListFragment.BUNDLEKEY_PARENT_MANUALCATEGORY, manualCategory);
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.TWEET_CHOOSE_TYPE, args);
     }
 
@@ -345,10 +345,9 @@ public class UIHelper {
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_AREA);
     }
 
-    public static void showManualCategory(Fragment fragment,int parentId,String type){
+    public static void showManualCategory(Fragment fragment,ManualCategory manualCategory){
         Bundle budle = new Bundle();
-        budle.putInt(BaseManualCategoryListFragment.BUNDLEKEY_PARENTID,parentId);
-        budle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE,type);
+        budle.putSerializable(BaseManualCategoryListFragment.BUNDLEKEY_PARENT_MANUALCATEGORY, manualCategory);
         showSimpleBack(fragment, SimpleBackPage.CHOOSE_MANUAL_CATEGORY, budle);
     }
 
@@ -516,10 +515,9 @@ public class UIHelper {
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.SERVER_SUMMARY, bundle);
     }
 
-    public static void showExpertBaseManualCategory(Fragment fragment,int parentId,String type){
+    public static void showExpertBaseManualCategory(Fragment fragment,ManualCategory manualCategory){
         Bundle budle = new Bundle();
-        budle.putInt(BaseManualCategoryListFragment.BUNDLEKEY_PARENTID, parentId);
-        budle.putString(BaseManualCategoryListFragment.BUNDLEKEY_TYPE, type);
+        budle.putSerializable(BaseManualCategoryListFragment.BUNDLEKEY_PARENT_MANUALCATEGORY, manualCategory);
         showSimpleBack(fragment, SimpleBackPage.EXPERTBASE_CHOOSE_MANUAL_CATEGORY, budle);
     }
 

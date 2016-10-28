@@ -19,6 +19,19 @@ public class ManualCategory extends Entity{
     private String categoryCode;
     private String cotegoryDescription;
 
+    public ManualCategory() {
+        super();
+    }
+
+    public ManualCategory(int id,int parentId, boolean isParent, String categoryName, String categoryCode, String cotegoryDescription) {
+        this.id = id;
+        this.parentId = parentId;
+        this.isParent = isParent;
+        this.categoryName = categoryName;
+        this.categoryCode = categoryCode;
+        this.cotegoryDescription = cotegoryDescription;
+    }
+
     public int getParentId() {
         return parentId;
     }

@@ -11,7 +11,7 @@ public class ExpertBaseChooseManualCategoryFragment extends BaseManualCategoryLi
     @Override
     void handleSelectManualCategory(ManualCategory selectManualCategory) {
         if (selectManualCategory.isParent()){
-            UIHelper.showExpertBaseManualCategory(this,selectManualCategory.getId(),"");
+            UIHelper.showExpertBaseManualCategory(this,selectManualCategory);
         }else {
             UIHelper.showExpertBaseList(this, selectManualCategory.getId());
         }

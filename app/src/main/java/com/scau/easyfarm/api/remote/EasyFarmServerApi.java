@@ -182,6 +182,8 @@ public class EasyFarmServerApi {
         params.put("uid", AppContext.getInstance().getLoginUid());
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
+        params.put("sort", "createDate");
+        params.put("order", "desc");
         ApiHttpClient.get("front/mobile/communicate/api/getquestionList", params, handler);
     }
 
@@ -191,6 +193,8 @@ public class EasyFarmServerApi {
         params.put("id", AppContext.getInstance().getLoginUid());
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
+        params.put("sort", "createDate");
+        params.put("order", "desc");
         ApiHttpClient.get("front/mobile/communicate/api/getquestionListByID", params, handler);
     }
 
@@ -212,10 +216,10 @@ public class EasyFarmServerApi {
 
     public static void getExpertList(int typeId,int currenPage,int pageSize,AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
-        params.put("manualCategoryID",typeId);
-        params.put("currenPage",currenPage);
-        params.put("pageSize", pageSize);
-        ApiHttpClient.post("front/mobile/user/getAllEpxert", params, handler);
+        params.put("id",typeId);
+        params.put("page",currenPage+1);
+        params.put("row", pageSize);
+        ApiHttpClient.post("front/mobile/expert/getEpxertByManualID", params, handler);
     }
 
     public static void getTweetDetail(int id, AsyncHttpResponseHandler handler) {
@@ -309,7 +313,7 @@ public class EasyFarmServerApi {
         params.put("isfinish",isFinish);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/village/api/getServiceByTime", params, handler);
+        ApiHttpClient.get("front/mobile/village/api/getTimeServiceByPersonalID", params, handler);
     }
 
     public static void getVillageServiceDetail(int id,AsyncHttpResponseHandler handler){

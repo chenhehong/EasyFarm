@@ -264,6 +264,10 @@ public class PerformanceVerifyFragment extends BaseFragment {
             UIHelper.showLoginActivity(getActivity());
             return;
         }
+        if (optinionEditText.getText().toString()==null||optinionEditText.getText().toString().length()==0){
+            AppContext.showToastShort("请填写审核意见再提交！");
+            return;
+        }
         String userWorkTime="";
         boolean flag = false;
         for (int i=0;i<performanceUserWorkTimeAdapter.getDataSize();i++){

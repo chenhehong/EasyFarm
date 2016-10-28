@@ -21,6 +21,7 @@ import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -31,12 +32,10 @@ import butterknife.InjectView;
  */
 public abstract class BaseManualCategoryListFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
 
-    public static final String BUNDLEKEY_PARENTID = "bundlekey_parentid";
-    public static final String BUNDLEKEY_TYPE = "bundlekey_type";
+    public static final String BUNDLEKEY_PARENT_MANUALCATEGORY = "bundlekey_parent_manualcategory";
     public static final int MANUAL_COTEGORY_LIST_REQUEST_CODE = 100;
 
-    private int parentId=0;
-    private String type="";
+    public ManualCategory parentManualCategory;
 
     private ManualCategoryListAdapter manualCategoryListAdapter;
     private static int mState = STATE_NONE;
@@ -111,20 +110,17 @@ public abstract class BaseManualCategoryListFragment extends BaseFragment implem
     public void initData() {
         super.initData();
         Bundle bundle = getArguments();
-        parentId = bundle.getInt(BUNDLEKEY_PARENTID, 0);
-        if (parentId==0&&bundle.getString(BUNDLEKEY_TYPE)!=null){
-            type = bundle.getString(BUNDLEKEY_TYPE);
-        }
+        parentManualCategory = (ManualCategory) bundle.getSerializable(BUNDLEKEY_PARENT_MANUALCATEGORY);
         sendRequestManualCatalogData();
     }
 
     private void sendRequestManualCatalogData() {
         mState = STATE_REFRESH;
         mEmptyView.setErrorType(EmptyLayout.NETWORK_LOADING);
-        if (parentId==0){
-            EasyFarmServerApi.getManualCatalogListByCode(type, currenPage, pageSize, mHandler);
+        if (parentManualCategory.getId() ==0){
+            EasyFarmServerApi.getManualCatalogListByCode(parentManualCategory.getCategoryCode(), currenPage, pageSize, mHandler);
         }else {
-            EasyFarmServerApi.getManualCatalogListByParentId(parentId, currenPage, pageSize, mHandler);
+            EasyFarmServerApi.getManualCatalogListByParentId(parentManualCategory.getId(), currenPage, pageSize, mHandler);
         }
     }
 
@@ -145,6 +141,12 @@ public abstract class BaseManualCategoryListFragment extends BaseFragment implem
         if (data == null) {
             return;
         }
+//      添加一个“全部”的选项
+        ManualCategory m = new ManualCategory();
+        m.setId(parentManualCategory.getId());
+        m.setCategoryName("全部");
+        m.setCategoryCode(parentManualCategory.getCategoryCode());
+        data.add(0,m);
         mEmptyView.setErrorType(EmptyLayout.HIDE_LAYOUT);
 
         for (int i = 0; i < data.size(); i++) {

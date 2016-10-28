@@ -353,7 +353,8 @@ public class TweetPubFragment extends BaseFragment{
     }
 
     public void handlerSelectType(){
-        UIHelper.showTweetTypeChoose(this, 0, ManualCategory.INDUSTRY, TweetChooseManualCategoryFragment.MANUAL_COTEGORY_LIST_REQUEST_CODE);
+        ManualCategory industryManualCategory = new ManualCategory(0,0,false,"所有类型",ManualCategory.INDUSTRY,"");
+        UIHelper.showTweetTypeChoose(this, industryManualCategory, TweetChooseManualCategoryFragment.MANUAL_COTEGORY_LIST_REQUEST_CODE);
     }
 
     public void handleSelectExpert(){
@@ -374,6 +375,9 @@ public class TweetPubFragment extends BaseFragment{
             selectedTweetTypeName = returnIntent.getStringExtra(TweetChooseManualCategoryFragment.SELECTED_MANUAL_COTEGORY_NAME);
             selectedTweetTypeId = returnIntent.getIntExtra(TweetChooseManualCategoryFragment.SELECTED_MANUAL_COTEGORY_ID, 0);
             mEtType.setText(selectedTweetTypeName);
+            selectedExpertId=0;
+            selectedExpertName="";
+            mEtChooseExpert.setText("");
             return;
         }else if (requestCode==TweetExpertChooseFragment.TWEET_EXPERT_CHOOSE_REQUEST_CODE){
             selectedExpertName = returnIntent.getStringExtra(TweetExpertChooseFragment.SELECT_TWEET_EXPERT_NAME);

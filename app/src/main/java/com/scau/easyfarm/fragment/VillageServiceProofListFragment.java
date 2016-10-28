@@ -121,7 +121,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
         if (mCatalog==UNDERWAY_SERVICE) {
             EasyFarmServerApi.getMyVillageServiceProofList(0, mCurrentPage,mHandler);
         }else if (mCatalog==COMPLETED_SERVICE){
-            EasyFarmServerApi.getMyApplyVillageServiceList(0, mCurrentPage, VillageService.VILLAGE_SERVICE_COMPLETED,mHandler);
+            EasyFarmServerApi.getMyVillageServiceProofList(1, mCurrentPage,mHandler);
         }
     }
 

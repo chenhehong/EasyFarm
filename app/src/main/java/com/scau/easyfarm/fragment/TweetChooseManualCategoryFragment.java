@@ -17,11 +17,16 @@ public class TweetChooseManualCategoryFragment extends BaseManualCategoryListFra
     @Override
     void handleSelectManualCategory(ManualCategory selectManualCategory) {
         if (selectManualCategory.isParent()){
-            UIHelper.showTweetTypeChoose(this,selectManualCategory.getId(),"",MANUAL_COTEGORY_LIST_REQUEST_CODE);
+            UIHelper.showTweetTypeChoose(this,selectManualCategory,MANUAL_COTEGORY_LIST_REQUEST_CODE);
         }else {
             Intent result = new Intent();
             result.putExtra(SELECTED_MANUAL_COTEGORY_ID, selectManualCategory.getId());
-            result.putExtra(SELECTED_MANUAL_COTEGORY_NAME, selectManualCategory.getCategoryName());
+//          如果是“全部”
+            if (selectManualCategory.getId()==parentManualCategory.getId()){
+                result.putExtra(SELECTED_MANUAL_COTEGORY_NAME, parentManualCategory.getCategoryName());
+            }else {
+                result.putExtra(SELECTED_MANUAL_COTEGORY_NAME, selectManualCategory.getCategoryName());
+            }
             getActivity().setResult(getActivity().RESULT_OK, result);
             getActivity().finish();
         }

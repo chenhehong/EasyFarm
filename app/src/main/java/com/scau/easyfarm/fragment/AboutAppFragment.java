@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.util.TDevice;
@@ -59,11 +60,10 @@ public class AboutAppFragment extends BaseFragment {
             showFeedBack();
             break;
         case R.id.tv_website:
-//            UIHelper.openBrowser(getActivity(), "https://www.oschina.net");
+            UIHelper.openBrowser(getActivity(), ApiHttpClient.getAbsoluteApiUrl(""));
             break;
         case R.id.tv_knowmore:
-//            UIHelper.openBrowser(getActivity(),
-//                    "https://www.oschina.net/home/aboutosc");
+            UIHelper.openBrowser(getActivity(), ApiHttpClient.getAbsoluteApiUrl(""));
             break;
         default:
             break;

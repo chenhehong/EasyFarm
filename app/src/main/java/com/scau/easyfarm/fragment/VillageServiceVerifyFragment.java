@@ -208,6 +208,10 @@ public class VillageServiceVerifyFragment extends BaseFragment {
             UIHelper.showLoginActivity(getActivity());
             return;
         }
+        if (optinionEditText.getText().toString()==null||optinionEditText.getText().toString().length()==0){
+            AppContext.showToastShort("请填写审核意见再提交！");
+            return;
+        }
         showWaitDialog("提交中，请稍后");
         EasyFarmServerApi.verifyVillageService(mVillageServiceId, selectStatus, optinionEditText.getText().toString(), mSubmitHandler);
     }
