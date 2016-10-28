@@ -575,6 +575,10 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
         }
     }
 
+    public int getmCatalog() {
+        return mCatalog;
+    }
+
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
                          int visibleItemCount, int totalItemCount) {

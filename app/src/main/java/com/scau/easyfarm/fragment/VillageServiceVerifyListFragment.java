@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.VillageServiceAdapter;
+import com.scau.easyfarm.adapter.VillageServiceVerifyAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
@@ -60,8 +61,8 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
 
     @Override
 //  重载设置子类的列表适配器
-    protected VillageServiceAdapter getListAdapter() {
-        return new VillageServiceAdapter();
+    protected VillageServiceVerifyAdapter getListAdapter() {
+        return new VillageServiceVerifyAdapter(this);
     }
 
 //  用户登录状态广播接收器
@@ -167,7 +168,7 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
         return false;
     }
 
-    private void handleLongClick(final VillageService villageService) {
+    public void handleLongClick(final VillageService villageService) {
         String[] items = null;
 //        items = new String[] {getResources().getString(R.string.delete),"审批" };
 //        DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {

@@ -2,11 +2,13 @@ package com.scau.easyfarm.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Performance;
+import com.scau.easyfarm.fragment.PerformanceVerifyListFragment;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -26,10 +28,18 @@ public class PerformanceVerifyAdapter extends ListBaseAdapter<Performance>{
         TextView applyMan;
         @InjectView(R.id.tv_performance_status)
         TextView status;
+        @InjectView(R.id.more)
+        ImageView more;
 
         public ViewHold(View view) {
             ButterKnife.inject(this, view);
         }
+    }
+
+    PerformanceVerifyListFragment fragment;
+
+    public PerformanceVerifyAdapter(PerformanceVerifyListFragment fragment) {
+        this.fragment = fragment;
     }
 
     @Override
@@ -44,11 +54,20 @@ public class PerformanceVerifyAdapter extends ListBaseAdapter<Performance>{
             vh = (ViewHold)convertView.getTag();
         }
 
-        Performance performance = (Performance) mDatas.get(position);
+        final Performance performance = (Performance) mDatas.get(position);
         vh.type.setText(performance.getPerformanceTypeStr());
         vh.applyDate.setText("申报时间："+performance.getApplyDate());
         vh.applyMan.setText("申报人："+performance.getApplyManName());
         vh.status.setText("审核状态："+performance.getStatusString());
+        if (fragment.getmCatalog()==fragment.WAITING_PERFORMANCE){
+            vh.more.setVisibility(View.VISIBLE);
+        }
+        vh.more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment.handleLongClick(performance);
+            }
+        });
         return convertView;
     }
 }

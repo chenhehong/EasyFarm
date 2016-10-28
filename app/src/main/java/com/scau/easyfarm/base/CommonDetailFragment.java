@@ -259,9 +259,9 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
             case R.id.refresh:
                 sendRequestDataForNet();
                 return false;
-            case R.id.font_size:
-                showChangeFontSize();
-                break;
+//            case R.id.font_size:
+//                showChangeFontSize();
+//                break;
             default:
                 break;
         }

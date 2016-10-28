@@ -61,7 +61,7 @@ public class PerformanceVerifyListFragment extends BaseListFragment<Performance>
     @Override
 //  重载设置子类的列表适配器
     protected PerformanceVerifyAdapter getListAdapter() {
-        return new PerformanceVerifyAdapter();
+        return new PerformanceVerifyAdapter(this);
     }
 
 //  用户登录状态广播接收器
@@ -166,7 +166,7 @@ public class PerformanceVerifyListFragment extends BaseListFragment<Performance>
         return false;
     }
 
-    private void handleLongClick(final Performance performance) {
+    public void handleLongClick(final Performance performance) {
         String[] items = null;
 //        items = new String[] {getResources().getString(R.string.delete),"审批" };
 //        DialogHelp.getSelectDialog(getActivity(), items, new DialogInterface.OnClickListener() {

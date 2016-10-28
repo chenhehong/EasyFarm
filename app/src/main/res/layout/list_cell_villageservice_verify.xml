@@ -45,5 +45,14 @@
             android:textColor="?attr/infoTextColor" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/more"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_item_opt_more_selector"/>
+
 
 </RelativeLayout>

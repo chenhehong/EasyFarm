@@ -70,7 +70,7 @@ public class ProofResourceService extends BaseService{
             intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, bundle);
             intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE_ADD.getValue());
             notifySimpleNotifycation(id, "上传佐证失败", "上传佐证失败:"+errorMessage,"点击进入重新上传界面",true, true, intent);
-                    removePenddingTask(MYKEY + id);
+            removePenddingTask(MYKEY + id);
         }
 
         @Override
