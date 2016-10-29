@@ -350,6 +350,11 @@ public class PerformanceAddFragment extends BaseFragment{
             performanceTypeStr = returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_STR);
             performanceTypeId = returnIntent.getIntExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_ID, 0);
             etType.setText(performanceTypeStr);
+            if (performanceTypeStr.contains("其他")){
+                etType.setEnabled(true);
+            }else {
+                etType.setEnabled(false);
+            }
             layWorkTime.setVisibility(View.VISIBLE);
             workTimeUnit.setText(returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_WORKUNIT));
         }else if (requestCode==ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE){

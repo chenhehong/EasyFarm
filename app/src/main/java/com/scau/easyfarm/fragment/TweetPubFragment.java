@@ -353,12 +353,12 @@ public class TweetPubFragment extends BaseFragment{
     }
 
     public void handlerSelectType(){
-        ManualCategory industryManualCategory = new ManualCategory(0,0,false,"所有类型",ManualCategory.INDUSTRY,"");
+        ManualCategory industryManualCategory = new ManualCategory(0,0,false,"所有类型",ManualCategory.EXPERT,"");
         UIHelper.showTweetTypeChoose(this, industryManualCategory, TweetChooseManualCategoryFragment.MANUAL_COTEGORY_LIST_REQUEST_CODE);
     }
 
     public void handleSelectExpert(){
-        if (selectedTweetTypeId<1){
+        if (mEtType.getText().toString().length()==0){
             AppContext.showToastShort("请选择问答所属类别后再选择专家");
             return;
         }

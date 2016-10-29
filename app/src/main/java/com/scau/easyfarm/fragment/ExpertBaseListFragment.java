@@ -79,7 +79,7 @@ public class ExpertBaseListFragment extends BaseListFragment<ExpertBase>{
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-        EasyFarmServerApi.getExpertBaseList(mCatalog,manualCategoryId, mCurrentPage, mHandler);
+        EasyFarmServerApi.getExpertBaseList(manualCategoryId, mCurrentPage, mHandler);
     }
 
 //  重载点击事件，自定义子类的点击事件

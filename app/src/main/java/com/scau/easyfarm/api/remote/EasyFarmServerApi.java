@@ -478,10 +478,10 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/finishVillage",params,handler);
     }
 
-    public static void getExpertBaseList(int uid,int categoryCodeId, int page,
+    public static void getExpertBaseList(int categoryCodeId, int page,
                                      AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("uid", uid);
+        params.put("uid", AppContext.getInstance().getLoginUid());
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
         params.put("id", categoryCodeId);

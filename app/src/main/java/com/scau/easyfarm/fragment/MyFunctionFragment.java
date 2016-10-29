@@ -48,7 +48,7 @@ public class MyFunctionFragment extends BaseFunctionFragment{
         Bundle expertBaseBundle = new Bundle();
         ManualCategory expertManualCategory = new ManualCategory(0,0,false,"专家库",ManualCategory.EXPERT,"");
         expertBaseBundle.putSerializable(BaseManualCategoryListFragment.BUNDLEKEY_PARENT_MANUALCATEGORY, expertManualCategory);
-        Module expertBase = new Module(SimpleBackPage.CHOOSE_MANUAL_CATEGORY,"专家库",R.drawable.func_agriculture_knowledge_base_icon,expertBaseBundle);
+        Module expertBase = new Module(SimpleBackPage.EXPERTBASE_CHOOSE_MANUAL_CATEGORY,"专家库",R.drawable.func_agriculture_knowledge_base_icon,expertBaseBundle);
         moduleList.add(expertBase);
     }
 }
