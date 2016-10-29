@@ -52,6 +52,7 @@ public class Performance extends Entity {
     private float applyWorkTime;//申报的工作量
     @JSONField(name = "attachmentList")
     private ArrayList<FileResource> fileList = new ArrayList<>();
+    @JSONField(name = "polist")
     List<VerifyOpinion> verifyOpinions = new ArrayList<VerifyOpinion>();
     @JSONField(name = "workTimeList")
     List<PerformanceMemberWorkTime> performanceMemberWorkTimeList = new ArrayList<PerformanceMemberWorkTime>();

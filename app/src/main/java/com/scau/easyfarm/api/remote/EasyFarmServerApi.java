@@ -571,7 +571,7 @@ public class EasyFarmServerApi {
         params.put("applyPerformanceID", performanceId);
         params.put("auditPersonalWorkingHour",userWorkTime);
         params.put("opinion",optinion);
-        ApiHttpClient.get("front/mobile/village/api/audit", params, handler);
+        ApiHttpClient.get("front/mobile/performance/auditPerformanceOpinion", params, handler);
     }
 
     public static void getMonthStaticsPerformanceList(int categoryId, int page, AsyncHttpResponseHandler handler) {

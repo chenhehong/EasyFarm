@@ -44,6 +44,8 @@ public class PerformanceDetailFragment extends BaseFragment {
     TextView tvServerDate;
     @InjectView(R.id.tv_user_worktime)
     TextView tvUserWorkTime;
+    @InjectView(R.id.tv_apply_worktime)
+    TextView tvApplyWorktime;
     @InjectView(R.id.tv_statue)
     TextView tvStatue;
     @InjectView(R.id.tv_optionion)
@@ -131,6 +133,7 @@ public class PerformanceDetailFragment extends BaseFragment {
         tvType.setText(mPerformance.getPerformanceTypeStr());
         tvServerDate.setText(mPerformance.getPerformanceServerDateDesc());
         tvStatue.setText(mPerformance.getStatusString());
+        tvApplyWorktime.setText(mPerformance.getApplyWorkTime()+"");
         String memberWorkTimes = "";
         if (mPerformance.getPerformanceMemberWorkTimeList()!=null){
             boolean flage = false;
@@ -138,7 +141,7 @@ public class PerformanceDetailFragment extends BaseFragment {
                 if (flage) memberWorkTimes+="\n\n";
                 else flage = true;
                 PerformanceMemberWorkTime memberWorkTime = mPerformance.getPerformanceMemberWorkTimeList().get(i);
-                memberWorkTimes += memberWorkTime.getUserName()+":"+memberWorkTime.getRealWorkTime();
+                memberWorkTimes += memberWorkTime.getUserName()+": "+memberWorkTime.getRealWorkTime();
             }
         }
         tvUserWorkTime.setText(memberWorkTimes);
