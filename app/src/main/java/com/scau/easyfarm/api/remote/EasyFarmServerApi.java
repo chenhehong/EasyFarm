@@ -313,6 +313,8 @@ public class EasyFarmServerApi {
         params.put("isfinish",isFinish);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
+        params.put("order", "desc");
+        params.put("sort","createDate");
         ApiHttpClient.get("front/mobile/village/api/getTimeServiceByPersonalID", params, handler);
     }
 
@@ -355,13 +357,16 @@ public class EasyFarmServerApi {
         ApiHttpClient.get("front/mobile/manual/api/getContentByCode", params, handler);
     }
 
-    public static void getVerifyServiceList(int categoryId, int page, int status,
+    public static void getVerifyServiceList(int needAudit, int page, int status,
                                             AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        params.put("uid",AppContext.getInstance().getLoginUid());
+        params.put("needAudit",needAudit);
         params.put("status",status);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        params.put("uid",AppContext.getInstance().getLoginUid());
+        params.put("order", "desc");
+        params.put("sort","applyDate");
         ApiHttpClient.get("front/mobile/village/api/getServiceByAuditor", params, handler);
     }
 
@@ -545,13 +550,16 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/performance/auditPage", params, handler);
     }
 
-    public static void getVerifyPerformanceList(int categoryId, int page, int status,
-                                            AsyncHttpResponseHandler handler) {
+    public static void getVerifyPerformanceList(int needAudit, int page, int status,
+                                                AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        params.put("uid",AppContext.getInstance().getLoginUid());
+        params.put("needAudit",needAudit);
         params.put("status",status);
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
-        params.put("uid",AppContext.getInstance().getLoginUid());
+        params.put("order", "desc");
+        params.put("sort","applyDate");
         ApiHttpClient.get("front/mobile/performance/getAuditListDataGrid", params, handler);
     }
 

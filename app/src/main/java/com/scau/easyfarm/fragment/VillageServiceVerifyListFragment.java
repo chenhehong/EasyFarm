@@ -39,9 +39,8 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
 
     private static final String CACHE_KEY_PREFIX = "verifyVillageServiceList_";
 
-    public final static int ALL_VILLAGE_SERVICE = 0;
-    public final static int PASS_VILAGE_SERVICE = 1;
-    public final static int WAITING_VILAGE_SERVICE = 2;
+    public final static int COMPLETED_VERIFY = 1;//已审核
+    public final static int WAITING_VERIFY = 2;//带审核
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,10 +119,10 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
         if (bundle != null) {
 //          如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-        if (mCatalog==WAITING_VILAGE_SERVICE){
-            EasyFarmServerApi.getVerifyServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_WAITING, mHandler);
-        }else if (mCatalog==ALL_VILLAGE_SERVICE){
-            EasyFarmServerApi.getVerifyServiceList(mCatalog, mCurrentPage, VillageService.VILLAGE_SERVICE_ALL, mHandler);
+        if (mCatalog==WAITING_VERIFY){
+            EasyFarmServerApi.getVerifyServiceList(1, mCurrentPage, 0, mHandler);
+        }else if (mCatalog==COMPLETED_VERIFY){
+            EasyFarmServerApi.getVerifyServiceList(0, mCurrentPage, VillageService.VILLAGE_SERVICE_ALL, mHandler);
         }
     }
 
@@ -161,7 +160,7 @@ public class VillageServiceVerifyListFragment extends BaseListFragment<VillageSe
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         VillageService villageService = mAdapter.getItem(position);
-        if (villageService != null&&mCatalog==WAITING_VILAGE_SERVICE) {
+        if (villageService != null&&mCatalog==WAITING_VERIFY) {
             handleLongClick(villageService);
             return true;
         }

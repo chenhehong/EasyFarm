@@ -38,9 +38,8 @@ public class PerformanceVerifyListFragment extends BaseListFragment<Performance>
 
     private static final String CACHE_KEY_PREFIX = "verifyPerformanceList_";
 
-    public final static int ALL_PERFORMANCE = 0;
-    public final static int PASS_PERFORMANCE = 1;
-    public final static int WAITING_PERFORMANCE = 2;
+    public final static int COMPLETED_VERIFY = 1;//已审核
+    public final static int WAITING_VERIFY = 2;//带审核
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,10 +117,10 @@ public class PerformanceVerifyListFragment extends BaseListFragment<Performance>
         if (bundle != null) {
 //          如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-        if (mCatalog== WAITING_PERFORMANCE){
-            EasyFarmServerApi.getVerifyPerformanceList(mCatalog, mCurrentPage, Performance.PERFORMANCE_WAITING, mHandler);
-        }else if (mCatalog== ALL_PERFORMANCE){
-            EasyFarmServerApi.getVerifyPerformanceList(mCatalog, mCurrentPage, Performance.PERFORMANCE_ALL, mHandler);
+        if (mCatalog== WAITING_VERIFY){
+            EasyFarmServerApi.getVerifyPerformanceList(1, mCurrentPage,0, mHandler);
+        }else if (mCatalog== COMPLETED_VERIFY){
+            EasyFarmServerApi.getVerifyPerformanceList(0, mCurrentPage, Performance.PERFORMANCE_ALL, mHandler);
         }
     }
 
@@ -159,7 +158,7 @@ public class PerformanceVerifyListFragment extends BaseListFragment<Performance>
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Performance performance = mAdapter.getItem(position);
-        if (performance != null&&mCatalog== WAITING_PERFORMANCE) {
+        if (performance != null&&mCatalog== WAITING_VERIFY) {
             handleLongClick(performance);
             return true;
         }

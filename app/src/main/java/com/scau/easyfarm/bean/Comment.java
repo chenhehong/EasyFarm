@@ -10,6 +10,7 @@ public class Comment extends Entity{
 //  所评论的评论的id，如果直接评论问题为0
     @JSONField(name = "commentID")
     private int commentedId;
+    @JSONField(name = "becommentName")
     private String commentedName;
     @JSONField(name="personalID")
     private int commenterId;

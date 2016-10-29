@@ -269,7 +269,7 @@ public class PerformanceAddFragment extends BaseFragment{
         performance.setApplyWorkTime(Float.valueOf(etApplyWorkTime.getText().toString()));
         performance.setPerformanceServerDate(etServerDate.getText().toString());
         performance.setPerformanceTypeId(performanceTypeId);
-        performance.setPerformanceTypeStr(performanceTypeStr);
+        performance.setPerformanceTypeStr(etType.getText().toString());
         showWaitDialog("发送申请中，请稍后");
         EasyFarmServerApi.addPerformanceApply(mHandler,performance);
     }

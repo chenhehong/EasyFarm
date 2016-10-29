@@ -36,7 +36,7 @@
 
     <string-array name="village_service_verify_viewpage_arrays">
         <item>待审核</item>
-        <item>全部申请</item>
+        <item>已审核</item>
     </string-array>
 
     <string-array name="village_service_proof_viewpage_arrays">
@@ -51,7 +51,7 @@
 
     <string-array name="performance_verify_viewpage_arrays">
         <item>待审核</item>
-        <item>全部申请</item>
+        <item>已审核</item>
     </string-array>
     
 </resources>

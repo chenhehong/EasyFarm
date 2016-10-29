@@ -60,7 +60,7 @@ public class VillageServiceVerifyAdapter extends ListBaseAdapter<VillageService>
         vh.applyTime.setText("申请时间："+villageService.getApplyDate());
         vh.applyMan.setText("申请人："+villageService.getApplyManName());
         vh.status.setText("申请状态：" + villageService.getStatusString());
-        if (fragment.getmCatalog()==fragment.WAITING_VILAGE_SERVICE){
+        if (fragment.getmCatalog()==fragment.WAITING_VERIFY){
             vh.more.setVisibility(View.VISIBLE);
         }
         vh.more.setOnClickListener(new View.OnClickListener() {

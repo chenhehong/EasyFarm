@@ -59,7 +59,7 @@ public class PerformanceVerifyAdapter extends ListBaseAdapter<Performance>{
         vh.applyDate.setText("申报时间："+performance.getApplyDate());
         vh.applyMan.setText("申报人："+performance.getApplyManName());
         vh.status.setText("审核状态："+performance.getStatusString());
-        if (fragment.getmCatalog()==fragment.WAITING_PERFORMANCE){
+        if (fragment.getmCatalog()==fragment.WAITING_VERIFY){
             vh.more.setVisibility(View.VISIBLE);
         }
         vh.more.setOnClickListener(new View.OnClickListener() {

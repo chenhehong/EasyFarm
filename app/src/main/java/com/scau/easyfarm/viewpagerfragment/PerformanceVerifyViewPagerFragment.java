@@ -25,10 +25,10 @@ public class PerformanceVerifyViewPagerFragment extends BaseViewPagerFragment{
         String[] title = getResources().getStringArray(
                 R.array.performance_verify_viewpage_arrays);
 //      传人频道号为参数
-        adapter.addTab(title[0], "all_performance", PerformanceVerifyListFragment.class,
-                getBundle(PerformanceVerifyListFragment.WAITING_PERFORMANCE));
-        adapter.addTab(title[1], "pass_performance", PerformanceVerifyListFragment.class,
-                getBundle(PerformanceVerifyListFragment.ALL_PERFORMANCE));
+        adapter.addTab(title[0], "waiting_verify", PerformanceVerifyListFragment.class,
+                getBundle(PerformanceVerifyListFragment.WAITING_VERIFY));
+        adapter.addTab(title[1], "completed_verify", PerformanceVerifyListFragment.class,
+                getBundle(PerformanceVerifyListFragment.COMPLETED_VERIFY));
     }
 
     private Bundle getBundle(int catalog) {

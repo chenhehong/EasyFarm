@@ -106,6 +106,8 @@ public class TweetPubFragment extends BaseFragment{
 
     private MenuItem mSendMenu;
 
+    private boolean mIsKeyboardVisible;
+
     public static final int MAXPICTURENUM = 4;
 
     private final OperationResponseHandler mHandler = new OperationResponseHandler() {
@@ -229,6 +231,9 @@ public class TweetPubFragment extends BaseFragment{
                 fileResourceArrayList.add(fileResource);
             }
             tweet.setImageFiles(fileResourceArrayList);
+        }
+        if (mIsKeyboardVisible) {
+            TDevice.hideSoftKeyboard(getActivity().getCurrentFocus());
         }
         showWaitDialog("发布问题中");
         EasyFarmServerApi.pubTweet(tweet, mHandler);
@@ -423,6 +428,9 @@ public class TweetPubFragment extends BaseFragment{
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 mEtInput.getText().clear();
+                if (mIsKeyboardVisible) {
+                    TDevice.showSoftKeyboard(mEtInput);
+                }
             }
         }).show();
     }
