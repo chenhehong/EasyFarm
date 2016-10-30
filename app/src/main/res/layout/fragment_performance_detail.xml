@@ -47,12 +47,15 @@
             <RelativeLayout
                 style="@style/detail_list_layout">
                 <TextView
+                    android:id="@+id/tv_type_desc"
                     style="@style/detail_list_left_textview"
+                    android:layout_alignParentLeft="true"
                     android:text="业绩类型："/>
                 <TextView
                     style="@style/detail_list_right_textview"
                     android:id="@+id/tv_type"
-                    android:text="" />
+                    android:layout_toRightOf="@id/tv_type_desc"
+                    android:text="业绩类型" />
             </RelativeLayout>
 
             <View
@@ -148,6 +151,23 @@
             <View
                 style="@style/h_line" />
 
+            <RelativeLayout
+                android:id="@+id/worktime_explain"
+                android:visibility="gone"
+                style="@style/detail_list_layout">
+                <TextView
+                    android:id="@+id/tv_worktime_explain"
+                    style="@style/detail_list_left_textview"
+                    android:layout_alignParentLeft="true"
+                    android:text="工作量说明："/>
+                <TextView
+                    android:id="@+id/tv_service_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_worktime_explain"
+                    android:textColor="@color/green"
+                    android:text="该项个人工作时以具体服务的佐证材料上传情况计算，点击可以查看详情"/>
+            </RelativeLayout>
 
         </LinearLayout>
 

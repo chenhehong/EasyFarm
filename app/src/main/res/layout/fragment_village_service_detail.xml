@@ -139,6 +139,19 @@
             </RelativeLayout>
 
             <View
+                style="@style/h_line" /> <RelativeLayout
+            style="@style/detail_list_layout">
+            <TextView
+                style="@style/detail_list_left_textview"
+                android:text="佐证材料："/>
+            <TextView
+                style="@style/detail_list_right_textview"
+                android:id="@+id/tv_proof"
+                android:text="点击查看"
+                android:textColor="@color/green"/>
+        </RelativeLayout>
+
+            <View
                 style="@style/h_line" />
 
 

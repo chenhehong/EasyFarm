@@ -25,6 +25,7 @@ import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
+import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 
@@ -40,10 +41,14 @@ public class PerformanceDetailFragment extends BaseFragment {
     TextView tvApplyMan;
     @InjectView(R.id.tv_type)
     TextView tvType;
+    @InjectView(R.id.tv_service_detail)
+    TextView tvServiceDetail;
     @InjectView(R.id.tv_server_date)
     TextView tvServerDate;
     @InjectView(R.id.tv_user_worktime)
     TextView tvUserWorkTime;
+    @InjectView(R.id.worktime_explain)
+    View worktime_explain;
     @InjectView(R.id.tv_apply_worktime)
     TextView tvApplyWorktime;
     @InjectView(R.id.tv_statue)
@@ -131,6 +136,15 @@ public class PerformanceDetailFragment extends BaseFragment {
         tvApplyMan.setText(mPerformance.getApplyManName());
         tvServerNumber.setText(mPerformance.getPerformanceCode());
         tvType.setText(mPerformance.getPerformanceTypeStr());
+        if (mPerformance.getVillageService()!=null){
+            worktime_explain.setVisibility(View.VISIBLE);
+            tvServiceDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UIHelper.showVillageServiceDetail(getActivity(), mPerformance.getVillageService().getId());
+                }
+            });
+        }
         tvServerDate.setText(mPerformance.getPerformanceServerDateDesc());
         tvStatue.setText(mPerformance.getStatusString());
         tvApplyWorktime.setText(mPerformance.getApplyWorkTime()+"");

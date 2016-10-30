@@ -57,6 +57,8 @@ public class Performance extends Entity {
     @JSONField(name = "workTimeList")
     List<PerformanceMemberWorkTime> performanceMemberWorkTimeList = new ArrayList<PerformanceMemberWorkTime>();
 
+    private VillageService villageService;
+
     public String getPerformanceCode() {
         return performanceCode;
     }
@@ -174,5 +176,13 @@ public class Performance extends Entity {
 
     public void setFileList(ArrayList<FileResource> fileList) {
         this.fileList = fileList;
+    }
+
+    public VillageService getVillageService() {
+        return villageService;
+    }
+
+    public void setVillageService(VillageService villageService) {
+        this.villageService = villageService;
     }
 }

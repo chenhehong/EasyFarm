@@ -17,6 +17,7 @@ import com.scau.easyfarm.bean.VerifyOpinion;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 
@@ -48,6 +49,8 @@ public class VillageServiceDetailFragment extends BaseFragment {
     EmptyLayout mErrorLayout;
     @InjectView(R.id.tv_serverNumber)
     TextView tvServerNumber;
+    @InjectView(R.id.tv_proof)
+    TextView tvProof;
 
     public static final String VILLAGE_SERVICE_ID_CODE = "village_service_id_code";
 
@@ -79,6 +82,12 @@ public class VillageServiceDetailFragment extends BaseFragment {
             public void onClick(View v) {
                 mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
                 sendRequiredData();
+            }
+        });
+        tvProof.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.showVillageServiceProofResource(VillageServiceDetailFragment.this, mVillageService, 1);
             }
         });
     }

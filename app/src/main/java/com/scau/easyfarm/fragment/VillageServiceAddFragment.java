@@ -37,6 +37,7 @@ import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.SimpleTextWatcher;
@@ -303,8 +304,12 @@ public class VillageServiceAddFragment extends BaseFragment{
             AppContext.showToast("请选择返回时间");
             return;
         }
+        if (etBusinessDate.getText().toString().compareTo(DateTimeUtil.getCurrentDateStr(""))<0){
+            AppContext.showToast("服务时间不能小于当前时间");
+            return;
+        }
         if (etBusinessDate.getText().toString().compareTo(etReturnDate.getText().toString())>0){
-            AppContext.showToast("返回时间不能大于服务时间");
+            AppContext.showToast("服务时间不能大于返回时间");
             return;
         }
         String villageServiceUserIds = "";
