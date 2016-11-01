@@ -16,17 +16,20 @@ public class TweetChooseManualCategoryFragment extends BaseManualCategoryListFra
 
     @Override
     void handleSelectManualCategory(ManualCategory selectManualCategory) {
-        if (selectManualCategory.isParent()){
-            UIHelper.showTweetTypeChoose(this,selectManualCategory,MANUAL_COTEGORY_LIST_REQUEST_CODE);
+//      设置actionbar
+        ManualCategory nextLevelManualCategory = new ManualCategory(selectManualCategory.getId(),selectManualCategory.getParentId(),selectManualCategory.isParent(),
+                selectManualCategory.getCategoryName(),selectManualCategory.getCategoryCode(),selectManualCategory.getCotegoryDescription());
+        if (nextLevelManualCategory.getId()==parentManualCategory.getId()){
+            nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName());
+        }else {
+            nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName()+nextLevelManualCategory.getCategoryName()+"/");
+        }
+        if (nextLevelManualCategory.isParent()){
+            UIHelper.showTweetTypeChoose(this,nextLevelManualCategory,MANUAL_COTEGORY_LIST_REQUEST_CODE);
         }else {
             Intent result = new Intent();
-            result.putExtra(SELECTED_MANUAL_COTEGORY_ID, selectManualCategory.getId());
-//          如果是“全部”
-            if (selectManualCategory.getId()==parentManualCategory.getId()){
-                result.putExtra(SELECTED_MANUAL_COTEGORY_NAME, parentManualCategory.getCategoryName());
-            }else {
-                result.putExtra(SELECTED_MANUAL_COTEGORY_NAME, selectManualCategory.getCategoryName());
-            }
+            result.putExtra(SELECTED_MANUAL_COTEGORY_ID, nextLevelManualCategory.getId());
+            result.putExtra(SELECTED_MANUAL_COTEGORY_NAME, nextLevelManualCategory.getCategoryName());
             getActivity().setResult(getActivity().RESULT_OK, result);
             getActivity().finish();
         }

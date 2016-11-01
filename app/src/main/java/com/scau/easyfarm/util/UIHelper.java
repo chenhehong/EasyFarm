@@ -351,9 +351,9 @@ public class UIHelper {
         showSimpleBack(fragment, SimpleBackPage.CHOOSE_MANUAL_CATEGORY, budle);
     }
 
-    public static void showManualList(Fragment fragment,String categoryCode){
+    public static void showManualList(Fragment fragment,ManualCategory category){
         Bundle bundle = new Bundle();
-        bundle.putString(ManualListFragment.MANUALCATEGORYCODE, categoryCode);
+        bundle.putSerializable(ManualListFragment.MANUALCATEGORY, category);
         showSimpleBack(fragment, SimpleBackPage.MANUAL_LIST, bundle);
     }
 
@@ -521,9 +521,9 @@ public class UIHelper {
         showSimpleBack(fragment, SimpleBackPage.EXPERTBASE_CHOOSE_MANUAL_CATEGORY, budle);
     }
 
-    public static void showExpertBaseList(Fragment fragment,int categoryCodeId){
+    public static void showExpertBaseList(Fragment fragment,ManualCategory category){
         Bundle bundle = new Bundle();
-        bundle.putInt(ExpertBaseListFragment.BUNDLEKEY_MANUALCOTEGORY_ID, categoryCodeId);
+        bundle.putSerializable(ExpertBaseListFragment.BUNDLEKEY_MANUALCOTEGORY, category);
         showSimpleBack(fragment, SimpleBackPage.EXPERTBASE_LIST,bundle);
     }
 

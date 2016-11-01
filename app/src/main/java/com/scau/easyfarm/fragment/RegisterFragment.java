@@ -64,6 +64,8 @@ public class RegisterFragment extends BaseFragment{
     EditText phoneNumber;
     @InjectView(R.id.et_email)
     EditText email;
+    @InjectView(R.id.et_area)
+    EditText etArea;
     @InjectView(R.id.et_address)
     EditText address;
     @InjectView(R.id.sp_gender)
@@ -121,7 +123,7 @@ public class RegisterFragment extends BaseFragment{
     public void initView(View view) {
         super.initView(view);
         ButterKnife.inject(this, view);
-
+        etArea.setOnClickListener(this);
         spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, User.genderArray);
 //      simple_spinner_dropdown_item.xml设置的是下拉看到的效果
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// 设置下拉风格
@@ -178,13 +180,14 @@ public class RegisterFragment extends BaseFragment{
         String mobile = this.phoneNumber.getText().toString();
         String email = this.email.getText().toString();
         String age = this.age.getText().toString();
+        String area = this.etArea.getText().toString();
         String address = this.address.getText().toString();
         if (loginName==null||loginName.length()==0){
             AppContext.showToast("登录名不能为空！");
             return;
         }
         if (!StringUtils.isCorrectLoginNameFormat(loginName)){
-            AppContext.showToast("登录名格式不对！由字母数字或下划线组成，不能超过16位");
+            AppContext.showToast("登录名格式不对！由字母数字或下划线组成，5-16个字符");
             return;
         }
         if (password==null||password.length()==0){
@@ -215,8 +218,12 @@ public class RegisterFragment extends BaseFragment{
             AppContext.showToast("手机号码格式错误");
             return;
         }
+        if (area==null||area.length()==0){
+            AppContext.showToast("请选择所在区域");
+            return;
+        }
         showWaitDialog("注册中，请稍后");
-        EasyFarmServerApi.register(loginName, password, realName, age, gender, email, mobile,address,mHandler);
+        EasyFarmServerApi.register(loginName, password, realName, age, gender, email, mobile,area+address,mHandler);
     }
 
     @Override
@@ -224,6 +231,24 @@ public class RegisterFragment extends BaseFragment{
         final int id = v.getId();
         if(id==R.id.btn_submit){
             handleSubmit();
+        }else if (id==R.id.et_area){
+            handleSelectArea();
+        }
+    }
+
+    private void handleSelectArea(){
+        UIHelper.showAreaChoose(this, AreaCatalogListFragment.AREA_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode,
+                                 final Intent returnIntent) {
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        if (requestCode==AreaCatalogListFragment.AREA_REQUEST_CODE){
+            String selectedArea = returnIntent.getStringExtra(AreaCatalogListFragment.AREA_SELECTED_CODE);
+            etArea.setText(selectedArea);
+            return;
         }
     }
 }

@@ -381,7 +381,7 @@ public class StringUtils {
     public static boolean isCorrectLoginNameFormat(String loginName){
         if (loginName==null||loginName.trim().length()==0)
             return false;
-        Pattern p = Pattern.compile("[a-zA-Z0-9_]{1,16}");
+        Pattern p = Pattern.compile("[a-zA-Z0-9_]{5,16}");
         return p.matcher(loginName).matches();
     }
 

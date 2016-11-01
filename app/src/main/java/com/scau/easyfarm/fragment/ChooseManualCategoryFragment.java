@@ -13,10 +13,18 @@ public class ChooseManualCategoryFragment extends BaseManualCategoryListFragment
 
     @Override
     void handleSelectManualCategory(ManualCategory selectManualCategory) {
-        if (selectManualCategory.isParent()){
-            UIHelper.showManualCategory(this,selectManualCategory);
+//      设置actionbar
+        ManualCategory nextLevelManualCategory = new ManualCategory(selectManualCategory.getId(),selectManualCategory.getParentId(),selectManualCategory.isParent(),
+                selectManualCategory.getCategoryName(),selectManualCategory.getCategoryCode(),selectManualCategory.getCotegoryDescription());
+        if (nextLevelManualCategory.getId()==parentManualCategory.getId()){
+            nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName());
         }else {
-            UIHelper.showManualList(this,selectManualCategory.getCategoryCode());
+            nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName()+nextLevelManualCategory.getCategoryName()+"/");
+        }
+        if (nextLevelManualCategory.isParent()){
+            UIHelper.showManualCategory(this,nextLevelManualCategory);
+        }else {
+            UIHelper.showManualList(this,nextLevelManualCategory);
         }
     }
 }

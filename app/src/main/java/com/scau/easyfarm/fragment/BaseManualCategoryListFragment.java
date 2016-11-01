@@ -17,6 +17,7 @@ import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.ManualCategoryList;
+import com.scau.easyfarm.ui.SimpleBackActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 
@@ -86,12 +87,10 @@ public abstract class BaseManualCategoryListFragment extends BaseFragment implem
         super.initView(view);
         ButterKnife.inject(this, view);
         manualCategoryListView.setOnItemClickListener(manualCategoryOnItemClick);
-
         if (manualCategoryListAdapter==null){
             manualCategoryListAdapter = new ManualCategoryListAdapter();
         }
         manualCategoryListView.setAdapter(manualCategoryListAdapter);
-
         mEmptyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +110,9 @@ public abstract class BaseManualCategoryListFragment extends BaseFragment implem
         super.initData();
         Bundle bundle = getArguments();
         parentManualCategory = (ManualCategory) bundle.getSerializable(BUNDLEKEY_PARENT_MANUALCATEGORY);
+        if (getActivity() instanceof SimpleBackActivity){
+            ((SimpleBackActivity)getActivity()).setActionBarTitle(parentManualCategory.getCategoryName());
+        }
         sendRequestManualCatalogData();
     }
 

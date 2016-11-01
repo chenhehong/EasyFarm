@@ -24,7 +24,7 @@
                 <EditText
                     android:id="@+id/et_loginname"
                     style="@style/form_edit_right_edittext"
-                    android:hint="字母数字或下划线组成"/>
+                    android:hint="字母数字或下划线组成,5-16个字符"/>
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +99,18 @@
                 style="@style/form_edit_layout">
                 <TextView
                     style="@style/form_edit_left_textview"
-                    android:text="住址："/>
+                    android:text="所在区域："/>
+                <EditText
+                    android:id="@+id/et_area"
+                    android:editable="false"
+                    android:hint="必选"
+                    style="@style/form_edit_right_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
+                    android:text="详细住址："/>
                 <EditText
                     android:id="@+id/et_address"
                     style="@style/form_edit_right_edittext"/>

@@ -1,21 +1,16 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ExpertBaseAdapter;
-import com.scau.easyfarm.adapter.ManualAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.ExpertBase;
 import com.scau.easyfarm.bean.ExpertBaseList;
-import com.scau.easyfarm.bean.ManualContent;
-import com.scau.easyfarm.bean.ManualList;
+import com.scau.easyfarm.bean.ManualCategory;
+import com.scau.easyfarm.ui.SimpleBackActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.UIHelper;
@@ -29,16 +24,16 @@ import java.io.Serializable;
 public class ExpertBaseListFragment extends BaseListFragment<ExpertBase>{
 
     private static final String CACHE_KEY_PREFIX = "expertbaselist_";
-    public static final String BUNDLEKEY_MANUALCOTEGORY_ID = "bundlekey_manualcotegory_id";
+    public static final String BUNDLEKEY_MANUALCOTEGORY = "bundlekey_manualcotegory";
 
-    private int manualCategoryId = 0;
+    private ManualCategory manualCategory;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
-            manualCategoryId = args.getInt(BUNDLEKEY_MANUALCOTEGORY_ID);
+            manualCategory = (ManualCategory) args.getSerializable(BUNDLEKEY_MANUALCOTEGORY);
         }
     }
 
@@ -79,7 +74,7 @@ public class ExpertBaseListFragment extends BaseListFragment<ExpertBase>{
         if (bundle != null) {
 //            如果需要做搜索功能，可以通过bundle传人参数，进行带参数的请求
         }
-        EasyFarmServerApi.getExpertBaseList(manualCategoryId, mCurrentPage, mHandler);
+        EasyFarmServerApi.getExpertBaseList(manualCategory.getId(), mCurrentPage, mHandler);
     }
 
 //  重载点击事件，自定义子类的点击事件
@@ -105,6 +100,9 @@ public class ExpertBaseListFragment extends BaseListFragment<ExpertBase>{
                     requestData(true);
             }
         });
+        if (getActivity() instanceof SimpleBackActivity){
+            ((SimpleBackActivity)getActivity()).setActionBarTitle(manualCategory.getCategoryName());
+        }
     }
 
 //    @Override

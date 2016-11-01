@@ -10,10 +10,18 @@ public class ExpertBaseChooseManualCategoryFragment extends BaseManualCategoryLi
 
     @Override
     void handleSelectManualCategory(ManualCategory selectManualCategory) {
-        if (selectManualCategory.isParent()){
-            UIHelper.showExpertBaseManualCategory(this,selectManualCategory);
+//      设置actionbar
+        ManualCategory nextLevelManualCategory = new ManualCategory(selectManualCategory.getId(),selectManualCategory.getParentId(),selectManualCategory.isParent(),
+                selectManualCategory.getCategoryName(),selectManualCategory.getCategoryCode(),selectManualCategory.getCotegoryDescription());
+        if (nextLevelManualCategory.getId()==parentManualCategory.getId()){
+            nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName());
         }else {
-            UIHelper.showExpertBaseList(this, selectManualCategory.getId());
+            nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName()+nextLevelManualCategory.getCategoryName()+"/");
+        }
+        if (nextLevelManualCategory.isParent()){
+            UIHelper.showExpertBaseManualCategory(this, nextLevelManualCategory);
+        }else {
+            UIHelper.showExpertBaseList(this,nextLevelManualCategory);
         }
     }
 }
