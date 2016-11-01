@@ -22,8 +22,8 @@ public class User extends Entity {
         {put("男",MAN);put("女",FEMALE);}
     };
 
-    public final static int MAN = 1;
-    public final static int FEMALE=0;
+    public final static int MAN = 0;
+    public final static int FEMALE=1;
 
     private String loginName="";
     private String password="";

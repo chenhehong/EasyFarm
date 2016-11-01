@@ -358,7 +358,7 @@ public class TweetPubFragment extends BaseFragment{
     }
 
     public void handlerSelectType(){
-        ManualCategory industryManualCategory = new ManualCategory(0,0,false,"专家库/",ManualCategory.EXPERT,"");
+        ManualCategory industryManualCategory = new ManualCategory(0,0,false,"全部类型/",ManualCategory.EXPERT,"");
         UIHelper.showTweetTypeChoose(this, industryManualCategory, TweetChooseManualCategoryFragment.MANUAL_COTEGORY_LIST_REQUEST_CODE);
     }
 

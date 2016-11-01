@@ -29,6 +29,7 @@ public class VillageProofResource extends Entity{
 
     private String address="";
     private String description="";
+    private int descriptionId;
     private String createDate="";
     private String imgSmall="";
     private String imgBig="";
@@ -119,5 +120,13 @@ public class VillageProofResource extends Entity{
 
     public void setVillageServiceDescription(String villageServiceDescription) {
         this.villageServiceDescription = villageServiceDescription;
+    }
+
+    public int getDescriptionId() {
+        return descriptionId;
+    }
+
+    public void setDescriptionId(int descriptionId) {
+        this.descriptionId = descriptionId;
     }
 }

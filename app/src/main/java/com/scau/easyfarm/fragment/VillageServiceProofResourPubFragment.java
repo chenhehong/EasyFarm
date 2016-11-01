@@ -156,7 +156,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         if (mSendMenu == null) {
             return;
         }
-        if (mVillageType.getText().length() > 0) {
+        if (mVillageType.getText().length() > 0&&mResourceDescription.getText().length()>0) {
             mSendMenu.setEnabled(true);
             mSendMenu.setIcon(R.drawable.actionbar_send_icon);
         } else {
@@ -192,6 +192,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         villageProofResource.setVillageServiceId(selectedVillageServiceTypeId);
         villageProofResource.setDescription(mResourceDescription.getText().toString());
         villageProofResource.setVillageServiceDescription(mVillageType.getText().toString());
+        villageProofResource.setDescriptionId(descriptionId);
         if (imgFile != null && imgFile.exists()) {
             villageProofResource.setImageFilePath(imgFile.getAbsolutePath());
         }
@@ -257,6 +258,13 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         ButterKnife.inject(this, view);
         setHasOptionsMenu(true);
         mVillageType.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                updateMenuState();
+            }
+        });
+        mResourceDescription.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
