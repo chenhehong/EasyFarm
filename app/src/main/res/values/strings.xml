@@ -202,4 +202,8 @@
     <string name="myservice_month_statistics">个人服务统计</string>
     <string name="myservice_statistics">个人服务统计</string>
 
+    <string name="you_have_news_messages">你有%s条最新消息</string>
+    <string name="atme_count">\@我(%s) </string>
+    <string name="review_count">评论(%s) </string>
+
 </resources>

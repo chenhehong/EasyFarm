@@ -1,6 +1,8 @@
 package com.scau.easyfarm.bean;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,41 +13,29 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class ActiveList extends Entity implements ListEntity<Active> {
 
-    public final static int CATALOG_LASTEST = 1;// 最新
-    public final static int CATALOG_ATME = 2;// @我
-    public final static int CATALOG_COMMENT = 3;// 评论
-    public final static int CATALOG_MYSELF = 4;// 我自己
+    @JSONField(name = "obj")
+    private List<Active> activeList = new ArrayList<Active>();
+    private String lastReadTime;
 
-    private int pageSize;
-
-    private int activeCount;
-
-    private List<Active> activelist = new ArrayList<Active>();
-    
-    private Result result;
-
-    public int getPageSize() {
-	return pageSize;
+    public List<Active> getActiveList() {
+        return activeList;
     }
 
-    public int getActiveCount() {
-	return activeCount;
+    public void setActiveList(List<Active> activeList) {
+        this.activeList = activeList;
     }
 
-    public List<Active> getActivelist() {
-	return activelist;
+    public String getLastReadTime() {
+        return lastReadTime;
+    }
+
+    public void setLastReadTime(String lastReadTime) {
+        this.lastReadTime = lastReadTime;
     }
 
     @Override
     public List<Active> getList() {
-	return activelist;
+	return activeList;
     }
 
-    public Result getResult() {
-        return result;
-    }
-
-    public void setResult(Result result) {
-        this.result = result;
-    }
 }

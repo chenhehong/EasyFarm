@@ -41,7 +41,7 @@ public class ProofResourceService extends BaseService{
             final int id = villageResource.getId();
             Result res = JsonUtils.toBean(ResultBean.class, is).getResult();
             if (res.OK()) {
-                notifySimpleNotifycation(id,"上传佐证成功","上传佐证成功","上传佐证成功",false, true, new Intent());
+                notifySimpleNotifycation(id,"上传佐证成功","上传佐证成功","上传佐证成功",false, true, new Intent(),false,false);
 //				new Handler().postDelayed(new Runnable() {
 //				    @Override
 //				    public void run() {
@@ -69,7 +69,7 @@ public class ProofResourceService extends BaseService{
             bundle.putSerializable(VillageServiceProofResourPubFragment.BUNDLE_PUB_PROOFRESOURCE, villageResource);
             intent.putExtra(SimpleBackActivity.BUNDLE_KEY_ARGS, bundle);
             intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE_ADD.getValue());
-            notifySimpleNotifycation(id, "上传佐证失败", "上传佐证失败:"+errorMessage,"点击进入重新上传界面",true, true, intent);
+            notifySimpleNotifycation(id, "上传佐证失败", "上传佐证失败:"+errorMessage,"点击进入重新上传界面",true, true, intent,false,false);
             removePenddingTask(MYKEY + id);
         }
 
@@ -85,7 +85,7 @@ public class ProofResourceService extends BaseService{
         villageResource.setId((int) System.currentTimeMillis());
         int id = villageResource.getId();
         addPenddingTask(MYKEY + id);
-        notifySimpleNotifycation(id, "上传佐证材料中","上传佐证材料中","上传佐证材料中", true, false,new Intent());
+        notifySimpleNotifycation(id, "上传佐证材料中","上传佐证材料中","上传佐证材料中", true, false,new Intent(),false,false);
         EasyFarmServerApi.pubVillageServiceProof(villageResource, new PublicResourceResponseHandler(getMainLooper(),villageResource));
     }
 }

@@ -13,18 +13,17 @@ import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.TLog;
+import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class EasyFarmServerApi {
 
-    private static final OperationResponseHandler mHandler = new OperationResponseHandler() {
+    private static final OperationResponseHandler mGetAccessTokenHandler = new OperationResponseHandler() {
 
         @Override
         public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
@@ -46,9 +45,16 @@ public class EasyFarmServerApi {
         params.put("usercode", AppContext.ACCESS_TOKEN_USERCODE);
         params.put("secret", AppContext.ACCESS_TOKEN_USERSECRET);
         String loginurl = "front/mobile/api/base/getaccesstoken";
-        ApiHttpClient.post(loginurl, params, mHandler);
+        ApiHttpClient.post(loginurl, params, mGetAccessTokenHandler);
     }
 
+    public static void clearNoticeCount(int type,String ts,OperationResponseHandler mClearNoticeCountHandler){
+        RequestParams params = new RequestParams();
+        params.put("personalID",AppContext.getInstance().getLoginUid());
+        params.put("type",type);
+        params.put("ts",ts);
+        ApiHttpClient.post("front/mobile/notice/setNotice", params, mClearNoticeCountHandler);
+    }
 
     /**
      * 登陆
@@ -650,6 +656,22 @@ public class EasyFarmServerApi {
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
         ApiHttpClient.get("front/mobile/village/api/getServicePersonalStatistics", params, handler);
+    }
+
+    public static void getNoticeCount(AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("personalID", AppContext.getInstance().getLoginUid());
+        params.put("isNotice", 0);
+        ApiHttpClient.get("front/mobile/notice/getCount", params, handler);
+    }
+
+    public static void getNoticeList(int type,int page,AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("personalID", AppContext.getInstance().getLoginUid());
+        params.put("type",type);
+        params.put("page", page+1);
+        params.put("rows", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/notice/getNotice", params, handler);
     }
 
 }

@@ -84,16 +84,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Dialog.NoTitle.Translucent" />
 
-        <service
-            android:name=".service.NoticeService"
-            android:process=":notice" />
+        <receiver android:name=".service.NoticeService$AlarmReceiver"/>
+
+        <service android:name=".service.BaseService" />
+
+        <service android:name=".service.ProofResourceService" />
+
+        <service android:name=".service.NoticeService"/>
+
         <service android:name=".service.DownloadService" />
-
-        <service android:name=".service.BaseService" >
-        </service>
-
-        <service android:name=".service.ProofResourceService" >
-        </service>
 
         <service
             android:name="com.baidu.location.f"

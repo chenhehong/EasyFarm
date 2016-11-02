@@ -13,7 +13,6 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
-import com.scau.easyfarm.bean.ActiveList;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.Notice;
 import com.scau.easyfarm.fragment.ActiveFragment;
@@ -33,7 +32,6 @@ public class NoticeViewPagerFragment extends BaseViewPagerFragment {
 
     public BadgeView mBvAtMe, mBvComment;
     public static int sCurrentPage = 0;
-    public static int[] sShowCount = new int[] { 0, 0}; // 当前界面显示了多少次
     private BroadcastReceiver mNoticeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -117,12 +115,10 @@ public class NoticeViewPagerFragment extends BaseViewPagerFragment {
             mViewPager.setCurrentItem(0);
             sCurrentPage = 0;
             refreshPage(0);
-            sShowCount[0] = 1;
         } else if (notice.getReviewCount() != 0) {
             mViewPager.setCurrentItem(1);
             sCurrentPage = 1;
             refreshPage(1);
-            sShowCount[1] = 1;
         }
     }
 
@@ -145,7 +141,7 @@ public class NoticeViewPagerFragment extends BaseViewPagerFragment {
         mBvComment.setGravity(Gravity.CENTER);
         mBvComment.setBackgroundResource(R.drawable.notification_bg);
 
-        mTabStrip.getBadgeView(0).setVisibility(View.GONE);
+        mTabStrip.getBadgeView(0).setVisibility(View.VISIBLE);
         mTabStrip.getBadgeView(1).setVisibility(View.VISIBLE);
         initData();
         initView(view);
@@ -153,7 +149,7 @@ public class NoticeViewPagerFragment extends BaseViewPagerFragment {
 
     @Override
     protected void setScreenPageLimit() {
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(2);
     }
 
     @Override
@@ -168,9 +164,9 @@ public class NoticeViewPagerFragment extends BaseViewPagerFragment {
         String[] title = getResources().getStringArray(
                 R.array.mymes_viewpage_arrays);
         adapter.addTab(title[0], "active_me", ActiveFragment.class,
-                getBundle(ActiveList.CATALOG_ATME));
+                getBundle(ActiveFragment.CATALOG_ATME));
         adapter.addTab(title[1], "active_comment", ActiveFragment.class,
-                getBundle(ActiveList.CATALOG_COMMENT));
+                getBundle(ActiveFragment.CATALOG_COMMENT));
     }
 
     private Bundle getBundle(int catalog) {
@@ -185,17 +181,17 @@ public class NoticeViewPagerFragment extends BaseViewPagerFragment {
     @Override
     public void initView(View view) {
         changePagers();
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(2);
         mTabStrip.setOnPagerChange(new PagerSlidingTabStrip.OnPagerChangeLis() {
             @Override
             public void onChanged(int page) {
                 refreshPage(page);
-                sShowCount[page]++;
                 sCurrentPage = page;
             }
         });
     }
 
+//  对有红点的标签栏目，自动刷新
     private void refreshPage(int index) {
         if (tipIsShow(index)) {
             try {

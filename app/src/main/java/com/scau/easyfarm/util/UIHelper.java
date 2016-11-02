@@ -23,7 +23,9 @@ import android.widget.ZoomButtonsController;
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.base.BaseListFragment;
+import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.ManualCategory;
+import com.scau.easyfarm.bean.Notice;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageService;
@@ -45,7 +47,6 @@ import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
 import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.interf.OnWebViewImageListener;
 import com.scau.easyfarm.service.DownloadService;
-import com.scau.easyfarm.service.NoticeService;
 import com.scau.easyfarm.ui.DetailActivity;
 import com.scau.easyfarm.ui.ImagePreviewActivity;
 import com.scau.easyfarm.ui.LoginActivity;
@@ -162,16 +163,6 @@ public class UIHelper {
         Intent intent = new Intent(context, SimpleBackActivity.class);
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, page.getValue());
         context.startActivityForResult(intent, requestCode);
-    }
-
-    /**
-     * 发送通知广播
-     *
-     * @param context
-     */
-    public static void sendBroadcastForNotice(Context context) {
-        Intent intent = new Intent(NoticeService.INTENT_ACTION_BROADCAST);
-        context.sendBroadcast(intent);
     }
 
     /**
@@ -571,6 +562,23 @@ public class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putString(MyServiceStatisticsFragment.BUNDLE_KEY_MONTH, month);
         showSimpleBack(fragment, SimpleBackPage.MYSERVICE_STATISTICS, bundle);
+    }
+
+    /**
+     * 发送通知广播
+     *
+     * @param context
+     * @param notice
+     */
+    public static void sendNoticeBroadCast(Context context, Notice notice) {
+        if (!((AppContext) context.getApplicationContext()).isLogin()
+                || notice == null)
+            return;
+        Intent intent = new Intent(Constants.INTENT_ACTION_NOTICE);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Notice.BUNDLEKEY_NOTICE, notice);
+        intent.putExtras(bundle);
+        context.sendBroadcast(intent);
     }
 
 }

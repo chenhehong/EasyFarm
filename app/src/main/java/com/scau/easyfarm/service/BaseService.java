@@ -4,9 +4,11 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
+import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public abstract class BaseService extends IntentService {
 
 	private static final String SERVICE_NAME = "BaseService";
 
-//	记录Service的所有排队执行中的事务
+//	记录Service的所有排队执行中的事务,用于一个server开启多个事务的情况
     public  List<String> penddingTasks = new ArrayList<String>();
 
     public synchronized void tryToStopServie() {
@@ -58,7 +60,7 @@ public abstract class BaseService extends IntentService {
 	public abstract void onMyHandleIntent(Intent intent);
 
     public void notifySimpleNotifycation(int id, String ticker, String title,
-	    String content, boolean ongoing, boolean autoCancel,Intent newIntent) {
+	    String content, boolean ongoing, boolean autoCancel,Intent newIntent,boolean setSound,boolean setVibration) {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(
 			this)
 			.setTicker(ticker)
@@ -71,7 +73,15 @@ public abstract class BaseService extends IntentService {
 					PendingIntent.getActivity(this, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT))
 			.setSmallIcon(R.drawable.ic_notification)
 			.setWhen(System.currentTimeMillis());
-
+		if (setSound){
+			builder.setSound(Uri.parse("android.resource://"
+					+ AppContext.getInstance().getPackageName() + "/"
+					+ R.raw.notificationsound));
+		}
+		if (setVibration){
+			long[] vibrate = { 0, 10, 20, 30 };
+			builder.setVibrate(vibrate);
+		}
 		Notification notification = builder.build();
 		NotificationManagerCompat.from(this).notify(id, notification);
     }

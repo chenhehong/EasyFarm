@@ -27,10 +27,9 @@ import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.Notice;
-import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.fragment.MyInformationFragment;
 import com.scau.easyfarm.interf.BaseViewInterface;
-import com.scau.easyfarm.service.NoticeUtils;
+import com.scau.easyfarm.service.ServerTaskUtils;
 import com.scau.easyfarm.util.UIHelper;
 import com.scau.easyfarm.util.UpdateManager;
 import com.scau.easyfarm.widget.BadgeView;
@@ -46,6 +45,8 @@ public class MainActivity extends ActionBarActivity implements
         View.OnTouchListener {
 
     private DoubleClickExitHelper mDoubleClickExit;
+
+//  全局notice类
     public static Notice mNotice;
 
     @InjectView(android.R.id.tabhost)
@@ -62,11 +63,10 @@ public class MainActivity extends ActionBarActivity implements
         public void onReceive(Context context, Intent intent) {
 //          通过控制BadgeView 控件发生改变来控制是否显示消息提示的小红点
             if (intent.getAction().equals(Constants.INTENT_ACTION_NOTICE)) {
-                mNotice = (Notice) intent.getSerializableExtra("notice_bean");
+                mNotice = (Notice) intent.getSerializableExtra(Notice.BUNDLEKEY_NOTICE);
                 int atmeCount = mNotice.getAtmeCount();// @我
-                int msgCount = mNotice.getMsgCount();// 留言
                 int reviewCount = mNotice.getReviewCount();// 评论
-                int activeCount = atmeCount + reviewCount + msgCount;
+                int activeCount = atmeCount + reviewCount;
 
                 Fragment fragment = getCurrentFragment();
                 if (fragment instanceof MyInformationFragment) {
@@ -121,9 +121,8 @@ public class MainActivity extends ActionBarActivity implements
         IntentFilter filter = new IntentFilter(Constants.INTENT_ACTION_NOTICE);
         filter.addAction(Constants.INTENT_ACTION_LOGOUT);
         registerReceiver(mReceiver, filter);
-//      开启NoticeService服务，该服务进行了初始化的服务操作：例如注册接收必要的广播通知等。
-//      将本activity与NoticeService绑定
-        NoticeUtils.bindToService(this);
+//      开启推送消息接收服务
+        ServerTaskUtils.startGetNoticeService(this);
 
         checkUpdate();
     }
@@ -145,6 +144,16 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+        mReceiver = null;
+        if (AppContext.get(AppConfig.KEY_NOTIFICATION_DISABLE_WHEN_EXIT, true)) {
+            ServerTaskUtils.stopGetNoticeService(this);
+        }
     }
 
     private void initTabs() {
@@ -178,7 +187,7 @@ public class MainActivity extends ActionBarActivity implements
             });
             //为TabHost添加对应的页面内容
             mTabHost.addTab(tab, mainTab.getClz(), null);
-            //如果对应的是我的界面则添加一个消息提醒的右上角图标。
+            //如果对应的是”我“的界面则添加一个消息提醒的右上角图标。
             if (mainTab.equals(MainTab.ME)) {
                 View cn = indicator.findViewById(R.id.tab_mes);
                 mBvNotice = new BadgeView(MainActivity.this, cn);
@@ -211,7 +220,7 @@ public class MainActivity extends ActionBarActivity implements
     }
 
     @Override
-    public void onClick(View v) {
+        public void onClick(View v) {
         int id = v.getId();
         switch (id) {
             case R.id.quick_option_iv:

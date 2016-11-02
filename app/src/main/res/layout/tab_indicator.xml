@@ -14,7 +14,7 @@
         android:text="应用"
         android:textColor="@color/primarybar_txt"
         android:textSize="12sp" />
-    
+    <!-- 消息提示红点-->
     <TextView
         android:id="@+id/tab_mes"
         android:layout_alignRight="@id/tab_title"

@@ -57,8 +57,6 @@ public class MyInformationFragment extends BaseFragment{
     TextView mTvName;
     @InjectView(R.id.tv_mes)
     View mMesView;
-    @InjectView(R.id.error_layout)
-    EmptyLayout mErrorLayout;
     @InjectView(R.id.ll_user_container)
     View mUserContainer;
     @InjectView(R.id.rl_user_unlogin)
@@ -108,12 +106,10 @@ public class MyInformationFragment extends BaseFragment{
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(Constants.INTENT_ACTION_LOGOUT)) {
-                if (mErrorLayout != null) {
-                    mIsWatingLogin = true;
-                    steupUser();
-//                  消息通知红点关闭
-                    mMesCount.hide();
-                }
+                mIsWatingLogin = true;
+                steupUser();
+//              消息通知红点关闭
+                mMesCount.hide();
             } else if (action.equals(Constants.INTENT_ACTION_USER_CHANGE)) {
                 requestData(true);
             } else if (action.equals(Constants.INTENT_ACTION_NOTICE)) {
@@ -124,20 +120,8 @@ public class MyInformationFragment extends BaseFragment{
 
     @Override
     public void initView(View view) {
-        mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mIvAvatar.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
-        mErrorLayout.setOnLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AppContext.getInstance().isLogin()) {
-//                  刷新数据
-                    requestData(true);
-                } else {
-                    UIHelper.showLoginActivity(getActivity());
-                }
-            }
-        });
         view.findViewById(R.id.rl_message).setOnClickListener(this);
         view.findViewById(R.id.rl_setting).setOnClickListener(
             new View.OnClickListener() {
@@ -266,9 +250,6 @@ public class MyInformationFragment extends BaseFragment{
             super.onPostExecute(info);
             if (info != null) {
                 mInfo = info;
-                // mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-                // } else {
-                // mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
                 fillUI();
             }
         }
@@ -333,19 +314,16 @@ public class MyInformationFragment extends BaseFragment{
 
     public void setNotice() {
         if (MainActivity.mNotice != null) {
-
             Notice notice = MainActivity.mNotice;
             int atmeCount = notice.getAtmeCount();// @我
-            int msgCount = notice.getMsgCount();// 留言
             int reviewCount = notice.getReviewCount();// 评论
-            int activeCount = atmeCount + reviewCount + msgCount;// 信息总数
+            int activeCount = atmeCount + reviewCount;// 信息总数
             if (activeCount > 0) {
                 mMesCount.setText(activeCount + "");
                 mMesCount.show();
             } else {
                 mMesCount.hide();
             }
-
         } else {
             mMesCount.hide();
         }
