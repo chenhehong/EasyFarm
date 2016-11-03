@@ -82,29 +82,6 @@
         <View
             style="@style/h_line"/>
 
-        <View
-            style="@style/h_line"
-            android:layout_marginTop="20dp"/>
-
-        <RelativeLayout 
-            android:id="@+id/rl_app_exit"
-            style="@style/option_item_rl" >
-
-            <TextView
-                style="@style/option_item_text_parent"
-                android:text="@string/notice_app_exit"
-                android:textColor="@color/main_black"
-                android:textSize="@dimen/text_size_16" />
-
-            <com.scau.easyfarm.widget.ToggleButton
-                android:id="@+id/tb_app_exit"
-                android:layout_width="45dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true" />
-        </RelativeLayout>
-
-        <View
-            style="@style/h_line"/>
     </LinearLayout>
 
 </com.scau.easyfarm.widget.CustomerScrollView>

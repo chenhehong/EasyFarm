@@ -85,7 +85,6 @@
     <string name="notice_accept">接收新通知</string>
     <string name="notice_voice">声音</string>
     <string name="notice_vibration">震动</string>
-    <string name="notice_app_exit">退出后不提醒</string>
 
     <string name="update">检查新版本</string>
     <string name="feedback">意见反馈</string>

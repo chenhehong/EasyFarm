@@ -151,9 +151,7 @@ public class MainActivity extends ActionBarActivity implements
         super.onDestroy();
         unregisterReceiver(mReceiver);
         mReceiver = null;
-        if (AppContext.get(AppConfig.KEY_NOTIFICATION_DISABLE_WHEN_EXIT, true)) {
-            ServerTaskUtils.stopGetNoticeService(this);
-        }
+        ServerTaskUtils.stopGetNoticeService(this);
     }
 
     private void initTabs() {

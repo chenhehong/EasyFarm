@@ -84,8 +84,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Dialog.NoTitle.Translucent" />
 
-        <receiver android:name=".service.NoticeService$AlarmReceiver"/>
-
         <service android:name=".service.BaseService" />
 
         <service android:name=".service.ProofResourceService" />

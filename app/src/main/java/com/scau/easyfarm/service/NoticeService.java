@@ -27,18 +27,9 @@ import java.io.ByteArrayInputStream;
  */
 public class NoticeService extends BaseService{
 
-//  发送消息请求的时间间隔：10秒
-    private static final long INTERVAL = 1000 * 10;
-    private AlarmManager mAlarmMgr;
-
-//  定时接收器，该接收器执行消息请求
-    public class AlarmReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            TLog.log("onReceive ->easyfarm收到定时获取消息");
-            requestNotice();
-        }
-    }
+//  发送消息请求的时间间隔：单位毫秒
+    private static final long INTERVAL = 1000 * 3;
+    boolean shouldStop = false;
 
     private final OperationResponseHandler mGetNoticeHandler = new OperationResponseHandler() {
 
@@ -95,7 +86,6 @@ public class NoticeService extends BaseService{
         contentText = sb.toString();
 
         Intent intent = new Intent(this, SimpleBackActivity.class);
-        Bundle bundle = new Bundle();
         intent.putExtra(SimpleBackActivity.BUNDLE_KEY_PAGE, SimpleBackPage.MY_MES.getValue());
         boolean setSound = false;
         boolean setVibration = false;
@@ -110,48 +100,27 @@ public class NoticeService extends BaseService{
 
     @Override
     public void onMyHandleIntent(Intent intent) {
-//      利用Alarm Manager在循环运行消息请求，即使退出程序也能运行,但是目前在mainactivity退出后服务会停止并且不会继续运行消息请求
-        mAlarmMgr = (AlarmManager) getSystemService(ALARM_SERVICE);
-        startRequestAlarm();
-        requestNotice();
+        while (true){
+            if (shouldStop) break;
+            TLog.log("easyfarm定时获取消息");
+            requestNotice();
+            try {
+                Thread.sleep(INTERVAL);
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        cancelRequestAlarm();
+        cancelThread();
     }
 
-    private void startRequestAlarm() {
-        cancelRequestAlarm();
-        // 从1秒后开始，每隔INTERVAL时间执行getOperationIntent()
-        mAlarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + 1000, INTERVAL,
-                getOperationIntent());
-    }
-
-    /**
-     * <!-- kymjs --> 即使启动PendingIntent的原进程结束了的话,PendingIntent本身仍然还存在，可在其他进程（
-     * PendingIntent被递交到的其他程序）中继续使用.
-     * 如果我在从系统中提取一个PendingIntent的，而系统中有一个和你描述的PendingIntent对等的PendingInent,
-     * 那么系统会直接返回和该PendingIntent其实是同一token的PendingIntent，
-     * 而不是一个新的token和PendingIntent。然而你在从提取PendingIntent时，通过FLAG_CANCEL_CURRENT参数，
-     * 让这个老PendingIntent的先cancel()掉，这样得到的pendingInten和其token的就是新的了。
-     */
-    private void cancelRequestAlarm() {
-        mAlarmMgr.cancel(getOperationIntent());
-    }
-
-    /**
-     * 采用轮询方式实现消息推送
-     * 每次被调用都去执行一次{@link #AlarmReceiver}onReceive()方法
-     * @return
-     */
-    private PendingIntent getOperationIntent() {
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        PendingIntent operation = PendingIntent.getBroadcast(this, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        return operation;
+    private void cancelThread() {
+        shouldStop = true;
     }
 
     /**

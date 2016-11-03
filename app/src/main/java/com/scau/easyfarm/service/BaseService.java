@@ -14,11 +14,13 @@ import com.scau.easyfarm.R;
 import java.util.ArrayList;
 import java.util.List;
 
+//注意：IntentService的所有请求如果是在一个生命周期中完成的话，则所有请求是在一个工作线程中顺序执行的。否则，是在不同的工作线程中完成。
+//执行完所一个Intent请求对象所对应的工作之后，如果没有新的Intent请求达到，则自动停止Service
 public abstract class BaseService extends IntentService {
 
 	private static final String SERVICE_NAME = "BaseService";
 
-//	记录Service的所有排队执行中的事务,用于一个server开启多个事务的情况
+//	记录Service的所有排队执行中的事务,用于一个server开启多个事务的情况,例如同时上传多张佐证材料
     public  List<String> penddingTasks = new ArrayList<String>();
 
     public synchronized void tryToStopServie() {
