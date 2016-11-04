@@ -243,34 +243,6 @@ public class UIHelper {
         }.start();
     }
 
-//  打开下载新版本apk服务
-    public static void openDownLoadService(Context context, String downurl,
-                                           String tilte) {
-        final ICallbackResult callback = new ICallbackResult() {
-
-            @Override
-            public void OnBackResult(Object s) {}
-        };
-        ServiceConnection conn = new ServiceConnection() {
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {}
-
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                DownloadService.DownloadBinder binder = (DownloadService.DownloadBinder) service;
-                binder.addCallback(callback);
-                binder.start();
-
-            }
-        };
-        Intent intent = new Intent(context, DownloadService.class);
-        intent.putExtra(DownloadService.BUNDLE_KEY_DOWNLOAD_URL, downurl);
-        intent.putExtra(DownloadService.BUNDLE_KEY_TITLE, tilte);
-        context.startService(intent);
-        context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
-    }
-
 //  显示添加问答界面
     public static void showTweetPub(Context context) {
         showSimpleBack(context, SimpleBackPage.TWEET_PUB);

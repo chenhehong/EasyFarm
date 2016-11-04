@@ -11,6 +11,7 @@ import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.bean.Update;
+import com.scau.easyfarm.service.ServerTaskUtils;
 
 import java.io.ByteArrayInputStream;
 
@@ -63,7 +64,7 @@ public class UpdateManager {
         boolean haveNew = false;
         int curVersionCode = TDevice.getVersionCode(AppContext
                 .getInstance().getPackageName());
-        if (curVersionCode < mUpdate.getUpdate().getAndroid()
+        if (curVersionCode < mUpdate.getAndroidBean()
                 .getVersionCode()) {
             haveNew = true;
         }
@@ -104,10 +105,10 @@ public class UpdateManager {
         if (mUpdate == null) {
             return;
         }
-        AlertDialog.Builder dialog = DialogHelp.getConfirmDialog(mContext, mUpdate.getUpdate().getAndroid().getUpdateLog(), new DialogInterface.OnClickListener() {
+        AlertDialog.Builder dialog = DialogHelp.getConfirmDialog(mContext, mUpdate.getAndroidBean().getUpdateLog(), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                UIHelper.openDownLoadService(mContext, mUpdate.getUpdate().getAndroid().getDownloadUrl(), mUpdate.getUpdate().getAndroid().getVersionName());
+                ServerTaskUtils.startDownloadAppService(mContext, mUpdate.getAndroidBean().getDownloadUrl(), mUpdate.getAndroidBean().getVersionName());
             }
         });
         dialog.setTitle("发现新版本");

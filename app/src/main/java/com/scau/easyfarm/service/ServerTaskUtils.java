@@ -37,4 +37,13 @@ public class ServerTaskUtils {
         context.stopService(intent);
     }
 
+    public static void startDownloadAppService(Context context,String downloadUrl,String versionName){
+        Intent intent = new Intent(context,DownloadService.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(DownloadService.BUNDLE_KEY_DOWNLOAD_URL,downloadUrl);
+        bundle.putString(DownloadService.BUNDLE_KEY_TITLE,versionName);
+        intent.putExtras(bundle);
+        context.startService(intent);
+    }
+
 }

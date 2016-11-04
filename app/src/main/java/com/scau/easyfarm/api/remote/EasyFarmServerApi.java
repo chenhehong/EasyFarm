@@ -119,7 +119,7 @@ public class EasyFarmServerApi {
 
 //  获取版本更新
     public static void checkUpdate(AsyncHttpResponseHandler handler) {
-        ApiHttpClient.get("MobileAppVersion.xml", handler);
+        ApiHttpClient.get("MobileAppVersion.json", handler);
     }
 
     /**

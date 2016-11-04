@@ -1,0 +1,16 @@
+{
+  "notice": null,
+  "androidBean": {
+    "versionCode": "102",
+    "versionName": "1.0.2",
+    "downloadUrl": "http://125.88.25.226:8006/easyFarm/easyfarm-android-v1.0.2.apk",
+    "updateLog": "修复了一些已知bug"
+  },
+  "result": {
+    "errorCode": "0",
+    "errorMessage": "success",
+    "limit": 0,
+    "success": true
+  }
+}
+

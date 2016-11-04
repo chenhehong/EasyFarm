@@ -28,18 +28,13 @@ import java.net.URL;
 
 /**
  * download service
- * 
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @created 2014年11月18日 下午3:02:36
- * 
  */
-public class DownloadService extends Service {
+public class DownloadService extends BaseService {
 
 	public static final String BUNDLE_KEY_DOWNLOAD_URL = "download_url";
 	
 	public static final String BUNDLE_KEY_TITLE = "title";
 	
-	private final String tag = "download";
 	private static final int NOTIFY_ID = 0;
 	private int progress;
 	private NotificationManager mNotificationManager;
@@ -50,12 +45,6 @@ public class DownloadService extends Service {
 	private String mTitle = "正在下载%s";
 
 	private String saveFileName = AppConfig.DEFAULT_SAVE_FILE_PATH;
-
-	private ICallbackResult callback;
-
-	private DownloadBinder binder;
-
-	private boolean serviceIsDestroy = false;
 
 	private Context mContext = this;
 
@@ -90,18 +79,15 @@ public class DownloadService extends Service {
 				} else {
 					// 下载完毕后变换通知形式
 					mNotification.flags = Notification.FLAG_AUTO_CANCEL;
-					mNotification.contentView = null;
+					mNotification.contentView.setTextViewText(R.id.tv_download_state,"下载完成");
+					mNotification.contentView.setProgressBar(R.id.pb_download, 100, 100,
+							false);
 					Intent intent = new Intent(mContext, MainActivity.class);
-					// 告知已完成
-					intent.putExtra("completed", "yes");
 					// 更新参数,注意flags要使用FLAG_UPDATE_CURRENT
 					PendingIntent contentIntent = PendingIntent.getActivity(
 							mContext, 0, intent,
 							PendingIntent.FLAG_UPDATE_CURRENT);
-//					mNotification.setLatestEventInfo(mContext, "下载完成",
-//							"文件已下载完毕", contentIntent);
-					serviceIsDestroy = true;
-					stopSelf();// 停掉服务自身
+					tryToStopServie();// 停掉服务自身
 				}
 				mNotificationManager.notify(NOTIFY_ID, mNotification);
 				break;
@@ -110,26 +96,28 @@ public class DownloadService extends Service {
 	};
 
 	@Override
-	public IBinder onBind(Intent intent) {
+	public void onMyHandleIntent(Intent intent) {
 		downloadUrl = intent.getStringExtra(BUNDLE_KEY_DOWNLOAD_URL);
-		saveFileName = saveFileName + getSaveFileName(downloadUrl); 
+		saveFileName = saveFileName + getSaveFileName(downloadUrl);
 		mTitle = String.format(mTitle, intent.getStringExtra(BUNDLE_KEY_TITLE));
-		return binder;
+		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		if (downLoadThread == null || !downLoadThread.isAlive()) {
+			progress = 0;
+			setUpNotification();
+			new Thread() {
+				public void run() {
+					// 下载
+					startDownload();
+				};
+			}.start();
+		}
 	}
-	
+
 	private String getSaveFileName(String downloadUrl) {
 		if (downloadUrl == null || StringUtils.isEmpty(downloadUrl)) {
 			return "";
 		}
 		return downloadUrl.substring(downloadUrl.lastIndexOf("/"));
-	}
-
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		binder = new DownloadBinder();
-		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		stopForeground(true);// 这个不确定是否有作用
 	}
 
 	private void startDownload() {
@@ -238,9 +226,7 @@ public class DownloadService extends Service {
 					Message msg = mHandler.obtainMessage();
 					msg.what = 1;
 					msg.arg1 = downloadCount;
-						mHandler.sendMessage(msg);
-						if (callback != null)
-							callback.OnBackResult(progress);
+					mHandler.sendMessage(msg);
 				}
 			}
 			
@@ -261,44 +247,5 @@ public class DownloadService extends Service {
 			}
 		}
 		return totalSize;
-	}
-
-	public class DownloadBinder extends Binder {
-		public void start() {
-			if (downLoadThread == null || !downLoadThread.isAlive()) {
-				progress = 0;
-				setUpNotification();
-				new Thread() {
-					public void run() {
-						// 下载
-						startDownload();
-					};
-				}.start();
-			}
-		}
-
-		public void cancel() {
-			canceled = true;
-		}
-
-		public int getProgress() {
-			return progress;
-		}
-
-		public boolean isCanceled() {
-			return canceled;
-		}
-
-		public boolean serviceIsDestroy() {
-			return serviceIsDestroy;
-		}
-
-		public void cancelNotification() {
-			mHandler.sendEmptyMessage(2);
-		}
-
-		public void addCallback(ICallbackResult callback) {
-			DownloadService.this.callback = callback;
-		}
 	}
 }

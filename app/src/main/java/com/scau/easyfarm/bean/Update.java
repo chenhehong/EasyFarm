@@ -9,47 +9,16 @@ import java.io.Serializable;
  * 
  */
 @SuppressWarnings("serial")
-public class Update implements Serializable {
+public class Update extends Entity {
 
-	private UpdateBean update;
+	private AndroidBean androidBean;
 
-	public UpdateBean getUpdate() {
-		return update;
+	public AndroidBean getAndroidBean() {
+		return androidBean;
 	}
 
-	public void setUpdate(UpdateBean update) {
-		this.update = update;
-	}
-
-	public class UpdateBean implements Serializable {
-		private String wp7;
-		private String ios;
-		private AndroidBean android;
-
-		public String getWp7() {
-			return wp7;
-		}
-
-		public void setWp7(String wp7) {
-			this.wp7 = wp7;
-		}
-
-		public String getIos() {
-			return ios;
-		}
-
-		public void setIos(String ios) {
-			this.ios = ios;
-		}
-
-		public AndroidBean getAndroid() {
-			return android;
-		}
-
-		public void setAndroid(AndroidBean android) {
-			this.android = android;
-		}
-
+	public void setAndroidBean(AndroidBean androidBean) {
+		this.androidBean = androidBean;
 	}
 
 	public class AndroidBean implements Serializable {
@@ -57,10 +26,6 @@ public class Update implements Serializable {
 		private String versionName;
 		private String downloadUrl;
 		private String updateLog;
-		private String coverUpdate;
-		private String coverStartDate;
-		private String coverEndDate;
-		private String coverURL;
 
 		public int getVersionCode() {
 			return versionCode;
@@ -94,36 +59,5 @@ public class Update implements Serializable {
 			this.updateLog = updateLog;
 		}
 
-		public String getCoverUpdate() {
-			return coverUpdate;
-		}
-
-		public void setCoverUpdate(String coverUpdate) {
-			this.coverUpdate = coverUpdate;
-		}
-
-		public String getCoverStartDate() {
-			return coverStartDate;
-		}
-
-		public void setCoverStartDate(String coverStartDate) {
-			this.coverStartDate = coverStartDate;
-		}
-
-		public String getCoverEndDate() {
-			return coverEndDate;
-		}
-
-		public void setCoverEndDate(String coverEndDate) {
-			this.coverEndDate = coverEndDate;
-		}
-
-		public String getCoverURL() {
-			return coverURL;
-		}
-
-		public void setCoverURL(String coverURL) {
-			this.coverURL = coverURL;
-		}
 	}
 }
