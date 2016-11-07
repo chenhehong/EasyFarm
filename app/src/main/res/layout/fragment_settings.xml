@@ -58,7 +58,7 @@
 
             <TextView
                 style="@style/option_item_text_parent"
-                android:text="@string/loading_img"
+                android:text="@string/nowifi_loading_img"
                 android:textColor="?attr/textColor"
                 android:textSize="@dimen/text_size_16" />
 

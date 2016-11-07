@@ -73,7 +73,7 @@
 
     <string name="password_setting">修改个人密码</string>
     <string name="myinformation_setting">修改个人资料</string>
-    <string name="loading_img">加载图片</string>
+    <string name="nowifi_loading_img">非WIFI网络下加载图片</string>
     <string name="mes_notice">消息通知</string>
     <string name="clean_cache">清理缓存</string>
     <string name="double_click_exit">双击退出</string>
