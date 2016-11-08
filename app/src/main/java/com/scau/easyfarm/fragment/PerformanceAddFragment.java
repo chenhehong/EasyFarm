@@ -103,10 +103,9 @@ public class PerformanceAddFragment extends BaseFragment{
     private ArrayList<String> imagePathList = new ArrayList<String>();
     private ArrayList<Bitmap> imageBitmapList = new ArrayList<Bitmap>();
 
-    private MenuItem mSendMenu;
-
     private AlertDialog.Builder datePickBuilder;
     private DatePicker datePicker;
+    private Dialog dateTimeDialog;
 
     private String performanceTypeStr;
     private int performanceTypeId;
@@ -337,8 +336,10 @@ public class PerformanceAddFragment extends BaseFragment{
                 dialog.dismiss();
             }
         });
-        Dialog dialog = datePickBuilder.create();
-        dialog.show();
+        if (dateTimeDialog!=null)
+            dateTimeDialog.dismiss();
+        dateTimeDialog = datePickBuilder.create();
+        dateTimeDialog.show();
     }
 
     @Override

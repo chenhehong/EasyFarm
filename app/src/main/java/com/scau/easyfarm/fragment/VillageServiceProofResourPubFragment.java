@@ -338,7 +338,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
                     Bitmap bitmap = null;
                     if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
                         bitmap = ImageUtils
-                                .loadImgThumbnail(theLarge, 100, 100);
+                                .loadImgThumbnail(theLarge, 200, 200);
                     }
                     if (bitmap != null) {
                         // 存放照片的文件夹
@@ -373,10 +373,6 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
                                 }
                             }
                         }
-                        // 保存动弹临时图片
-                        // ((AppContext) getApplication()).setProperty(
-                        // tempTweetImageKey, theThumbnail);
-
                         Message msg = new Message();
                         msg.what = 1;
                         msg.obj = bitmap;

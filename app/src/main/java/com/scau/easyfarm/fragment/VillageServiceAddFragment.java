@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -89,6 +90,7 @@ public class VillageServiceAddFragment extends BaseFragment{
 
     private AlertDialog.Builder datePickBuilder;
     private DatePicker datePicker;
+    private Dialog dateTimeDialog;
 
     public int reasonId;
     private String serverType;
@@ -362,11 +364,8 @@ public class VillageServiceAddFragment extends BaseFragment{
         datePickBuilder = new AlertDialog.Builder(getActivity());
         View dateAlertView = View.inflate(getActivity(),R.layout.date_time_dialog,null);
         datePicker = (DatePicker)dateAlertView.findViewById(R.id.date_picker);
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
-        datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), null);
         datePickBuilder.setView(dateAlertView);
-        datePickBuilder.setTitle("选取返回时间");
+        datePickBuilder.setTitle("选取服务时间");
         datePickBuilder.setPositiveButton("确  定", new DialogInterface.OnClickListener() {
 
             @Override
@@ -382,19 +381,18 @@ public class VillageServiceAddFragment extends BaseFragment{
                 dialog.dismiss();
             }
         });
-        Dialog dialog = datePickBuilder.create();
-        dialog.show();
+        if (dateTimeDialog!=null)
+            dateTimeDialog.dismiss();
+        dateTimeDialog = datePickBuilder.create();
+        dateTimeDialog.show();
     }
 
     private void handleSelectReturnDate(){
         datePickBuilder = new AlertDialog.Builder(getActivity());
         View dateAlertView = View.inflate(getActivity(),R.layout.date_time_dialog,null);
         datePicker = (DatePicker)dateAlertView.findViewById(R.id.date_picker);
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
-        datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), null);
         datePickBuilder.setView(dateAlertView);
-        datePickBuilder.setTitle("选取服务时间");
+        datePickBuilder.setTitle("选取返回时间");
         datePickBuilder.setPositiveButton("确  定", new DialogInterface.OnClickListener() {
 
             @Override
@@ -409,8 +407,10 @@ public class VillageServiceAddFragment extends BaseFragment{
                 dialog.dismiss();
             }
         });
-        Dialog dialog = datePickBuilder.create();
-        dialog.show();
+        if (dateTimeDialog!=null)
+            dateTimeDialog.dismiss();
+        dateTimeDialog = datePickBuilder.create();
+        dateTimeDialog.show();
     }
 
     private void handleAddPerson(){

@@ -8,6 +8,7 @@ import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.TLog;
 
 import java.io.ByteArrayInputStream;
 
@@ -41,7 +42,8 @@ public abstract class OperationResponseHandler extends AsyncHttpResponseHandler 
 			Result result = resultBean.getResult();
 		 	int errorCode = result.getErrorCode();
 			if(!result.OK()&&(errorCode==AppContext.ACCESS_ERROR_CODE||errorCode==AppContext.ACCESS_INVALID_CODE||errorCode==AppContext.ACCESS_TIMEOUT_CODE)){
-				onFailure(result.getErrorCode(),result.getErrorMessage(),args);
+//				onFailure(result.getErrorCode(),result.getErrorMessage(),args);
+				TLog.error(result.getErrorMessage()+result.getErrorCode());
 				EasyFarmServerApi.getAccessToken();
 				return;
 			}
