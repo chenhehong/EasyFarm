@@ -157,7 +157,7 @@ public class EasyFarmServerApi {
         params.put("title",tweet.getTitle());
         params.put("content", tweet.getContent());
         params.put("manualCategoryID",tweet.getManualCategoryID());
-        params.put("expertPersonalID",1);
+        params.put("expertPersonalID",tweet.getExpertPersonalID());
         params.put("expertName",tweet.getExpertName());
         File[] files = new File[tweet.getImageFiles().size()];
         if (tweet.getImageFiles()!=null&&tweet.getImageFiles().size()>0) {
