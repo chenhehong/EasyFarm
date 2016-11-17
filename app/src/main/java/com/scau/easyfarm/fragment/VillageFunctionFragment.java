@@ -44,7 +44,7 @@ public class VillageFunctionFragment extends BaseFunctionFragment{
             Module serviceStatisticsExpert = new Module(SimpleBackPage.MYSERVICE_MONTH_STATISTICS,"个人服务统计",R.drawable.func_agriculture_knowledge_base_icon,null);
             moduleList.add(serviceStatisticsExpert);
         }
-        if (Module.existModule(u.getModuleList(), Module.MODULE_PERFORMANCE_STATISTICS_VERIFIER)){
+        if (Module.existModule(u.getModuleList(), Module.MODULE_SERVICE_STATISTICS_VERIFIER)){
             Module serviceStatisticsVerifier = new Module(SimpleBackPage.SERVICE_MONTH_STATISTICS,"部门服务统计",R.drawable.func_agriculture_knowledge_base_icon,null);
             moduleList.add(serviceStatisticsVerifier);
         }

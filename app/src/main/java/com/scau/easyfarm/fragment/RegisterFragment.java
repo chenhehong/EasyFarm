@@ -194,6 +194,10 @@ public class RegisterFragment extends BaseFragment{
             AppContext.showToast("密码不能为空");
             return;
         }
+        if (!StringUtils.isCorrectPasswordFormat(password)){
+            AppContext.showToast("密码格式不对！至少为6个字符组成");
+            return;
+        }
         if (!password.equals(affirmPassword)){
             AppContext.showToast("两次密码输入不一致，请检查");
             return;

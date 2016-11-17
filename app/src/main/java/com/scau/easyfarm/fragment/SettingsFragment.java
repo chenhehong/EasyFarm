@@ -43,6 +43,8 @@ public class SettingsFragment extends BaseFragment {
     TextView mTvCacheSize;
     @InjectView(R.id.setting_logout)
     TextView mTvExit;
+    @InjectView(R.id.rl_myinformation_settings)
+    View myinformationSetting;
     @InjectView(R.id.tb_double_click_exit)
     ToggleButton mTbDoubleClickExit;
 
@@ -85,6 +87,11 @@ public class SettingsFragment extends BaseFragment {
 
         if (!AppContext.getInstance().isLogin()) {
             mTvExit.setText("退出");
+        }
+        if (AppContext.getInstance().isLogin()&&AppContext.getInstance().getLoginUser().getRoleName()!=null){
+            if (AppContext.getInstance().getLoginUser().getRoleName().equals(User.NORMALROLE)||AppContext.getInstance().getLoginUser().getRoleName().equals(User.EXPERTROLE)){
+                myinformationSetting.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -165,6 +172,8 @@ public class SettingsFragment extends BaseFragment {
                 }else{
                     if (AppContext.getInstance().getLoginUser().getRoleName().equals(User.NORMALROLE)){
                         UIHelper.showSimpleBack(getActivity(), SimpleBackPage.MODIFIED_MYINFORMATION);
+                    }else if (AppContext.getInstance().getLoginUser().getRoleName().equals(User.EXPERTROLE)){
+
                     }
                 }
                 break;

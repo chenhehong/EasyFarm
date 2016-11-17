@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class ExpertBase extends Entity {
 
     public static final HashMap<Integer,String> genderIntMap = new HashMap<Integer,String>(){
-        { put(1,"男");  put(0,"女"); }
+        { put(0,"男");  put(1,"女"); }
     };
 
     private String realName="";

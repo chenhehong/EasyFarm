@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class User extends Entity {
 
     public static final String NORMALROLE = "注册用户";
+    public static final String EXPERTROLE = "农技专家";
 
     public static final String[] genderArray = {"男","女"};
     public static final HashMap<Integer,String> genderIntMap = new HashMap<Integer,String>(){

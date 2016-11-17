@@ -16,6 +16,7 @@ import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.LoginUserBean;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
 
 import java.io.ByteArrayInputStream;
@@ -145,6 +146,10 @@ public class ChangePasswordFragment extends BaseFragment{
         if (!mNewPassword.getText().toString().equals(mNewPasswordConfirm.getText().toString())){
             mNewPasswordConfirm.setError("新密码输入不一致");
             mNewPasswordConfirm.requestFocus();
+            return true;
+        }
+        if (!StringUtils.isCorrectPasswordFormat(mNewPassword.getText().toString())){
+            AppContext.showToast("新密码格式不对！至少为6个字符组成");
             return true;
         }
         return false;

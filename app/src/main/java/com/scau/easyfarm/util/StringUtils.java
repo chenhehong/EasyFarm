@@ -385,6 +385,12 @@ public class StringUtils {
         return p.matcher(loginName).matches();
     }
 
+    public static boolean isCorrectPasswordFormat(String password){
+        if (password==null||password.trim().length()<6)
+            return false;
+        return true;
+    }
+
     /**
      * 判断一个url是否为图片url
      * 
