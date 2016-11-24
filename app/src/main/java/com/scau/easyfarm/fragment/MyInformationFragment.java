@@ -2,6 +2,7 @@ package com.scau.easyfarm.fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
@@ -30,6 +31,7 @@ import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.ui.MainActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
+import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
@@ -206,6 +208,7 @@ public class MyInformationFragment extends BaseFragment{
                     AppContext.getInstance().updateUserInfo(mInfo);
                     new SaveCacheTask(getActivity(), mInfo, getCacheKey())
                             .execute();
+                    checkInformationCompleteness();
                 } else {
                     onFailure(code,null,args);
                 }
@@ -219,6 +222,27 @@ public class MyInformationFragment extends BaseFragment{
         public void onFailure(int code, String errorMessage, Object[] args) {
             AppContext.showToast(errorMessage + code);}
     };
+
+//  对于非普通用户，要求必须添加邮箱和手机号码
+    private void checkInformationCompleteness(){
+        if (!AppContext.getInstance().getLoginUser().getRoleName().equals(User.NORMALROLE)){
+            if (mInfo.getEmail().length()==0||mInfo.getPhoneNumber().length()==0){
+                DialogHelp.getConfirmDialog(getActivity(), "当前用户尚未添加邮箱和手机号码，前往填写？", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.MODIFIED_EXPERTINFORMATION);
+                    }
+                }, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+            }
+        }
+    }
 
 //  系统中每个用户信息缓存文件的cacheKey
     private String getCacheKey() {

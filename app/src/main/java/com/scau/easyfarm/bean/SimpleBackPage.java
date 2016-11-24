@@ -12,7 +12,8 @@ import com.scau.easyfarm.fragment.ExpertBaseListFragment;
 import com.scau.easyfarm.fragment.FeedBackFragment;
 import com.scau.easyfarm.fragment.FindUserFragment;
 import com.scau.easyfarm.fragment.ManualListFragment;
-import com.scau.easyfarm.fragment.ModifiedMyInformationFragment;
+import com.scau.easyfarm.fragment.ModifiedCommonUserInformationFragment;
+import com.scau.easyfarm.fragment.ModifiedExpertInformationFragment;
 import com.scau.easyfarm.fragment.MyInformationFragmentDetail;
 import com.scau.easyfarm.fragment.MyPerformanceMonthStatisticsFragment;
 import com.scau.easyfarm.fragment.MyPerformanceStatisticsFragment;
@@ -105,7 +106,8 @@ public enum SimpleBackPage {
     MYSERVICE_MONTH_STATISTICS(48, R.string.myservice_month_statistics, MyServiceMonthStatisticsFragment.class),
     MYSERVICE_STATISTICS(49, R.string.myservice_statistics, MyServiceStatisticsFragment.class),
     REGISTER(50, R.string.register, RegisterFragment.class),
-    MODIFIED_MYINFORMATION(51, R.string.modified_my_information, ModifiedMyInformationFragment.class);
+    MODIFIED_COMMONUSERINFORMATION(51, R.string.modified_my_information, ModifiedCommonUserInformationFragment.class),
+    MODIFIED_EXPERTINFORMATION(52, R.string.modified_my_information, ModifiedExpertInformationFragment.class);
 
     private int title;
     private Class<?> clz;

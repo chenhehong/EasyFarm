@@ -12,7 +12,6 @@ import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 
 import org.kymjs.kjframe.http.HttpConfig;
@@ -166,9 +165,9 @@ public class SettingsFragment extends BaseFragment {
                     showLoginActivity();
                 }else{
                     if (AppContext.getInstance().getLoginUser().getRoleName().equals(User.NORMALROLE)){
-                        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.MODIFIED_MYINFORMATION);
+                        UIHelper.showSimpleBack(getActivity(), SimpleBackPage.MODIFIED_COMMONUSERINFORMATION);
                     }else{
-
+                        UIHelper.showSimpleBack(getActivity(),SimpleBackPage.MODIFIED_EXPERTINFORMATION);
                     }
                 }
                 break;

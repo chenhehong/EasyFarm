@@ -105,6 +105,24 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/user/modifyuser", params, handler);
     }
 
+    public static void modifiedExpertInformation(String age, int gender, String email, String mobile, String address,String portrait, AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("autoID",AppContext.getInstance().getLoginUid());
+        params.put("phoneNumber",mobile);
+        params.put("sex",gender);
+        params.put("age",age);
+        params.put("email",email);
+        params.put("address",address);
+        if (!TextUtils.isEmpty(portrait)) {
+            try {
+                params.put("file", new File(portrait));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        ApiHttpClient.post("front/mobile/user/modifyuser", params, handler);
+    }
+
     /**
      * 获取用户信息
      * @param uid

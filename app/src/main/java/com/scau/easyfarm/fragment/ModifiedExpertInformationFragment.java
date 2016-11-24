@@ -34,7 +34,6 @@ import com.scau.easyfarm.util.TDevice;
 import org.kymjs.kjframe.Core;
 
 import java.io.ByteArrayInputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -45,10 +44,8 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 /**
  * Created by ChenHehong on 2016/9/2.
  */
-public class ModifiedMyInformationFragment extends BaseFragment{
+public class ModifiedExpertInformationFragment extends BaseFragment{
 
-    @InjectView(R.id.et_realname)
-    EditText realName;
     @InjectView(R.id.et_age)
     EditText age;
     @InjectView(R.id.et_phone)
@@ -113,7 +110,7 @@ public class ModifiedMyInformationFragment extends BaseFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_modified_myinformation,container,false);
+        View view = inflater.inflate(R.layout.fragment_modified_expert_information,container,false);
         initView(view);
         return view;
     }
@@ -147,7 +144,6 @@ public class ModifiedMyInformationFragment extends BaseFragment{
     @Override
     public void initData(){
         User user = AppContext.getInstance().getLoginUser();
-        realName.setText(user.getRealName());
         if (user.getSex()==User.MAN){
             spGender.setSelection(0);
         }else {
@@ -186,15 +182,10 @@ public class ModifiedMyInformationFragment extends BaseFragment{
             AppContext.showToastShort(R.string.tip_network_error);
             return;
         }
-        String realName = this.realName.getText().toString();
         String mobile = this.phoneNumber.getText().toString();
         String email = this.email.getText().toString();
         String age = this.age.getText().toString();
         String address = this.address.getText().toString();
-        if (realName==null||realName.length()==0){
-            AppContext.showToast("真实姓名不能为空");
-            return;
-        }
         if (email==null||email.length()==0){
             AppContext.showToast("邮箱不能为空");
             return;
@@ -212,7 +203,7 @@ public class ModifiedMyInformationFragment extends BaseFragment{
             return;
         }
         showWaitDialog("修改中，请稍后");
-        EasyFarmServerApi.modifiedCommanUserInformation(realName, age, gender, email, mobile, address,imagePath, mHandler);
+        EasyFarmServerApi.modifiedExpertInformation(age, gender, email, mobile, address,imagePath, mHandler);
     }
 
     @Override
