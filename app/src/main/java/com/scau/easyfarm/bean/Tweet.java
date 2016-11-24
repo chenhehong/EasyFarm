@@ -28,6 +28,8 @@ import java.util.List;
 //用Parcelable代替Serializable实现序列化，可以减少内存的占用
 public class Tweet extends Entity implements Parcelable {
 
+    @JSONField(name = "imagePath")
+    private String portrait="";
     private String author;
     private int authorid;
     private  String title;
@@ -68,6 +70,14 @@ public class Tweet extends Entity implements Parcelable {
         isLike = dest.readInt();
         title = dest.readString();
         readCount = dest.readInt();
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
     public String getAttach() {

@@ -72,6 +72,17 @@
                     android:id="@+id/et_address"
                     style="@style/form_edit_right_edittext"/>
             </LinearLayout>
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
+                    android:text="用户头像："/>
+                <ImageView
+                    android:id="@+id/portrait"
+                    android:src="@drawable/widget_dface"
+                    android:layout_height="90dp"
+                    android:layout_width="90dp"/>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_submit"

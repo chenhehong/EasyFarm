@@ -37,7 +37,7 @@
         <RelativeLayout
             android:id="@+id/rl_myinformation_settings"
             style="@style/option_item_rl"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 style="@style/option_item_text_parent"

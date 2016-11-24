@@ -7,6 +7,8 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 public class Comment extends Entity{
 
+    @JSONField(name = "imagePath")
+    private String portrait="";
 //  所评论的评论的id，如果直接评论问题为0
     @JSONField(name = "commentID")
     private int commentedId;
@@ -19,6 +21,14 @@ public class Comment extends Entity{
     private String content;
     @JSONField(name = "createDate")
     private String commentDate;
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
+    }
 
     public int getCommentedId() {
         return commentedId;

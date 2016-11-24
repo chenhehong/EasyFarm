@@ -1,7 +1,12 @@
 package com.scau.easyfarm.fragment;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,25 +14,33 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ModifiedInformationResult;
-import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.DialogHelp;
+import com.scau.easyfarm.util.ImageUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
 
+import org.kymjs.kjframe.Core;
+
 import java.io.ByteArrayInputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import me.nereo.multi_image_selector.MultiImageSelector;
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
  * Created by ChenHehong on 2016/9/2.
@@ -46,11 +59,17 @@ public class ModifiedMyInformationFragment extends BaseFragment{
     EditText address;
     @InjectView(R.id.sp_gender)
     Spinner spGender;
+    @InjectView(R.id.portrait)
+    ImageView portrait;
     @InjectView(R.id.btn_submit)
     Button btnSubmit;
 
     private ArrayAdapter<String> spinnerAdapter;
     public int gender;
+
+    private String imagePath="";
+    Bitmap imageBitmap;
+
 
     private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
@@ -138,6 +157,10 @@ public class ModifiedMyInformationFragment extends BaseFragment{
         phoneNumber.setText(user.getPhoneNumber());
         email.setText(user.getEmail());
         address.setText(user.getAddress());
+        if (user.getPortrait()!=null&&user.getPortrait().length()>0){
+            new Core.Builder().view(portrait).url(ApiHttpClient.getAbsoluteApiUrl(user.getPortrait())).doTask();
+        }
+        portrait.setOnClickListener(this);
     }
 
     @Override
@@ -189,7 +212,7 @@ public class ModifiedMyInformationFragment extends BaseFragment{
             return;
         }
         showWaitDialog("修改中，请稍后");
-        EasyFarmServerApi.modifiedMyInformation(realName, age, gender, email, mobile, address, mHandler);
+        EasyFarmServerApi.modifiedCommanUserInformation(realName, age, gender, email, mobile, address,imagePath, mHandler);
     }
 
     @Override
@@ -197,6 +220,39 @@ public class ModifiedMyInformationFragment extends BaseFragment{
         final int id = v.getId();
         if(id==R.id.btn_submit){
             handleSubmit();
+        }else if (id==R.id.portrait){
+            MultiImageSelector.create(this.getContext())
+                    .showCamera(true).multi().count(1).start(this, ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE);
+        }
+    }
+
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                portrait.setImageBitmap(imageBitmap);
+            }
+        }
+    };
+
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode,
+                                 final Intent returnIntent) {
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        if (requestCode==ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE){
+            ArrayList<String> imagePaths =  returnIntent.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+            imagePath = imagePaths.get(0);
+            new Thread() {
+                @Override
+                public void run() {
+                    //  压缩成bitmap形式的缩略图
+                    imageBitmap = ImageUtils.loadImgThumbnail(imagePath,100,100);
+                    Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);
+                }
+            }.start();
         }
     }
 }

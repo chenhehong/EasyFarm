@@ -48,7 +48,7 @@ public class CommentAdapter extends ListBaseAdapter<Comment> {
             }
             contents+=item.getContent();
             vh.content.setText(contents);
-
+            vh.avatar.setAvatarUrl(item.getPortrait());
             vh.time.setText(StringUtils.friendly_time(item.getCommentDate()));
 
         } catch (Exception e) {

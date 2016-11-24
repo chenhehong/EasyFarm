@@ -187,6 +187,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.address", user.getAddress());
                 setProperty("user.moduleList", String.valueOf(user.getModuleList()));
                 setProperty("user.isRememberMe", String.valueOf(user.isRememberMe()));// 是否记住我的信息
+                setProperty("user.portrait",user.getPortrait());
             }
         });
     }
@@ -208,6 +209,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.email", user.getEmail());
                 setProperty("user.address", user.getAddress());
                 setProperty("user.moduleList", String.valueOf(user.getModuleList()));
+                setProperty("user.portrait",user.getPortrait());
             }
         });
     }
@@ -229,6 +231,7 @@ public class AppContext extends BaseApplication {
         user.setAge(StringUtils.toInt(getProperty("user.age")));
         user.setEmail(getProperty("user.email"));
         user.setAddress(getProperty("user.address"));
+        user.setPortrait(getProperty("user.portrait"));
         user.setRememberMe(StringUtils.toBool(getProperty("user.isRememberMe")));
         if (getProperty("user.moduleList")!=null&&getProperty("user.moduleList").length()>0){
 //      将arraylist的字符串转化为arraylist对象
@@ -247,7 +250,7 @@ public class AppContext extends BaseApplication {
         this.loginUid = 0;
         this.login = false;
         removeProperty("user.uid","user.roleName", "user.realName", "user.organization",
-                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address", "user.isRememberMe","user.canAuditServer","user.moduleList");
+                    "user.phoneNumber", "user.techType", "user.description", "user.sex", "user.age", "user.email", "user.address","user.portrait","user.isRememberMe","user.canAuditServer","user.moduleList");
     }
 
     public int getLoginUid() {

@@ -88,11 +88,6 @@ public class SettingsFragment extends BaseFragment {
         if (!AppContext.getInstance().isLogin()) {
             mTvExit.setText("退出");
         }
-        if (AppContext.getInstance().isLogin()&&AppContext.getInstance().getLoginUser().getRoleName()!=null){
-            if (AppContext.getInstance().getLoginUser().getRoleName().equals(User.NORMALROLE)||AppContext.getInstance().getLoginUser().getRoleName().equals(User.EXPERTROLE)){
-                myinformationSetting.setVisibility(View.VISIBLE);
-            }
-        }
     }
 
     @Override
@@ -172,7 +167,7 @@ public class SettingsFragment extends BaseFragment {
                 }else{
                     if (AppContext.getInstance().getLoginUser().getRoleName().equals(User.NORMALROLE)){
                         UIHelper.showSimpleBack(getActivity(), SimpleBackPage.MODIFIED_MYINFORMATION);
-                    }else if (AppContext.getInstance().getLoginUser().getRoleName().equals(User.EXPERTROLE)){
+                    }else{
 
                     }
                 }

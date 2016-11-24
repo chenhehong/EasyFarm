@@ -129,6 +129,7 @@ public class TweetDetailFragment extends
 
 //  填充问答详情
     private void fillUI() {
+        mIvAvatar.setAvatarUrl(mTweet.getPortrait());
         mIvAvatar.setUserInfo(mTweet.getAuthorid(), mTweet.getAuthor());
         mTvName.setText(mTweet.getAuthor());
         mTvTime.setText(StringUtils.friendly_time(mTweet.getCreateDate()));

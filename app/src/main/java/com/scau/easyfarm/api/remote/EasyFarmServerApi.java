@@ -86,7 +86,7 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/user/register", params, handler);
     }
 
-    public static void modifiedMyInformation(String realName,String age,int gender,String email,String mobile,String address, AsyncHttpResponseHandler handler){
+    public static void modifiedCommanUserInformation(String realName, String age, int gender, String email, String mobile, String address,String portrait, AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("autoID",AppContext.getInstance().getLoginUid());
         params.put("realName",realName);
@@ -95,6 +95,13 @@ public class EasyFarmServerApi {
         params.put("age",age);
         params.put("email",email);
         params.put("address",address);
+        if (!TextUtils.isEmpty(portrait)) {
+            try {
+                params.put("file", new File(portrait));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
         ApiHttpClient.post("front/mobile/user/modifyuser", params, handler);
     }
 

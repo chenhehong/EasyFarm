@@ -18,6 +18,8 @@ import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 
+import org.kymjs.kjframe.Core;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
@@ -139,6 +141,8 @@ public class MyInformationFragmentDetail extends BaseFragment {
     }
 
     public void fillUI() {
+        Core.getKJBitmap().displayWithLoadBitmap(mUserFace, mUser.getPortrait(),
+                R.drawable.widget_dface);
         mName.setText(mUser.getLoginName());
         mAddress.setText(mUser.getAddress());
         mAge.setText(mUser.getAge()+"");

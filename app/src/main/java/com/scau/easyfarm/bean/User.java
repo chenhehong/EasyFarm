@@ -28,6 +28,8 @@ public class User extends Entity {
 
     private String loginName="";
     private String password="";
+    @JSONField(name = "imagePath")
+    private String portrait="";
     private String realName="";
     private String organization="";
     private String phoneNumber="";
@@ -58,6 +60,14 @@ public class User extends Entity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
     public String getRealName() {
