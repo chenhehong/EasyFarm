@@ -205,4 +205,6 @@
     <string name="atme_count">\@我(%s) </string>
     <string name="review_count">评论(%s) </string>
 
+    <string name="actionbar_wittweet">发布问答前请先搜索</string>
+
 </resources>

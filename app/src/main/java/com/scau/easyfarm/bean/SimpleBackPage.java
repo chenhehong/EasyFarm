@@ -45,6 +45,7 @@ import com.scau.easyfarm.fragment.VillageServiceProofResourPubFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
 import com.scau.easyfarm.fragment.VillageServiceReasonChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
+import com.scau.easyfarm.fragment.WitTweetFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.PerformanceApplyViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.PerformanceVerifyViewPagerFragment;
@@ -107,7 +108,8 @@ public enum SimpleBackPage {
     MYSERVICE_STATISTICS(49, R.string.myservice_statistics, MyServiceStatisticsFragment.class),
     REGISTER(50, R.string.register, RegisterFragment.class),
     MODIFIED_COMMONUSERINFORMATION(51, R.string.modified_my_information, ModifiedCommonUserInformationFragment.class),
-    MODIFIED_EXPERTINFORMATION(52, R.string.modified_my_information, ModifiedExpertInformationFragment.class);
+    MODIFIED_EXPERTINFORMATION(52, R.string.modified_my_information, ModifiedExpertInformationFragment.class),
+    WITTWEET(53, R.string.actionbar_wittweet, WitTweetFragment.class);
 
     private int title;
     private Class<?> clz;

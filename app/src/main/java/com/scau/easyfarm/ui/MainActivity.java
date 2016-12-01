@@ -27,6 +27,7 @@ import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.Notice;
+import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.fragment.MyInformationFragment;
 import com.scau.easyfarm.interf.BaseViewInterface;
 import com.scau.easyfarm.service.ServerTaskUtils;
@@ -231,7 +232,7 @@ public class MainActivity extends ActionBarActivity implements
 
 //  添加问答
     private void onClickTweetPub() {
-        UIHelper.showTweetPub(this);
+        UIHelper.showSimpleBack(this, SimpleBackPage.WITTWEET);
     }
 
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/layout_item_bg"
+    android:padding="@dimen/space_8"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="【类别】"
+        android:textColor="?attr/textColor" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginRight="@dimen/space_5"
+        android:text="标题"
+        android:textColor="?attr/textColor" />
+
+    <TextView
+        android:id="@+id/tv_commentcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_gray"
+        android:text="评论数"
+        android:visibility="gone"
+        android:textSize="@dimen/text_size_12" />
+
+</LinearLayout>

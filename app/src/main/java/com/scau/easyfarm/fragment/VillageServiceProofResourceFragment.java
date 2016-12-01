@@ -38,7 +38,8 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class VillageServiceProofResourceFragment extends BaseListFragment<VillageProofResource> implements
+public class
+        VillageServiceProofResourceFragment extends BaseListFragment<VillageProofResource> implements
         AdapterView.OnItemLongClickListener{
 
     private static final String CACHE_KEY_PREFIX = "villageServiceProofResourcelist_";

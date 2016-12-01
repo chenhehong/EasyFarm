@@ -175,6 +175,14 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/user/api/editUserPwd", params, handler);
     }
 
+    public static void findWitTweet(String questionTitle,int categoryId,
+                                AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("questionTitle", questionTitle);
+        params.put("categoryId",categoryId);
+        ApiHttpClient.post("front/mobile/communicate/api/searchByQuestion", params, handler);
+    }
+
     public static void pubTweet(Tweet tweet, AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("personalID", tweet.getAuthorid());
