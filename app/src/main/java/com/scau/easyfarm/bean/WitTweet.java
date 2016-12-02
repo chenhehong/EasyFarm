@@ -7,8 +7,8 @@ import java.util.HashMap;
  */
 public class WitTweet extends Entity {
 
-    public static int TYPE_TWEET = 1;
-    public static int TYPE_MANUAL = 2;
+    public static int TYPE_TWEET = 0;
+    public static int TYPE_MANUAL = 1;
     public static final HashMap<Integer,String> typeIntHashMap = new HashMap<Integer,String>(){
         { put(TYPE_TWEET,"在线交流");  put(TYPE_MANUAL,"知识库");}};
 
