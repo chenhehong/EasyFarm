@@ -41,6 +41,7 @@ import com.scau.easyfarm.fragment.PerformanceVerifyFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticsFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
+import com.scau.easyfarm.fragment.TweetPubFragment;
 import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
 import com.scau.easyfarm.fragment.VillageServiceVerifyFragment;
@@ -244,8 +245,12 @@ public class UIHelper {
     }
 
 //  显示添加问答界面
-    public static void showTweetPub(Context context) {
-        showSimpleBack(context, SimpleBackPage.TWEET_PUB);
+    public static void showTweetPub(Context context,int typeId,String typeName,String title) {
+        Bundle args = new Bundle();
+        args.putInt(TweetPubFragment.BUNDLEKEY_MANUAL_ID,typeId);
+        args.putString(TweetPubFragment.BUNDLEKEY_MANUAL_NAME, typeName);
+        args.putString(TweetPubFragment.BUNDLEKEY_TITLE,title);
+        showSimpleBack(context, SimpleBackPage.TWEET_PUB,args);
     }
 
     /**

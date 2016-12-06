@@ -46,9 +46,10 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/tv_hint"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="你想问的是不是："
+            android:text="你搜索的问题可能已经有答案:"
             android:textColor="@color/black"
             android:textSize="@dimen/font_18"/>
         <ListView
@@ -71,6 +72,6 @@
         android:id="@+id/btn_newtweet"
         style="@style/button_common_blue"
         android:layout_marginTop="20dp"
-        android:text="我要提一个新的问题" />
+        android:text="我要提问" />
 
 </LinearLayout>

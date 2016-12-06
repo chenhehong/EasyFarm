@@ -54,6 +54,8 @@ public class WitTweetFragment extends BaseFragment implements AdapterView.OnItem
     ImageView mImvType;
     @InjectView(R.id.et_tweet_title)
     EditText mEtTitle;
+    @InjectView(R.id.tv_hint)
+    TextView tvHint;
     @InjectView(R.id.lv_list)
     ListView mListView;
     @InjectView(R.id.error_layout)
@@ -126,6 +128,9 @@ public class WitTweetFragment extends BaseFragment implements AdapterView.OnItem
     }
 
     private void executeOnLoadDataSuccess(List<WitTweet> data) {
+        if (data==null||data.size()==0){
+            tvHint.setText("没有搜索到结果，请向专家提问");
+        }
         mAdapter.clear();
         mAdapter.addData(data);
         mListView.setVisibility(View.VISIBLE);
@@ -154,7 +159,7 @@ public class WitTweetFragment extends BaseFragment implements AdapterView.OnItem
         if (id==R.id.btn_tweet_type){
             handlerSelectType();
         }else if (id==R.id.btn_newtweet){
-            UIHelper.showTweetPub(getActivity());
+            UIHelper.showTweetPub(getActivity(),selectedTypeId,selectedTypeName,mEtTitle.getText().toString());
             getActivity().finish();
         }
     }

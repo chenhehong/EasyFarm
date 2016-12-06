@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -240,12 +241,12 @@ public class ModifiedCommonUserInformationFragment extends BaseFragment{
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode==ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE){
-            ArrayList<String> imagePaths =  returnIntent.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-            imagePath = imagePaths.get(0);
+            final ArrayList<String> imagePaths =  returnIntent.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
             new Thread() {
                 @Override
                 public void run() {
                     //  压缩成bitmap形式的缩略图
+                    imagePath = ImageUtils.compressPortraitImage(imagePaths.get(0),getActivity());
                     imageBitmap = ImageUtils.loadImgThumbnail(imagePath,100,100);
                     Message msg = new Message();
                     msg.what = 1;

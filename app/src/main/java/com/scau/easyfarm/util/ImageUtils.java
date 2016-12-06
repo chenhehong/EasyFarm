@@ -761,4 +761,38 @@ public class ImageUtils {
         } else
             return null;
     }
+
+    //  对头像图片压缩成100*100并存放
+    public static String compressPortraitImage(String largeFile,Context context){
+        String theThumbnail;
+        // 存放照片的文件夹
+        String savePath = Environment.getExternalStorageDirectory()
+                .getAbsolutePath() + "/easyfarm/portrait/";
+        File savedir = new File(savePath);
+        if (!savedir.exists()) {
+            savedir.mkdirs();
+        }
+
+        String largeFileName = FileUtil.getFileName(largeFile);
+        String largeFilePath = savePath + largeFileName;
+        // 判断是否本来就是压缩过的图片
+        if (largeFileName.startsWith("thumb_")
+                && new File(largeFilePath).exists()) {
+            theThumbnail = largeFilePath;
+        } else {
+            // 生成860的缩略图并作为上传的图片
+            String thumbFileName = "thumb_" + largeFileName;
+            theThumbnail = savePath + thumbFileName;
+            if (!new File(theThumbnail).exists()) {
+                try {
+                    // 压缩上传的图片
+                    ImageUtils.createImageThumbnail(context,
+                            largeFile, theThumbnail, 100, 100);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return theThumbnail;
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
@@ -141,7 +142,7 @@ public class MyInformationFragmentDetail extends BaseFragment {
     }
 
     public void fillUI() {
-        Core.getKJBitmap().displayWithLoadBitmap(mUserFace, mUser.getPortrait(),
+        Core.getKJBitmap().displayWithLoadBitmap(mUserFace, ApiHttpClient.getAbsoluteApiUrl(mUser.getPortrait()),
                 R.drawable.widget_dface);
         mName.setText(mUser.getLoginName());
         mAddress.setText(mUser.getAddress());

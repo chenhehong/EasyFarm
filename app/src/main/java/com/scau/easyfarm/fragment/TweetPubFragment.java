@@ -55,6 +55,9 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 public class TweetPubFragment extends BaseFragment{
 
+    public static final String BUNDLEKEY_MANUAL_NAME = "bundlekey_manual_name";
+    public static final String BUNDLEKEY_MANUAL_ID = "bundlekey_manual_id";
+    public static final String BUNDLEKEY_TITLE = "bundlekey_title";
     private static final int MAX_TEXT_LENGTH = 500;
 
     @InjectView(R.id.ib_picture)
@@ -251,6 +254,14 @@ public class TweetPubFragment extends BaseFragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            selectedTweetTypeId = bundle.getInt(BUNDLEKEY_MANUAL_ID);
+            selectedTweetTypeName = bundle.getString(BUNDLEKEY_MANUAL_NAME,"");
+            String title = bundle.getString(BUNDLEKEY_TITLE,"");
+            mEtType.setText(selectedTweetTypeName);
+            mEtTitle.setText(title);
+        }
     }
 
     @Override

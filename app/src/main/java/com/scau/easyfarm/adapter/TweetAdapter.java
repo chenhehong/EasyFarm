@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.ListBaseAdapter;
@@ -84,6 +85,7 @@ public class TweetAdapter extends ListBaseAdapter<Tweet> {
         }
 
         vh.face.setUserInfo(tweet.getAuthorid(), tweet.getAuthor());
+        vh.face.setAvatarUrl(ApiHttpClient.getAbsoluteApiUrl(tweet.getPortrait()));
         vh.author.setText(tweet.getAuthor());
         vh.time.setText(StringUtils.friendly_time(tweet.getCreateDate()));
         vh.content.setText(tweet.getTitle());

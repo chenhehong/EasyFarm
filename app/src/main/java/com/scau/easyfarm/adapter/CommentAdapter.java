@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Comment;
 import com.scau.easyfarm.util.StringUtils;
@@ -48,7 +49,7 @@ public class CommentAdapter extends ListBaseAdapter<Comment> {
             }
             contents+=item.getContent();
             vh.content.setText(contents);
-            vh.avatar.setAvatarUrl(item.getPortrait());
+            vh.avatar.setAvatarUrl(ApiHttpClient.getAbsoluteApiUrl(item.getPortrait()));
             vh.time.setText(StringUtils.friendly_time(item.getCommentDate()));
 
         } catch (Exception e) {

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
+import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
@@ -282,7 +283,7 @@ public class MyInformationFragment extends BaseFragment{
     private void fillUI() {
         if (mInfo==null)
             return;
-        mIvAvatar.setAvatarUrl(mInfo.getPortrait());
+        mIvAvatar.setAvatarUrl(ApiHttpClient.getAbsoluteApiUrl(mInfo.getPortrait()));
         mTvName.setText(mInfo.getRealName());
     }
 
