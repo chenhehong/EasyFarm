@@ -45,6 +45,7 @@
         android:layout_marginTop="@dimen/space_2"
         android:layout_toRightOf="@id/iv_avatar"
         android:textColor="@color/main_gray"
+        android:visibility="gone"
         android:textSize="@dimen/text_size_12" />
 
     <TextView

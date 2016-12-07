@@ -1,5 +1,7 @@
 package com.scau.easyfarm.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import java.util.List;
  */
 public class WitTweetList extends Entity implements ListEntity<WitTweet> {
 
+    @JSONField(name = "obj")
     private ArrayList<WitTweet> witTweetList = new ArrayList<>();
 
     public ArrayList<WitTweet> getWitTweetList() {
