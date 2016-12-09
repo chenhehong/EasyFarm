@@ -63,6 +63,9 @@ public class ApiHttpClient {
     }
 
     public static String getAbsoluteApiUrl(String partUrl) {
+        if (partUrl==null){
+            partUrl="";
+        }
         String url = partUrl;
         if (!partUrl.startsWith("http:") && !partUrl.startsWith("https:")) {
             url = String.format(API_URL, partUrl);
