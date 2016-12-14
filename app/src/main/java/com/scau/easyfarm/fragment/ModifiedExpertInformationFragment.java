@@ -54,6 +54,14 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
     EditText email;
     @InjectView(R.id.et_address)
     EditText address;
+    @InjectView(R.id.et_jobposition)
+    EditText jobpostion;
+    @InjectView(R.id.et_techtype)
+    EditText techtype;
+    @InjectView(R.id.et_techtype2)
+    EditText techtype2;
+    @InjectView(R.id.et_description)
+    EditText description;
     @InjectView(R.id.sp_gender)
     Spinner spGender;
     @InjectView(R.id.portrait)
@@ -186,6 +194,9 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
         String email = this.email.getText().toString();
         String age = this.age.getText().toString();
         String address = this.address.getText().toString();
+        String techType = this.techtype.getText().toString();
+        String techType2 = this.techtype2.getText().toString();
+        String description = this.description.getText().toString();
         if (email==null||email.length()==0){
             AppContext.showToast("邮箱不能为空");
             return;
@@ -203,7 +214,7 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
             return;
         }
         showWaitDialog("修改中，请稍后");
-        EasyFarmServerApi.modifiedExpertInformation(age, gender, email, mobile, address,imagePath, mHandler);
+        EasyFarmServerApi.modifiedExpertInformation(age, gender, email, mobile, address,techType,techType2,description,imagePath, mHandler);
     }
 
     @Override

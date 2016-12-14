@@ -105,7 +105,7 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/user/modifyuser", params, handler);
     }
 
-    public static void modifiedExpertInformation(String age, int gender, String email, String mobile, String address,String portrait, AsyncHttpResponseHandler handler){
+    public static void modifiedExpertInformation(String age, int gender, String email, String mobile, String address,String techType,String techType2,String description,String portrait, AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("autoID",AppContext.getInstance().getLoginUid());
         params.put("phoneNumber",mobile);
@@ -113,6 +113,9 @@ public class EasyFarmServerApi {
         params.put("age",age);
         params.put("email",email);
         params.put("address",address);
+        params.put("techType",techType);
+        params.put("techType2",techType2);
+        params.put("description ",description);
         if (!TextUtils.isEmpty(portrait)) {
             try {
                 params.put("file", new File(portrait));

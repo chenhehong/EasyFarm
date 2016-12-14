@@ -66,6 +66,52 @@
                 style="@style/form_edit_layout">
                 <TextView
                     style="@style/form_edit_left_textview"
+                    android:text="职称："/>
+                <EditText
+                    android:id="@+id/et_jobposition"
+                    style="@style/form_edit_right_edittext"
+                    android:enabled="false"/>
+                <Button
+                    android:id="@+id/btn_select_jobposition"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="选择"
+                    android:textColor="@android:color/black"
+                    android:src="@drawable/btn_quickoption_selector" />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
+                    android:text="专长1："/>
+                <EditText
+                    android:id="@+id/et_techtype"
+                    style="@style/form_edit_right_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
+                    android:text="专长2："/>
+                <EditText
+                    android:id="@+id/et_techtype2"
+                    style="@style/form_edit_right_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
+                    android:text="个人描述："/>
+                <EditText
+                    android:id="@+id/et_description"
+                    android:lines="4"
+                    android:hint="请输入研究方向、研究成果等"
+                    style="@style/form_edit_right_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
                     android:text="用户头像："/>
                 <ImageView
                     android:id="@+id/portrait"
