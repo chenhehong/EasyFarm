@@ -33,6 +33,7 @@ public class PerformanceTypeChooseFragment extends BaseFragment implements Adapt
     public static final int REQUEST_CODE_PERFORMANCETYPE_SELECT = 112;
     public static final String BUNDLE_SELECT_TYPE_STR = "bundle_select_type_str";
     public static final String BUNDLE_SELECT_TYPE_ID = "bundle_select_type_id";
+    public static final String BUNDLE_SELECT_TYPE_FILE_TYPE_LIST = "bundle_select_type_file_type_list";
     public static final String BUNDLE_SELECT_WORKUNIT = "bundle_select_workunit";
 
     private static EmptyLayout mEmptyView;
@@ -147,6 +148,7 @@ public class PerformanceTypeChooseFragment extends BaseFragment implements Adapt
             Intent result = new Intent();
             result.putExtra(BUNDLE_SELECT_TYPE_STR, selectedReason.getName());
             result.putExtra(BUNDLE_SELECT_TYPE_ID,selectedReason.getId());
+            result.putExtra(BUNDLE_SELECT_TYPE_FILE_TYPE_LIST,selectedReason.getFileTypeArrayList());
             result.putExtra(BUNDLE_SELECT_WORKUNIT,selectedReason.getUnit());
             getActivity().setResult(getActivity().RESULT_OK, result);
             getActivity().finish();

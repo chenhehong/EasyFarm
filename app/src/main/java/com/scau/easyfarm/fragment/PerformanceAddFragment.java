@@ -7,18 +7,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.scau.easyfarm.AppContext;
@@ -28,6 +27,7 @@ import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.FileResource;
 import com.scau.easyfarm.bean.Performance;
+import com.scau.easyfarm.bean.PerformanceFileType;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.ImageUtils;
@@ -97,18 +97,42 @@ public class PerformanceAddFragment extends BaseFragment{
     @InjectView(R.id.iv_clear_img7) ImageView mIvClearImage7;
     @InjectView(R.id.iv_clear_img8) ImageView mIvClearImage8;
     @InjectView(R.id.iv_clear_img9) ImageView mIvClearImage9;
+    @InjectView(R.id.sp_type_img1) Spinner mSpTypeImage1;
+    @InjectView(R.id.sp_type_img2) Spinner mSpTypeImage2;
+    @InjectView(R.id.sp_type_img3) Spinner mSpTypeImage3;
+    @InjectView(R.id.sp_type_img4) Spinner mSpTypeImage4;
+    @InjectView(R.id.sp_type_img5) Spinner mSpTypeImage5;
+    @InjectView(R.id.sp_type_img6) Spinner mSpTypeImage6;
+    @InjectView(R.id.sp_type_img7) Spinner mSpTypeImage7;
+    @InjectView(R.id.sp_type_img8) Spinner mSpTypeImage8;
+    @InjectView(R.id.sp_type_img9) Spinner mSpTypeImage9;
+    @InjectView(R.id.et_description_img1) EditText mEtDescriptionImage1;
+    @InjectView(R.id.et_description_img2) EditText mEtDescriptionImage2;
+    @InjectView(R.id.et_description_img3) EditText mEtDescriptionImage3;
+    @InjectView(R.id.et_description_img4) EditText mEtDescriptionImage4;
+    @InjectView(R.id.et_description_img5) EditText mEtDescriptionImage5;
+    @InjectView(R.id.et_description_img6) EditText mEtDescriptionImage6;
+    @InjectView(R.id.et_description_img7) EditText mEtDescriptionImage7;
+    @InjectView(R.id.et_description_img8) EditText mEtDescriptionImage8;
+    @InjectView(R.id.et_description_img9) EditText mEtDescriptionImage9;
     private ArrayList<View> mlyImageList;
     private ArrayList<ImageView> mIvImageList;
     private ArrayList<ImageView> mIvClearImageList;
+    private ArrayList<Spinner> mSpTypeImageList;
+    private ArrayList<EditText> mEtDescriptionImageList;
     private ArrayList<String> imagePathList = new ArrayList<String>();
     private ArrayList<Bitmap> imageBitmapList = new ArrayList<Bitmap>();
+    private ArrayList<PerformanceFileType> imageTypeList = new ArrayList<PerformanceFileType>();
+    private ArrayList<String> imageDescriptionList = new ArrayList<String>();
 
     private AlertDialog.Builder datePickBuilder;
     private DatePicker datePicker;
     private Dialog dateTimeDialog;
+    private ArrayAdapter<String> spinnerAdapter;
 
     private String performanceTypeStr;
     private int performanceTypeId;
+    private ArrayList<PerformanceFileType> performanceFileTypeArrayList;
 
     public static int REQUESTCODE_PERFORMANCE_ADD = 131;
 
@@ -136,16 +160,6 @@ public class PerformanceAddFragment extends BaseFragment{
             hideWaitDialog();
         }
     };
-
-    private final Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                refreshImages();
-            }
-        }
-    };
-
 
     private void handleResultBean(ResultBean resultBean){
         if (resultBean.getResult().OK()){
@@ -180,8 +194,21 @@ public class PerformanceAddFragment extends BaseFragment{
         mlyImageList = new ArrayList<View>(){{add(mlyImage1);add(mlyImage2);add(mlyImage3);add(mlyImage4);;add(mlyImage5);add(mlyImage6);add(mlyImage7);;add(mlyImage8);add(mlyImage9);}} ;
         mIvImageList = new ArrayList<ImageView>(){{add(mIvImage1);add(mIvImage2);add(mIvImage3);add(mIvImage4);add(mIvImage5);add(mIvImage6);add(mIvImage7);add(mIvImage8);add(mIvImage9);}};
         mIvClearImageList = new ArrayList<ImageView>(){{add(mIvClearImage1);add(mIvClearImage2);add(mIvClearImage3);add(mIvClearImage4);add(mIvClearImage5);add(mIvClearImage6);add(mIvClearImage7);add(mIvClearImage8);add(mIvClearImage9);}};
+        mSpTypeImageList = new ArrayList<Spinner>(){{add(mSpTypeImage1);add(mSpTypeImage2);add(mSpTypeImage3);add(mSpTypeImage4);add(mSpTypeImage5);add(mSpTypeImage6);add(mSpTypeImage7);add(mSpTypeImage8);add(mSpTypeImage9);}};
+        mEtDescriptionImageList = new ArrayList<EditText>(){{add(mEtDescriptionImage1);add(mEtDescriptionImage2);add(mEtDescriptionImage3);add(mEtDescriptionImage4);add(mEtDescriptionImage5);
+            add(mEtDescriptionImage6);add(mEtDescriptionImage7);add(mEtDescriptionImage8);add(mEtDescriptionImage9);}};
         for (int i=0;i<mIvClearImageList.size();i++){
             mIvClearImageList.get(i).setOnClickListener(this);
+        }
+        for (int i=0;i<mEtDescriptionImageList.size();i++){
+            final int index = i;
+            mEtDescriptionImageList.get(i).addTextChangedListener(new SimpleTextWatcher() {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before,
+                                          int count) {
+                    imageDescriptionList.add(index,mEtDescriptionImageList.get(index).getText().toString());
+                }
+            });
         }
     }
 
@@ -281,6 +308,14 @@ public class PerformanceAddFragment extends BaseFragment{
         }else if (id==R.id.et_server_date){
             handleSelectStartDate();
         }else if (id==R.id.btn_add_file){
+            if (performanceTypeId==0){
+                AppContext.showToast("请选择类型后再添加佐证材料！");
+                return;
+            }
+            if (imagePathList.size()>=MAXPICTURENUM){
+                AppContext.showToast("最多只能添加"+MAXPICTURENUM+"张图片！");
+                return;
+            }
             handleAddFiles();
         }else if(id==R.id.btn_submit){
             handleSubmit();
@@ -288,6 +323,9 @@ public class PerformanceAddFragment extends BaseFragment{
             int i = mIvClearImageList.indexOf(v);
             imagePathList.remove(i);
             imageBitmapList.remove(i);
+            imageDescriptionList.remove(i);
+            imageTypeList.remove(i);
+            mEtDescriptionImageList.get(i).setText("");
             refreshImages();
         }
     }
@@ -301,6 +339,8 @@ public class PerformanceAddFragment extends BaseFragment{
         for (int i=0;i<imageBitmapList.size();i++){
             mIvImageList.get(i).setImageBitmap(imageBitmapList.get(i));
             mlyImageList.get(i).setVisibility(View.VISIBLE);
+            mSpTypeImageList.get(i).setSelection(performanceFileTypeArrayList.indexOf(imageTypeList.get(i)));
+            mEtDescriptionImageList.get(i).setText(imageDescriptionList.get(i));
         }
     }
 
@@ -310,7 +350,7 @@ public class PerformanceAddFragment extends BaseFragment{
 
     private void handleAddFiles(){
         MultiImageSelector.create(this.getContext())
-                .showCamera(true).count(MAXPICTURENUM).multi().origin(imagePathList).start(this, ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE);
+                .showCamera(true).count(1).single().origin(imagePathList).start(this, ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE);
     }
 
     private void handleSelectStartDate(){
@@ -348,33 +388,57 @@ public class PerformanceAddFragment extends BaseFragment{
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode==PerformanceTypeChooseFragment.REQUEST_CODE_PERFORMANCETYPE_SELECT){
-            performanceTypeStr = returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_STR);
-            performanceTypeId = returnIntent.getIntExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_ID, 0);
-            etType.setText(performanceTypeStr);
-            if (performanceTypeStr.contains("其他")){
-                etType.setEnabled(true);
-            }else {
-                etType.setEnabled(false);
-            }
-            layWorkTime.setVisibility(View.VISIBLE);
-            workTimeUnit.setText(returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_WORKUNIT));
-        }else if (requestCode==ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE){
-            imagePathList =  returnIntent.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-            new Thread() {
-                @Override
-                public void run() {
-                    //  压缩成bitmap形式的缩略图
-                    Bitmap bitmap = null;
-                    imageBitmapList.clear();
-                    for (int i=0;i<imagePathList.size();i++){
-                        bitmap = ImageUtils.loadImgThumbnail(imagePathList.get(i),100,100);
-                        imageBitmapList.add(bitmap);
-                    }
-                    Message msg = new Message();
-                    msg.what = 1;
-                    handler.sendMessage(msg);
+            if (performanceTypeId==0||performanceTypeId!=returnIntent.getIntExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_ID, 0)){
+                performanceTypeStr = returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_STR);
+                performanceTypeId = returnIntent.getIntExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_ID, 0);
+                etType.setText(performanceTypeStr);
+                if (performanceTypeStr.contains("其他")){
+                    etType.setEnabled(true);
+                }else {
+                    etType.setEnabled(false);
                 }
-            }.start();
+                layWorkTime.setVisibility(View.VISIBLE);
+                workTimeUnit.setText(returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_WORKUNIT));
+                performanceFileTypeArrayList = (ArrayList<PerformanceFileType>) returnIntent.getSerializableExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_FILE_TYPE_LIST);
+                initFileTypeSpinner();
+            }
+        }else if (requestCode==ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE){
+            String newFile = returnIntent.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT).get(0);
+            addNewFile(newFile);
         }
     }
+
+    public void addNewFile(String newFile){
+        int newIndex = imagePathList.size();
+        imagePathList.add(newFile);
+        //  压缩成bitmap形式的缩略图
+        Bitmap bitmap = ImageUtils.loadImgThumbnail(newFile,100,100);
+        imageBitmapList.add(bitmap);
+        mIvImageList.get(newIndex).setImageBitmap(imageBitmapList.get(newIndex));
+        mlyImageList.get(newIndex).setVisibility(View.VISIBLE);
+    }
+    public void initFileTypeSpinner(){
+        String[] fileTypeListStr = new String[performanceFileTypeArrayList.size()];
+        for (int i=0;i<performanceFileTypeArrayList.size();i++){
+            fileTypeListStr[i] = performanceFileTypeArrayList.get(i).getText();
+        }
+        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, fileTypeListStr);
+//      simple_spinner_dropdown_item.xml设置的是下拉看到的效果
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// 设置下拉风格
+        for (int i=0;i<MAXPICTURENUM;i++){
+            mSpTypeImageList.get(i).setAdapter(spinnerAdapter);
+            mSpTypeImageList.get(i).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    imageTypeList.add(position, performanceFileTypeArrayList.get(position));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            mSpTypeImageList.get(i).setSelection(0);
+        }
+    }
+
 }

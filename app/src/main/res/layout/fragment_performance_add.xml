@@ -85,135 +85,391 @@
                     android:textColor="@android:color/black"
                     android:src="@drawable/btn_quickoption_selector" />
             </LinearLayout>
-
             <LinearLayout
+                android:id="@+id/rl_img1"
+                android:visibility="gone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
                 android:orientation="vertical">
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料1预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img1"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img1"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img1"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料1类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img1"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料1描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img1"
+                        style="@style/form_edit_right_edittext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rl_img2"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料2预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img2"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img2"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img2"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料2类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img2"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料2描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img2"
+                        style="@style/form_edit_right_edittext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rl_img3"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料3预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img3"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img3"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img3"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
                 </LinearLayout>
-
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料3类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img3"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料3描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img3"
+                        style="@style/form_edit_right_edittext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rl_img4"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料4预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img4"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img4"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img4"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料4类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img4"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料4描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img4"
+                        style="@style/form_edit_right_edittext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rl_img5"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料5预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img5"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img5"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img5"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料5类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img5"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料5描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img5"
+                        style="@style/form_edit_right_edittext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rl_img6"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料6预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img6"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img6"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img6"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料6类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img6"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料6描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img6"
+                        style="@style/form_edit_right_edittext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rl_img7"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料7预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img7"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img7"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img7"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料7类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img7"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料7描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img7"
+                        style="@style/form_edit_right_edittext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rl_img8"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料8预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img8"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img8"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img8"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料8类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img8"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料8描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img8"
+                        style="@style/form_edit_right_edittext"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rl_img9"
+                android:visibility="gone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料9预览："/>
                     <RelativeLayout
-                        android:id="@+id/rl_img9"
                         style="@style/performace_add_file_lay">
-
                         <ImageView
                             android:id="@+id/iv_img9"
                             style="@style/performace_add_file_img"/>
-
                         <ImageView
                             android:id="@+id/iv_clear_img9"
                             style="@style/performace_add_file_clearimg"/>
                     </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料9类别："/>
+                    <Spinner
+                        android:id="@+id/sp_type_img9"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/form_edit_layout">
+                    <TextView
+                        style="@style/form_edit_left_textview"
+                        android:textSize="15dp"
+                        android:text="材料9描述："/>
+                    <EditText
+                        android:id="@+id/et_description_img9"
+                        style="@style/form_edit_right_edittext"/>
                 </LinearLayout>
             </LinearLayout>
 

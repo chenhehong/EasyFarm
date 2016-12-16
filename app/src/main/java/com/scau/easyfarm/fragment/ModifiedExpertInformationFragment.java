@@ -224,7 +224,7 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
             handleSubmit();
         }else if (id==R.id.portrait){
             MultiImageSelector.create(this.getContext())
-                    .showCamera(true).multi().count(1).start(this, ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE);
+                    .showCamera(true).single().count(1).start(this, ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE);
         }
     }
 

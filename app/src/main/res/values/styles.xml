@@ -322,7 +322,7 @@
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:visibility">gone</item>
+        <item name="android:visibility">visible</item>
     </style>
 
     <style name="performace_add_file_img">

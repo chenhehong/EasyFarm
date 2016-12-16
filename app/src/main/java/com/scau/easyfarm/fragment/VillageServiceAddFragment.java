@@ -153,8 +153,8 @@ public class VillageServiceAddFragment extends BaseFragment{
         etReturnDate.setOnClickListener(this);
         etArea.addTextChangedListener(new SimpleTextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+             public void onTextChanged(CharSequence s, int start, int before,
+                                       int count) {
                 updateMenuState();
             }
         });
