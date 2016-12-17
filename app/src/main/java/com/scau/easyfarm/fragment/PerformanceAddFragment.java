@@ -201,6 +201,8 @@ public class PerformanceAddFragment extends BaseFragment{
             mIvClearImageList.get(i).setOnClickListener(this);
         }
         for (int i=0;i<mEtDescriptionImageList.size();i++){
+//          初始化每个imageDescriptionList元素的值
+            imageDescriptionList.add("");
             final int index = i;
             mEtDescriptionImageList.get(i).addTextChangedListener(new SimpleTextWatcher() {
                 @Override
