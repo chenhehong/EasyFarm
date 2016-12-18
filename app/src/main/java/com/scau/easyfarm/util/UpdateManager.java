@@ -105,7 +105,7 @@ public class UpdateManager {
         if (mUpdate == null) {
             return;
         }
-        AlertDialog.Builder dialog = DialogHelp.getConfirmDialog(mContext, mUpdate.getAndroidBean().getUpdateLog(), new DialogInterface.OnClickListener() {
+        AlertDialog.Builder dialog = DialogHelp.getConfirmDialog(mContext, mUpdate.getAndroidBean().getUpdateLog()+"**请注意！你必须安装最新的版本才能够正常使用系统，否则某些功能可能会发生异常！是否更新到最新的版本？", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 ServerTaskUtils.startDownloadAppService(mContext, mUpdate.getAndroidBean().getDownloadUrl(), mUpdate.getAndroidBean().getVersionName());

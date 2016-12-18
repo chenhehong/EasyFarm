@@ -56,6 +56,7 @@ public class Performance extends Entity {
     List<VerifyOpinion> verifyOpinions = new ArrayList<VerifyOpinion>();
     @JSONField(name = "workTimeList")
     List<PerformanceMemberWorkTime> performanceMemberWorkTimeList = new ArrayList<PerformanceMemberWorkTime>();
+    private String description;
 
     private VillageService villageService;
 
@@ -184,5 +185,13 @@ public class Performance extends Entity {
 
     public void setVillageService(VillageService villageService) {
         this.villageService = villageService;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

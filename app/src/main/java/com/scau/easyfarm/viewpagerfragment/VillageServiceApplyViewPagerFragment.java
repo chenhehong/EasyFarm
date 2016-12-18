@@ -12,11 +12,8 @@ import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
 import com.scau.easyfarm.bean.SimpleBackPage;
-import com.scau.easyfarm.bean.TweetsList;
-import com.scau.easyfarm.bean.VillageServiceList;
-import com.scau.easyfarm.fragment.TweetsFragment;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
-import com.scau.easyfarm.fragment.VillageServiceFragment;
+import com.scau.easyfarm.fragment.VillageServiceApplyListFragment;
 import com.scau.easyfarm.util.UIHelper;
 
 /**
@@ -32,10 +29,10 @@ public class VillageServiceApplyViewPagerFragment extends BaseViewPagerFragment{
         String[] title = getResources().getStringArray(
                 R.array.village_service_aply_viewpage_arrays);
 //      传人频道号为参数
-        adapter.addTab(title[0], "all_village_service", VillageServiceFragment.class,
-                getBundle(VillageServiceFragment.ALL_VILLAGE_SERVICE));
-        adapter.addTab(title[1], "pass_village_service", VillageServiceFragment.class,
-                getBundle(VillageServiceFragment.PASS_VILAGE_SERVICE));
+        adapter.addTab(title[0], "all_village_service", VillageServiceApplyListFragment.class,
+                getBundle(VillageServiceApplyListFragment.ALL_VILLAGE_SERVICE));
+        adapter.addTab(title[1], "pass_village_service", VillageServiceApplyListFragment.class,
+                getBundle(VillageServiceApplyListFragment.PASS_VILAGE_SERVICE));
     }
 
     private Bundle getBundle(int catalog) {

@@ -47,7 +47,7 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
-                    android:text="服务人员："/>
+                    android:text="参与人员："/>
                 <TextView
                     style="@style/detail_list_right_textview"
                     android:id="@+id/tv_person"

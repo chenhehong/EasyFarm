@@ -65,6 +65,8 @@ public class PerformanceVerifyFragment extends BaseFragment {
     TextView tvServerNumber;
     @InjectView(R.id.tv_apply_worktime)
     TextView tvApplyWorkTime;
+    @InjectView(R.id.tv_description)
+    TextView tvDescription;
     @InjectView(R.id.layout_grid)
     GridLayout mLayoutGrid;
     @InjectView(R.id.sp_my_status)
@@ -189,6 +191,7 @@ public class PerformanceVerifyFragment extends BaseFragment {
         tvType.setText(mPerformance.getPerformanceTypeStr());
         tvServerDate.setText(mPerformance.getPerformanceServerDateDesc());
         tvApplyWorkTime.setText(mPerformance.getApplyWorkTime()+"");
+        tvDescription.setText(mPerformance.getDescription());
         tvStatue.setText(mPerformance.getStatusString());
         if (mPerformance.getFileList() != null && (mPerformance.getFileList().size() > 0)) {
             mLayoutGrid.setVisibility(View.VISIBLE);

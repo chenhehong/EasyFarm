@@ -566,6 +566,7 @@ public class EasyFarmServerApi {
         params.put("declareDate",performance.getPerformanceServerDate());
         params.put("applyType",performance.getPerformanceTypeId());
         params.put("unittimes",performance.getApplyWorkTime());
+        params.put("description",performance.getDescription());
         File[] files = new File[performance.getFileList().size()];
         if (performance.getFileList()!=null&&performance.getFileList().size()>0) {
             for (int i=0;i<performance.getFileList().size();i++){

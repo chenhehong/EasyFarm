@@ -31,7 +31,7 @@
                 style="@style/form_edit_layout">
                 <TextView
                     style="@style/form_edit_left_textview"
-                    android:text="服务人员："/>
+                    android:text="参与人员："/>
                 <Button
                     android:id="@+id/btn_add_person"
                     android:layout_width="90dp"

@@ -101,7 +101,7 @@
                 style="@style/form_edit_layout">
                 <TextView
                     style="@style/form_edit_left_textview"
-                    android:text="个人描述："/>
+                    android:text="个人简介："/>
                 <EditText
                     android:id="@+id/et_description"
                     android:lines="4"

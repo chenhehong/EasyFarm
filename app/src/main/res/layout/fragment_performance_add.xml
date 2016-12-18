@@ -76,12 +76,23 @@
                 style="@style/form_edit_layout">
                 <TextView
                     style="@style/form_edit_left_textview"
-                    android:text="佐证材料："/>
+                    android:text="详细描述："/>
+                <EditText
+                    android:id="@+id/et_description"
+                    android:lines="4"
+                    android:hint="请说明服务目的和意义及服务类别、地点时间和所取得的经济、社会效益"
+                    style="@style/form_edit_right_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
+                    android:text="佐证附件："/>
                 <Button
                     android:id="@+id/btn_add_file"
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:text="添加材料"
+                    android:text="添加附件"
                     android:textColor="@android:color/black"
                     android:src="@drawable/btn_quickoption_selector" />
             </LinearLayout>
@@ -96,7 +107,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料1预览："/>
+                        android:text="附件1预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -112,7 +123,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料1类别："/>
+                        android:text="附件1类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img1"
                         style="@style/spinner_style"/>
@@ -122,7 +133,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料1描述："/>
+                        android:text="附件1描述："/>
                     <EditText
                         android:id="@+id/et_description_img1"
                         style="@style/form_edit_right_edittext"/>
@@ -139,7 +150,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料2预览："/>
+                        android:text="附件2预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -155,7 +166,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料2类别："/>
+                        android:text="附件2类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img2"
                         style="@style/spinner_style"/>
@@ -165,7 +176,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料2描述："/>
+                        android:text="附件2描述："/>
                     <EditText
                         android:id="@+id/et_description_img2"
                         style="@style/form_edit_right_edittext"/>
@@ -182,7 +193,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料3预览："/>
+                        android:text="附件3预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -198,7 +209,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料3类别："/>
+                        android:text="附件3类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img3"
                         style="@style/spinner_style"/>
@@ -208,7 +219,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料3描述："/>
+                        android:text="附件3描述："/>
                     <EditText
                         android:id="@+id/et_description_img3"
                         style="@style/form_edit_right_edittext"/>
@@ -225,7 +236,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料4预览："/>
+                        android:text="附件4预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -241,7 +252,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料4类别："/>
+                        android:text="附件4类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img4"
                         style="@style/spinner_style"/>
@@ -251,7 +262,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料4描述："/>
+                        android:text="附件4描述："/>
                     <EditText
                         android:id="@+id/et_description_img4"
                         style="@style/form_edit_right_edittext"/>
@@ -268,7 +279,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料5预览："/>
+                        android:text="附件5预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -284,7 +295,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料5类别："/>
+                        android:text="附件5类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img5"
                         style="@style/spinner_style"/>
@@ -294,7 +305,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料5描述："/>
+                        android:text="附件5描述："/>
                     <EditText
                         android:id="@+id/et_description_img5"
                         style="@style/form_edit_right_edittext"/>
@@ -311,7 +322,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料6预览："/>
+                        android:text="附件6预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -327,7 +338,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料6类别："/>
+                        android:text="附件6类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img6"
                         style="@style/spinner_style"/>
@@ -337,7 +348,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料6描述："/>
+                        android:text="附件6描述："/>
                     <EditText
                         android:id="@+id/et_description_img6"
                         style="@style/form_edit_right_edittext"/>
@@ -354,7 +365,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料7预览："/>
+                        android:text="附件7预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -370,7 +381,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料7类别："/>
+                        android:text="附件7类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img7"
                         style="@style/spinner_style"/>
@@ -380,7 +391,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料7描述："/>
+                        android:text="附件7描述："/>
                     <EditText
                         android:id="@+id/et_description_img7"
                         style="@style/form_edit_right_edittext"/>
@@ -397,7 +408,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料8预览："/>
+                        android:text="附件8预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -413,7 +424,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料8类别："/>
+                        android:text="附件8类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img8"
                         style="@style/spinner_style"/>
@@ -423,7 +434,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料8描述："/>
+                        android:text="附件8描述："/>
                     <EditText
                         android:id="@+id/et_description_img8"
                         style="@style/form_edit_right_edittext"/>
@@ -440,7 +451,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料9预览："/>
+                        android:text="附件9预览："/>
                     <RelativeLayout
                         style="@style/performace_add_file_lay">
                         <ImageView
@@ -456,7 +467,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料9类别："/>
+                        android:text="附件9类别："/>
                     <Spinner
                         android:id="@+id/sp_type_img9"
                         style="@style/spinner_style"/>
@@ -466,7 +477,7 @@
                     <TextView
                         style="@style/form_edit_left_textview"
                         android:textSize="15dp"
-                        android:text="材料9描述："/>
+                        android:text="附件9描述："/>
                     <EditText
                         android:id="@+id/et_description_img9"
                         style="@style/form_edit_right_edittext"/>

@@ -66,6 +66,8 @@ public class PerformanceAddFragment extends BaseFragment{
     View layWorkTime;
     @InjectView(R.id.et_apply_worktime)
     EditText etApplyWorkTime;
+    @InjectView(R.id.et_description)
+    EditText etDescription;
     @InjectView(R.id.tv_worktime_unit)
     TextView workTimeUnit;
     @InjectView(R.id.btn_submit)
@@ -295,6 +297,7 @@ public class PerformanceAddFragment extends BaseFragment{
         performance.setPerformanceServerDate(etServerDate.getText().toString());
         performance.setPerformanceTypeId(performanceTypeId);
         performance.setPerformanceTypeStr(etType.getText().toString());
+        performance.setDescription(etDescription.getText().toString());
         showWaitDialog("发送申请中，请稍后");
         EasyFarmServerApi.addPerformanceApply(mHandler,performance);
     }

@@ -32,7 +32,7 @@ import java.io.Serializable;
 /**
  * Created by chenhehong on 2016/8/26.
  */
-public class VillageServiceFragment extends BaseListFragment<VillageService> implements
+public class VillageServiceApplyListFragment extends BaseListFragment<VillageService> implements
         AdapterView.OnItemLongClickListener{
 
     private static final String CACHE_KEY_PREFIX = "villageServicelist_";

@@ -51,6 +51,8 @@ public class PerformanceDetailFragment extends BaseFragment {
     View worktime_explain;
     @InjectView(R.id.tv_apply_worktime)
     TextView tvApplyWorktime;
+    @InjectView(R.id.tv_description)
+    TextView tvDescription;
     @InjectView(R.id.tv_statue)
     TextView tvStatue;
     @InjectView(R.id.tv_optionion)
@@ -135,6 +137,7 @@ public class PerformanceDetailFragment extends BaseFragment {
     public void fillUI() {
         tvApplyMan.setText(mPerformance.getApplyManName());
         tvServerNumber.setText(mPerformance.getPerformanceCode());
+        tvDescription.setText(mPerformance.getDescription());
         tvType.setText(mPerformance.getPerformanceTypeStr());
         if (mPerformance.getVillageService()!=null){
             worktime_explain.setVisibility(View.VISIBLE);

@@ -75,9 +75,23 @@
             <RelativeLayout
                 style="@style/detail_list_layout">
                 <TextView
+                    style="@style/detail_list_left_textview"
+                    android:text="详细描述："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_description"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
                     android:id="@+id/tv_file"
                     style="@style/detail_list_left_textview"
-                    android:text="佐证材料："/>
+                    android:text="附件："/>
                 <GridLayout
                     android:id="@+id/layout_grid"
                     android:rowCount="3"
