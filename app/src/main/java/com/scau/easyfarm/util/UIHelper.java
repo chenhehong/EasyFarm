@@ -250,7 +250,7 @@ public class UIHelper {
         args.putInt(TweetPubFragment.BUNDLEKEY_MANUAL_ID,typeId);
         args.putString(TweetPubFragment.BUNDLEKEY_MANUAL_NAME, typeName);
         args.putString(TweetPubFragment.BUNDLEKEY_TITLE,title);
-        showSimpleBack(context, SimpleBackPage.TWEET_PUB,args);
+        showSimpleBack(context, SimpleBackPage.TWEET_PUB, args);
     }
 
     /**
@@ -556,6 +556,10 @@ public class UIHelper {
         bundle.putSerializable(Notice.BUNDLEKEY_NOTICE, notice);
         intent.putExtras(bundle);
         context.sendBroadcast(intent);
+    }
+
+    public static void chooseSimpleText(Fragment fragment,int requestCode){
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_SIMPLE_TEXT);
     }
 
 }

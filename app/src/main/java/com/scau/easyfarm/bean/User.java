@@ -33,7 +33,9 @@ public class User extends Entity {
     private String realName="";
     private String organization="";
     private String phoneNumber="";
+    private String techTitle="";
     private String techType="";
+    private String techType2="";
     private String description="";
     private int sex;
     private int age=0;
@@ -180,5 +182,21 @@ public class User extends Entity {
 
     public void setModuleList(ArrayList<String> moduleList) {
         this.moduleList = moduleList;
+    }
+
+    public String getTechTitle() {
+        return techTitle;
+    }
+
+    public void setTechTitle(String techTitle) {
+        this.techTitle = techTitle;
+    }
+
+    public String getTechType2() {
+        return techType2;
+    }
+
+    public void setTechType2(String techType2) {
+        this.techType2 = techType2;
     }
 }

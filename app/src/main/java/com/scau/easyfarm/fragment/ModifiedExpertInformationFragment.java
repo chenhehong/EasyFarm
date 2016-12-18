@@ -24,12 +24,15 @@ import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ModifiedInformationResult;
+import com.scau.easyfarm.bean.MyInformation;
 import com.scau.easyfarm.bean.User;
+import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.ImageUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
+import com.scau.easyfarm.util.UIHelper;
 
 import org.kymjs.kjframe.Core;
 
@@ -56,6 +59,8 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
     EditText address;
     @InjectView(R.id.et_jobposition)
     EditText jobpostion;
+    @InjectView(R.id.btn_select_jobposition)
+    Button btnSelectJobposition;
     @InjectView(R.id.et_techtype)
     EditText techtype;
     @InjectView(R.id.et_techtype2)
@@ -68,12 +73,19 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
     ImageView portrait;
     @InjectView(R.id.btn_submit)
     Button btnSubmit;
+    @InjectView(R.id.error_layout)
+    EmptyLayout mErrorLayout;
+
+    private User mUser;
 
     private ArrayAdapter<String> spinnerAdapter;
     public int gender;
 
     private String imagePath="";
     Bitmap imageBitmap;
+
+    private String jobPositionStr="";
+    private int jobPositionId;
 
 
     private final OperationResponseHandler mHandler = new OperationResponseHandler() {
@@ -96,6 +108,27 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
         public void onFinish() {
             super.onFinish();
             hideWaitDialog();
+        }
+    };
+
+    private final OperationResponseHandler mGetUserHandler = new OperationResponseHandler() {
+
+        @Override
+        public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
+            mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+            MyInformation user = JsonUtils.toBean(MyInformation.class,is);
+            if (user != null && user.getUser() != null) {
+                mUser = user.getUser();
+                fillUI();
+            } else {
+                this.onFailure(code,null,args);
+            }
+        }
+
+        @Override
+        public void onFailure(int code, String errorMessage, Object[] args) {
+            AppContext.showToast(errorMessage + code);
+            mErrorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         }
     };
 
@@ -141,6 +174,7 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        btnSelectJobposition.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
     }
 
@@ -149,9 +183,8 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
         initData();
     }
 
-    @Override
-    public void initData(){
-        User user = AppContext.getInstance().getLoginUser();
+    public void fillUI() {
+        User user = mUser;
         if (user.getSex()==User.MAN){
             spGender.setSelection(0);
         }else {
@@ -161,10 +194,26 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
         phoneNumber.setText(user.getPhoneNumber());
         email.setText(user.getEmail());
         address.setText(user.getAddress());
+        jobpostion.setText(user.getTechTitle());
+        jobPositionStr = user.getTechTitle();
+        techtype.setText(user.getTechType());
+        techtype2.setText(user.getTechType2());
+        description.setText(user.getDescription());
         if (user.getPortrait()!=null&&user.getPortrait().length()>0){
             new Core.Builder().view(portrait).url(ApiHttpClient.getAbsoluteApiUrl(user.getPortrait())).doTask();
         }
         portrait.setOnClickListener(this);
+    }
+
+    @Override
+    public void initData(){
+        sendRequiredData();
+    }
+
+    public void sendRequiredData() {
+        mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
+        EasyFarmServerApi.getMyInformation(AppContext.getInstance().getLoginUid(),
+                mGetUserHandler);
     }
 
     @Override
@@ -201,6 +250,10 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
             AppContext.showToast("邮箱不能为空");
             return;
         }
+        if (jobPositionStr==null||jobPositionStr.length()==0){
+            AppContext.showToast("职称不能为空");
+            return;
+        }
         if (!StringUtils.isEmail(email)){
             AppContext.showToast("邮箱格式不对");
             return;
@@ -214,7 +267,7 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
             return;
         }
         showWaitDialog("修改中，请稍后");
-        EasyFarmServerApi.modifiedExpertInformation(age, gender, email, mobile, address,techType,techType2,description,imagePath, mHandler);
+        EasyFarmServerApi.modifiedExpertInformation(age, gender, email, mobile, address,jobPositionStr,techType,techType2,description,imagePath, mHandler);
     }
 
     @Override
@@ -225,7 +278,13 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
         }else if (id==R.id.portrait){
             MultiImageSelector.create(this.getContext())
                     .showCamera(true).single().count(1).start(this, ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE);
+        }else if (id==R.id.btn_select_jobposition){
+            handleSelectJobposition();
         }
+    }
+
+    public void handleSelectJobposition(){
+        UIHelper.chooseSimpleText(this, SimpleTextChooseFragment.REQUEST_CODE_SIMPLETEXT_SELECT);
     }
 
     private final Handler handler = new Handler() {
@@ -255,6 +314,10 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
                     handler.sendMessage(msg);
                 }
             }.start();
+        }else if (requestCode==SimpleTextChooseFragment.REQUEST_CODE_SIMPLETEXT_SELECT){
+            jobPositionId = returnIntent.getIntExtra(SimpleTextChooseFragment.BUNDLE_SELECT_TEXT_ID,0);
+            jobPositionStr = returnIntent.getStringExtra(SimpleTextChooseFragment.BUNDLE_SELECT_TEXT_STR);
+            jobpostion.setText(jobPositionStr);
         }
     }
 }

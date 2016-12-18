@@ -33,6 +33,7 @@ import com.scau.easyfarm.fragment.ServiceMonthStatisticsFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticsFragment;
 import com.scau.easyfarm.fragment.SettingsFragment;
 import com.scau.easyfarm.fragment.SettingsNotificationFragment;
+import com.scau.easyfarm.fragment.SimpleTextChooseFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.TweetPubFragment;
@@ -109,7 +110,8 @@ public enum SimpleBackPage {
     REGISTER(50, R.string.register, RegisterFragment.class),
     MODIFIED_COMMONUSERINFORMATION(51, R.string.modified_my_information, ModifiedCommonUserInformationFragment.class),
     MODIFIED_EXPERTINFORMATION(52, R.string.modified_my_information, ModifiedExpertInformationFragment.class),
-    WITTWEET(53, R.string.actionbar_wittweet, WitTweetFragment.class);
+    WITTWEET(53, R.string.actionbar_wittweet, WitTweetFragment.class),
+    CHOOSE_SIMPLE_TEXT(54, R.string.actionbar_choose_simple_text, SimpleTextChooseFragment.class);
 
     private int title;
     private Class<?> clz;

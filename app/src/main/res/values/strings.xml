@@ -207,4 +207,6 @@
 
     <string name="actionbar_wittweet">发布问答前请先搜索</string>
 
+    <string name="actionbar_choose_simple_text">选择</string>
+
 </resources>

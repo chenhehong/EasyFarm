@@ -105,7 +105,7 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/user/modifyuser", params, handler);
     }
 
-    public static void modifiedExpertInformation(String age, int gender, String email, String mobile, String address,String techType,String techType2,String description,String portrait, AsyncHttpResponseHandler handler){
+    public static void modifiedExpertInformation(String age, int gender, String email, String mobile, String address,String jobPosition,String techType,String techType2,String description,String portrait, AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("autoID",AppContext.getInstance().getLoginUid());
         params.put("phoneNumber",mobile);
@@ -113,6 +113,7 @@ public class EasyFarmServerApi {
         params.put("age",age);
         params.put("email",email);
         params.put("address",address);
+        params.put("techTitle",jobPosition);
         params.put("techType",techType);
         params.put("techType2",techType2);
         params.put("description ",description);
@@ -723,6 +724,13 @@ public class EasyFarmServerApi {
         params.put("page", page+1);
         params.put("rows", AppContext.PAGE_SIZE);
         ApiHttpClient.get("front/mobile/notice/getNotice", params, handler);
+    }
+
+    public static void getSimpleTextList(int currenPage,int pageSize,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("currenPage",currenPage);
+        params.put("pageSize", pageSize);
+        ApiHttpClient.post("front/mobile/user/getTechTitle", params, handler);
     }
 
 }
