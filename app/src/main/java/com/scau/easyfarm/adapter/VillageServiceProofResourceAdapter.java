@@ -55,7 +55,7 @@ public class VillageServiceProofResourceAdapter extends ListBaseAdapter<VillageP
         vh.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageGalleryActivity.show(parent.getContext(), ApiHttpClient.getAbsoluteApiUrl(villageServiceProofResource.getImageFilePath()));
+                ImageGalleryActivity.show(parent.getContext(), ApiHttpClient.getAbsoluteApiUrl(villageServiceProofResource.getImageFilePath()),"");
             }
         });
         vh.description.setText(villageServiceProofResource.getDescription());

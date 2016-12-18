@@ -142,7 +142,7 @@ public class TweetDetailFragment extends
                 @Override
                 public void onClick(View v) {
                     int position = (int) v.getTag();
-                    ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(mTweet.getImageFiles().get(position).getPath()));
+                    ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(mTweet.getImageFiles().get(position).getPath()),"");
                 }
             };
             for (int i = 0; i < mTweet.getImageFiles().size(); i++) {

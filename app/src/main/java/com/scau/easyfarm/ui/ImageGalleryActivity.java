@@ -41,11 +41,14 @@ public class ImageGalleryActivity extends AppCompatActivity implements ViewPager
     protected RequestManager mImageLoader;
 
     public static final String KEY_IMAGE = "images";
+    public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_POSITION = "position";
     public static final String KEY_NEED_SAVE = "save";
     private PreviewerViewPager mImagePager;
     private TextView mIndexText;
+    private TextView mDescriptionText;
     private String[] mImageSources;
+    private String[] mDescriptions;
     private int mCurPosition;
     private boolean mNeedSaveLocal;
 
@@ -65,25 +68,28 @@ public class ImageGalleryActivity extends AppCompatActivity implements ViewPager
         }
     }
 
-    public static void show(Context context, String images) {
-        show(context, images, true);
+    public static void show(Context context, String images,String description) {
+        show(context, images, description, true);
     }
 
-    public static void show(Context context, String images, boolean needSaveLocal) {
+    public static void show(Context context, String images,String description, boolean needSaveLocal) {
         if (images == null)
             return;
-        show(context, new String[]{images}, 0);
+        if (description==null)
+            description="";
+        show(context, new String[]{images},new String[]{description},0);
     }
 
-    public static void show(Context context, String[] images, int position) {
-        show(context, images, position, true);
+    public static void show(Context context, String[] images,String[] description, int position) {
+        show(context, images, description,position, true);
     }
 
-    public static void show(Context context, String[] images, int position, boolean needSaveLocal) {
+    public static void show(Context context, String[] images,String[] description, int position, boolean needSaveLocal) {
         if (images == null || images.length == 0)
             return;
         Intent intent = new Intent(context, ImageGalleryActivity.class);
         intent.putExtra(KEY_IMAGE, images);
+        intent.putExtra(KEY_DESCRIPTION,description);
         intent.putExtra(KEY_POSITION, position);
         intent.putExtra(KEY_NEED_SAVE, needSaveLocal);
         context.startActivity(intent);
@@ -93,6 +99,7 @@ public class ImageGalleryActivity extends AppCompatActivity implements ViewPager
         mImageSources = bundle.getStringArray(KEY_IMAGE);
         mCurPosition = bundle.getInt(KEY_POSITION, 0);
         mNeedSaveLocal = bundle.getBoolean(KEY_NEED_SAVE, true);
+        mDescriptions = bundle.getStringArray(KEY_DESCRIPTION);
         return mImageSources != null;
     }
 
@@ -108,6 +115,7 @@ public class ImageGalleryActivity extends AppCompatActivity implements ViewPager
         setTitle("");
         mImagePager = (PreviewerViewPager) findViewById(R.id.vp_image);
         mIndexText = (TextView) findViewById(R.id.tv_index);
+        mDescriptionText = (TextView)findViewById(R.id.tv_description);
         mImagePager.addOnPageChangeListener(this);
         if (mNeedSaveLocal)
             findViewById(R.id.iv_save).setOnClickListener(this);
@@ -200,6 +208,9 @@ public class ImageGalleryActivity extends AppCompatActivity implements ViewPager
     public void onPageSelected(int position) {
         mCurPosition = position;
         mIndexText.setText(String.format("%s/%s", (position + 1), mImageSources.length));
+        if (mDescriptions[mCurPosition]!=null && mDescriptions[mCurPosition].length()!=0){
+            mDescriptionText.setText(mDescriptions[mCurPosition]);
+        }
     }
 
     @Override

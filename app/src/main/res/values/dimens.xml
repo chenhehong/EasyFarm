@@ -68,6 +68,7 @@
     <dimen name="font_18">18sp</dimen>
     <dimen name="font_20">20sp</dimen>
     <dimen name="font_24">24sp</dimen>
+    <dimen name="font_28">28sp</dimen>
     <dimen name="font_34">34sp</dimen>
     <dimen name="font_4">4sp</dimen>
     <dimen name="font_45">45sp</dimen>

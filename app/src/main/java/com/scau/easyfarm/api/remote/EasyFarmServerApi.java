@@ -329,7 +329,7 @@ public class EasyFarmServerApi {
     public static void getCityList(int CityID,AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("ProID",CityID);
-        ApiHttpClient.post("front/mobile/area/getCitys",params,handler);
+        ApiHttpClient.post("front/mobile/area/getCitys", params, handler);
     }
 
     public static void getCountyList(int jsonId,AsyncHttpResponseHandler handler){
@@ -522,7 +522,7 @@ public class EasyFarmServerApi {
         params.put("villageServiceID",serverId);
         params.put("uid",AppContext.getInstance().getLoginUid());
         params.put("serviceSummary",data);
-        ApiHttpClient.post("front/mobile/village/api/finishVillage",params,handler);
+        ApiHttpClient.post("front/mobile/village/api/finishVillage", params, handler);
     }
 
     public static void getExpertBaseList(int categoryCodeId, int page,
@@ -570,11 +570,26 @@ public class EasyFarmServerApi {
             for (int i=0;i<performance.getFileList().size();i++){
                 files[i] = new File(performance.getFileList().get(i).getPath());
             }
-        }
-        try {
-            params.put("file",files);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            boolean flag = false;
+            String typeIdString = "";
+            String descriptionString = "";
+            for (int i=0;i<performance.getFileList().size();i++){
+                if (flag){
+                    typeIdString+="$";
+                    descriptionString+="$";
+                }else{
+                    flag=true;
+                }
+                typeIdString+=performance.getFileList().get(i).getTypeId();
+                descriptionString+=performance.getFileList().get(i).getDescription();
+            }
+            try {
+                params.put("file",files);
+                params.put("fileTypeId",typeIdString);
+                params.put("fileDescription",descriptionString);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         ApiHttpClient.post("front/mobile/performance/addApplyPerformance", params, handler);
     }

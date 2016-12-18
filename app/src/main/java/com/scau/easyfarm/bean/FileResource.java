@@ -8,9 +8,11 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class FileResource extends Entity {
 
     @JSONField(name = "metaDescription")
-    private String description;
+    private String description="";
     @JSONField(name = "metaPath")
-    private String path;
+    private String path="";
+    private int typeId;
+    private String typeString="";
 
     public String getDescription() {
         return description;
@@ -26,5 +28,21 @@ public class FileResource extends Entity {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getTypeString() {
+        return typeString;
+    }
+
+    public void setTypeString(String typeString) {
+        this.typeString = typeString;
     }
 }

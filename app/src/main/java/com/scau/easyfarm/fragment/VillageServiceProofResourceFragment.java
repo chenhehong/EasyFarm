@@ -135,7 +135,7 @@ public class
                             long id) {
         VillageProofResource villageProofResource = mAdapter.getItem(position);
         if (villageProofResource != null) {
-            ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(villageProofResource.getImageFilePath()));
+            ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(villageProofResource.getImageFilePath()),"");
         }
     }
 

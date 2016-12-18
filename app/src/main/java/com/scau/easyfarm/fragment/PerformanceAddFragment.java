@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -122,8 +123,6 @@ public class PerformanceAddFragment extends BaseFragment{
     private ArrayList<EditText> mEtDescriptionImageList;
     private ArrayList<String> imagePathList = new ArrayList<String>();
     private ArrayList<Bitmap> imageBitmapList = new ArrayList<Bitmap>();
-    private ArrayList<PerformanceFileType> imageTypeList = new ArrayList<PerformanceFileType>();
-    private ArrayList<String> imageDescriptionList = new ArrayList<String>();
 
     private AlertDialog.Builder datePickBuilder;
     private DatePicker datePicker;
@@ -200,18 +199,6 @@ public class PerformanceAddFragment extends BaseFragment{
         for (int i=0;i<mIvClearImageList.size();i++){
             mIvClearImageList.get(i).setOnClickListener(this);
         }
-        for (int i=0;i<mEtDescriptionImageList.size();i++){
-//          初始化每个imageDescriptionList元素的值
-            imageDescriptionList.add("");
-            final int index = i;
-            mEtDescriptionImageList.get(i).addTextChangedListener(new SimpleTextWatcher() {
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before,
-                                          int count) {
-                    imageDescriptionList.add(index,mEtDescriptionImageList.get(index).getText().toString());
-                }
-            });
-        }
     }
 
     @Override
@@ -287,9 +274,19 @@ public class PerformanceAddFragment extends BaseFragment{
         Performance performance = new Performance();
         if (imagePathList!=null&&imagePathList.size()>0){
             ArrayList<FileResource> fileResourceArrayList = new ArrayList<FileResource>();
+            ArrayList<PerformanceFileType> imageTypeList = new ArrayList<PerformanceFileType>();
+            ArrayList<String> imageDescriptionList = new ArrayList<String>();
+            for(int j=0;j<imagePathList.size();j++){
+                int spinnerPosition = mSpTypeImageList.get(j).getSelectedItemPosition();
+                imageTypeList.add(performanceFileTypeArrayList.get(spinnerPosition));
+                imageDescriptionList.add(mEtDescriptionImageList.get(j).getText().toString());
+            }
             for (int i=0;i<imagePathList.size();i++){
                 FileResource fileResource = new FileResource();
                 fileResource.setPath(imagePathList.get(i));
+                fileResource.setTypeId(imageTypeList.get(i).getId());
+                fileResource.setTypeString(imageTypeList.get(i).getText());
+                fileResource.setDescription(imageDescriptionList.get(i));
                 fileResourceArrayList.add(fileResource);
             }
             performance.setFileList(fileResourceArrayList);
@@ -323,16 +320,23 @@ public class PerformanceAddFragment extends BaseFragment{
             handleSubmit();
         }else if (mIvClearImageList.contains(v)){
             int i = mIvClearImageList.indexOf(v);
+//          先把当前的保存下来后在删除相应的类型和描述项
+            ArrayList<PerformanceFileType> imageTypeList = new ArrayList<PerformanceFileType>();
+            ArrayList<String> imageDescriptionList = new ArrayList<String>();
+            for(int j=0;j<imagePathList.size();j++){
+                int spinnerPosition = mSpTypeImageList.get(j).getSelectedItemPosition();
+                imageTypeList.add(performanceFileTypeArrayList.get(spinnerPosition));
+                imageDescriptionList.add(mEtDescriptionImageList.get(j).getText().toString());
+            }
             imagePathList.remove(i);
             imageBitmapList.remove(i);
             imageDescriptionList.remove(i);
             imageTypeList.remove(i);
-            mEtDescriptionImageList.get(i).setText("");
-            refreshImages();
+            refreshImages(imageTypeList,imageDescriptionList);
         }
     }
 
-    public void refreshImages(){
+    public void refreshImages(ArrayList<PerformanceFileType> imageTypeList,ArrayList<String> imageDescriptionList){
 //      先隐藏掉所有的图片
         for (int i=0;i<mlyImageList.size();i++){
             mlyImageList.get(i).setVisibility(View.GONE);
@@ -340,9 +344,9 @@ public class PerformanceAddFragment extends BaseFragment{
 //      重新加载图片
         for (int i=0;i<imageBitmapList.size();i++){
             mIvImageList.get(i).setImageBitmap(imageBitmapList.get(i));
-            mlyImageList.get(i).setVisibility(View.VISIBLE);
             mSpTypeImageList.get(i).setSelection(performanceFileTypeArrayList.indexOf(imageTypeList.get(i)));
             mEtDescriptionImageList.get(i).setText(imageDescriptionList.get(i));
+            mlyImageList.get(i).setVisibility(View.VISIBLE);
         }
     }
 
@@ -417,6 +421,8 @@ public class PerformanceAddFragment extends BaseFragment{
         Bitmap bitmap = ImageUtils.loadImgThumbnail(newFile,100,100);
         imageBitmapList.add(bitmap);
         mIvImageList.get(newIndex).setImageBitmap(imageBitmapList.get(newIndex));
+        mEtDescriptionImageList.get(newIndex).setText("");
+        mSpTypeImageList.get(newIndex).setSelection(0);
         mlyImageList.get(newIndex).setVisibility(View.VISIBLE);
     }
     public void initFileTypeSpinner(){
@@ -427,18 +433,10 @@ public class PerformanceAddFragment extends BaseFragment{
         spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, fileTypeListStr);
 //      simple_spinner_dropdown_item.xml设置的是下拉看到的效果
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// 设置下拉风格
-        for (int i=0;i<MAXPICTURENUM;i++){
-            mSpTypeImageList.get(i).setAdapter(spinnerAdapter);
-            mSpTypeImageList.get(i).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    imageTypeList.add(position, performanceFileTypeArrayList.get(position));
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
+        for (int i=0;i<MAXPICTURENUM;i++){
+            final int index = i;
+            mSpTypeImageList.get(i).setAdapter(spinnerAdapter);
             mSpTypeImageList.get(i).setSelection(0);
         }
     }

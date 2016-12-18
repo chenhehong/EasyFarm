@@ -187,7 +187,7 @@ public class VillageServiceProofListFragment extends BaseListFragment<VillageSer
     }
 
     private void showCommentQrCode(VillageService villageService){
-        ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(villageService.getCommentQrcodePath()));
+        ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(villageService.getCommentQrcodePath()),"");
     }
 
     @Override

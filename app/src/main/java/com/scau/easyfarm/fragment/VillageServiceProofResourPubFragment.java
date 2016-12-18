@@ -273,7 +273,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         mResource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageGalleryActivity.show(getActivity(),theLarge);
+                ImageGalleryActivity.show(getActivity(),theLarge,"");
             }
         });
     }

@@ -166,7 +166,8 @@ public class PerformanceDetailFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     int position = (int) v.getTag();
-                    ImageGalleryActivity.show(getActivity(),ApiHttpClient.getAbsoluteApiUrl(mPerformance.getFileList().get(position).getPath()));
+                    String description = mPerformance.getFileList().get(position).getTypeString()+":"+mPerformance.getFileList().get(position).getDescription();
+                    ImageGalleryActivity.show(getActivity(),ApiHttpClient.getAbsoluteApiUrl(mPerformance.getFileList().get(position).getPath()),description);
                 }
             };
             for (int i = 0; i < mPerformance.getFileList().size(); i++) {
