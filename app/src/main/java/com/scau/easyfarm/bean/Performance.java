@@ -43,6 +43,10 @@ public class Performance extends Entity {
     private String performanceTypeStr;
     @JSONField(name = "declareDate")
     private String performanceServerDate;
+    @JSONField(name = "startDate")
+    private String serverStartDate;//服务开始时间
+    @JSONField(name = "endDate")
+    private String serverEndDate;//服务结束时间
     @JSONField(name = "declareDateDesc")
     private String performanceServerDateDesc;
     private int status;
@@ -193,5 +197,21 @@ public class Performance extends Entity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getServerStartDate() {
+        return serverStartDate;
+    }
+
+    public void setServerStartDate(String serverStartDate) {
+        this.serverStartDate = serverStartDate;
+    }
+
+    public String getServerEndDate() {
+        return serverEndDate;
+    }
+
+    public void setServerEndDate(String serverEndDate) {
+        this.serverEndDate = serverEndDate;
     }
 }

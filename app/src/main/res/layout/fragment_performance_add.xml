@@ -66,9 +66,21 @@
                 style="@style/form_edit_layout">
                 <TextView
                     style="@style/form_edit_left_textview"
-                    android:text="服务时间："/>
+                    android:textSize="14dp"
+                    android:text="服务开始日期："/>
                 <EditText
-                    android:id="@+id/et_server_date"
+                    android:id="@+id/et_server_startdate"
+                    android:editable="false"
+                    style="@style/form_edit_right_edittext"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
+                    android:textSize="14dp"
+                    android:text="服务结束日期："/>
+                <EditText
+                    android:id="@+id/et_server_enddate"
                     android:editable="false"
                     style="@style/form_edit_right_edittext"/>
             </LinearLayout>

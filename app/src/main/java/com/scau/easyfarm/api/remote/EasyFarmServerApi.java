@@ -563,7 +563,8 @@ public class EasyFarmServerApi {
         RequestParams params = new RequestParams();
         params.put("uid",AppContext.getInstance().getLoginUid());
         params.put("saveFlag",1);
-        params.put("declareDate",performance.getPerformanceServerDate());
+        params.put("startDate",performance.getServerStartDate());
+        params.put("endDate",performance.getServerEndDate());
         params.put("applyType",performance.getPerformanceTypeId());
         params.put("unittimes",performance.getApplyWorkTime());
         params.put("description",performance.getDescription());

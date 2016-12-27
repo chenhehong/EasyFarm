@@ -7,12 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,7 +31,6 @@ import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.ImageUtils;
 import com.scau.easyfarm.util.JsonUtils;
-import com.scau.easyfarm.util.SimpleTextWatcher;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
@@ -60,8 +57,10 @@ public class PerformanceAddFragment extends BaseFragment{
     EditText etApplyMan;
     @InjectView(R.id.et_type)
     EditText etType;
-    @InjectView(R.id.et_server_date)
-    EditText etServerDate;
+    @InjectView(R.id.et_server_startdate)
+    EditText etServerStartDate;
+    @InjectView(R.id.et_server_enddate)
+    EditText etServerEndDate;
     @InjectView(R.id.lay_worktime)
     View layWorkTime;
     @InjectView(R.id.et_apply_worktime)
@@ -191,7 +190,8 @@ public class PerformanceAddFragment extends BaseFragment{
         btnAddFile.setOnClickListener(this);
         btnSelectType.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
-        etServerDate.setOnClickListener(this);
+        etServerStartDate.setOnClickListener(this);
+        etServerEndDate.setOnClickListener(this);
         mlyImageList = new ArrayList<View>(){{add(mlyImage1);add(mlyImage2);add(mlyImage3);add(mlyImage4);;add(mlyImage5);add(mlyImage6);add(mlyImage7);;add(mlyImage8);add(mlyImage9);}} ;
         mIvImageList = new ArrayList<ImageView>(){{add(mIvImage1);add(mIvImage2);add(mIvImage3);add(mIvImage4);add(mIvImage5);add(mIvImage6);add(mIvImage7);add(mIvImage8);add(mIvImage9);}};
         mIvClearImageList = new ArrayList<ImageView>(){{add(mIvClearImage1);add(mIvClearImage2);add(mIvClearImage3);add(mIvClearImage4);add(mIvClearImage5);add(mIvClearImage6);add(mIvClearImage7);add(mIvClearImage8);add(mIvClearImage9);}};
@@ -257,8 +257,16 @@ public class PerformanceAddFragment extends BaseFragment{
             AppContext.showToast("请选择业绩类型");
             return;
         }
-        if (etServerDate.getText().toString().length()==0|| etServerDate.getText().toString()==null){
-            AppContext.showToast("请选择服务时间");
+        if (etServerStartDate.getText().toString().length()==0|| etServerStartDate.getText().toString()==null){
+            AppContext.showToast("请选择开始服务时间");
+            return;
+        }
+        if (etServerEndDate.getText().toString().length()==0|| etServerEndDate.getText().toString()==null){
+            AppContext.showToast("请选择结束服务时间");
+            return;
+        }
+        if (etServerStartDate.getText().toString().compareTo(etServerEndDate.getText().toString())>0){
+            AppContext.showToast("服务开始时间不能大于结束时间");
             return;
         }
         if (etApplyWorkTime.getText().toString().length()==0||etApplyWorkTime.getText().toString()==null){
@@ -294,7 +302,8 @@ public class PerformanceAddFragment extends BaseFragment{
             performance.setFileList(fileResourceArrayList);
         }
         performance.setApplyWorkTime(Float.valueOf(etApplyWorkTime.getText().toString()));
-        performance.setPerformanceServerDate(etServerDate.getText().toString());
+        performance.setServerStartDate(etServerStartDate.getText().toString());
+        performance.setServerEndDate(etServerEndDate.getText().toString());
         performance.setPerformanceTypeId(performanceTypeId);
         performance.setPerformanceTypeStr(etType.getText().toString());
         performance.setDescription(etDescription.getText().toString());
@@ -307,8 +316,10 @@ public class PerformanceAddFragment extends BaseFragment{
         final int id = v.getId();
         if (id==R.id.btn_select_type){
             handleSelectType();
-        }else if (id==R.id.et_server_date){
+        }else if (id==R.id.et_server_startdate){
             handleSelectStartDate();
+        }else if (id==R.id.et_server_enddate){
+            handleSelectEndDate();
         }else if (id==R.id.btn_add_file){
             if (performanceTypeId==0){
                 AppContext.showToast("请选择类型后再添加佐证材料！");
@@ -370,7 +381,7 @@ public class PerformanceAddFragment extends BaseFragment{
         cal.setTimeInMillis(System.currentTimeMillis());
         datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), null);
         datePickBuilder.setView(dateAlertView);
-        datePickBuilder.setTitle("选取服务时间");
+        datePickBuilder.setTitle("选取服务开始时间");
         datePickBuilder.setPositiveButton("确  定", new DialogInterface.OnClickListener() {
 
             @Override
@@ -381,7 +392,38 @@ public class PerformanceAddFragment extends BaseFragment{
                         datePicker.getYear(),
                         datePicker.getMonth() + 1,
                         datePicker.getDayOfMonth()));
-                etServerDate.setText(sb);
+                etServerStartDate.setText(sb);
+                dialog.dismiss();
+            }
+        });
+        if (dateTimeDialog!=null)
+            dateTimeDialog.dismiss();
+        dateTimeDialog = datePickBuilder.create();
+        dateTimeDialog.show();
+    }
+
+
+
+    private void handleSelectEndDate(){
+        datePickBuilder = new AlertDialog.Builder(getActivity());
+        View dateAlertView = View.inflate(getActivity(),R.layout.date_time_dialog,null);
+        datePicker = (DatePicker)dateAlertView.findViewById(R.id.date_picker);
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), null);
+        datePickBuilder.setView(dateAlertView);
+        datePickBuilder.setTitle("选取服务结束时间");
+        datePickBuilder.setPositiveButton("确  定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                StringBuffer sb = new StringBuffer();
+                sb.append(String.format("%d-%02d-%02d",
+                        datePicker.getYear(),
+                        datePicker.getMonth() + 1,
+                        datePicker.getDayOfMonth()));
+                etServerEndDate.setText(sb);
                 dialog.dismiss();
             }
         });
@@ -407,6 +449,7 @@ public class PerformanceAddFragment extends BaseFragment{
                     etType.setEnabled(false);
                 }
                 layWorkTime.setVisibility(View.VISIBLE);
+                etApplyWorkTime.setText("1");
                 workTimeUnit.setText(returnIntent.getStringExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_WORKUNIT));
                 performanceFileTypeArrayList = (ArrayList<PerformanceFileType>) returnIntent.getSerializableExtra(PerformanceTypeChooseFragment.BUNDLE_SELECT_TYPE_FILE_TYPE_LIST);
                 initFileTypeSpinner();
