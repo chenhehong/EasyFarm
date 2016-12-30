@@ -29,7 +29,8 @@ public class AppConfig {
 //  程序更新key
     public static final String KEY_CHECK_UPDATE = "KEY_CHECK_UPDATE";
 //  问答草稿key
-    public static final String KEY_TWEET_DRAFT = "KEY_TWEET_DRAFT";
+    public static final String KEY_TWEET_DRAFT_CONTENT = "KEY_TWEET_DRAFT_CONTENT";
+    public static final String KEY_TWEET_DRAFT_TITLE = "KEY_TWEET_DRAFT_CONTENT_TITLE";
 
     // 默认存放图片的路径
     public final static String DEFAULT_SAVE_IMAGE_PATH = Environment

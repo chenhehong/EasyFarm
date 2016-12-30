@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
-import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.PersistentCookieStore;
@@ -20,7 +19,6 @@ import com.scau.easyfarm.service.LocationService;
 import com.scau.easyfarm.util.CyptoUtils;
 import com.scau.easyfarm.util.MethodsCompat;
 import com.scau.easyfarm.util.TLog;
-import com.scau.easyfarm.util.UIHelper;
 
 import org.kymjs.kjframe.Core;
 import org.kymjs.kjframe.http.HttpConfig;
@@ -187,7 +185,7 @@ public class AppContext extends BaseApplication {
                 setProperty("user.address", user.getAddress());
                 setProperty("user.moduleList", String.valueOf(user.getModuleList()));
                 setProperty("user.isRememberMe", String.valueOf(user.isRememberMe()));// 是否记住我的信息
-                setProperty("user.portrait",user.getPortrait());
+                setProperty("user.portrait", user.getPortrait());
             }
         });
     }
@@ -330,14 +328,19 @@ public class AppContext extends BaseApplication {
     }
 
 //  获取问答草稿
-    public static String getTweetDraft() {
+    public static String getTweetDraftContent() {
         return getPreferences().getString(
-                AppConfig.KEY_TWEET_DRAFT + getInstance().getLoginUid(), "");
+                AppConfig.KEY_TWEET_DRAFT_CONTENT + getInstance().getLoginUid(), "");
+    }
+    public static String getTweetDraftTitle() {
+        return getPreferences().getString(
+                AppConfig.KEY_TWEET_DRAFT_TITLE + getInstance().getLoginUid(), "");
     }
 
 //  保存问答内容为草稿
-    public static void setTweetDraft(String draft) {
-        set(AppConfig.KEY_TWEET_DRAFT + getInstance().getLoginUid(), draft);
+    public static void setTweetDraft(String content,String title) {
+        set(AppConfig.KEY_TWEET_DRAFT_CONTENT + getInstance().getLoginUid(), content);
+        set(AppConfig.KEY_TWEET_DRAFT_TITLE + getInstance().getLoginUid(), title);
     }
 
 

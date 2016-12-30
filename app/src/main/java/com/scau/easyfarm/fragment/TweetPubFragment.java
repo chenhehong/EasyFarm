@@ -4,13 +4,9 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore.Images;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -35,17 +31,15 @@ import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.util.DialogHelp;
-import com.scau.easyfarm.util.FileUtil;
 import com.scau.easyfarm.util.ImageUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.SimpleTextWatcher;
-import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -170,20 +164,6 @@ public class TweetPubFragment extends BaseFragment{
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.submit_menu,menu);
         mSendMenu = menu.findItem(R.id.public_menu_send);
-        updateMenuState();
-    }
-
-    public void updateMenuState() {
-        if (mSendMenu == null) {
-            return;
-        }
-        if (mEtInput.getText().length() > 0&&mEtTitle.getText().length()>0&&mEtChooseExpert.getText().length()>0&&mEtType.getText().length()>0) {
-            mSendMenu.setEnabled(true);
-            mSendMenu.setIcon(R.drawable.actionbar_send_icon);
-        } else {
-            mSendMenu.setEnabled(false);
-            mSendMenu.setIcon(R.drawable.actionbar_unsend_icon);
-        }
     }
 
     @Override
@@ -209,6 +189,12 @@ public class TweetPubFragment extends BaseFragment{
         }
         String content = mEtInput.getText().toString().trim();
         String title = mEtTitle.getText().toString().trim();
+
+        if (TextUtils.isEmpty(title)){
+            mEtTitle.requestFocus();
+            AppContext.showToastShort("标题不能为空");
+            return;
+        }
         if (TextUtils.isEmpty(content)) {
             mEtInput.requestFocus();
             AppContext.showToastShort(R.string.tip_content_empty);
@@ -216,6 +202,16 @@ public class TweetPubFragment extends BaseFragment{
         }
         if (content.length() > MAX_TEXT_LENGTH) {
             AppContext.showToastShort(R.string.tip_content_too_long);
+            return;
+        }
+        if (TextUtils.isEmpty(mEtType.getText().toString())){
+            mEtType.requestFocus();
+            AppContext.showToastShort("未选择问题类型！");
+            return;
+        }
+        if (TextUtils.isEmpty(mEtChooseExpert.getText().toString())){
+            mEtChooseExpert.requestFocus();
+            AppContext.showToastShort("未选择提问的专家！");
             return;
         }
 
@@ -260,7 +256,9 @@ public class TweetPubFragment extends BaseFragment{
             selectedTweetTypeName = bundle.getString(BUNDLEKEY_MANUAL_NAME,"");
             String title = bundle.getString(BUNDLEKEY_TITLE,"");
             mEtType.setText(selectedTweetTypeName);
-            mEtTitle.setText(title);
+            if (title.length()>0){
+                mEtTitle.setText(title);
+            }
         }
     }
 
@@ -286,33 +284,12 @@ public class TweetPubFragment extends BaseFragment{
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
                 mTvClear.setText((MAX_TEXT_LENGTH - s.length()) + "");
-                updateMenuState();
-            }
-        });
-        mEtChooseExpert.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
-        mEtType.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
-        mEtTitle.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
             }
         });
         // 获取保存的tweet草稿
-        mEtInput.setText(AppContext.getTweetDraft());
+        mEtInput.setText(AppContext.getTweetDraftContent());
         mEtInput.setSelection(mEtInput.getText().toString().length());
+        mEtTitle.setText(AppContext.getTweetDraftTitle());
 
         mEtInput.addTextChangedListener(new SimpleTextWatcher() {
             @Override
@@ -326,27 +303,24 @@ public class TweetPubFragment extends BaseFragment{
 
     @Override
     public boolean onBackPressed() {
-        final String tweet = mEtInput.getText().toString();
-        if (!TextUtils.isEmpty(tweet)) {
-            DialogHelp.getConfirmDialog(getActivity(), "是否保存为草稿?", new DialogInterface.OnClickListener() {
+        final String tweet_content = mEtInput.getText().toString();
+        final String tweet_title = mEtTitle.getText().toString();
+        DialogHelp.getConfirmDialog(getActivity(), "是否退出问题发布界面?", new DialogInterface.OnClickListener() {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    AppContext.setTweetDraft(tweet);
-                    getActivity().finish();
-                }
-            }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                AppContext.setTweetDraft(tweet_content,tweet_title);
+                getActivity().finish();
+            }
+        }, new DialogInterface.OnClickListener() {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    AppContext.setTweetDraft("");
-                    getActivity().finish();
-                }
-            }).show();
-            return true;
-        }
-        return super.onBackPressed();
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        }).show();
+        return true;
     }
 
     @Override

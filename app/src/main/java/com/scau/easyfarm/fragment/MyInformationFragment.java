@@ -284,7 +284,7 @@ public class MyInformationFragment extends BaseFragment{
         if (mInfo==null)
             return;
         mIvAvatar.setAvatarUrl(ApiHttpClient.getAbsoluteApiUrl(mInfo.getPortrait()));
-        mTvName.setText(mInfo.getLoginName());
+        mTvName.setText("欢迎 "+mInfo.getRealName()+" 使用");
     }
 
 //  保存缓存数据的异步任务
