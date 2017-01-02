@@ -1,5 +1,6 @@
 package com.scau.easyfarm.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +8,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,16 +41,19 @@ import org.kymjs.kjframe.Core;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by ChenHehong on 2016/9/2.
  */
-public class ModifiedExpertInformationFragment extends BaseFragment{
+public class ModifiedExpertInformationFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks{
 
     @InjectView(R.id.et_age)
     EditText age;
@@ -86,6 +92,8 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
 
     private String jobPositionStr="";
     private int jobPositionId;
+
+    private final int RC_CAMERA_ALBUM_PERM = 521;
 
 
     private final OperationResponseHandler mHandler = new OperationResponseHandler() {
@@ -267,7 +275,7 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
             return;
         }
         showWaitDialog("修改中，请稍后");
-        EasyFarmServerApi.modifiedExpertInformation(age, gender, email, mobile, address,jobPositionStr,techType,techType2,description,imagePath, mHandler);
+        EasyFarmServerApi.modifiedExpertInformation(age, gender, email, mobile, address, jobPositionStr, techType, techType2, description, imagePath, mHandler);
     }
 
     @Override
@@ -276,10 +284,19 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
         if(id==R.id.btn_submit){
             handleSubmit();
         }else if (id==R.id.portrait){
-            MultiImageSelector.create(this.getContext())
-                    .showCamera(true).single().count(1).start(this, ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE);
+            selectPortrait();
         }else if (id==R.id.btn_select_jobposition){
             handleSelectJobposition();
+        }
+    }
+
+    @AfterPermissionGranted(RC_CAMERA_ALBUM_PERM)
+    private void selectPortrait(){
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            MultiImageSelector.create(this.getContext())
+                    .showCamera(true).single().count(1).start(this, ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE);
+        } else {
+            EasyPermissions.requestPermissions(getActivity(), "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
         }
     }
 
@@ -319,5 +336,48 @@ public class ModifiedExpertInformationFragment extends BaseFragment{
             jobPositionStr = returnIntent.getStringExtra(SimpleTextChooseFragment.BUNDLE_SELECT_TEXT_STR);
             jobpostion.setText(jobPositionStr);
         }
+    }
+
+    @Override
+    public boolean shouldShowRequestPermissionRationale(String permission) {
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // EasyPermissions handles the request result.
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        String tip = ">在设置-应用-农技通权限中允许拍摄照片，以正常使用选择头像功能";
+        if (perms.get(0).equals(Manifest.permission.CAMERA)) {
+            tip = ">在设置-应用-农技通权限中允许拍摄照片，以正常使用选择头像功能";
+        }
+        if (perms.get(0).equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用选择头像功能";
+        }
+        // 权限被拒绝了
+        DialogHelp.getConfirmDialog(getActivity(),
+                "权限申请",
+                tip,
+                "去设置",
+                "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
+                    }
+                },
+                null).show();
     }
 }

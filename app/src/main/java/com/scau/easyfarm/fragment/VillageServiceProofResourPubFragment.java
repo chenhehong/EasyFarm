@@ -1,5 +1,6 @@
 package com.scau.easyfarm.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,11 +51,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class VillageServiceProofResourPubFragment extends BaseFragment{
+public class VillageServiceProofResourPubFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks{
 
     public static final String BUNDLE_PUB_PROOFRESOURCE = "bundle_pub_proofresource";
 
@@ -86,6 +92,9 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
     private String theLarge, theThumbnail;
     private File imgFile;
     private int descriptionId;
+
+    private final int RC_CAMERA_PERM = 241;
+    private final int RC_LOCATION_PERM = 242;
 
 //  标示第一次是否是第一次进入activity，此字段用于拍照时返回需要自动退出该activity的情况
     private boolean firstStart = true;
@@ -273,7 +282,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         mResource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageGalleryActivity.show(getActivity(),theLarge,"");
+                ImageGalleryActivity.show(getActivity(), theLarge, "");
             }
         });
     }
@@ -310,7 +319,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
     @Override
     public void onActivityResult(final int requestCode, final int resultCode,
                                  final Intent imageReturnIntent) {
-        Log.d("chh","拍照返回");
+        Log.d("chh", "拍照返回");
         if (resultCode != Activity.RESULT_OK)
             return;
         if (requestCode==REQUESTCODE_CHOOSE_VILLAGESERVICE){
@@ -386,23 +395,27 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
     /**
      * 该方法用于实现定位
      */
+    @AfterPermissionGranted(RC_LOCATION_PERM)
     public void locate(){
-        //异步处理地址
-        Handler mhandler = new Handler() {
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case 0: {
-                        //显示地址
-                        mResourceAddress.setText((msg.obj).toString());
-                        break;
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            //异步处理地址
+            Handler mhandler = new Handler() {
+                public void handleMessage(Message msg) {
+                    switch (msg.what) {
+                        case 0: {
+                            //显示地址
+                            mResourceAddress.setText((msg.obj).toString());
+                            break;
+                        }
                     }
                 }
-            }
-        };
-        LocationUtils locationUtils = new LocationUtils(mhandler);
-        locationUtils.start();
+            };
+            LocationUtils locationUtils = new LocationUtils(mhandler);
+            locationUtils.start();
+        } else {
+            EasyPermissions.requestPermissions(getActivity(), "农技通请求网络定位和GPS定位权限", RC_LOCATION_PERM, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+        }
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -415,7 +428,16 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
         }
     }
 
+    @AfterPermissionGranted(RC_CAMERA_PERM)
     private void takePhoto() {
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            toCamera();
+        } else {
+            EasyPermissions.requestPermissions(getActivity(), "请求获取拍照和读取文件权限", RC_CAMERA_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+    }
+
+    private  void toCamera(){
         // 判断是否挂载了SD卡
         String savePath = "";
         String storageState = Environment.getExternalStorageState();
@@ -448,4 +470,52 @@ public class VillageServiceProofResourPubFragment extends BaseFragment{
                 ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
     }
 
+    @Override
+    public boolean shouldShowRequestPermissionRationale(String permission) {
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // EasyPermissions handles the request result.
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        String tip = ">在设置-应用-农技通权限中允许拍摄照片，以正常使用佐证功能";
+        if (perms.get(0).equals(Manifest.permission.CAMERA)) {
+            tip = ">在设置-应用-农技通权限中允许拍摄照片，以正常使用佐证功能";
+        }
+        if (perms.get(0).equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用佐证功能";
+        }
+        if (perms.get(0).equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            tip = ">在设置-应用-农技通权限中允许网络定位，以正常使用佐证功能";
+        }
+        if (perms.get(0).equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            tip = ">在设置-应用-农技通权限中允许GPS定位，以正常使用佐证功能";
+        }
+        // 权限被拒绝了
+        DialogHelp.getConfirmDialog(getActivity(),
+                "权限申请",
+                tip,
+                "去设置",
+                "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
+                    }
+                },
+                null).show();
+    }
 }

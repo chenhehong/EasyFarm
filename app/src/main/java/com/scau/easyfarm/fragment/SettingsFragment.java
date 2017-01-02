@@ -1,7 +1,11 @@
 package com.scau.easyfarm.fragment;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +21,12 @@ import com.scau.easyfarm.base.BaseFragment;
 import org.kymjs.kjframe.http.HttpConfig;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.User;
@@ -34,7 +41,7 @@ import com.scau.easyfarm.widget.ToggleButton;
  *
  * @author kymjs
  */
-public class SettingsFragment extends BaseFragment {
+public class SettingsFragment extends BaseFragment  implements EasyPermissions.PermissionCallbacks{
 
     @InjectView(R.id.tb_loading_img)
     ToggleButton mTbLoadImg;
@@ -46,6 +53,8 @@ public class SettingsFragment extends BaseFragment {
     View myinformationSetting;
     @InjectView(R.id.tb_double_click_exit)
     ToggleButton mTbDoubleClickExit;
+
+    private final int RC_READSTORE_PERM = 31;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -103,32 +112,39 @@ public class SettingsFragment extends BaseFragment {
             mTbDoubleClickExit.setToggleOff();
         }
 
-        caculateCacheSize();
+//        为了避免android6.0版本出现缓存读文件权限问题，暂时不计算缓存大小
+//        caculateCacheSize();
     }
 
     /**
      * 计算缓存的大小
      */
+    @AfterPermissionGranted(RC_READSTORE_PERM)
     private void caculateCacheSize() {
-        long fileSize = 0;
-        String cacheSize = "0KB";
-        File filesDir = getActivity().getFilesDir();
-        File cacheDir = getActivity().getCacheDir();
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
-        fileSize += FileUtil.getDirSize(filesDir);
-        fileSize += FileUtil.getDirSize(cacheDir);
-        // 2.2版本才有将应用缓存转移到sd卡的功能
-        if (AppContext.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
-            File externalCacheDir = MethodsCompat
-                    .getExternalCacheDir(getActivity());
-            fileSize += FileUtil.getDirSize(externalCacheDir);
-            fileSize += FileUtil.getDirSize(new File(
-                    org.kymjs.kjframe.utils.FileUtils.getSDCardPath()
-                            + File.separator + HttpConfig.CACHEPATH));
+            long fileSize = 0;
+            String cacheSize = "0KB";
+            File filesDir = getActivity().getFilesDir();
+            File cacheDir = getActivity().getCacheDir();
+
+            fileSize += FileUtil.getDirSize(filesDir);
+            fileSize += FileUtil.getDirSize(cacheDir);
+            // 2.2版本才有将应用缓存转移到sd卡的功能
+            if (AppContext.isMethodsCompat(android.os.Build.VERSION_CODES.FROYO)) {
+                File externalCacheDir = MethodsCompat
+                        .getExternalCacheDir(getActivity());
+                fileSize += FileUtil.getDirSize(externalCacheDir);
+                fileSize += FileUtil.getDirSize(new File(
+                        org.kymjs.kjframe.utils.FileUtils.getSDCardPath()
+                                + File.separator + HttpConfig.CACHEPATH));
+            }
+            if (fileSize > 0)
+                cacheSize = FileUtil.formatFileSize(fileSize);
+            mTvCacheSize.setText(cacheSize);
+        } else {
+            EasyPermissions.requestPermissions(this, "请求获取读取文件权限", RC_READSTORE_PERM, Manifest.permission.READ_EXTERNAL_STORAGE);
         }
-        if (fileSize > 0)
-            cacheSize = FileUtil.formatFileSize(fileSize);
-        mTvCacheSize.setText(cacheSize);
     }
 
     @Override
@@ -197,4 +213,46 @@ public class SettingsFragment extends BaseFragment {
         AppManager.getAppManager().AppExit(getActivity());
         getActivity().finish();
     }
+
+    @Override
+    public boolean shouldShowRequestPermissionRationale(String permission) {
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // EasyPermissions handles the request result.
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        String tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用缓存计算功能";
+        if (perms.get(0).equals(Manifest.permission.CAMERA)) {
+            tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用缓存计算功能";
+        }
+        // 权限被拒绝了
+        DialogHelp.getConfirmDialog(getActivity(),
+                "权限申请",
+                tip,
+                "去设置",
+                "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
+                    }
+                },
+                null).show();
+    }
+
+
 }

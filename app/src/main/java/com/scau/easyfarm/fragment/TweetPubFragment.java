@@ -1,5 +1,6 @@
 package com.scau.easyfarm.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +8,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -41,13 +44,16 @@ import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class TweetPubFragment extends BaseFragment{
+public class TweetPubFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks{
 
     public static final String BUNDLEKEY_MANUAL_NAME = "bundlekey_manual_name";
     public static final String BUNDLEKEY_MANUAL_ID = "bundlekey_manual_id";
@@ -106,6 +112,8 @@ public class TweetPubFragment extends BaseFragment{
     private boolean mIsKeyboardVisible;
 
     public static final int MAXPICTURENUM = 4;
+
+    private final int RC_CAMERA_ALBUM_PERM = 91;
 
     private final OperationResponseHandler mHandler = new OperationResponseHandler() {
 
@@ -425,13 +433,64 @@ public class TweetPubFragment extends BaseFragment{
         super.onResume();
     }
 
+    @AfterPermissionGranted(RC_CAMERA_ALBUM_PERM)
     private void handleSelectPicture() {
-        MultiImageSelector.create(this.getContext())
-                .showCamera(true).count(MAXPICTURENUM).multi().origin(imagePathList).start(this, ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE);
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+             MultiImageSelector.create(this.getContext())
+                    .showCamera(true).count(MAXPICTURENUM).multi().origin(imagePathList).start(this, ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE);
+        } else {
+            EasyPermissions.requestPermissions(getActivity(), "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
     }
 
     @Override
     public void initData() {
     }
 
+
+    @Override
+    public boolean shouldShowRequestPermissionRationale(String permission) {
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // EasyPermissions handles the request result.
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        String tip = ">在设置-应用-农技通权限中允许拍摄照片，以正常使用添加附件功能";
+        if (perms.get(0).equals(Manifest.permission.CAMERA)) {
+            tip = ">在设置-应用-农技通权限中允许拍摄照片，以正常使用添加附件功能";
+        }
+        if (perms.get(0).equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用添加附件功能";
+        }
+        // 权限被拒绝了
+        DialogHelp.getConfirmDialog(getActivity(),
+                "权限申请",
+                tip,
+                "去设置",
+                "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
+                    }
+                },
+                null).show();
+    }
+
 }
+
+
