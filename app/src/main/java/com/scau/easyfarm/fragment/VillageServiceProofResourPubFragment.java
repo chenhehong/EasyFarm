@@ -397,7 +397,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
      */
     @AfterPermissionGranted(RC_LOCATION_PERM)
     public void locate(){
-        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
             //异步处理地址
             Handler mhandler = new Handler() {
                 public void handleMessage(Message msg) {
@@ -413,7 +413,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
             LocationUtils locationUtils = new LocationUtils(mhandler);
             locationUtils.start();
         } else {
-            EasyPermissions.requestPermissions(getActivity(), "农技通请求网络定位和GPS定位权限", RC_LOCATION_PERM, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+            EasyPermissions.requestPermissions(getActivity(), "农技通请求网络定位和GPS定位权限", RC_LOCATION_PERM, Manifest.permission.ACCESS_COARSE_LOCATION);
         }
     }
     @Override
@@ -499,10 +499,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
             tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用佐证功能";
         }
         if (perms.get(0).equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            tip = ">在设置-应用-农技通权限中允许网络定位，以正常使用佐证功能";
-        }
-        if (perms.get(0).equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            tip = ">在设置-应用-农技通权限中允许GPS定位，以正常使用佐证功能";
+            tip = ">在设置-应用-农技通权限中允许定位，以正常使用佐证功能";
         }
         // 权限被拒绝了
         DialogHelp.getConfirmDialog(getActivity(),
