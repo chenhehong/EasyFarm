@@ -116,7 +116,7 @@ public class EasyFarmServerApi {
         params.put("techTitle",jobPosition);
         params.put("techType",techType);
         params.put("techType2",techType2);
-        params.put("description ",description);
+        params.put("description",description);
         if (!TextUtils.isEmpty(portrait)) {
             try {
                 params.put("file", new File(portrait));

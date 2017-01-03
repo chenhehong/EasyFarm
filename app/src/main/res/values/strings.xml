@@ -161,7 +161,7 @@
     <string name="village_service_verify">服务申请审批</string>
 
 
-    <string name="village_service_proof_list">佐证服务列表</string>
+    <string name="village_service_proof_list">增加佐证</string>
     <string name="village_service_proof_choose">选择佐证事件</string>
     <string name="village_service_proof_resource">佐证材料列表</string>
     <string name="village_service_proof_resource_add">上传佐证材料</string>

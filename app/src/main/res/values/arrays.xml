@@ -40,8 +40,8 @@
     </string-array>
 
     <string-array name="village_service_proof_viewpage_arrays">
-        <item>进行中</item>
-        <item>已结束</item>
+        <item>服务进行中</item>
+        <item>服务已结束</item>
     </string-array>
 
     <string-array name="performance_aply_viewpage_arrays">
