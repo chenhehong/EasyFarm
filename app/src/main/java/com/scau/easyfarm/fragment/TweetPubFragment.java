@@ -439,7 +439,7 @@ public class TweetPubFragment extends BaseFragment implements EasyPermissions.Pe
              MultiImageSelector.create(this.getContext())
                     .showCamera(true).count(MAXPICTURENUM).multi().origin(imagePathList).start(this, ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE);
         } else {
-            EasyPermissions.requestPermissions(getActivity(), "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+            EasyPermissions.requestPermissions(this, "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
         }
     }
 

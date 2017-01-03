@@ -296,7 +296,7 @@ public class ModifiedExpertInformationFragment extends BaseFragment implements E
             MultiImageSelector.create(this.getContext())
                     .showCamera(true).single().count(1).start(this, ImageUtils.REQUEST_CODE_SINGLESELECT_PICTURE);
         } else {
-            EasyPermissions.requestPermissions(getActivity(), "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+            EasyPermissions.requestPermissions(this, "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
         }
     }
 

@@ -382,7 +382,7 @@ public class PerformanceAddFragment extends BaseFragment implements EasyPermissi
              MultiImageSelector.create(this.getContext())
                     .showCamera(true).count(1).single().origin(imagePathList).start(this, ImageUtils.REQUEST_CODE_MULTISELECT_PICTURE);
         } else {
-            EasyPermissions.requestPermissions(getActivity(), "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+            EasyPermissions.requestPermissions(this, "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
         }
     }
 

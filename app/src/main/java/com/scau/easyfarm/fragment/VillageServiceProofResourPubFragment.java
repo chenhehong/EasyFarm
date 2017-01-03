@@ -413,7 +413,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
             LocationUtils locationUtils = new LocationUtils(mhandler);
             locationUtils.start();
         } else {
-            EasyPermissions.requestPermissions(getActivity(), "农技通请求网络定位和GPS定位权限", RC_LOCATION_PERM, Manifest.permission.ACCESS_COARSE_LOCATION);
+            EasyPermissions.requestPermissions(this, "农技通请求网络定位和GPS定位权限", RC_LOCATION_PERM, Manifest.permission.ACCESS_COARSE_LOCATION);
         }
     }
     @Override
@@ -430,10 +430,15 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
 
     @AfterPermissionGranted(RC_CAMERA_PERM)
     private void takePhoto() {
-        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            toCamera();
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this.getContext(), perms)) {
+            try{
+                toCamera();
+            }catch (Exception e){
+                AppContext.showToast("农技通未能获取拍照和读取文件权限，请授权后操作！");
+            }
         } else {
-            EasyPermissions.requestPermissions(getActivity(), "请求获取拍照和读取文件权限", RC_CAMERA_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+            EasyPermissions.requestPermissions(this, "请求获取拍照和读取文件权限", RC_CAMERA_PERM, perms);
         }
     }
 
@@ -470,6 +475,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
                 ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
     }
 
+//  检查权限是否被永久禁用的接口
     @Override
     public boolean shouldShowRequestPermissionRationale(String permission) {
         return false;
@@ -486,7 +492,11 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-
+        try{
+            toCamera();
+        }catch (Exception e){
+            AppContext.showToast("农技通未能获取拍照和读取文件权限，请授权后操作！");
+        }
     }
 
     @Override

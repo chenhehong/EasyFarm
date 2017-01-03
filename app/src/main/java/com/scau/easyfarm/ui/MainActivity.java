@@ -1,15 +1,19 @@
 package com.scau.easyfarm.ui;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
@@ -31,19 +35,23 @@ import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.fragment.MyInformationFragment;
 import com.scau.easyfarm.interf.BaseViewInterface;
 import com.scau.easyfarm.service.ServerTaskUtils;
+import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.UIHelper;
 import com.scau.easyfarm.util.UpdateManager;
 import com.scau.easyfarm.widget.BadgeView;
 import com.scau.easyfarm.widget.MyFragmentTabHost;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pub.devrel.easypermissions.EasyPermissions;
 
 @SuppressLint("InflateParams")
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends ActionBarActivity implements
         TabHost.OnTabChangeListener, BaseViewInterface, View.OnClickListener,
-        View.OnTouchListener {
+        View.OnTouchListener,EasyPermissions.PermissionCallbacks {
 
     private DoubleClickExitHelper mDoubleClickExit;
 
@@ -258,5 +266,39 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // EasyPermissions handles the request result.
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        String tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用下载和更新app的功能";
+        if (perms.get(0).equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用下载和更新app的功能";
+        }
+        // 权限被拒绝了
+        DialogHelp.getConfirmDialog(this,
+                "权限申请",
+                tip,
+                "去设置",
+                "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
+                    }
+                },
+                null).show();
     }
 }
