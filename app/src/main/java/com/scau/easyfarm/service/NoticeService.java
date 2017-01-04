@@ -28,7 +28,7 @@ import java.io.ByteArrayInputStream;
 public class NoticeService extends BaseService{
 
 //  发送消息请求的时间间隔：单位毫秒
-    private static final long INTERVAL = 1000 * 3;
+    private static final long INTERVAL = 1000 * 60;
     boolean shouldStop = false;
 
     private final OperationResponseHandler mGetNoticeHandler = new OperationResponseHandler() {
