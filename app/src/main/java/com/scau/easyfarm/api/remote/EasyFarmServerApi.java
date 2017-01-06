@@ -425,6 +425,7 @@ public class EasyFarmServerApi {
 
     public static void pubVillageServiceProof(VillageProofResource v, AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
+        params.put("uid", AppContext.getInstance().getLoginUid());
         params.put("villageServiceId",v.getVillageServiceId());
         params.put("area",v.getAddress());
         params.put("description",v.getDescription());
@@ -518,11 +519,13 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/getResourceType", params, handler);
     }
 
-    public static void sendServerSummary(String data,int serverId, AsyncHttpResponseHandler handler) {
+    public static void sendServerSummary(String summary,String visitLinkMan,String visitLinkPhone,int serverId, AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("villageServiceID",serverId);
         params.put("uid",AppContext.getInstance().getLoginUid());
-        params.put("serviceSummary",data);
+        params.put("serviceSummary",summary);
+        params.put("visitLinkMan",visitLinkMan);
+        params.put("visitLinkPhone",visitLinkPhone);
         ApiHttpClient.post("front/mobile/village/api/finishVillage", params, handler);
     }
 

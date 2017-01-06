@@ -27,6 +27,10 @@ public class ServerSummaryFragment extends BaseFragment {
 
     @InjectView(R.id.et_summary)
     EditText mEtContent;
+    @InjectView(R.id.et_visitlinkman)
+    EditText mEtVisitLinkMan;
+    @InjectView(R.id.et_visitlinkphone)
+    EditText mEtVisitLinkPhone;
 
     private VillageService service;
     private int position;//用于标记listview的item索引，便于结束成功后移除item
@@ -64,26 +68,36 @@ public class ServerSummaryFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.public_menu_send:
-            String data = mEtContent.getText().toString();
-            if (StringUtils.isEmpty(data)) {
-                AppContext.showToast("你忘记写总结咯");
-            } else {
-                EasyFarmServerApi.sendServerSummary(data, service.getId(), new OperationResponseHandler() {
-                    @Override
-                    public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
-                        AppContext.showToast("已收到你的总结，谢谢");
-                        Intent intent = new Intent();
-                        intent.putExtra(BUNDLEKEY_POSITION,position);
-                        getActivity().setResult(getActivity().RESULT_OK, intent);
-                        getActivity().finish();
-                    }
-
-                    @Override
-                    public void onFailure(int code, String errorMessage, Object[] args) {
-                        AppContext.showToast("网络异常，请稍后重试");
-                    }
-                });
+            String summary = mEtContent.getText().toString();
+            String visitLinkMan = mEtVisitLinkMan.getText().toString();
+            String visitLinkPhone = mEtVisitLinkPhone.getText().toString();
+            if (StringUtils.isEmpty(summary)) {
+                AppContext.showToast("你忘记写总结了");
+                return false;
             }
+            if (StringUtils.isEmpty(visitLinkMan)) {
+                AppContext.showToast("你忘记写回访人姓名了");
+                return false;
+            }
+            if (StringUtils.isEmpty(visitLinkPhone)) {
+                AppContext.showToast("你忘记写回访人电话了");
+                return false;
+            }
+            EasyFarmServerApi.sendServerSummary(summary, visitLinkMan,visitLinkPhone,service.getId(), new OperationResponseHandler() {
+                @Override
+                public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
+                    AppContext.showToast("已收到你的总结，谢谢");
+                    Intent intent = new Intent();
+                    intent.putExtra(BUNDLEKEY_POSITION,position);
+                    getActivity().setResult(getActivity().RESULT_OK, intent);
+                    getActivity().finish();
+                }
+
+                @Override
+                public void onFailure(int code, String errorMessage, Object[] args) {
+                    AppContext.showToast("网络异常，请稍后重试");
+                }
+            });
             break;
         }
         return true;
