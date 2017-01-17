@@ -55,6 +55,16 @@ public class NewsDetailFragment extends CommonDetailFragment<News> {
     }
 
     @Override
+    protected boolean isPdfFile(News detail) {
+        return false;
+    }
+
+    @Override
+    protected String getPdfFilePath(News detail) {
+        return null;
+    }
+
+    @Override
     protected int getFavoriteState() {
         return 0;
     }

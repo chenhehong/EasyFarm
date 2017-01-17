@@ -492,6 +492,10 @@ public class EasyFarmServerApi {
         ApiHttpClient.get("front/mobile/manual/api/getContentById", params, handler);
     }
 
+    public static void getPdfFile(String filePath, AsyncHttpResponseHandler handler) {
+        ApiHttpClient.get(filePath, handler);
+    }
+
     /**
      * 查找用户
      *

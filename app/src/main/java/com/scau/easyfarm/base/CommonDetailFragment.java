@@ -2,8 +2,10 @@ package com.scau.easyfarm.base;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
+import com.github.barteksc.pdfviewer.PDFView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
@@ -36,9 +39,11 @@ import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.net.URI;
 
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
@@ -54,6 +59,9 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
     protected EmptyLayout mEmptyLayout;
 
     protected WebView mWebView;
+
+//  Pdf对象
+    protected PDFView pdfView;
 
     protected T mDetail;
 
@@ -87,6 +95,7 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
     public void initView(View view) {
         mEmptyLayout = (EmptyLayout) view.findViewById(R.id.error_layout);
         mWebView = (WebView) view.findViewById(R.id.webview);
+        pdfView = (PDFView)view.findViewById(R.id.pdfView);
         UIHelper.initWebView(mWebView);
     }
 
@@ -202,12 +211,38 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
             executeOnLoadDataError();
             return;
         }
-
-        mWebView.loadDataWithBaseURL("", this.getWebViewBody(detail), "text/html", "UTF-8", "");
-        // 显示存储的字体大小
-        mWebView.loadUrl(FontSizeUtils.getSaveFontSize());
+//      判断是否是pdf文件,是的话则读取pdf文件
+        if (isPdfFile(detail)){
+            mWebView.setVisibility(View.GONE);
+            pdfView.setVisibility(View.VISIBLE);
+            readPdfFile(detail);
+        }else {
+            mWebView.setVisibility(View.VISIBLE);
+            pdfView.setVisibility(View.GONE);
+            mWebView.loadDataWithBaseURL("", this.getWebViewBody(detail), "text/html", "UTF-8", "");
+            // 显示存储的字体大小
+            mWebView.loadUrl(FontSizeUtils.getSaveFontSize());
+        }
         boolean favoriteState = getFavoriteState() == 1;
         setFavoriteState(favoriteState);
+    }
+
+    protected AsyncHttpResponseHandler mPdfFileHandler = new AsyncHttpResponseHandler() {
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+            mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+            pdfView.fromBytes(responseBody).load();
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            executeOnLoadDataError();
+        }
+    };
+
+    protected void readPdfFile(T detail){
+        mEmptyLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
+        EasyFarmServerApi.getPdfFile(getPdfFilePath(detail),mPdfFileHandler);
     }
 
     protected void executeOnLoadDataError() {
@@ -375,6 +410,11 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
     protected abstract T parseData(InputStream is);
     // 返回填充到webview中的内容
     protected abstract String getWebViewBody(T detail);
+//  网页是否是pdf文件
+    protected abstract boolean isPdfFile(T detail);
+//  返回pdf文件路径
+    protected abstract String getPdfFilePath(T detail);
+
     // 显示评论列表
 
 //    需要用收藏功能的时候可以实现这两个方法

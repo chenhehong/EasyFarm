@@ -5,6 +5,7 @@ import com.scau.easyfarm.base.CommonDetailFragment;
 import com.scau.easyfarm.bean.ManualContent;
 import com.scau.easyfarm.bean.ManualContentDetail;
 import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.InputStream;
@@ -48,6 +49,20 @@ public class ManualContentDetailFragment extends CommonDetailFragment<ManualCont
         body.append("</div></body>");
         return  body.toString();
     }
+
+    @Override
+    protected boolean isPdfFile(ManualContent detail) {
+        if (StringUtils.isEmpty(detail.getFilePath())){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected String getPdfFilePath(ManualContent detail) {
+        return detail.getFilePath();
+    }
+
 
     @Override
     protected int getFavoriteState() {

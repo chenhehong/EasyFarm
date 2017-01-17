@@ -13,6 +13,7 @@ public class ManualContent extends Entity {
     private String title="";
     @JSONField(name = "createDate")
     private String pubDate="";
+    private String filePath="";
 
     public Long getManualCategoryID() {
         return manualCategoryID;
@@ -52,5 +53,13 @@ public class ManualContent extends Entity {
 
     public void setPubDate(String pubDate) {
         this.pubDate = pubDate;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }
