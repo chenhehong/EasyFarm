@@ -743,4 +743,9 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/user/getTechTitle", params, handler);
     }
 
+    public static void getServiceTypeList(int currenPage,int pageSize,AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        ApiHttpClient.post("front/mobile/village/api/getVillageType", params, handler);
+    }
+
 }

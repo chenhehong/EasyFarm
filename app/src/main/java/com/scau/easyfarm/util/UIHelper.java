@@ -292,6 +292,10 @@ public class UIHelper {
         showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_VILLAGE_SERVICE_REASON);
     }
 
+    public static void chooseVillageServiceType(Fragment fragment,int requestCode){
+        showSimpleBackForResult(fragment, requestCode, SimpleBackPage.CHOOSE_VILLAGE_SERVICE_TYPE);
+    }
+
     //  显示添加问答界面
     public static void showVillageServiceApply(Context context) {
         showSimpleBack(context, SimpleBackPage.VILLAGE_SERVICE_APPLY);

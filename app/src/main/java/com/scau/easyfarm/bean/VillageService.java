@@ -32,14 +32,6 @@ public class VillageService extends Entity {
     public final static int MY_STATUS_PASS = 10;
     public final static int MY_STATUS_REJECT = 11;
 
-    public static final String[] serverTypeArray = {"公益性","非公益性"};
-    public static final HashMap<String,Integer> serverTypeStrMap = new HashMap<String,Integer>(){
-        { put("公益性",SERVER_TYPE_FREE);  put("非公益性",SERVER_TYPE_NOFREE);}
-    };
-    public final static int SERVER_TYPE_FREE = 56;
-    public final static int SERVER_TYPE_NOFREE = 57;
-
-
     @JSONField(name = "personalID")
     private int applyManId;
     @JSONField(name = "applyMan")

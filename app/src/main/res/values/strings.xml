@@ -172,6 +172,7 @@
     <string name="actionbar_title_search">搜索</string>
     <string name="actionbar_title_search_user">搜索用户</string>
     <string name="actionbar_title_choose_village_service_reason">选择服务事由</string>
+    <string name="actionbar_title_choose_village_service_type">选择服务类型</string>
     <string name="actionbar_title_choose_proof_resource_description">选择佐证材料类型</string>
 
     <string name="village_service_statistic_detail">服务统计详情</string>

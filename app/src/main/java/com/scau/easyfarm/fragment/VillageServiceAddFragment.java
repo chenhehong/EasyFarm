@@ -5,29 +5,18 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.SelectedUserAdapter;
@@ -37,7 +26,6 @@ import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.User;
-import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
@@ -47,12 +35,10 @@ import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by ChenHehong on 2016/9/2.
@@ -63,26 +49,26 @@ public class VillageServiceAddFragment extends BaseFragment{
     Button btnAddPerson;
     @InjectView(R.id.btn_add_reason)
     Button btnAddReason;
+    @InjectView(R.id.btn_add_type)
+    Button btnAddType;
     @InjectView(R.id.et_area)
     EditText etArea;
     @InjectView(R.id.et_address)
     EditText etAddress;
     @InjectView(R.id.et_reason)
     EditText etReason;
+    @InjectView(R.id.et_type)
+    EditText etType;
     @InjectView(R.id.et_business_date)
     EditText etBusinessDate;
     @InjectView(R.id.et_return_date)
     EditText etReturnDate;
     @InjectView(R.id.lv_person)
     ListView selectedUserListView;
-    @InjectView(R.id.sp_server_type)
-    Spinner spServerType;
     @InjectView(R.id.et_applyman)
     EditText applyMan;
     @InjectView(R.id.btn_submit)
     Button btnSubmit;
-
-    private ArrayAdapter<String> spinnerAdapter;
 
     private MenuItem mSendMenu;
     private ArrayList<User> personArray = new ArrayList<User>();
@@ -93,7 +79,7 @@ public class VillageServiceAddFragment extends BaseFragment{
     private Dialog dateTimeDialog;
 
     public int reasonId;
-    private String serverType;
+    public int typeId;
 
     public static int REQUESTCODE_SERVICE_ADD = 131;
 
@@ -148,13 +134,14 @@ public class VillageServiceAddFragment extends BaseFragment{
         setHasOptionsMenu(true);
         btnAddPerson.setOnClickListener(this);
         btnAddReason.setOnClickListener(this);
+        btnAddType.setOnClickListener(this);
         etArea.setOnClickListener(this);
         etBusinessDate.setOnClickListener(this);
         etReturnDate.setOnClickListener(this);
         etArea.addTextChangedListener(new SimpleTextWatcher() {
             @Override
-             public void onTextChanged(CharSequence s, int start, int before,
-                                       int count) {
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
                 updateMenuState();
             }
         });
@@ -172,6 +159,13 @@ public class VillageServiceAddFragment extends BaseFragment{
                 updateMenuState();
             }
         });
+        etType.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                updateMenuState();
+            }
+        });
         if (selectedUserAdapter==null){
             selectedUserAdapter = new SelectedUserAdapter(this);
         }
@@ -179,20 +173,6 @@ public class VillageServiceAddFragment extends BaseFragment{
         selectedUserAdapter.setData(personArray);
         setListViewHeight();
 
-        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_spinner_item, VillageService.serverTypeArray);
-//      simple_spinner_dropdown_item.xml设置的是下拉看到的效果
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);// 设置下拉风格
-        spServerType.setAdapter(spinnerAdapter);
-        spServerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                serverType = VillageService.serverTypeArray[position];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
         btnSubmit.setOnClickListener(this);
     }
 
@@ -242,7 +222,7 @@ public class VillageServiceAddFragment extends BaseFragment{
         if (mSendMenu == null) {
             return;
         }
-        if (etAddress.getText().length() > 0&&etArea.getText().length()>0&&etReason.getText().length()>0) {
+        if (etAddress.getText().length() > 0&&etArea.getText().length()>0&&etReason.getText().length()>0&&etType.getText().length()>0) {
             mSendMenu.setEnabled(true);
             mSendMenu.setIcon(R.drawable.actionbar_send_icon);
         } else {
@@ -298,6 +278,10 @@ public class VillageServiceAddFragment extends BaseFragment{
             AppContext.showToast("请选择服务方式");
             return;
         }
+        if (etType.getText().toString().length()==0||etType.getText().toString()==null){
+            AppContext.showToast("请选择服务类型");
+            return;
+        }
         if (etBusinessDate.getText().toString().length()==0||etBusinessDate.getText().toString()==null){
             AppContext.showToast("请选择服务时间");
             return;
@@ -328,10 +312,9 @@ public class VillageServiceAddFragment extends BaseFragment{
             else flag=true;
             serverLeaderIds += leaderIdArray.get(i);
         }
-        int serverTypeId = VillageService.serverTypeStrMap.get(serverType);
         showWaitDialog("发送申请中，请稍后");
         EasyFarmServerApi.addVillageService(etArea.getText().toString(),etAddress.getText().toString(),reasonId,etReason.getText().toString(),
-                etBusinessDate.getText().toString(),etReturnDate.getText().toString(),villageServiceUserIds,serverLeaderIds,serverTypeId,mHandler);
+                etBusinessDate.getText().toString(),etReturnDate.getText().toString(),villageServiceUserIds,serverLeaderIds,typeId,mHandler);
     }
 
     @Override
@@ -347,6 +330,8 @@ public class VillageServiceAddFragment extends BaseFragment{
             handleSelectArea();
         }else if (id==R.id.btn_add_reason){
             handleSelectReason();
+        }else if (id==R.id.btn_add_type){
+            handleSelectType();
         }else if(id==R.id.btn_submit){
             handleSubmit();
         }
@@ -354,6 +339,10 @@ public class VillageServiceAddFragment extends BaseFragment{
 
     public void handleSelectReason(){
         UIHelper.chooseVillageServiceReason(this, VillageServiceReasonChooseFragment.REQUEST_CODE_VSREASON_SELECT);
+    }
+
+    public void handleSelectType(){
+        UIHelper.chooseVillageServiceType(this, VillageServiceTypeChooseFragment.REQUEST_CODE_VSTYPE_SELECT);
     }
 
     private void handleSelectArea(){
@@ -446,6 +435,10 @@ public class VillageServiceAddFragment extends BaseFragment{
                 etReason.setEnabled(false);
                 etReason.setText(selectedReason);
             }
+        }else if (requestCode==VillageServiceTypeChooseFragment.REQUEST_CODE_VSTYPE_SELECT){
+            String selectedType = returnIntent.getStringExtra(VillageServiceTypeChooseFragment.BUNDLE_SELECT_TEXT_STR);
+            reasonId = returnIntent.getIntExtra(VillageServiceTypeChooseFragment.BUNDLE_SELECT_TEXT_STR,0);
+            etType.setText(selectedType);
         }
     }
 

@@ -106,9 +106,18 @@
                 <TextView
                     style="@style/form_edit_left_textview"
                     android:text="服务类型："/>
-                <Spinner
-                    android:id="@+id/sp_server_type"
-                    style="@style/spinner_style"/>
+                <EditText
+                    android:id="@+id/et_type"
+                    android:lines="2"
+                    style="@style/form_edit_right_edittext"
+                    android:enabled="false"/>
+                <Button
+                    android:id="@+id/btn_add_type"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="选择类型"
+                    android:textColor="@android:color/black"
+                    android:src="@drawable/btn_quickoption_selector" />
             </LinearLayout>
             <LinearLayout
                 style="@style/form_edit_layout">
