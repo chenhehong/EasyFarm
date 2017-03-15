@@ -31,6 +31,7 @@ public class User extends Entity {
     @JSONField(name = "imagePath")
     private String portrait="";
     private String realName="";
+    @JSONField(name = "organizationName")
     private String organization="";
     private String phoneNumber="";
     private String techTitle="";

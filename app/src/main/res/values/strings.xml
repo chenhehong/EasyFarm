@@ -183,18 +183,18 @@
 
     <string name="service_performance_function">绩效管理</string>
 
-    <string name="performance_add">添加业绩</string>
-    <string name="actionbar_performance_list">业绩列表</string>
-    <string name="actionbar_choose_performance_type">选择业绩类型</string>
-    <string name="performance_detail">业绩详情</string>
+    <string name="performance_add">添加绩效</string>
+    <string name="actionbar_performance_list">绩效列表</string>
+    <string name="actionbar_choose_performance_type">选择绩效类型</string>
+    <string name="performance_detail">绩效详情</string>
 
-    <string name="performance_verify">业绩申报审批</string>
+    <string name="performance_verify">绩效申报审批</string>
 
-    <string name="performance_month_statistics">部门业绩统计</string>
-    <string name="performance_statistics">部门业绩统计</string>
+    <string name="performance_month_statistics">部门绩效统计</string>
+    <string name="performance_statistics">部门绩效统计</string>
 
-    <string name="myperformance_month_statistics">个人业绩统计</string>
-    <string name="myperformance_statistics">个人业绩统计</string>
+    <string name="myperformance_month_statistics">个人绩效统计</string>
+    <string name="myperformance_statistics">个人绩效统计</string>
 
     <string name="service_month_statistics">部门服务统计</string>
     <string name="service_statistics">部门服务统计</string>

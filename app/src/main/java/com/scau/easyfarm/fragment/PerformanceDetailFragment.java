@@ -26,8 +26,10 @@ import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
+import com.scau.easyfarm.widget.rebound.ui.Util;
 
 import java.io.ByteArrayInputStream;
+import java.text.SimpleDateFormat;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -200,7 +202,10 @@ public class PerformanceDetailFragment extends BaseFragment {
                 if (flage) optionion+="\n\n";
                 else flage = true;
                 VerifyOpinion eachOpinion = mPerformance.getVerifyOpinions().get(i);
-                optionion += eachOpinion.getOpinionPerson()+":"+eachOpinion.getOpinion();
+                String format = "yyyy-MM-dd  HH:mm:ss";
+                //把string转化为date
+                SimpleDateFormat sdf = new SimpleDateFormat(format);
+                optionion += eachOpinion.getOpinionPerson()+":"+eachOpinion.getOpinion()+"("+ sdf.format(eachOpinion.getOpinionDate())+")";
             }
         }
         tvOpinion.setText(optionion);
