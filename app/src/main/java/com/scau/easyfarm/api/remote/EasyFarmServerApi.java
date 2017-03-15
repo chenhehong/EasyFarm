@@ -563,7 +563,8 @@ public class EasyFarmServerApi {
                                             AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("id", performanceId);
-        ApiHttpClient.post("front/mobile/village/api/deleteServiceById", params, handler);
+        params.put("uid",AppContext.getInstance().getLoginUid());
+        ApiHttpClient.post("front/mobile/performance/deleteApplyPerformance", params, handler);
     }
 
     public static void addPerformanceApply(AsyncHttpResponseHandler handler,Performance performance){

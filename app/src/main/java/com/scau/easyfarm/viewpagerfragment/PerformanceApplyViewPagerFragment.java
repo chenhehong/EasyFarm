@@ -13,8 +13,7 @@ import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.fragment.PerformanceAddFragment;
-import com.scau.easyfarm.fragment.PerformanceApplyFragment;
-import com.scau.easyfarm.fragment.VillageServiceAddFragment;
+import com.scau.easyfarm.fragment.PerformanceApplyListFragment;
 import com.scau.easyfarm.util.UIHelper;
 
 /**
@@ -30,10 +29,10 @@ public class PerformanceApplyViewPagerFragment extends BaseViewPagerFragment{
         String[] title = getResources().getStringArray(
                 R.array.performance_aply_viewpage_arrays);
 //      传人频道号为参数
-        adapter.addTab(title[0], "all_performance", PerformanceApplyFragment.class,
-                getBundle(PerformanceApplyFragment.ALL_PERFORMANCE));
-        adapter.addTab(title[1], "pass_performance", PerformanceApplyFragment.class,
-                getBundle(PerformanceApplyFragment.PASS_PERFORMANCE));
+        adapter.addTab(title[0], "all_performance", PerformanceApplyListFragment.class,
+                getBundle(PerformanceApplyListFragment.ALL_PERFORMANCE));
+        adapter.addTab(title[1], "pass_performance", PerformanceApplyListFragment.class,
+                getBundle(PerformanceApplyListFragment.PASS_PERFORMANCE));
     }
 
     private Bundle getBundle(int catalog) {
