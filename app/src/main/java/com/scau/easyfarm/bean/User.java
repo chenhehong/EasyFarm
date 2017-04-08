@@ -66,7 +66,7 @@ public class User extends Entity {
     }
 
     public String getPortrait() {
-        return portrait;
+        return portrait==null?"":portrait;
     }
 
     public void setPortrait(String portrait) {
@@ -74,7 +74,7 @@ public class User extends Entity {
     }
 
     public String getRealName() {
-        return realName;
+        return realName==null?"":realName;
     }
 
     public void setRealName(String realName) {
@@ -82,7 +82,7 @@ public class User extends Entity {
     }
 
     public String getOrganization() {
-        return organization;
+        return organization==null?"":organization;
     }
 
     public void setOrganization(String organization) {
@@ -90,7 +90,7 @@ public class User extends Entity {
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return phoneNumber==null?"":phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -98,7 +98,7 @@ public class User extends Entity {
     }
 
     public String getTechType() {
-        return techType;
+        return techType==null?"":techType;
     }
 
     public void setTechType(String techType) {
@@ -106,7 +106,7 @@ public class User extends Entity {
     }
 
     public String getDescription() {
-        return description;
+        return description==null?"":description;
     }
 
     public void setDescription(String description) {
@@ -122,7 +122,7 @@ public class User extends Entity {
     }
 
     public String getEmail() {
-        return email;
+        return email==null?"":email;
     }
 
     public void setEmail(String email) {
@@ -130,7 +130,7 @@ public class User extends Entity {
     }
 
     public String getAddress() {
-        return address;
+        return address==null?"":address;
     }
 
     public void setAddress(String address) {
@@ -138,7 +138,7 @@ public class User extends Entity {
     }
 
     public String getRoleName() {
-        return roleName;
+        return roleName==null?"":roleName;
     }
 
     public void setRoleName(String roleName) {

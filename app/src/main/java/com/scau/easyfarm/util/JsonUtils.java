@@ -21,7 +21,7 @@ public class JsonUtils {
     }
 
     /**
-     * 将一个xml流转换为bean实体类
+     * 将一个json流转换为bean实体类
      *
      * @param type
      * @param is

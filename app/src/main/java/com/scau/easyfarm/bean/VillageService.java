@@ -37,12 +37,14 @@ public class VillageService extends Entity {
     @JSONField(name = "applyMan")
     private String applyManName;
     private boolean isLeader = false;
-    @JSONField(name = "ApplyDate")
-    private String applyDate;
+    @JSONField(name = "applyDateDesc")
+    private String applyDate="";
     private String businessArea;
     private String businessAddress;
-    private String businessDate;
-    private String returnDate;
+    @JSONField(name = "businessDateDesc")
+    private String businessDate="";
+    @JSONField(name = "returnDateDesc")
+    private String returnDate="";
     private String businessReason;
     private int status;
     @JSONField(name = "waitAuditOrganizationDesc")
