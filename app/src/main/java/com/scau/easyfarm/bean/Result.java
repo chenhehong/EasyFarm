@@ -14,12 +14,12 @@ import java.io.Serializable;
 public class Result implements Serializable {
 
 //  errorCode==0的时候表示服务器返回数据正常，其他表示错误
-    private int errorCode;
-
+    private int errorCode=-1;
+    private boolean success=false;
     private String errorMessage;
 
     public boolean OK() {
-	return errorCode == 0;
+	    return success;
     }
 
     public int getErrorCode() {
@@ -36,5 +36,13 @@ public class Result implements Serializable {
 
     public void setErrorMessage(String errorMessage) {
 	this.errorMessage = errorMessage;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

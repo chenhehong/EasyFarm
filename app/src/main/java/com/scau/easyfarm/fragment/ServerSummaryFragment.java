@@ -15,7 +15,10 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
+import com.scau.easyfarm.bean.Result;
+import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.VillageService;
+import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.StringUtils;
 
 import java.io.ByteArrayInputStream;
@@ -86,11 +89,16 @@ public class ServerSummaryFragment extends BaseFragment {
             EasyFarmServerApi.sendServerSummary(summary, visitLinkMan,visitLinkPhone,service.getId(), new OperationResponseHandler() {
                 @Override
                 public void onSuccess(int code, ByteArrayInputStream is, Object[] args) {
-                    AppContext.showToast("已收到你的总结，谢谢");
-                    Intent intent = new Intent();
-                    intent.putExtra(BUNDLEKEY_POSITION,position);
-                    getActivity().setResult(getActivity().RESULT_OK, intent);
-                    getActivity().finish();
+                    ResultBean resultBean = JsonUtils.toBean(ResultBean.class, is);
+                    if (resultBean.getResult().OK()){
+                        AppContext.showToast("已收到你的总结，谢谢");
+                        Intent intent = new Intent();
+                        intent.putExtra(BUNDLEKEY_POSITION,position);
+                        getActivity().setResult(getActivity().RESULT_OK, intent);
+                        getActivity().finish();
+                    }else {
+                        AppContext.showToast(resultBean.getResult().getErrorMessage());
+                    }
                 }
 
                 @Override

@@ -17,7 +17,7 @@ public class News extends Entity {
     private String pubDate="";
 
     public String getTitle() {
-        return title;
+        return title==null?"":title;
     }
 
     public void setTitle(String title) {
@@ -25,7 +25,7 @@ public class News extends Entity {
     }
 
     public String getUrl() {
-        return url;
+        return url==null?"":url;
     }
 
     public void setUrl(String url) {
@@ -33,7 +33,7 @@ public class News extends Entity {
     }
 
     public String getContent() {
-        return content;
+        return content==null?"":content;
     }
 
     public void setContent(String content) {
@@ -49,7 +49,7 @@ public class News extends Entity {
     }
 
     public String getAuthor() {
-        return author;
+        return author==null?"":author;
     }
 
     public void setAuthor(String author) {

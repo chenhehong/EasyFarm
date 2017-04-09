@@ -437,7 +437,7 @@ public class VillageServiceAddFragment extends BaseFragment{
             }
         }else if (requestCode==VillageServiceTypeChooseFragment.REQUEST_CODE_VSTYPE_SELECT){
             String selectedType = returnIntent.getStringExtra(VillageServiceTypeChooseFragment.BUNDLE_SELECT_TEXT_STR);
-            reasonId = returnIntent.getIntExtra(VillageServiceTypeChooseFragment.BUNDLE_SELECT_TEXT_STR,0);
+            typeId = returnIntent.getIntExtra(VillageServiceTypeChooseFragment.BUNDLE_SELECT_TEXT_STR,0);
             etType.setText(selectedType);
         }
     }

@@ -61,7 +61,7 @@ public class VillageServiceProofAdapter extends ListBaseAdapter<VillageService>{
         vh.address.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
         vh.businessDate.setText("服务时间："+villageService.getBusinessDate()+"至"+villageService.getReturnDate());
         vh.reason.setText("事由："+villageService.getBusinessReason());
-        if (villageService.getStatus()==VillageService.VILLAGE_SERVICE_PASS){
+        if (villageService.getStatus()==VillageService.VILLAGE_SERVICE_PASS||villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING){
             vh.finish.setVisibility(View.VISIBLE);
             vh.finish.setOnClickListener(new View.OnClickListener() {
                 @Override
