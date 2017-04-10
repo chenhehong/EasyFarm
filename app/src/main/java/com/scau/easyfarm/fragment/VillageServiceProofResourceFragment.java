@@ -217,7 +217,7 @@ public class
                     mAdapter.removeItem(villageService);
                     mAdapter.notifyDataSetChanged();
                 } else {
-                    onFailure(code, res.getErrorMessage(), args);
+                    onFailure(res.getErrorCode(), res.getErrorMessage(), args);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -228,7 +228,7 @@ public class
         @Override
         public void onFailure(int code, String errorMessage, Object[] args) {
             hideWaitDialog();
-            AppContext.showToastShort(R.string.delete_faile);
+            AppContext.showToastShort(errorMessage);
         }
     }
 }

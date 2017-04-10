@@ -455,6 +455,7 @@ public class EasyFarmServerApi {
                                             AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("id", villageServiceId);
+        params.put("uid", AppContext.getInstance().getLoginUid());
         ApiHttpClient.post("front/mobile/village/api/deleteResourceById", params, handler);
     }
 
