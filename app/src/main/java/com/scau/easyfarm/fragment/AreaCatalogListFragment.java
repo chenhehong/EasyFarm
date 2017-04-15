@@ -138,6 +138,15 @@ public class AreaCatalogListFragment extends BaseFragment implements
 		public void onSuccess(int code, ByteArrayInputStream is, Object[] args){
 			try {
 				AreaList list = JsonUtils.toBean(AreaList.class,is);
+//				针对有某些城市没有区 县等三级地区可以选，直接返回“省-市”即可
+				if (list.getAreaList().size()==0){
+					Intent intent = new Intent();
+					String area = selectedProvince+"-"+selectedCity;
+					intent.putExtra(AREA_SELECTED_CODE,area);
+					getActivity().setResult(getActivity().RESULT_OK, intent);
+					getActivity().finish();
+					return;
+				}
 				if (mState == STATE_REFRESH)
 					mCountyAdapter.clear();
 				List<Area> data = list.getAreaList();
@@ -189,15 +198,6 @@ public class AreaCatalogListFragment extends BaseFragment implements
 				long id) {
 			Area type = (Area) mCityAdapter.getItem(position);
 			if (type != null && type.getJsonId() > 0) {
-//				针对东莞特殊没有区县的情况
-				if (type.getName().equals("东莞市")){
-					Intent intent = new Intent();
-					String area = "广东省-东莞市";
-					intent.putExtra(AREA_SELECTED_CODE,area);
-					getActivity().setResult(getActivity().RESULT_OK, intent);
-					getActivity().finish();
-					return;
-				}
 				curScreen = SCREEN_COUNTY;
 				mScrollLayout.scrollToScreen(curScreen);
 				mCurrentJsonId = type.getJsonId();

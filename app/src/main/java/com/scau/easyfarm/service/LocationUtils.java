@@ -42,12 +42,7 @@ public class LocationUtils {
             // TODO Auto-generated method stub
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
                 if (location.getProvince()!=null&&location.getCity()!=null&&location.getDistrict()!=null){
-//                  针对东莞市没有区县的特殊情况
-                    if (location.getCity().equals("东莞市")){
-                        locationStr="广东省-东莞市";
-                    }else{
-                        locationStr=location.getProvince()+"-"+location.getCity()+"-"+location.getDistrict()+","+location.getStreet();
-                    }
+                    locationStr=location.getProvince()+"-"+location.getCity()+"-"+location.getDistrict()+","+location.getStreet();
                 }else {
                     locationStr = "获取定位失败，请检查是否已打开gps！或者gps信号弱";
                 }
