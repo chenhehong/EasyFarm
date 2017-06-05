@@ -30,6 +30,7 @@ public class VillageProofResource extends Entity{
     private String address="";
     private String description="";
     private int descriptionId;
+    @JSONField(name = "createDateDesc")
     private String createDate="";
     private String imgSmall="";
     private String imgBig="";

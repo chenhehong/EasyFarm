@@ -11,6 +11,7 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
+import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.UIHelper;
 
 import org.w3c.dom.Text;
@@ -61,7 +62,10 @@ public class VillageServiceProofAdapter extends ListBaseAdapter<VillageService>{
         vh.address.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
         vh.businessDate.setText("服务时间："+villageService.getBusinessDate()+"至"+villageService.getReturnDate());
         vh.reason.setText("事由："+villageService.getBusinessReason());
-        if (villageService.getStatus()==VillageService.VILLAGE_SERVICE_PASS||villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING){
+        long currentTime = System.currentTimeMillis();
+        //处于通过或待审核状态,并且用户是服务的领队,已经过了返回时间或今天是返回日期,则显示"点击结束"按钮
+        if ((villageService.getStatus()==VillageService.VILLAGE_SERVICE_PASS||villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING)
+             &&villageService.isLeader()&&(currentTime>=villageService.getReturnDateTimeStamp())){
             vh.finish.setVisibility(View.VISIBLE);
             vh.finish.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -45,6 +45,8 @@ public class VillageService extends Entity {
     private String businessDate="";
     @JSONField(name = "returnDateDesc")
     private String returnDate="";
+    @JSONField(name = "returnDate")
+    private long returnDateTimeStamp;
     private String businessReason;
     private int status;
     @JSONField(name = "waitAuditOrganizationDesc")
@@ -202,5 +204,13 @@ public class VillageService extends Entity {
             return "等待"+nextVerifyOrganization+"审核";
         }
         return statusIntMap.get(status);
+    }
+
+    public long getReturnDateTimeStamp() {
+        return returnDateTimeStamp;
+    }
+
+    public void setReturnDateTimeStamp(long returnDateTimeStamp) {
+        this.returnDateTimeStamp = returnDateTimeStamp;
     }
 }
