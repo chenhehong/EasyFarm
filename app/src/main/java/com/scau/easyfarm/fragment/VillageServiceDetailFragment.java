@@ -17,6 +17,7 @@ import com.scau.easyfarm.bean.VerifyOpinion;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.JsonUtils;
+import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
@@ -149,7 +150,11 @@ public class VillageServiceDetailFragment extends BaseFragment {
         tvLeader.setText(leaders);
         tvServerNumber.setText(mVillageService.getServerNumber());
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
-        tvReason.setText(mVillageService.getBusinessReason());
+        if (StringUtils.isEmpty(mVillageService.getVillageTypeDesc())){
+            tvReason.setText(mVillageService.getBusinessReason());
+        }else {
+            tvReason.setText(mVillageService.getBusinessReason()+"("+mVillageService.getVillageTypeDesc()+")");
+        }
         tvServiceDate.setText(DateTimeUtil.dateTimeToDate(mVillageService.getBusinessDate())+"至"+DateTimeUtil.dateTimeToDate(mVillageService.getReturnDate()));
         tvStatue.setText(mVillageService.getStatusString());
         String optionion = "";

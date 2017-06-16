@@ -12,12 +12,22 @@ import java.util.List;
  */
 public class VillageService extends Entity {
 
-    public static final String[] statusStrArray = {"待审核","通过","不通过"};
-    public static final HashMap<String,Integer> statusStrMap = new HashMap<String,Integer>(){
-        { put("待审核",VILLAGE_SERVICE_WAITING);  put("通过",VILLAGE_SERVICE_PASS);  put("不通过",VILLAGE_SERVICE_REJECT);put("已结束",VILLAGE_SERVICE_COMPLETED);}
+    public static final String[] statusStrArray = {"待审核", "通过", "不通过"};
+    public static final HashMap<String, Integer> statusStrMap = new HashMap<String, Integer>() {
+        {
+            put("待审核", VILLAGE_SERVICE_WAITING);
+            put("通过", VILLAGE_SERVICE_PASS);
+            put("不通过", VILLAGE_SERVICE_REJECT);
+            put("已结束", VILLAGE_SERVICE_COMPLETED);
+        }
     };
-    public static final HashMap<Integer,String> statusIntMap = new HashMap<Integer,String>(){
-        { put(VILLAGE_SERVICE_WAITING,"待审核");  put(VILLAGE_SERVICE_PASS,"通过");  put(VILLAGE_SERVICE_REJECT,"不通过");put(VILLAGE_SERVICE_COMPLETED,"已结束");}
+    public static final HashMap<Integer, String> statusIntMap = new HashMap<Integer, String>() {
+        {
+            put(VILLAGE_SERVICE_WAITING, "待审核");
+            put(VILLAGE_SERVICE_PASS, "通过");
+            put(VILLAGE_SERVICE_REJECT, "不通过");
+            put(VILLAGE_SERVICE_COMPLETED, "已结束");
+        }
     };
     public final static int VILLAGE_SERVICE_ALL = 0;
     public final static int VILLAGE_SERVICE_PASS = 7;
@@ -25,9 +35,12 @@ public class VillageService extends Entity {
     public final static int VILLAGE_SERVICE_WAITING = 9;
     public final static int VILLAGE_SERVICE_COMPLETED = 49;
 
-    public static final String[] myStatusStrArray = {"通过","不通过"};
-    public static final HashMap<String,Integer> myStatusStrMap = new HashMap<String,Integer>(){
-        { put("通过",MY_STATUS_PASS);  put("不通过",MY_STATUS_REJECT);}
+    public static final String[] myStatusStrArray = {"通过", "不通过"};
+    public static final HashMap<String, Integer> myStatusStrMap = new HashMap<String, Integer>() {
+        {
+            put("通过", MY_STATUS_PASS);
+            put("不通过", MY_STATUS_REJECT);
+        }
     };
     public final static int MY_STATUS_PASS = 10;
     public final static int MY_STATUS_REJECT = 11;
@@ -38,22 +51,22 @@ public class VillageService extends Entity {
     private String applyManName;
     private boolean isLeader = false;
     @JSONField(name = "applyDateDesc")
-    private String applyDate="";
+    private String applyDate = "";
     private String businessArea;
     private String businessAddress;
     @JSONField(name = "businessDateDesc")
-    private String businessDate="";
+    private String businessDate = "";
     @JSONField(name = "returnDateDesc")
-    private String returnDate="";
+    private String returnDate = "";
     @JSONField(name = "returnDate")
     private long returnDateTimeStamp;
     private String businessReason;
     private int status;
     @JSONField(name = "waitAuditOrganizationDesc")
-    private  String nextVerifyOrganization;
+    private String nextVerifyOrganization;
     private int serverType;//服务类型
     @JSONField(name = "serialCode")
-    private String serverNumber="";//服务单号
+    private String serverNumber = "";//服务单号
     @JSONField(name = "villageServiceOpinionList")
     List<VerifyOpinion> verifyOpinions = new ArrayList<VerifyOpinion>();
     @JSONField(name = "villagePersonList")
@@ -62,6 +75,7 @@ public class VillageService extends Entity {
     List<User> leaders = new ArrayList<User>();
     @JSONField(name = "villageCommentCode")
     private String commentQrcodePath;
+    private String villageTypeDesc="";
 
     public int getApplyManId() {
         return applyManId;
@@ -199,9 +213,9 @@ public class VillageService extends Entity {
         this.commentQrcodePath = commentQrcodePath;
     }
 
-    public String getStatusString(){
-        if (status==VILLAGE_SERVICE_WAITING){
-            return "等待"+nextVerifyOrganization+"审核";
+    public String getStatusString() {
+        if (status == VILLAGE_SERVICE_WAITING) {
+            return "等待" + nextVerifyOrganization + "审核";
         }
         return statusIntMap.get(status);
     }
@@ -212,5 +226,13 @@ public class VillageService extends Entity {
 
     public void setReturnDateTimeStamp(long returnDateTimeStamp) {
         this.returnDateTimeStamp = returnDateTimeStamp;
+    }
+
+    public String getVillageTypeDesc() {
+        return villageTypeDesc;
+    }
+
+    public void setVillageTypeDesc(String villageTypeDesc) {
+        this.villageTypeDesc = villageTypeDesc;
     }
 }
