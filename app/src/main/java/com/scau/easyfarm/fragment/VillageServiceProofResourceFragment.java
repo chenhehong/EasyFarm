@@ -19,21 +19,21 @@ import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
-import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.bean.VillageProofResourceList;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.ui.ImageGalleryActivity;
+import com.scau.easyfarm.ui.VideoPlayActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.UIHelper;
 
+import org.kymjs.kjframe.Core;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/8/26.
@@ -135,7 +135,16 @@ public class
                             long id) {
         VillageProofResource villageProofResource = mAdapter.getItem(position);
         if (villageProofResource != null) {
-            ImageGalleryActivity.show(getActivity(), ApiHttpClient.getAbsoluteApiUrl(villageProofResource.getImageFilePath()),"");
+            final String uploadFilePath = villageProofResource.getUploadFilePath();
+            String suffix = uploadFilePath.substring(uploadFilePath.lastIndexOf(".") + 1);
+            if(suffix.equalsIgnoreCase("jpg")||suffix.equalsIgnoreCase("jpeg")||suffix.equalsIgnoreCase("png")){
+                ImageGalleryActivity.show(parent.getContext(), ApiHttpClient.getAbsoluteApiUrl(uploadFilePath),"");
+            }else if(suffix.equalsIgnoreCase("mp4")||suffix.equalsIgnoreCase("3gp")){
+                Intent intent = new Intent(parent.getContext(), VideoPlayActivity.class);
+                intent.putExtra(VideoPlayActivity.BUNDLEKEY_VIDEOSOURCE_TYPE, VideoPlayActivity.VIDEOTYPEURL);
+                intent.putExtra(VideoPlayActivity.BUNDLEKEY_VIDEOSOURCE,ApiHttpClient.getAbsoluteApiUrl(uploadFilePath));
+                parent.getContext().startActivity(intent);
+            }
         }
     }
 

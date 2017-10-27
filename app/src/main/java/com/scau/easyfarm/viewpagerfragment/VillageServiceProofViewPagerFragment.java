@@ -11,7 +11,9 @@ import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
 import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.fragment.BaseManualCategoryListFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofListFragment;
+import com.scau.easyfarm.fragment.VillageServiceProofResourPubFragment;
 import com.scau.easyfarm.util.UIHelper;
 
 /**
@@ -48,8 +50,14 @@ public class VillageServiceProofViewPagerFragment extends BaseViewPagerFragment{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.public_menu_takephoto:
-                UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE_ADD);
+                Bundle budlePhoto = new Bundle();
+                budlePhoto.putSerializable(VillageServiceProofResourPubFragment.BUNDLEKEY_PUB_PROOFMETHOD, VillageServiceProofResourPubFragment.TAKEPHOTO);
+                UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE_ADD,budlePhoto);
                 break;
+            case R.id.public_menu_takevideo:
+                Bundle budleVideo = new Bundle();
+                budleVideo.putSerializable(VillageServiceProofResourPubFragment.BUNDLEKEY_PUB_PROOFMETHOD,VillageServiceProofResourPubFragment.TAKEVIDEO);
+                UIHelper.showSimpleBack(getActivity(), SimpleBackPage.VILLAGE_SERVICE_PROOF_RESOURCE_ADD,budleVideo);
         }
         return true;
     }

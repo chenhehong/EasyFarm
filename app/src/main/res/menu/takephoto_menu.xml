@@ -10,4 +10,10 @@
         android:visible="true"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/public_menu_takevideo"
+        android:title="录像"
+        android:visible="true"
+        app:showAsAction="always"/>
+
 </menu>

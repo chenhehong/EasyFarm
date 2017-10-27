@@ -37,4 +37,5 @@ dependencies {
     compile 'net.qiujuer.genius:ui:2.0.0-beta6'
     compile 'pub.devrel:easypermissions:0.1.7'
     compile 'com.github.barteksc:android-pdf-viewer:2.4.0'
+    compile 'com.github.rtoshiro.fullscreenvideoview:fullscreenvideoview:1.1.2'
 }

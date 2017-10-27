@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,15 +28,14 @@ import android.widget.ImageView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.api.OperationResponseHandler;
-import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.service.LocationUtils;
 import com.scau.easyfarm.service.ServerTaskUtils;
 import com.scau.easyfarm.ui.ImageGalleryActivity;
+import com.scau.easyfarm.ui.VideoPlayActivity;
 import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.FileUtil;
@@ -43,12 +43,12 @@ import com.scau.easyfarm.util.ImageUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.SimpleTextWatcher;
 import com.scau.easyfarm.util.StringUtils;
-import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -62,7 +62,14 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
 
     public static final String BUNDLE_PUB_PROOFRESOURCE = "bundle_pub_proofresource";
 
+    public static final String BUNDLEKEY_PUB_PROOFMETHOD = "bundlekey_pub_proofmethod";
+    public static final int TAKEPHOTO = 1;
+    public static final int TAKEVIDEO = 2;
+    int videoTimeLimit = 15;//视频拍摄限制的秒数
+
     public static final int REQUESTCODE_CHOOSE_VILLAGESERVICE = 2;
+
+    int proofMethod = TAKEPHOTO;
 
     @InjectView(R.id.img_resource)
     ImageView mResource;
@@ -89,8 +96,8 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
 
     private MenuItem mSendMenu;
 
-    private String theLarge, theThumbnail;
-    private File imgFile;
+    private String proofFile;
+    private File uploadFile;
     private int descriptionId;
 
     private final int RC_CAMERA_PERM = 241;
@@ -99,7 +106,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
 //  标示第一次是否是第一次进入activity，此字段用于拍照时返回需要自动退出该activity的情况
     private boolean firstStart = true;
 //  指示是否拍照成功，此字段用于拍照时返回需要自动退出该activity的情况
-    private boolean takePhotoSuccess = false;
+    private boolean takeProofSuccess = false;
 
     private final Handler handler = new Handler() {
         @Override
@@ -198,8 +205,8 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
         villageProofResource.setDescription(mResourceDescription.getText().toString());
         villageProofResource.setVillageServiceDescription(mVillageType.getText().toString());
         villageProofResource.setDescriptionId(descriptionId);
-        if (imgFile != null && imgFile.exists()) {
-            villageProofResource.setImageFilePath(imgFile.getAbsolutePath());
+        if (uploadFile != null && uploadFile.exists()) {
+            villageProofResource.setUploadFilePath(uploadFile.getAbsolutePath());
         }
         ServerTaskUtils.uploadProofResource(getActivity(), villageProofResource);
         getActivity().finish();
@@ -210,7 +217,6 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_villageservice_resource_pub, container,
                 false);
-
         initView(view);
         return view;
     }
@@ -231,10 +237,24 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
         Bundle bundle = getArguments();
         if (bundle!=null){
             VillageProofResource villageProofResource = (VillageProofResource) bundle.getSerializable(BUNDLE_PUB_PROOFRESOURCE);
+            proofMethod = bundle.getInt(BUNDLEKEY_PUB_PROOFMETHOD);
 //      如果外界传入了对象
             if (villageProofResource!=null){
 //              初始化参数
-                Bitmap bitmap = ImageUtils.loadImgThumbnail(villageProofResource.getImageFilePath(),100,100);
+                String uploadFilePath = villageProofResource.getUploadFilePath();
+                String suffix = uploadFilePath.substring(uploadFilePath.lastIndexOf(".") + 1);
+                Bitmap bitmap=null;
+                if(suffix.equalsIgnoreCase("jpg")||suffix.equalsIgnoreCase("jpeg")||suffix.equalsIgnoreCase("png")){
+                    bitmap = ImageUtils.loadImgThumbnail(uploadFilePath,100,100);
+                }else if(suffix.equalsIgnoreCase("mp4")||suffix.equalsIgnoreCase("3gp")){
+                    InputStream is= null;
+                    try {
+                        is = getContext().getAssets().open("video_play.jpg");
+                        bitmap = BitmapFactory.decodeStream(is);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 Message msg = new Message();
                 msg.what = 1;
                 msg.obj = bitmap;
@@ -243,17 +263,17 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
                 mResourceAddress.setText(villageProofResource.getAddress());
                 mVillageType.setText(villageProofResource.getVillageServiceDescription());
                 mResourceDescription.setText(villageProofResource.getDescription());
-                if (villageProofResource.getImageFilePath()!=null){
-                    imgFile = new File(villageProofResource.getImageFilePath());
+                if (uploadFilePath!=null){
+                    uploadFile = new File(uploadFilePath);
                 }
                 selectedVillageServiceTypeId = villageProofResource.getVillageServiceId();
 //              表明已经拍照成功,防止resume方法finish
-                takePhotoSuccess = true;
+                takeProofSuccess = true;
             }else {
-                takePhoto();
+                useCamera();
             }
         }else{
-            takePhoto();
+            useCamera();
         }
     }
 
@@ -282,7 +302,14 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
         mResource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageGalleryActivity.show(getActivity(), theLarge, "");
+                if(proofMethod==TAKEPHOTO){
+                    ImageGalleryActivity.show(getActivity(), proofFile, "");
+                }else if(proofMethod==TAKEVIDEO){
+                    Intent intent = new Intent(VillageServiceProofResourPubFragment.this.getContext(), VideoPlayActivity.class);
+                    intent.putExtra(VideoPlayActivity.BUNDLEKEY_VIDEOSOURCE_TYPE, VideoPlayActivity.VIDEOTYPEFILE);
+                    intent.putExtra(VideoPlayActivity.BUNDLEKEY_VIDEOSOURCE,proofFile);
+                    VillageServiceProofResourPubFragment.this.getContext().startActivity(intent);
+                }
             }
         });
     }
@@ -290,14 +317,12 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
     @Override
     public boolean onBackPressed() {
         DialogHelp.getConfirmDialog(getActivity(), "是否退出上传佐证?", new DialogInterface.OnClickListener() {
-
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 getActivity().finish();
             }
         }, new DialogInterface.OnClickListener() {
-
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -338,55 +363,47 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
             }
         }
         if (requestCode == ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA) {
-            takePhotoSuccess = true;
+            takeProofSuccess = true;
             locate();
             mResourceTime.setText(DateTimeUtil.getCurrentDateStr("yyyy-MM-dd HH:mm:ss"));
             new Thread() {
                 @Override
                 public void run() {
                     Bitmap bitmap = null;
-                    if (bitmap == null && !StringUtils.isEmpty(theLarge)) {
-                        bitmap = ImageUtils
-                                .loadImgThumbnail(theLarge, 200, 200);
-                    }
-                    if (bitmap != null) {
-                        // 存放照片的文件夹
-                        String savePath = Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + "/EasyFarm/Camera/";
+//                  界面显示的缩略图
+                    if (proofMethod==TAKEPHOTO && !StringUtils.isEmpty(proofFile)) {
+                        bitmap = ImageUtils.loadImgThumbnail(proofFile, 200, 200);
+                        // 存放上传照片的文件夹
+                        String savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EasyFarm/Camera/";
                         File savedir = new File(savePath);
                         if (!savedir.exists()) {
                             savedir.mkdirs();
                         }
-
-                        String largeFileName = FileUtil.getFileName(theLarge);
-                        String largeFilePath = savePath + largeFileName;
-                        // 判断是否已存在缩略图
-                        if (largeFileName.startsWith("thumb_")
-                                && new File(largeFilePath).exists()) {
-                            theThumbnail = largeFilePath;
-                            imgFile = new File(theThumbnail);
-                        } else {
-                            // 生成860的缩略图并作为上传的图片
-                            String thumbFileName = "thumb_" + largeFileName;
-                            theThumbnail = savePath + thumbFileName;
-                            if (new File(theThumbnail).exists()) {
-                                imgFile = new File(theThumbnail);
-                            } else {
-                                try {
-                                    // 压缩上传的图片
-                                    ImageUtils.createImageThumbnail(getActivity(),
-                                            theLarge, theThumbnail, 860, 100);
-                                    imgFile = new File(theThumbnail);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                        String proofFileName = FileUtil.getFileName(proofFile);
+                        // 生成860的缩略图并作为上传的图片
+                        String uploadFileName = "upload_" + proofFileName;
+                        String uploadPhotoFile = savePath + uploadFileName;
+                        try {
+                            // 压缩上传的图片
+                            ImageUtils.createImageThumbnail(getActivity(),
+                                    proofFile, uploadPhotoFile, 860, 100);
+                            uploadFile = new File(uploadPhotoFile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        Message msg = new Message();
-                        msg.what = 1;
-                        msg.obj = bitmap;
-                        handler.sendMessage(msg);
+                    }else if(proofMethod==TAKEVIDEO){
+                        try {
+                            InputStream is= VillageServiceProofResourPubFragment.this.getContext().getAssets().open("video_play.jpg");
+                            bitmap = BitmapFactory.decodeStream(is);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        uploadFile = new File(proofFile);
                     }
+                    Message msg = new Message();
+                    msg.what = 1;
+                    msg.obj = bitmap;
+                    handler.sendMessage(msg);
                 };
             }.start();
         }
@@ -420,7 +437,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
     public void onResume() {
         super.onResume();
 //      如果没有拍照成功并且不是第一次进入activity，自动退出
-        if (!firstStart&&!takePhotoSuccess){
+        if (!firstStart&&!takeProofSuccess){
             getActivity().finish();
         }
         if (firstStart==true){
@@ -429,7 +446,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
     }
 
     @AfterPermissionGranted(RC_CAMERA_PERM)
-    private void takePhoto() {
+    private void useCamera() {
         String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this.getContext(), perms)) {
             try{
@@ -463,16 +480,28 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
 
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
                 .format(new Date());
-        String fileName = "easyfarm_" + timeStamp + ".jpg";// 照片命名
-        File out = new File(savePath, fileName);
-        Uri uri = Uri.fromFile(out);
 
-        theLarge = savePath + fileName;// 该照片的绝对路径
+        if(proofMethod==TAKEPHOTO){
+            String fileName = "easyfarm_" + timeStamp + ".jpg";// 照片命名
+            File out = new File(savePath, fileName);
+            Uri uri = Uri.fromFile(out);
+            proofFile = savePath + fileName;// 该照片的绝对路径
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            startActivityForResult(intent,
+                    ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
+        }else {
+            String fileName = "easyfarm_" + timeStamp + ".mp4";// 照片命名
+            File out = new File(savePath, fileName);
+            Uri uri = Uri.fromFile(out);
+            proofFile = savePath + fileName;// 该照片的绝对路径
+            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,videoTimeLimit);
+            startActivityForResult(intent,
+                    ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
+        }
 
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        startActivityForResult(intent,
-                ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
     }
 
 //  检查权限是否被永久禁用的接口

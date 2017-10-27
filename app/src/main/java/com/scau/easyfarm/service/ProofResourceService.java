@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 
-import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.SimpleBackPage;
-import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageProofResource;
-import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.VillageServiceProofResourPubFragment;
 import com.scau.easyfarm.ui.SimpleBackActivity;
 import com.scau.easyfarm.util.JsonUtils;
@@ -49,8 +46,8 @@ public class ProofResourceService extends BaseService{
 //				    }
 //				}, 3000);
                 removePenddingTask(MYKEY + id);
-                if (villageResource.getImageFilePath() != null) {
-                    File imgFile = new File(villageResource.getImageFilePath());
+                if (villageResource.getUploadFilePath() != null) {
+                    File imgFile = new File(villageResource.getUploadFilePath());
                     if (imgFile.exists()) {
                         imgFile.delete();
                     }

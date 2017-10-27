@@ -10,6 +10,7 @@
         android:id="@+id/iv_resource_img"
         android:layout_width="60dp"
         android:layout_height="80dp"
+        android:src="@drawable/video_play"
         android:layout_margin="@dimen/space_10" />
 
     <LinearLayout

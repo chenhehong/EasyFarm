@@ -13,8 +13,6 @@ import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.bean.Tweet;
 import com.scau.easyfarm.bean.VillageProofResource;
 import com.scau.easyfarm.util.JsonUtils;
-import com.scau.easyfarm.util.TLog;
-import com.scau.easyfarm.util.UIHelper;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -431,9 +429,9 @@ public class EasyFarmServerApi {
         params.put("description",v.getDescription());
         params.put("typeId",v.getDescriptionId());
         params.put("createDate",v.getCreateDate());
-        if (!TextUtils.isEmpty(v.getImageFilePath())) {
+        if (!TextUtils.isEmpty(v.getUploadFilePath())) {
             try {
-                params.put("file", new File(v.getImageFilePath()));
+                params.put("file", new File(v.getUploadFilePath()));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

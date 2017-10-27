@@ -1,5 +1,7 @@
 package com.scau.easyfarm.adapter;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,8 +11,8 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.VillageProofResource;
-import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.ui.ImageGalleryActivity;
+import com.scau.easyfarm.ui.VideoPlayActivity;
 
 import org.kymjs.kjframe.Core;
 
@@ -51,13 +53,28 @@ public class VillageServiceProofResourceAdapter extends ListBaseAdapter<VillageP
         }
 
         final VillageProofResource villageServiceProofResource = (VillageProofResource) mDatas.get(position);
-        new Core.Builder().view(vh.img).url(ApiHttpClient.getAbsoluteApiUrl(villageServiceProofResource.getImageFilePath())).doTask();
-        vh.img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageGalleryActivity.show(parent.getContext(), ApiHttpClient.getAbsoluteApiUrl(villageServiceProofResource.getImageFilePath()),"");
-            }
-        });
+        final String uploadFilePath = villageServiceProofResource.getUploadFilePath();
+        String suffix = uploadFilePath.substring(uploadFilePath.lastIndexOf(".") + 1);
+        if(suffix.equalsIgnoreCase("jpg")||suffix.equalsIgnoreCase("jpeg")||suffix.equalsIgnoreCase("png")){
+            new Core.Builder().view(vh.img).url(ApiHttpClient.getAbsoluteApiUrl(uploadFilePath)).doTask();
+            vh.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageGalleryActivity.show(parent.getContext(), ApiHttpClient.getAbsoluteApiUrl(uploadFilePath),"");
+                }
+            });
+        }else if(suffix.equalsIgnoreCase("mp4")||suffix.equalsIgnoreCase("3gp")){
+            vh.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(parent.getContext(), VideoPlayActivity.class);
+                    intent.putExtra(VideoPlayActivity.BUNDLEKEY_VIDEOSOURCE_TYPE, VideoPlayActivity.VIDEOTYPEURL);
+                    intent.putExtra(VideoPlayActivity.BUNDLEKEY_VIDEOSOURCE,ApiHttpClient.getAbsoluteApiUrl(uploadFilePath));
+                    parent.getContext().startActivity(intent);
+                }
+            });
+        }
+
         vh.description.setText(villageServiceProofResource.getDescription());
         vh.time.setText(villageServiceProofResource.getCreateDate());
         vh.address.setText(villageServiceProofResource.getAddress());

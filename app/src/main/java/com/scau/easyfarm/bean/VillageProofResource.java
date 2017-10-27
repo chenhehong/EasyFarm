@@ -1,23 +1,6 @@
 package com.scau.easyfarm.bean;
 
-import android.content.Context;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.TextView.BufferType;
-
 import com.alibaba.fastjson.annotation.JSONField;
-import com.scau.easyfarm.AppContext;
-import com.scau.easyfarm.util.UIHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 问题实体类
@@ -40,7 +23,7 @@ public class VillageProofResource extends Entity{
     private String villageServiceAddress="";
     private String villageServiceReason="";
     @JSONField(name = "metaPath")
-    private String imageFilePath="";
+    private String uploadFilePath ="";
 
 
     public String getCreateDate() {
@@ -107,12 +90,12 @@ public class VillageProofResource extends Entity{
         this.villageServiceReason = villageServiceReason;
     }
 
-    public String getImageFilePath() {
-        return imageFilePath;
+    public String getUploadFilePath() {
+        return uploadFilePath;
     }
 
-    public void setImageFilePath(String imageFilePath) {
-        this.imageFilePath = imageFilePath;
+    public void setUploadFilePath(String uploadFilePath) {
+        this.uploadFilePath = uploadFilePath;
     }
 
     public String getVillageServiceDescription() {

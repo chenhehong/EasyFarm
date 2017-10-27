@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.VillageProofResource;
