@@ -16,7 +16,7 @@ public class ExpertBaseChooseManualCategoryFragment extends BaseManualCategoryLi
         if (nextLevelManualCategory.getId()==parentManualCategory.getId()){
             nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName());
         }else {
-            nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName()+nextLevelManualCategory.getCategoryName()+"/");
+            nextLevelManualCategory.setCategoryName(parentManualCategory.getCategoryName()+"/"+nextLevelManualCategory.getCategoryName());
         }
         if (nextLevelManualCategory.isParent()){
             UIHelper.showExpertBaseManualCategory(this, nextLevelManualCategory);
