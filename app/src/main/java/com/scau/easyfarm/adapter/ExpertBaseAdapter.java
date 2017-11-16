@@ -9,7 +9,6 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.ApiHttpClient;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.ExpertBase;
-import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.widget.AvatarView;
 
 import butterknife.ButterKnife;
@@ -44,7 +43,7 @@ public class ExpertBaseAdapter extends ListBaseAdapter<ExpertBase> {
 
 		vh.organization.setText(item.getOrganization());
 		vh.techtype.setText(item.getTechType());
-		vh.phoneNumber.setText(item.getPhoneNumber());
+		vh.email.setText(item.getEmail());
 
 		vh.avatar.setAvatarUrl(ApiHttpClient.getAbsoluteApiUrl(item.getImagePath()));
 //	vh.avatar.setUserInfo(item.getId(), item.getRealName());
@@ -60,8 +59,8 @@ public class ExpertBaseAdapter extends ListBaseAdapter<ExpertBase> {
 	TextView organization;
 	@InjectView(R.id.tv_techtype)
 	TextView techtype;
-	@InjectView(R.id.tv_phonenumber)
-	TextView phoneNumber;
+	@InjectView(R.id.tv_email)
+	TextView email;
 	@InjectView(R.id.iv_avatar)
 	AvatarView avatar;
 

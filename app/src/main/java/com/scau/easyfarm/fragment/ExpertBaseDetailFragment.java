@@ -34,8 +34,6 @@ public class ExpertBaseDetailFragment extends BaseFragment {
     TextView tvOrganization;
     @InjectView(R.id.tv_techtype)
     TextView tvTechType;
-    @InjectView(R.id.tv_phonenumber)
-    TextView tvPhoneNumber;
     @InjectView(R.id.tv_email)
     TextView tvEmail;
     @InjectView(R.id.tv_description)
@@ -119,7 +117,6 @@ public class ExpertBaseDetailFragment extends BaseFragment {
         tvGender.setText(ExpertBase.genderIntMap.get(mExpertBase.getSex()));
         tvOrganization.setText(mExpertBase.getOrganization());
         tvTechType.setText(mExpertBase.getTechType());
-        tvPhoneNumber.setText(mExpertBase.getPhoneNumber());
         tvEmail.setText(mExpertBase.getEmail());
         tvDescrioption.setText(mExpertBase.getDescription());
     }
