@@ -12,6 +12,8 @@ import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.InputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by 火蚁 on 15/5/25.
@@ -46,8 +48,14 @@ public class NewsDetailFragment extends CommonDetailFragment<News> {
         String time = StringUtils.friendly_time(mDetail.getPubDate());
         String author = String.format("<a class='author' href=''>%s</a>", mDetail.getAuthor());
         body.append(String.format("<div class='authortime'>%s&nbsp;&nbsp;&nbsp;&nbsp;%s</div>", author, time));
+
+//      正则表达式替换img标签里面的样式，使之能够在手机上面自适应屏幕
+        Pattern p = Pattern.compile("sudyfile-attr.*/>");
+        Matcher m = p.matcher(mDetail.getContent());
+        String content = m.replaceAll("/>");
+
         // 添加图片点击放大支持
-        body.append(UIHelper.setHtmlCotentSupportImagePreview(mDetail.getContent()));
+        body.append(UIHelper.setHtmlCotentSupportImagePreview(content));
 
         // 封尾
         body.append("</div></body>");

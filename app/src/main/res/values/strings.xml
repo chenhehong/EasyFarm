@@ -1,6 +1,6 @@
 <resources>
     <!-- app名称-->
-    <string name="app_name">农技通</string>
+    <string name="app_name">华南农技通</string>
     <!--主tab名-->
     <string name="main_tab_name_function">应用</string>
     <string name="main_tab_name_question">在线交流</string>
@@ -8,7 +8,7 @@
     <string name="main_tab_name_news">新闻</string>
     <string name="main_tab_name_me">我</string>
 
-    <string name="tip_double_click_exit">再次点击退出农技通</string>
+    <string name="tip_double_click_exit">再次点击退出华南农技通</string>
 
     <!-- 我-->
     <string name="actionbar_title_user_center">用户中心</string>

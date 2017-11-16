@@ -104,9 +104,9 @@ public class AboutAppFragment extends BaseFragment implements EasyPermissions.Pe
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        String tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用下载和更新app的功能";
+        String tip = ">在设置-应用-华南农技通权限中允许读取文件，以正常使用下载和更新app的功能";
         if (perms.get(0).equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用下载和更新app的功能";
+            tip = ">在设置-应用-华南农技通权限中允许读取文件，以正常使用下载和更新app的功能";
         }
         // 权限被拒绝了
         DialogHelp.getConfirmDialog(getActivity(),

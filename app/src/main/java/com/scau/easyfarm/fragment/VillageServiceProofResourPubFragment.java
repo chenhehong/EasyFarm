@@ -430,7 +430,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
             LocationUtils locationUtils = new LocationUtils(mhandler);
             locationUtils.start();
         } else {
-            EasyPermissions.requestPermissions(this, "农技通请求网络定位和GPS定位权限", RC_LOCATION_PERM, Manifest.permission.ACCESS_COARSE_LOCATION);
+            EasyPermissions.requestPermissions(this, "华南农技通请求网络定位和GPS定位权限", RC_LOCATION_PERM, Manifest.permission.ACCESS_COARSE_LOCATION);
         }
     }
     @Override
@@ -452,7 +452,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
             try{
                 toCamera();
             }catch (Exception e){
-                AppContext.showToast("农技通未能获取拍照和读取文件权限，请授权后操作！");
+                AppContext.showToast("华南农技通未能获取拍照和读取文件权限，请授权后操作！");
             }
         } else {
             EasyPermissions.requestPermissions(this, "请求获取拍照和读取文件权限", RC_CAMERA_PERM, perms);
@@ -524,21 +524,21 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
         try{
             toCamera();
         }catch (Exception e){
-            AppContext.showToast("农技通未能获取拍照和读取文件权限，请授权后操作！");
+            AppContext.showToast("华南农技通未能获取拍照和读取文件权限，请授权后操作！");
         }
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        String tip = ">在设置-应用-农技通权限中允许拍摄照片，以正常使用佐证功能";
+        String tip = ">在设置-应用-华南农技通权限中允许拍摄照片，以正常使用佐证功能";
         if (perms.get(0).equals(Manifest.permission.CAMERA)) {
-            tip = ">在设置-应用-农技通权限中允许拍摄照片，以正常使用佐证功能";
+            tip = ">在设置-应用-华南农技通权限中允许拍摄照片，以正常使用佐证功能";
         }
         if (perms.get(0).equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            tip = ">在设置-应用-农技通权限中允许读取文件，以正常使用佐证功能";
+            tip = ">在设置-应用-华南农技通权限中允许读取文件，以正常使用佐证功能";
         }
         if (perms.get(0).equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            tip = ">在设置-应用-农技通权限中允许定位，以正常使用佐证功能";
+            tip = ">在设置-应用-华南农技通权限中允许定位，以正常使用佐证功能";
         }
         // 权限被拒绝了
         DialogHelp.getConfirmDialog(getActivity(),
