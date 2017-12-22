@@ -1,11 +1,6 @@
 package com.scau.easyfarm.service;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;

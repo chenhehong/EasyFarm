@@ -8,8 +8,6 @@ import android.widget.TextView;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Active;
-import com.scau.easyfarm.bean.News;
-import com.scau.easyfarm.util.StringUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

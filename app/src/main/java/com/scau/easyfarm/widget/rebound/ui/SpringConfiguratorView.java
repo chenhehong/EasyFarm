@@ -11,11 +11,6 @@
 package com.scau.easyfarm.widget.rebound.ui;
 
 
-import static com.scau.easyfarm.widget.rebound.ui.Util.dpToPx;
-import static com.scau.easyfarm.widget.rebound.ui.Util.createLayoutParams;
-import static com.scau.easyfarm.widget.rebound.ui.Util.createMatchParams;
-import static com.scau.easyfarm.widget.rebound.ui.Util.createMatchWrapParams;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
@@ -36,7 +31,6 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-
 import com.scau.easyfarm.widget.rebound.OrigamiValueConverter;
 import com.scau.easyfarm.widget.rebound.Spring;
 import com.scau.easyfarm.widget.rebound.SpringConfig;
@@ -48,6 +42,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.scau.easyfarm.widget.rebound.ui.Util.createLayoutParams;
+import static com.scau.easyfarm.widget.rebound.ui.Util.createMatchParams;
+import static com.scau.easyfarm.widget.rebound.ui.Util.createMatchWrapParams;
+import static com.scau.easyfarm.widget.rebound.ui.Util.dpToPx;
 
 
 /**

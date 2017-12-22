@@ -1,8 +1,5 @@
 package com.scau.easyfarm.fragment;
 
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.CommonDetailFragment;
 import com.scau.easyfarm.bean.News;

@@ -10,13 +10,10 @@ import android.widget.AdapterView;
 
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.adapter.PerformanceMonthStatisticsAdapter;
 import com.scau.easyfarm.adapter.ServiceMonthStatisticsAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;
-import com.scau.easyfarm.bean.PerformStatisticsList;
-import com.scau.easyfarm.bean.PerformanceStatistics;
 import com.scau.easyfarm.bean.ServiceStatistics;
 import com.scau.easyfarm.bean.ServiceStatisticsList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;

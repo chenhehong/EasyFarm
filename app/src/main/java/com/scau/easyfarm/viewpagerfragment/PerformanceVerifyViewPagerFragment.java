@@ -7,9 +7,7 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
-import com.scau.easyfarm.bean.Performance;
 import com.scau.easyfarm.fragment.PerformanceVerifyListFragment;
-import com.scau.easyfarm.fragment.VillageServiceVerifyListFragment;
 
 /**
  * Created by ChenHehong on 2016/6/11.

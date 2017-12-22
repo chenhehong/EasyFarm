@@ -40,8 +40,6 @@ import com.scau.easyfarm.util.SimpleTextWatcher;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 
-import org.w3c.dom.Text;
-
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;

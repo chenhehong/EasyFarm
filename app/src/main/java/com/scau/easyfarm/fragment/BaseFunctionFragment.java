@@ -5,21 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Constants;
-import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.Module;
-import com.scau.easyfarm.bean.SimpleBackPage;
-import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.util.ArrayList;

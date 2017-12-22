@@ -14,10 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.ApiHttpClient;
@@ -31,10 +29,8 @@ import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.cache.CacheManager;
 import com.scau.easyfarm.ui.MainActivity;
-import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;
-import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
 import com.scau.easyfarm.widget.AvatarView;
@@ -46,7 +42,6 @@ import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by ChenHehong on 2016/6/11.

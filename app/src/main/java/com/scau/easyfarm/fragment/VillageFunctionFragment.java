@@ -1,24 +1,10 @@
 package com.scau.easyfarm.fragment;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.Module;
 import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.bean.User;
-import com.scau.easyfarm.util.UIHelper;
-
-import java.util.ArrayList;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by ChenHehong on 2016/6/11.

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 
 import com.github.rtoshiro.view.video.FullscreenVideoLayout;
 import com.scau.easyfarm.R;

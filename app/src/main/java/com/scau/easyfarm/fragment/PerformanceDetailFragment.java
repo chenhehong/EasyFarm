@@ -18,15 +18,11 @@ import com.scau.easyfarm.bean.Performance;
 import com.scau.easyfarm.bean.PerformanceDetail;
 import com.scau.easyfarm.bean.PerformanceMemberWorkTime;
 import com.scau.easyfarm.bean.VerifyOpinion;
-import com.scau.easyfarm.bean.VillageService;
-import com.scau.easyfarm.bean.VillageServiceDetail;
 import com.scau.easyfarm.ui.ImageGalleryActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
-import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
 import com.scau.easyfarm.util.UIHelper;
-import com.scau.easyfarm.widget.rebound.ui.Util;
 
 import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;

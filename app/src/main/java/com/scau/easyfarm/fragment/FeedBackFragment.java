@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
@@ -22,7 +21,6 @@ import java.io.ByteArrayInputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 public class FeedBackFragment extends BaseFragment {
     @InjectView(R.id.et_feedback)

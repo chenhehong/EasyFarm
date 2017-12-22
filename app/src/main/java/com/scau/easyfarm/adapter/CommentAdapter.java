@@ -1,9 +1,6 @@
 package com.scau.easyfarm.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,8 +12,6 @@ import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Comment;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.widget.AvatarView;
-
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

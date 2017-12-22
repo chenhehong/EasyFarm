@@ -12,7 +12,6 @@ import android.widget.ListView;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.SimpleTextListAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
-import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.SimpleText;
 import com.scau.easyfarm.bean.SimpleTextList;

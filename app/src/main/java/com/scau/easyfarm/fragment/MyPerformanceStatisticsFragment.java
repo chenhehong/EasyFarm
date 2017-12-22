@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.MyPerformanceStatisticsAdapter;
-import com.scau.easyfarm.adapter.PerformanceStatisticsAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.Constants;

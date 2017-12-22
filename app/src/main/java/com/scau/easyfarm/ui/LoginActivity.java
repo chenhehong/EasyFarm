@@ -5,9 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
@@ -17,10 +15,7 @@ import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseActivity;
 import com.scau.easyfarm.bean.Constants;
 import com.scau.easyfarm.bean.LoginUserBean;
-import com.scau.easyfarm.bean.Notice;
-import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.SimpleBackPage;
-import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.util.CyptoUtils;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.TDevice;
@@ -29,12 +24,10 @@ import com.scau.easyfarm.util.UIHelper;
 
 import org.kymjs.kjframe.http.HttpConfig;
 
-
 import java.io.ByteArrayInputStream;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.client.CookieStore;
 import cz.msebera.android.httpclient.client.protocol.ClientContext;
 import cz.msebera.android.httpclient.cookie.Cookie;

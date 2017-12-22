@@ -6,16 +6,13 @@ import android.widget.AdapterView;
 import com.scau.easyfarm.adapter.NewsAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
-import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.News;
 import com.scau.easyfarm.bean.NewsList;
-import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.UIHelper;
 
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by chenhehong on 2016/8/26.

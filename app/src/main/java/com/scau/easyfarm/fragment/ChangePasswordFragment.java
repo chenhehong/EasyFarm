@@ -1,19 +1,16 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
-import com.scau.easyfarm.bean.LoginUserBean;
 import com.scau.easyfarm.bean.ResultBean;
 import com.scau.easyfarm.util.JsonUtils;
 import com.scau.easyfarm.util.StringUtils;
@@ -24,7 +21,6 @@ import java.io.ByteArrayInputStream;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/8/22.

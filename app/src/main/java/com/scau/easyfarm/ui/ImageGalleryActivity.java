@@ -27,10 +27,11 @@ import com.scau.easyfarm.base.AppOperator;
 import com.scau.easyfarm.util.PicturesCompress;
 import com.scau.easyfarm.util.StreamUtils;
 
+import net.qiujuer.genius.ui.widget.Loading;
+
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import net.qiujuer.genius.ui.widget.Loading;
 
 
 /**

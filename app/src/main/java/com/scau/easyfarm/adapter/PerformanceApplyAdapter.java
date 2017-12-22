@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Performance;
-import com.scau.easyfarm.bean.VillageService;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

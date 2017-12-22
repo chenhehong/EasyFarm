@@ -10,9 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.interf.BaseViewInterface;

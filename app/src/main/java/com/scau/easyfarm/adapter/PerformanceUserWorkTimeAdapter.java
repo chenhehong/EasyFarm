@@ -1,21 +1,14 @@
 package com.scau.easyfarm.adapter;
 
 import android.support.v4.app.Fragment;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.PerformanceMemberWorkTime;
-import com.scau.easyfarm.bean.User;
-import com.scau.easyfarm.fragment.VillageServiceAddFragment;
-import com.scau.easyfarm.util.SimpleTextWatcher;
-import com.scau.easyfarm.util.StringUtils;
-import com.scau.easyfarm.widget.ToggleButton;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

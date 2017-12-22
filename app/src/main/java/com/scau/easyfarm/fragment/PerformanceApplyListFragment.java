@@ -20,7 +20,6 @@ import com.scau.easyfarm.bean.Performance;
 import com.scau.easyfarm.bean.PerformanceList;
 import com.scau.easyfarm.bean.Result;
 import com.scau.easyfarm.bean.ResultBean;
-import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.DialogHelp;
 import com.scau.easyfarm.util.JsonUtils;

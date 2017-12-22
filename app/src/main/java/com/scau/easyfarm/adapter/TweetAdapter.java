@@ -2,14 +2,11 @@ package com.scau.easyfarm.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.ApiHttpClient;
@@ -23,12 +20,10 @@ import com.scau.easyfarm.util.TypefaceUtils;
 import com.scau.easyfarm.util.UIHelper;
 import com.scau.easyfarm.widget.AvatarView;
 
-
 import java.io.ByteArrayInputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 public class TweetAdapter extends ListBaseAdapter<Tweet> {
 

@@ -16,10 +16,6 @@
 
 package com.scau.easyfarm.widget;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -33,6 +29,10 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import com.scau.easyfarm.R;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 专为ViewPager定制的滑动选项卡 HOME

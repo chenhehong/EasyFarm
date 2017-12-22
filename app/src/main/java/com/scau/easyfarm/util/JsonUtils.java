@@ -1,9 +1,6 @@
 package com.scau.easyfarm.util;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

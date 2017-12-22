@@ -1,7 +1,5 @@
 package com.scau.easyfarm.bean;
 
-import com.scau.easyfarm.api.remote.EasyFarmServerApi;
-
 /**
  * Created by chenhehong on 2016/11/1.
  */

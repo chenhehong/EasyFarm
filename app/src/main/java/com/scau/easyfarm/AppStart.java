@@ -9,8 +9,6 @@ import android.view.animation.Animation;
 
 import com.scau.easyfarm.ui.MainActivity;
 
-import java.io.File;
-
 /**
  * 应用启动界面
  */

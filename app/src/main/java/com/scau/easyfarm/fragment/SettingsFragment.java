@@ -17,6 +17,13 @@ import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.AppManager;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.BaseFragment;
+import com.scau.easyfarm.bean.SimpleBackPage;
+import com.scau.easyfarm.bean.User;
+import com.scau.easyfarm.util.DialogHelp;
+import com.scau.easyfarm.util.FileUtil;
+import com.scau.easyfarm.util.MethodsCompat;
+import com.scau.easyfarm.util.UIHelper;
+import com.scau.easyfarm.widget.ToggleButton;
 
 import org.kymjs.kjframe.http.HttpConfig;
 
@@ -27,14 +34,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
-
-import com.scau.easyfarm.bean.SimpleBackPage;
-import com.scau.easyfarm.bean.User;
-import com.scau.easyfarm.util.DialogHelp;
-import com.scau.easyfarm.util.FileUtil;
-import com.scau.easyfarm.util.MethodsCompat;
-import com.scau.easyfarm.util.UIHelper;
-import com.scau.easyfarm.widget.ToggleButton;
 
 /**
  * 系统设置界面

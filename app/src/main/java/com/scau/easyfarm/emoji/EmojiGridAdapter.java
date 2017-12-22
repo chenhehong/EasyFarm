@@ -22,7 +22,6 @@ import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-
 import com.scau.easyfarm.R;
 
 import java.util.ArrayList;

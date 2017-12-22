@@ -1,8 +1,5 @@
 package com.scau.easyfarm.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.util.UIHelper;
 

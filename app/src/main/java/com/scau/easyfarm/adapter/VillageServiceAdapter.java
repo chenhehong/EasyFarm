@@ -2,16 +2,11 @@ package com.scau.easyfarm.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
-import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.VillageService;
-import com.scau.easyfarm.util.DateTimeUtil;
-
-import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

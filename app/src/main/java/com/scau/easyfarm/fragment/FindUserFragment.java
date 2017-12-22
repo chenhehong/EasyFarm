@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,13 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.FindUserAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
-import com.scau.easyfarm.bean.ListEntity;
 import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.bean.UserList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
@@ -30,11 +27,9 @@ import com.scau.easyfarm.util.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by ChenHehong on 2016/10/1.

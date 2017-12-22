@@ -3,19 +3,14 @@ package com.scau.easyfarm.service;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.widget.RemoteViews;
 
-
 import com.scau.easyfarm.AppConfig;
 import com.scau.easyfarm.R;
-import com.scau.easyfarm.interf.ICallbackResult;
 import com.scau.easyfarm.ui.MainActivity;
 import com.scau.easyfarm.util.StringUtils;
 import com.scau.easyfarm.util.TDevice;

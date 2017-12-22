@@ -1,7 +1,5 @@
 package com.scau.easyfarm.adapter;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +9,7 @@ import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.VillageService;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
-import com.scau.easyfarm.util.DateTimeUtil;
 import com.scau.easyfarm.util.UIHelper;
-
-import org.w3c.dom.Text;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

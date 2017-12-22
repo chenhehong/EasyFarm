@@ -7,10 +7,7 @@ import android.widget.TextView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
-import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.bean.WitTweet;
-import com.scau.easyfarm.util.StringUtils;
-import com.scau.easyfarm.widget.AvatarView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

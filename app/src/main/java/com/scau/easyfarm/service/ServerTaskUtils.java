@@ -2,18 +2,10 @@ package com.scau.easyfarm.service;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.bean.VillageProofResource;
-import com.scau.easyfarm.util.DialogHelp;
-
-import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;

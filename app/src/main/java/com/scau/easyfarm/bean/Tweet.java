@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.util.UIHelper;

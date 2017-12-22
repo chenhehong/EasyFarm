@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
-import com.scau.easyfarm.bean.User;
 import com.scau.easyfarm.bean.VillageServiceReason;
 
 import butterknife.ButterKnife;

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
@@ -14,8 +13,6 @@ import com.scau.easyfarm.bean.Update;
 import com.scau.easyfarm.service.ServerTaskUtils;
 
 import java.io.ByteArrayInputStream;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * 更新管理类

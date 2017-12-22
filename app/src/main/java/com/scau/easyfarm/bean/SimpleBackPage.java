@@ -37,10 +37,10 @@ import com.scau.easyfarm.fragment.SimpleTextChooseFragment;
 import com.scau.easyfarm.fragment.TweetChooseManualCategoryFragment;
 import com.scau.easyfarm.fragment.TweetExpertChooseFragment;
 import com.scau.easyfarm.fragment.TweetPubFragment;
-import com.scau.easyfarm.fragment.VillageFunctionFragment;
-import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.UserCenterFragment;
+import com.scau.easyfarm.fragment.VillageFunctionFragment;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
+import com.scau.easyfarm.fragment.VillageServiceDetailFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofChooseFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourPubFragment;
 import com.scau.easyfarm.fragment.VillageServiceProofResourceFragment;
@@ -51,9 +51,9 @@ import com.scau.easyfarm.fragment.WitTweetFragment;
 import com.scau.easyfarm.viewpagerfragment.NoticeViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.PerformanceApplyViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.PerformanceVerifyViewPagerFragment;
-import com.scau.easyfarm.viewpagerfragment.VillageServiceVerifyViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceApplyViewPagerFragment;
 import com.scau.easyfarm.viewpagerfragment.VillageServiceProofViewPagerFragment;
+import com.scau.easyfarm.viewpagerfragment.VillageServiceVerifyViewPagerFragment;
 
 public enum SimpleBackPage {
 

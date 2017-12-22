@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.api.ApiHttpClient;
@@ -22,12 +21,10 @@ import com.scau.easyfarm.util.JsonUtils;
 import org.kymjs.kjframe.Core;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * 登录用户信息详情

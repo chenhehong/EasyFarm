@@ -11,7 +11,6 @@ import com.scau.easyfarm.base.BaseActivity;
 import com.scau.easyfarm.base.BaseFragment;
 import com.scau.easyfarm.emoji.KJEmojiFragment;
 import com.scau.easyfarm.emoji.OnSendClickListener;
-import com.scau.easyfarm.emoji.ToolbarFragment;
 import com.scau.easyfarm.fragment.ManualContentDetailFragment;
 import com.scau.easyfarm.fragment.NewsDetailFragment;
 import com.scau.easyfarm.fragment.TweetDetailFragment;

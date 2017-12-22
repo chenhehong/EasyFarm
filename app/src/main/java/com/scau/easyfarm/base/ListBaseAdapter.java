@@ -2,8 +2,6 @@ package com.scau.easyfarm.base;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;

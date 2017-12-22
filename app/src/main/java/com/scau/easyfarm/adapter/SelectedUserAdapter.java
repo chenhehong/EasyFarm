@@ -6,17 +6,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.scau.easyfarm.AppConfig;
-import com.scau.easyfarm.AppContext;
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.User;
-import com.scau.easyfarm.bean.VillageService;
-import com.scau.easyfarm.bean.VillageServiceReason;
 import com.scau.easyfarm.fragment.VillageServiceAddFragment;
 import com.scau.easyfarm.widget.ToggleButton;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

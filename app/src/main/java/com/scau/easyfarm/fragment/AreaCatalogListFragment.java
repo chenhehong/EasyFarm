@@ -3,7 +3,6 @@ package com.scau.easyfarm.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +22,10 @@ import com.scau.easyfarm.bean.Area;
 import com.scau.easyfarm.bean.AreaList;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
-import com.scau.easyfarm.util.UIHelper;
 import com.scau.easyfarm.widget.ScrollLayout;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 public class AreaCatalogListFragment extends BaseFragment implements
 		OnItemClickListener{

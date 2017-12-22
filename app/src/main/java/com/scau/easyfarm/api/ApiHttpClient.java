@@ -2,17 +2,16 @@ package com.scau.easyfarm.api;
 
 import android.content.Context;
 import android.util.Log;
-import cz.msebera.android.httpclient.client.params.ClientPNames;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.scau.easyfarm.AppContext;
-import com.scau.easyfarm.api.ApiClientHelper;
 import com.scau.easyfarm.util.TLog;
 
-
 import java.util.Locale;
+
+import cz.msebera.android.httpclient.client.params.ClientPNames;
 
 public class ApiHttpClient {
 

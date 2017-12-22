@@ -1,7 +1,5 @@
 package com.scau.easyfarm.bean;
 
-import java.io.Serializable;
-
 /**
  * 动态实体类
  * 

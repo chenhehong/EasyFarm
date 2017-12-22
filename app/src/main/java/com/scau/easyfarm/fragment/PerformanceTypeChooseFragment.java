@@ -18,7 +18,6 @@ import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.PerformanceType;
 import com.scau.easyfarm.bean.PerformanceTypeList;
-import com.scau.easyfarm.bean.VillageServiceReason;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 

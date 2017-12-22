@@ -2,7 +2,6 @@ package com.scau.easyfarm.service;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;

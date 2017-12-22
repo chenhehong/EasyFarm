@@ -8,9 +8,7 @@ import com.scau.easyfarm.adapter.ViewPageFragmentAdapter;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.base.BaseViewPagerFragment;
 import com.scau.easyfarm.bean.NewsList;
-import com.scau.easyfarm.bean.TweetsList;
 import com.scau.easyfarm.fragment.NewsListFragment;
-import com.scau.easyfarm.fragment.TweetsFragment;
 
 /**
  * 资讯viewpager页面

@@ -3,7 +3,6 @@ package com.scau.easyfarm.adapter;
 import android.annotation.SuppressLint;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.scau.easyfarm.R;

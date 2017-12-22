@@ -11,7 +11,6 @@ import android.widget.ListView;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ProofResourceDescriptionAdapter;
-import com.scau.easyfarm.adapter.VillageServiceReasonListAdapter;
 import com.scau.easyfarm.api.OperationResponseHandler;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseFragment;
@@ -19,14 +18,11 @@ import com.scau.easyfarm.base.ListBaseAdapter;
 import com.scau.easyfarm.bean.Entity;
 import com.scau.easyfarm.bean.ProofResourceDescription;
 import com.scau.easyfarm.bean.ProofResourceDescriptionList;
-import com.scau.easyfarm.bean.VillageServiceReason;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by chenhehong on 2016/9/8.

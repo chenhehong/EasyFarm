@@ -2,7 +2,6 @@ package com.scau.easyfarm.cache;
 
 import android.content.Context;
 
-
 import com.scau.easyfarm.util.TDevice;
 
 import java.io.File;
