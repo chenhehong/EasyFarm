@@ -18,11 +18,11 @@ public class MyFunctionFragment extends BaseFunctionFragment{
     public void initModuleList() {
         User u = AppContext.getInstance().getLoginUser();
         if (Module.existModule(u.getModuleList(),Module.MODULE_SERVICE_MANAGE)){
-            Module serviceMange = new Module(SimpleBackPage.VILLAGE_FUNCTION,"服务管理",R.drawable.func_village_service_apply_icon,null);
+            Module serviceMange = new Module(SimpleBackPage.VILLAGE_FUNCTION,"服务管理",R.drawable.func_service_icon,null);
             moduleList.add(serviceMange);
         }
         if (Module.existModule(u.getModuleList(),Module.MODULE_PERFORMANCE_MANAGE)){
-            Module performanceManage = new Module(SimpleBackPage.SERVICE_PERFORMANCE_FUNCTION,"绩效管理",R.drawable.func_village_service_performance_icon,null);
+            Module performanceManage = new Module(SimpleBackPage.SERVICE_PERFORMANCE_FUNCTION,"绩效管理",R.drawable.func_performance_icon,null);
             moduleList.add(performanceManage);
         }
         Bundle varietyBaseBundle = new Bundle();
