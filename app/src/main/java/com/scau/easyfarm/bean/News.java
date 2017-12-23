@@ -13,7 +13,7 @@ public class News extends Entity {
     private String content="";
     private int authorId;
     private String author="";
-    @JSONField(name = "publishDate")
+    @JSONField(name = "publishDateDesc")
     private String pubDate="";
 
     public String getTitle() {

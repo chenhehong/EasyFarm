@@ -30,11 +30,13 @@ public class Tweet extends Entity implements Parcelable {
     @JSONField(name = "imagePath")
     private String portrait="";
     private String author;
+    @JSONField(name = "personalID")
     private int authorid;
     private  String title;
     private String content;
     private String commentCount;
     private int readCount;
+    @JSONField(name="createDateDesc")
     private String createDate;
     private String imgSmall;
     private String imgBig;
@@ -120,7 +122,10 @@ public class Tweet extends Entity implements Parcelable {
     }
 
     public String getCreateDate() {
-        return createDate;
+        if (createDate!=null)
+            return createDate;
+        else
+            return "1994-10-04 12:12:12";
     }
 
     public void setCreateDate(String createDate) {

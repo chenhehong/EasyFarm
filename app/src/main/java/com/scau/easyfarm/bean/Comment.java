@@ -19,7 +19,7 @@ public class Comment extends Entity{
     @JSONField(name = "commentName")
     private String comenterName;
     private String content;
-    @JSONField(name = "createDate")
+    @JSONField(name = "createDateDesc")
     private String commentDate;
 
     public String getPortrait() {
@@ -71,7 +71,10 @@ public class Comment extends Entity{
     }
 
     public String getCommentDate() {
-        return commentDate;
+        if(commentDate!=null)
+            return commentDate;
+        else
+            return "1994-10-04 12:12:12";
     }
 
     public void setCommentDate(String commentDate) {

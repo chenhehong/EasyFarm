@@ -44,7 +44,7 @@ public class AvatarView extends CircleImageView {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(name)) {
-                    UIHelper.showUserCenter(getContext(), id, name);
+//                    UIHelper.showUserCenter(getContext(), id, name);
                 }
             }
         });
