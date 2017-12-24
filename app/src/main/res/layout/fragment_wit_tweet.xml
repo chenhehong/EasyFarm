@@ -24,7 +24,8 @@
             android:id="@+id/btn_tweet_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/btn_quickoption_selector" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/btn_choose_selector" />
     </LinearLayout>
 
     <EditText
