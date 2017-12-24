@@ -65,7 +65,7 @@ public class SearchManualViewPageFragment extends BaseViewPagerFragment {
 	}
 	
 	private void setSearch() {
-		mSearchView.setQueryHint("搜索");
+		mSearchView.setQueryHint("搜索农技知识");
 		TextView textView = (TextView) mSearchView.findViewById(R.id.search_src_text);
 		textView.setTextColor(Color.WHITE);
 		

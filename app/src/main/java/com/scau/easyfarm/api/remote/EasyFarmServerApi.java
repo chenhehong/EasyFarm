@@ -755,7 +755,18 @@ public class EasyFarmServerApi {
         params.put("searchKey", content);
         params.put("page", pageIndex);
         params.put("row", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("front/mobile/manual/api/getContentByCode", params, handler);
+        ApiHttpClient.get("front/mobile/manual/api/getContentByCodeAndSearch", params, handler);
+    }
+
+
+
+    public static void getExpertSearchList(String content,
+                                           int pageIndex, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("searchKey", content);
+        params.put("page", pageIndex);
+        params.put("row", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/expert/searchEpxert", params, handler);
     }
 
 }

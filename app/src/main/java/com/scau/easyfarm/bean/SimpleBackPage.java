@@ -28,6 +28,7 @@ import com.scau.easyfarm.fragment.PerformanceTypeChooseFragment;
 import com.scau.easyfarm.fragment.PerformanceVerifyFragment;
 import com.scau.easyfarm.fragment.ProofResourceDescriptionChooseFragment;
 import com.scau.easyfarm.fragment.RegisterFragment;
+import com.scau.easyfarm.fragment.SearchExpertFragment;
 import com.scau.easyfarm.fragment.ServerSummaryFragment;
 import com.scau.easyfarm.fragment.ServiceMonthStatisticsFragment;
 import com.scau.easyfarm.fragment.ServiceStatisticsFragment;
@@ -115,7 +116,8 @@ public enum SimpleBackPage {
     WITTWEET(53, R.string.actionbar_wittweet, WitTweetFragment.class),
     CHOOSE_SIMPLE_TEXT(54, R.string.actionbar_choose_simple_text, SimpleTextChooseFragment.class),
     CHOOSE_VILLAGE_SERVICE_TYPE(55, R.string.actionbar_title_choose_village_service_type, VillageServiceTypeChooseFragment.class),
-    SEARCH_MANUAL(56,R.string.actionbar_search_manual,SearchManualViewPageFragment.class);
+    SEARCH_MANUAL(56,R.string.actionbar_search_manual,SearchManualViewPageFragment.class),
+    SEARCH_EXPERT(57,R.string.actionbar_search_expert,SearchExpertFragment.class);
 
     private int title;
     private Class<?> clz;

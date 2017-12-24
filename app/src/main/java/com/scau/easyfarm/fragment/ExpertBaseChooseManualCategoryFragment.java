@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.scau.easyfarm.R;
 import com.scau.easyfarm.bean.ManualCategory;
+import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.util.UIHelper;
 
 /**
@@ -42,6 +44,20 @@ public class ExpertBaseChooseManualCategoryFragment extends BaseManualCategoryLi
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.search_icon_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.search_icon:
+                UIHelper.showSimpleBack(this, SimpleBackPage.SEARCH_EXPERT);
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
