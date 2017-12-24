@@ -1,15 +1,20 @@
 package com.scau.easyfarm.fragment;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.scau.easyfarm.R;
 import com.scau.easyfarm.adapter.ManualAdapter;
 import com.scau.easyfarm.api.remote.EasyFarmServerApi;
 import com.scau.easyfarm.base.BaseListFragment;
 import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.bean.ManualContent;
 import com.scau.easyfarm.bean.ManualList;
+import com.scau.easyfarm.bean.SimpleBackPage;
 import com.scau.easyfarm.ui.SimpleBackActivity;
 import com.scau.easyfarm.ui.empty.EmptyLayout;
 import com.scau.easyfarm.util.JsonUtils;
@@ -35,6 +40,7 @@ public class ManualListFragment extends BaseListFragment<ManualContent>{
         if (args != null) {
             seletedManualCategory = (ManualCategory)args.getSerializable(MANUALCATEGORY);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -101,13 +107,32 @@ public class ManualListFragment extends BaseListFragment<ManualContent>{
 
             @Override
             public void onClick(View v) {
-                    mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-                    requestData(true);
+                mErrorLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
+                requestData(true);
             }
         });
         if (getActivity() instanceof SimpleBackActivity){
             ((SimpleBackActivity)getActivity()).setActionBarTitle(seletedManualCategory.getCategoryName());
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_icon_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.search_icon:
+                UIHelper.showSimpleBack(this, SimpleBackPage.SEARCH_MANUAL);
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

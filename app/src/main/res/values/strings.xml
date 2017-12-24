@@ -210,4 +210,9 @@
 
     <string name="actionbar_choose_simple_text">选择</string>
 
+    <string name="actionbar_search_manual">搜索知识库</string>
+    <string name="actionbar_search_expert">搜索专家库</string>
+
+
+
 </resources>

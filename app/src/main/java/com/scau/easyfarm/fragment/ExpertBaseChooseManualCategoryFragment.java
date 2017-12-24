@@ -1,5 +1,13 @@
 package com.scau.easyfarm.fragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.scau.easyfarm.R;
 import com.scau.easyfarm.bean.ManualCategory;
 import com.scau.easyfarm.util.UIHelper;
 
@@ -23,5 +31,17 @@ public class ExpertBaseChooseManualCategoryFragment extends BaseManualCategoryLi
         }else {
             UIHelper.showExpertBaseList(this,nextLevelManualCategory);
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        setHasOptionsMenu(true);
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
     }
 }

@@ -70,7 +70,6 @@ public class VillageServiceAddFragment extends BaseFragment{
     @InjectView(R.id.btn_submit)
     Button btnSubmit;
 
-    private MenuItem mSendMenu;
     private ArrayList<User> personArray = new ArrayList<User>();
     private SelectedUserAdapter selectedUserAdapter;
 
@@ -138,34 +137,6 @@ public class VillageServiceAddFragment extends BaseFragment{
         etArea.setOnClickListener(this);
         etBusinessDate.setOnClickListener(this);
         etReturnDate.setOnClickListener(this);
-        etArea.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
-        etAddress.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
-        etReason.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
-        etType.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                updateMenuState();
-            }
-        });
         if (selectedUserAdapter==null){
             selectedUserAdapter = new SelectedUserAdapter(this);
         }
@@ -207,39 +178,6 @@ public class VillageServiceAddFragment extends BaseFragment{
                 dialog.dismiss();
             }
         }).show();
-        return true;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.submit_menu,menu);
-        mSendMenu = menu.findItem(R.id.public_menu_send);
-        updateMenuState();
-    }
-
-    public void updateMenuState() {
-        if (mSendMenu == null) {
-            return;
-        }
-        if (etAddress.getText().length() > 0&&etArea.getText().length()>0&&etReason.getText().length()>0&&etType.getText().length()>0) {
-            mSendMenu.setEnabled(true);
-            mSendMenu.setIcon(R.drawable.actionbar_send_icon);
-        } else {
-            mSendMenu.setEnabled(false);
-            mSendMenu.setIcon(R.drawable.actionbar_unsend_icon);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.public_menu_send:
-                handleSubmit();
-                break;
-            default:
-                break;
-        }
         return true;
     }
 

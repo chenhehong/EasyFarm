@@ -10,6 +10,11 @@ import java.util.List;
  */
 public class ManualList extends Entity implements ListEntity<ManualContent> {
 
+    public final static String CATALOG_VARIETY = "Variety";
+    public final static String CATALOG_INDUSTRY = "Industry";
+    public final static String CATALOG_TECHNOLOGY = "Technology";
+    public final static String CATALOG_ACHIEVEMENT = "Achievement";
+
     private int manualCount;
     private int pagesize;
     @JSONField(name = "obj")

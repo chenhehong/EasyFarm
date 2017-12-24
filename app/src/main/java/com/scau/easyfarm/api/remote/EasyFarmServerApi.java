@@ -747,4 +747,14 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/getVillageType", params, handler);
     }
 
+    public static void getManualSearchList(String catalog, String content,
+                                     int pageIndex, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("categoryCode", catalog);
+        params.put("searchKey", content);
+        params.put("page", pageIndex);
+        params.put("row", AppContext.PAGE_SIZE);
+        ApiHttpClient.get("front/mobile/manual/api/getContentByCode", params, handler);
+    }
+
 }
