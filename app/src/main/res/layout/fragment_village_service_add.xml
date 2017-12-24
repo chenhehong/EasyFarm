@@ -34,11 +34,12 @@
                     android:text="参与人员："/>
                 <Button
                     android:id="@+id/btn_add_person"
-                    android:layout_width="90dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="0dp"
                     android:text="添加成员"
-                    android:textColor="@android:color/black"
-                    android:src="@drawable/btn_quickoption_selector" />
+                    android:textSize="15dp"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -56,7 +57,7 @@
                 <ListView
                     android:id="@+id/lv_person"
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
+                    android:layout_height="wrap_content"
                     android:cacheColorHint="#ffffffff"
                     android:descendantFocusability="blocksDescendants"
                     android:divider="?attr/lineColor"
@@ -90,14 +91,16 @@
                     android:text="服务方式："/>
                 <EditText
                     android:id="@+id/et_reason"
-                    android:lines="2"
+                    android:lines="1"
                     style="@style/form_edit_right_edittext"
                     android:enabled="false"/>
                 <Button
                     android:id="@+id/btn_add_reason"
-                    android:layout_width="90dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="0dp"
                     android:text="选择方式"
+                    android:textSize="15sp"
                     android:textColor="@android:color/black"
                     android:src="@drawable/btn_quickoption_selector" />
             </LinearLayout>
@@ -113,11 +116,12 @@
                     android:enabled="false"/>
                 <Button
                     android:id="@+id/btn_add_type"
-                    android:layout_width="90dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="0dp"
                     android:text="选择类型"
-                    android:textColor="@android:color/black"
-                    android:src="@drawable/btn_quickoption_selector" />
+                    android:textSize="15sp"
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
             <LinearLayout
                 style="@style/form_edit_layout">

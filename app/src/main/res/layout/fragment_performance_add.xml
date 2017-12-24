@@ -19,7 +19,7 @@
                 style="@style/form_edit_layout"
                 android:layout_marginTop="10dp">
                 <TextView
-                    style="@style/form_edit_left_textview"
+                    style="@style/performance_form_edit_left_textview"
                     android:text="申请人："/>
                 <EditText
                     android:id="@+id/et_applyman"
@@ -30,20 +30,22 @@
             <LinearLayout
                 style="@style/form_edit_layout">
                 <TextView
-                    style="@style/form_edit_left_textview"
+                    style="@style/performance_form_edit_left_textview"
                     android:text="业绩类型："/>
                 <EditText
                     android:id="@+id/et_type"
-                    android:lines="4"
+                    android:lines="3"
                     style="@style/form_edit_right_edittext"
+                    android:textSize="12sp"
                     android:enabled="false"/>
                 <Button
                     android:id="@+id/btn_select_type"
-                    android:layout_width="90dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:minHeight="0dp"
                     android:text="选择类型"
-                    android:textColor="@android:color/black"
-                    android:src="@drawable/btn_quickoption_selector" />
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -51,7 +53,7 @@
                 style="@style/form_edit_layout"
                 android:visibility="gone">
                 <TextView
-                    style="@style/form_edit_left_textview"
+                    style="@style/performance_form_edit_left_textview"
                     android:text="工作量："/>
                 <EditText
                     android:id="@+id/et_apply_worktime"
@@ -65,7 +67,7 @@
             <LinearLayout
                 style="@style/form_edit_layout">
                 <TextView
-                    style="@style/form_edit_left_textview"
+                    style="@style/performance_form_edit_left_textview"
                     android:textSize="14dp"
                     android:text="服务开始日期："/>
                 <EditText
@@ -76,7 +78,7 @@
             <LinearLayout
                 style="@style/form_edit_layout">
                 <TextView
-                    style="@style/form_edit_left_textview"
+                    style="@style/performance_form_edit_left_textview"
                     android:textSize="14dp"
                     android:text="服务结束日期："/>
                 <EditText
@@ -87,7 +89,7 @@
             <LinearLayout
                 style="@style/form_edit_layout">
                 <TextView
-                    style="@style/form_edit_left_textview"
+                    style="@style/performance_form_edit_left_textview"
                     android:text="详细描述："/>
                 <EditText
                     android:id="@+id/et_description"
@@ -98,15 +100,16 @@
             <LinearLayout
                 style="@style/form_edit_layout">
                 <TextView
-                    style="@style/form_edit_left_textview"
+                    style="@style/performance_form_edit_left_textview"
                     android:text="佐证附件："/>
                 <Button
                     android:id="@+id/btn_add_file"
-                    android:layout_width="90dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:minHeight="0dp"
                     android:text="添加附件"
-                    android:textColor="@android:color/black"
-                    android:src="@drawable/btn_quickoption_selector" />
+                    android:textColor="@android:color/black"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/rl_img1"
@@ -117,7 +120,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件1预览："/>
                     <RelativeLayout
@@ -133,7 +136,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件1类别："/>
                     <Spinner
@@ -143,7 +146,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件1描述："/>
                     <EditText
@@ -160,7 +163,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件2预览："/>
                     <RelativeLayout
@@ -176,7 +179,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件2类别："/>
                     <Spinner
@@ -186,7 +189,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件2描述："/>
                     <EditText
@@ -203,7 +206,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件3预览："/>
                     <RelativeLayout
@@ -219,7 +222,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件3类别："/>
                     <Spinner
@@ -229,7 +232,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件3描述："/>
                     <EditText
@@ -246,7 +249,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件4预览："/>
                     <RelativeLayout
@@ -262,7 +265,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件4类别："/>
                     <Spinner
@@ -272,7 +275,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件4描述："/>
                     <EditText
@@ -289,7 +292,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件5预览："/>
                     <RelativeLayout
@@ -305,7 +308,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件5类别："/>
                     <Spinner
@@ -315,7 +318,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件5描述："/>
                     <EditText
@@ -332,7 +335,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件6预览："/>
                     <RelativeLayout
@@ -348,7 +351,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件6类别："/>
                     <Spinner
@@ -358,7 +361,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件6描述："/>
                     <EditText
@@ -375,7 +378,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件7预览："/>
                     <RelativeLayout
@@ -391,7 +394,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件7类别："/>
                     <Spinner
@@ -401,7 +404,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件7描述："/>
                     <EditText
@@ -418,7 +421,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件8预览："/>
                     <RelativeLayout
@@ -434,7 +437,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件8类别："/>
                     <Spinner
@@ -444,7 +447,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件8描述："/>
                     <EditText
@@ -461,7 +464,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件9预览："/>
                     <RelativeLayout
@@ -477,7 +480,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件9类别："/>
                     <Spinner
@@ -487,7 +490,7 @@
                 <LinearLayout
                     style="@style/form_edit_layout">
                     <TextView
-                        style="@style/form_edit_left_textview"
+                        style="@style/performance_form_edit_left_textview"
                         android:textSize="15dp"
                         android:text="附件9描述："/>
                     <EditText

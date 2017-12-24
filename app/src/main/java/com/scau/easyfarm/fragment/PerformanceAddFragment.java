@@ -339,7 +339,19 @@ public class PerformanceAddFragment extends BaseFragment implements EasyPermissi
             }
             handleAddFiles();
         }else if(id==R.id.btn_submit){
-            handleSubmit();
+            DialogHelp.getConfirmDialog(getActivity(), "确定提交吗?", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    handleSubmit();
+                }
+            }, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).show();
         }else if (mIvClearImageList.contains(v)){
             int i = mIvClearImageList.indexOf(v);
 //          先把当前的保存下来后在删除相应的类型和描述项

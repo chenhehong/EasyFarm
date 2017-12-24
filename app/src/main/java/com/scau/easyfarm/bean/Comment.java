@@ -74,7 +74,7 @@ public class Comment extends Entity{
         if(commentDate!=null)
             return commentDate;
         else
-            return "1994-10-04 12:12:12";
+            return "2017-12-24 12:12:12";
     }
 
     public void setCommentDate(String commentDate) {

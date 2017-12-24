@@ -125,7 +125,7 @@ public class Tweet extends Entity implements Parcelable {
         if (createDate!=null)
             return createDate;
         else
-            return "1994-10-04 12:12:12";
+            return "2017-12-24 12:12:12";
     }
 
     public void setCreateDate(String createDate) {

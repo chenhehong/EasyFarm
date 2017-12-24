@@ -232,16 +232,18 @@
     </style>
 
     <style name="form_edit_left_textview">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">75px</item>
+        <item name="android:layout_width">80sp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center|right</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="form_edit_right_edittext">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:background">@drawable/bg_edittext</item>
     </style>
 
@@ -249,6 +251,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:src">@drawable/btn_delete_icon</item>
+    </style>
+
+    <style name="performance_form_edit_left_textview">
+        <item name="android:layout_width">100sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center|right</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="detail_list_layout">
@@ -317,10 +327,9 @@
     </style>
 
     <style name="performace_add_file_lay">
-        <item name="android:layout_height">100dp</item>
-        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">80dp</item>
         <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginTop">8dp</item>
         <item name="android:visibility">visible</item>
     </style>
 
@@ -328,7 +337,6 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:background">@color/light_gray</item>
-        <item name="android:layout_marginRight">8dp</item>
     </style>
     
     <style name="performace_add_file_clearimg">

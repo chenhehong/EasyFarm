@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/layout_item_bg"
-    android:paddingBottom="@dimen/space_10"
-    android:paddingTop="@dimen/space_10">
+    android:paddingBottom="@dimen/space_5"
+    android:paddingTop="@dimen/space_5">
 
     <com.scau.easyfarm.widget.ToggleButton
         android:id="@+id/tb_isleader"
-        android:layout_height="35dp"
-        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:layout_width="35dp"
         android:layout_centerInParent="true"
         android:layout_alignParentLeft="true"/>
 
@@ -22,7 +22,7 @@
         android:layout_marginLeft="10dp"
         android:textColor="?attr/textColor"
         android:text="姓名"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/im_del"
