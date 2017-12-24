@@ -51,6 +51,8 @@ public class VillageServiceAddFragment extends BaseFragment{
     Button btnAddReason;
     @InjectView(R.id.btn_add_type)
     Button btnAddType;
+    @InjectView(R.id.et_business_title)
+    EditText etBussinessTitle;
     @InjectView(R.id.et_area)
     EditText etArea;
     @InjectView(R.id.et_address)
@@ -204,6 +206,10 @@ public class VillageServiceAddFragment extends BaseFragment{
             AppContext.showToast("请至少选择一名领队！");
             return;
         }
+        if (etBussinessTitle.getText().toString().length()==0||etBussinessTitle.getText().toString()==null){
+            AppContext.showToast("请填写服务主题");
+            return;
+        }
         if (etArea.getText().toString().length()==0||etArea.getText().toString()==null){
             AppContext.showToast("请选择下乡区域");
             return;
@@ -251,7 +257,7 @@ public class VillageServiceAddFragment extends BaseFragment{
             serverLeaderIds += leaderIdArray.get(i);
         }
         showWaitDialog("发送申请中，请稍后");
-        EasyFarmServerApi.addVillageService(etArea.getText().toString(),etAddress.getText().toString(),reasonId,etReason.getText().toString(),
+        EasyFarmServerApi.addVillageService(etBussinessTitle.getText().toString(),etArea.getText().toString(),etAddress.getText().toString(),reasonId,etReason.getText().toString(),
                 etBusinessDate.getText().toString(),etReturnDate.getText().toString(),villageServiceUserIds,serverLeaderIds,typeId,mHandler);
     }
 

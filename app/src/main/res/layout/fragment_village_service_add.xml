@@ -69,6 +69,16 @@
                 style="@style/form_edit_layout">
                 <TextView
                     style="@style/form_edit_left_textview"
+                    android:text="服务主题："/>
+                <EditText
+                    android:id="@+id/et_business_title"
+                    style="@style/form_edit_right_edittext"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/form_edit_layout">
+                <TextView
+                    style="@style/form_edit_left_textview"
                     android:text="服务区域："/>
                 <EditText
                     android:id="@+id/et_area"

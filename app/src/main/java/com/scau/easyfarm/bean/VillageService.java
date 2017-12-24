@@ -76,6 +76,15 @@ public class VillageService extends Entity {
     @JSONField(name = "villageCommentCode")
     private String commentQrcodePath;
     private String villageTypeDesc="";
+    private String businessTitle;
+
+    public String getBusinessTitle() {
+        return businessTitle;
+    }
+
+    public void setBusinessTitle(String businessTitle) {
+        this.businessTitle = businessTitle;
+    }
 
     public int getApplyManId() {
         return applyManId;

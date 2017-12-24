@@ -365,10 +365,11 @@ public class EasyFarmServerApi {
         ApiHttpClient.post("front/mobile/village/api/getServiceDetail", params, handler);
     }
 
-    public static void addVillageService(String businessArea,String businessAddress,int businessReasonType,String businessReason,
+    public static void addVillageService(String bussinessTitle,String businessArea,String businessAddress,int businessReasonType,String businessReason,
                                          String businessDate,String returnDate,String villageServicePersonIds,String leaderIds,int serverType, AsyncHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("uid",AppContext.getInstance().getLoginUid());
+        params.put("businessTitle",bussinessTitle);
         params.put("businessArea",businessArea);
         params.put("businessAddress",businessAddress);
         params.put("businessDate",businessDate);
