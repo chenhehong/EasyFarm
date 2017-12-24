@@ -75,6 +75,20 @@
                 style="@style/detail_list_layout">
                 <TextView
                     style="@style/detail_list_left_textview"
+                    android:text="服务主题："/>
+                <TextView
+                    style="@style/detail_list_right_textview"
+                    android:id="@+id/tv_businesstitle"
+                    android:text="" />
+            </RelativeLayout>
+
+            <View
+                style="@style/h_line" />
+
+            <RelativeLayout
+                style="@style/detail_list_layout">
+                <TextView
+                    style="@style/detail_list_left_textview"
                     android:text="服务地址："/>
                 <TextView
                     style="@style/detail_list_right_textview"

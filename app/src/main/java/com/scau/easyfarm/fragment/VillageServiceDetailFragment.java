@@ -36,6 +36,8 @@ public class VillageServiceDetailFragment extends BaseFragment {
     TextView tvPerson;
     @InjectView(R.id.tv_leader)
     TextView tvLeader;
+    @InjectView(R.id.tv_businesstitle)
+    TextView tvBusinessTitle;
     @InjectView(R.id.tv_address)
     TextView tvAddress;
     @InjectView(R.id.tv_reason)
@@ -148,6 +150,7 @@ public class VillageServiceDetailFragment extends BaseFragment {
         }
         tvPerson.setText(servicePerson);
         tvLeader.setText(leaders);
+        tvBusinessTitle.setText(mVillageService.getBusinessTitle());
         tvServerNumber.setText(mVillageService.getServerNumber());
         tvAddress.setText(mVillageService.getBusinessArea()+mVillageService.getBusinessAddress());
         if (StringUtils.isEmpty(mVillageService.getVillageTypeDesc())){
