@@ -18,8 +18,8 @@ import butterknife.InjectView;
 public class VillageServiceAdapter extends ListBaseAdapter<VillageService>{
 
     static class ViewHold{
-        @InjectView(R.id.tv_villageservice_address)
-        TextView address;
+        @InjectView(R.id.tv_villageservice_topic)
+        TextView topic;
         @InjectView(R.id.tv_villageservice_apply_man)
         TextView applyMan;
         @InjectView(R.id.tv_villageservice_apply_time)
@@ -45,7 +45,7 @@ public class VillageServiceAdapter extends ListBaseAdapter<VillageService>{
         }
 
         VillageService villageService = (VillageService) mDatas.get(position);
-        vh.address.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
+        vh.topic.setText(villageService.getBusinessTitle());
         vh.applyTime.setText("申请时间："+villageService.getApplyDate());
         vh.applyMan.setText("申请人："+villageService.getApplyManName());
         vh.status.setText("申请状态："+villageService.getStatusString());

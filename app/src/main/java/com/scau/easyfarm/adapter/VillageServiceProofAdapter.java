@@ -23,8 +23,8 @@ public class VillageServiceProofAdapter extends ListBaseAdapter<VillageService>{
     private Fragment fragment;
 
     static class ViewHold{
-        @InjectView(R.id.tv_villageservice_address)
-        TextView address;
+        @InjectView(R.id.tv_villageservice_topic)
+        TextView topic;
         @InjectView(R.id.tv_villageservice_business_date)
         TextView businessDate;
         @InjectView(R.id.tv_villageservice_reason)
@@ -54,7 +54,7 @@ public class VillageServiceProofAdapter extends ListBaseAdapter<VillageService>{
         }
 
         final VillageService villageService = (VillageService) mDatas.get(position);
-        vh.address.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
+        vh.topic.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
         vh.businessDate.setText("服务时间："+villageService.getBusinessDate()+"至"+villageService.getReturnDate());
         vh.reason.setText("事由："+villageService.getBusinessReason());
         long currentTime = System.currentTimeMillis();

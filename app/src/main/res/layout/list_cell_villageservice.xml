@@ -13,7 +13,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/tv_villageservice_address"
+            android:id="@+id/tv_villageservice_topic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -25,7 +25,7 @@
             android:id="@+id/tv_villageservice_apply_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_villageservice_address"
+            android:layout_below="@id/tv_villageservice_topic"
             android:textColor="?attr/infoTextColor" />
 
         <TextView
