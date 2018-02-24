@@ -55,6 +55,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import me.nereo.multi_image_selector.MultiImageSelector;
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -102,6 +104,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
 
     private final int RC_CAMERA_PERM = 241;
     private final int RC_LOCATION_PERM = 242;
+    private final int RC_CAMERA_ALBUM_PERM = 243;
 
 //  标示第一次是否是第一次进入activity，此字段用于拍照时返回需要自动退出该activity的情况
     private boolean firstStart = true;
@@ -372,6 +375,7 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
                     Bitmap bitmap = null;
 //                  界面显示的缩略图
                     if (proofMethod==TAKEPHOTO && !StringUtils.isEmpty(proofFile)) {
+                        proofFile = imageReturnIntent.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT).get(0);
                         bitmap = ImageUtils.loadImgThumbnail(proofFile, 200, 200);
                         // 存放上传照片的文件夹
                         String savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EasyFarm/Camera/";
@@ -486,10 +490,11 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
             File out = new File(savePath, fileName);
             Uri uri = Uri.fromFile(out);
             proofFile = savePath + fileName;// 该照片的绝对路径
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            startActivityForResult(intent,
-                    ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
+//            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//            startActivityForResult(intent,
+//                    ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
+            handleAddFiles();
         }else {
             String fileName = "easyfarm_" + timeStamp + ".mp4";// 照片命名
             File out = new File(savePath, fileName);
@@ -502,6 +507,16 @@ public class VillageServiceProofResourPubFragment extends BaseFragment implement
                     ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
         }
 
+    }
+
+    @AfterPermissionGranted(RC_CAMERA_ALBUM_PERM)
+    private void handleAddFiles(){
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            MultiImageSelector.create(this.getContext())
+                    .showCamera(true).count(1).single().start(this, ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
+        } else {
+            EasyPermissions.requestPermissions(this, "请求获取拍照和读取相册的权限", RC_CAMERA_ALBUM_PERM, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
     }
 
 //  检查权限是否被永久禁用的接口
