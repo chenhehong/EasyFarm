@@ -23,12 +23,12 @@ public class VillageServiceProofAdapter extends ListBaseAdapter<VillageService>{
     private Fragment fragment;
 
     static class ViewHold{
-        @InjectView(R.id.tv_villageservice_topic)
-        TextView topic;
+        @InjectView(R.id.tv_villageservice_title)
+        TextView title;
         @InjectView(R.id.tv_villageservice_business_date)
         TextView businessDate;
-        @InjectView(R.id.tv_villageservice_reason)
-        TextView reason;
+        @InjectView(R.id.tv_villageservice_address)
+        TextView address;
         @InjectView(R.id.tv_finish)
         TextView finish;
 
@@ -54,9 +54,9 @@ public class VillageServiceProofAdapter extends ListBaseAdapter<VillageService>{
         }
 
         final VillageService villageService = (VillageService) mDatas.get(position);
-        vh.topic.setText(villageService.getBusinessArea()+villageService.getBusinessAddress());
+        vh.title.setText(villageService.getBusinessTitle());
         vh.businessDate.setText("服务时间："+villageService.getBusinessDate()+"至"+villageService.getReturnDate());
-        vh.reason.setText("事由："+villageService.getBusinessReason());
+        vh.address.setText("服务地点：" + villageService.getBusinessArea() + villageService.getBusinessAddress());
         long currentTime = System.currentTimeMillis();
         //处于通过或待审核状态,并且用户是服务的领队,已经过了返回时间或今天是返回日期,则显示"点击结束"按钮
         if ((villageService.getStatus()==VillageService.VILLAGE_SERVICE_PASS||villageService.getStatus()==VillageService.VILLAGE_SERVICE_WAITING)

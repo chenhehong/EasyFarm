@@ -13,10 +13,10 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/tv_villageservice_topic"
+            android:id="@+id/tv_villageservice_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="地址"
+            android:text="主题"
             android:textSize="16sp"
             android:layout_marginRight="@dimen/space_15"
             android:layout_marginBottom="@dimen/space_10"
@@ -26,15 +26,15 @@
             android:id="@+id/tv_villageservice_business_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_villageservice_topic"
+            android:layout_below="@id/tv_villageservice_title"
             android:text="服务时间"
             android:textColor="?attr/infoTextColor" />
 
         <TextView
-            android:id="@+id/tv_villageservice_reason"
+            android:id="@+id/tv_villageservice_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="事由"
+            android:text="服务地点"
             android:layout_below="@id/tv_villageservice_business_date"
             android:textColor="?attr/infoTextColor" />
 
