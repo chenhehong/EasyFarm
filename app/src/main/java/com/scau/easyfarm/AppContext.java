@@ -41,8 +41,8 @@ public class AppContext extends BaseApplication {
     public static final int ACCESS_ERROR_CODE = 3;
     public static final int ACCESS_TIMEOUT_CODE = 110;
     public static final int ACCESS_INVALID_CODE = 111;
-    public static final String ACCESS_TOKEN_USERCODE = "wsnwsn640";
-    public static final String ACCESS_TOKEN_USERSECRET = "wsnwsn640";
+    public static final String ACCESS_TOKEN_USERCODE = "";
+    public static final String ACCESS_TOKEN_USERSECRET = "";
 
     public static final int PAGE_SIZE = 20;// 默认分页大小
 
